@@ -1,71 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人主页</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 1em 0;
-            text-align: center;
-        }
-        main {
-            padding: 20px;
-            max-width: 800px;
-            margin: auto;
-            background: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        h1, h2 {
-            color: #333;
-        }
-        p {
-            line-height: 1.6;
-        }
-        footer {
-            text-align: center;
-            padding: 1em 0;
-            background-color: #4CAF50;
-            color: white;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-    </style>
+    <title>終わり群星 | Home</title>
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <link rel="stylesheet" href="https://fonts.font.im/css?family=Noto+Serif|Merriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="//cdn.bootcdn.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
-    <header>
-        <h1>欢迎来到我的个人主页</h1>
+    <header class="site-header">
+        <div class="site-branding">
+            <span class="site-title">
+                <a href="/">
+                    <span class="sakurasono">終わり</span>
+                    <span class="shironeko">群星</span>
+                </a>
+            </span>
+        </div>
+        <nav class="main-navigation">
+            <ul class="menu">
+                <li><a href="/">首页</a></li>
+                <li><a href="/archives">归档</a></li>
+                <li><a href="/comment">留言板</a></li>
+                <li><a href="/links">友链</a></li>
+                <li><a href="/about">关于</a></li>
+            </ul>
+        </nav>
     </header>
-    <main>
-        <h2>关于我</h2>
-        <p>你好！我是[你的名字]，我喜欢学习新东西和探索世界。在这里你可以了解更多关于我的信息。</p>
-        
-        <h2>我的爱好</h2>
-        <ul>
-            <li>阅读</li>
-            <li>旅行</li>
-            <li>编程</li>
-            <li>音乐</li>
-        </ul>
-        
-        <h2>联系我</h2>
-        <p>你可以通过以下方式联系到我：</p>
-        <ul>
-            <li>Email: <a href="mailto:your-email@example.com">your-email@example.com</a></li>
-            <li>电话: 123-456-7890</li>
-        </ul>
+    <main class="site-main">
+        <section class="hero">
+            <h1>欢迎来到我的个人主页</h1>
+            <p>愿此行，终抵群星！</p>
+        </section>
+        <section class="content">
+            <article class="post">
+                <h2>文章标题1</h2>
+                <p>这是文章内容的摘要...</p>
+                <a href="#">阅读全文</a>
+            </article>
+            <article class="post">
+                <h2>文章标题2</h2>
+                <p>这是文章内容的摘要...</p>
+                <a href="#">阅读全文</a>
+            </article>
+        </section>
     </main>
-    <footer>
-        <p>&copy; 2024 [你的名字]. 保留所有权利。</p>
+    <footer class="site-footer">
+        <p>&copy; 2024 終わり群星</p>
+        <p>Powered by Hexo, Hosted by Vercel</p>
     </footer>
 </body>
 </html>
