@@ -6,27 +6,27 @@ body {
     padding-top: 50px; /* 根据导航栏的高度进行调整 */
     background-color: #f4f4f4;
     color: #333;
-    cursor: url('../images/custom-cursor-default.gif'), auto; /* 默认状态的自定义鼠标指针 */
+    cursor: url('../images/cursor/custom-cursor-default.gif'), auto; /* 默认状态的自定义鼠标指针 */
 }
 
 /* 悬停状态的鼠标指针 */
 a:hover {
-    cursor: url('../images/custom-cursor-default.gif'), pointer; /* 超链接悬停状态 */
+    cursor: url('../images/cursor/custom-cursor-default.gif'), pointer; /* 超链接悬停状态 */
 }
 
 /* 点击状态的鼠标指针 */
 a:active {
-    cursor: url('../images/custom-cursor-default.gif'), pointer; /* 超链接点击状态 */
+    cursor: url('../images/cursor/custom-cursor-default.gif'), pointer; /* 超链接点击状态 */
 }
 
 /* 输入框悬停状态的鼠标指针 */
 input:hover {
-    cursor: url('../images/custom-cursor-default.gif'), text; /* 输入框悬停状态 */
+    cursor: url('../images/cursor/custom-cursor-default.gif'), text; /* 输入框悬停状态 */
 }
 
 /* 输入框聚焦状态的鼠标指针 */
 input:focus {
-    cursor: url('../images/custom-cursor-default.gif'), text; /* 输入框聚焦状态 */
+    cursor: url('../images/cursor/custom-cursor-default.gif'), text; /* 输入框聚焦状态 */
 }
 
 h1 {
