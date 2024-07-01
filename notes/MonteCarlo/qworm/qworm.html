@@ -636,6 +636,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      概述
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#mathcalz" class="md-nav__link">
     <span class="md-ellipsis">
       配分函数空间 $\mathcal{Z}$
@@ -646,9 +655,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      概述
+      构型的权重
     </span>
   </a>
   
@@ -712,6 +721,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      概述
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#mathcalz" class="md-nav__link">
     <span class="md-ellipsis">
       配分函数空间 $\mathcal{Z}$
@@ -722,9 +740,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      概述
+      构型的权重
     </span>
   </a>
   
@@ -777,47 +795,70 @@ MathJax = {
 </script>
 
 <h1 id="worm">世界线的 Worm 算法<a class="headerlink" href="#worm" title="Permanent link">&para;</a></h1>
-<h2 id="mathcalz">配分函数空间 $\mathcal{Z}$<a class="headerlink" href="#mathcalz" title="Permanent link">&para;</a></h2>
-<h3 id="_1">概述<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
-<p>考虑一个哈密顿量 $\hat{H}$, 对于不同的构型 $\alpha^{(i)}$，配分函数可以写为：
-$$\mathcal{Z} =  {\rm Tr} (e^{-\beta\hat{H}}) = \sum_{{\alpha^{(i)} }} \langle \alpha^{(i)}  |   e^{-\beta\hat{H}} |\alpha^{(i)} \rangle$$
+<h2 id="_1">概述<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>考虑一个哈密顿量 $\hat{H}$, 对于完备的基矢量 $\alpha$，配分函数可以写为：
+$$\mathcal{Z} =  {\rm Tr} (e^{-\beta\hat{H}}) = \sum_{\alpha} \langle \alpha  |   e^{-\beta\hat{H}} |\alpha \rangle$$
 在这里，哈密顿量可以视为一个很大的矩阵，其基矢量通常是在 Fock 空间下展开的。</p>
 <blockquote>
 <p>若 $\hat{H}$ 矩阵是 1x1 的，即 c-number，态 $|\alpha\rangle$ 是归一化的数字，即1. 从而，$\mathcal{Z}$ 便退化为经典模型的配分函数。不难看出，相比经典模型，量子模型的权重因为存在算符 $e^{-\beta \hat{H}}$ 不是那么容易就能写出，需要利用完备性关系插入完备的基矢量，
 多了一层对态 $|\alpha\rangle$ 演化的求和过程，这体现在其增加了虚时方向的维度，即世界线。</p>
 </blockquote>
-<p>其中 $e^{-\beta \hat{H}}$ 可以和时间演化算符 $e^{-i\hat{H}t}$ 进行类比，我们定义虚时 $\beta = it $. 为了将配分函数捣鼓成可计算的形式，进而构建随机过程进行蒙卡模拟, 我们有很多种选择。</p>
+<p>其中 $e^{-\beta \hat{H}}$ 可以和时间演化算符 $e^{-i\hat{H}t}$ 进行类比，我们定义虚时 $\beta = it $. 为了将配分函数捣鼓成可计算的形式，进而构建随机过程进行蒙卡模拟, 我们有很多种选择。为了方便起见，这里暂时不考虑符号问题。</p>
 <blockquote>
-<p>对于费米子体系:
-* <strong>费曼图蒙卡</strong> : 类比实时量子场论的做法，从格林函数出发，利用微扰论展开均值的表达式，通过对费曼图的抽样，直接得到热力学极限下的观测量。</p>
-<ul>
-<li><strong>行列式蒙卡</strong> : 以 Hubbard 模型为例，对于 hopping 项，利用
-${\rm Tr} [ e^{-\sum_{i,j} \hat{c}_{i}^\dagger A^{i,j} \hat{c}_j } ] = {\rm Det} [{\bf 1}+e^{-{\bf A}}]$<br />
-将权重转化为行列式；对于相互作用项，利用 HS 变换引入辅助场进行解耦。</li>
-</ul>
-<p>对于玻色子或自旋体系：
-* <strong>SSE 蒙卡</strong> : 利用展开 $e^{-\beta \hat{H}} = \sum_{n=0}^{\infty} \frac{\beta^n}{n!}(-\hat{H})^n$, 将指数上的哈密顿量放下来，从而能够通过写出 $\langle \alpha^{(i)} |\hat{H}| \alpha^{(j)} \rangle$ 来计算权重，设计算法。</p>
+<p>(1) 对于费米子体系:</p>
+<p><strong>费曼图蒙卡 (DiagMC)</strong> : 类比实时量子场论的做法，从虚时演化算符与其格林函数出发，利用微扰论展开得到均值表达式，通过对费曼图的抽样，直接得到热力学极限下的观测量。</p>
+<p><strong>行列式蒙卡 (DQMC)</strong> : 以 Hubbard 模型为例，对于 hopping 项，利用等式
+${\rm Tr} [ e^{-\sum_{i,j} A_{i,j} \hat{c}_{i}^\dagger\hat{c}_j } ] = {\rm Det} [{\bf 1}+e^{-{\bf A}}]$<br />
+将权重转化为行列式；对于相互作用项，利用 HS 变换引入辅助场进行解耦。</p>
+<p>(2) 对于玻色子或自旋体系：</p>
+<p><strong>随机级数展开 (SSE)</strong> : 利用展开 $e^{-\beta \hat{H}} = \sum_{n=0}^{\infty} \frac{\beta^n}{n!}(-\hat{H})^n$, 将指数上的哈密顿量放下来，从而能够通过写出矩阵元 $\langle \alpha^{(i+1)} |\hat{H}| \alpha^{(i)} \rangle$ 来计算权重，设计算法。</p>
 </blockquote>
-<p>而对于世界线的 <strong>Worm</strong> 算法，其将虚时 $\beta$ 连续化取微元 $d\tau$，对配分函数其中的一个重复单元有
+<p>对于世界线的 <strong>Worm</strong> 算法，其将虚时 $\beta$ 离散化为等分的 $N$ 段，即取小量 $\tau = \beta / N$, 再通过插入完备基矢量的方法可以将配分函数写为如下的积和式：
 $$
-\langle \alpha^{(i)} |e^{-d\tau \hat{H}} | \alpha^{(j)} \rangle  \approx 
-e^{-d\tau H_0} \langle \alpha^{(i)} | e^{-d\tau \hat{V}}| \alpha^{(j)}\rangle \approx 
-e^{-d\tau H_0} \langle \alpha^{(i)} | {\bf 1} - d\tau \hat{V}| \alpha^{(j)}\rangle
+\boxed{\mathcal{Z} = \sum_{\lbrace \alpha^{(i)} \rbrace} \prod_{i=0}^{N-1} \langle \alpha^{(i+1)} | e^{-\tau \hat{H}} | \alpha^{(i)} \rangle}
+$$
+其中 $\alpha^{(0)} $ 与 $ \alpha^{(N)}$ 为同一世界面，即原始求迹过程中 $e^{-
+\beta \hat{H}}$ 两边所夹的基矢量。求和符号下标 $\lbrace \alpha^{(i)} \rbrace$ 表示对于基矢量的序列求和，该序列包含从 $\alpha^{(0)} $ 到 $\alpha^{(N-1)} $ 共 $N$ 项。</p>
+<h2 id="mathcalz">配分函数空间 $\mathcal{Z}$<a class="headerlink" href="#mathcalz" title="Permanent link">&para;</a></h2>
+<p>值得注意的是，尽管这里的求和遍历了序列 $\lbrace \alpha^{(i)} \rbrace$ 所有的可能性，但是有些可能性会使得连乘式当中出现值为 0 的项，从而导致整个序列对配分函数的权重不做贡献。而是否出现值为 0 项，需要分析哈密顿量的具体形式，并且通常取决于 hopping 的形式，具体分析如下。</p>
+<h3 id="_2">构型的权重<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>对配分函数其中的一个重复单元有:
+$$
+\langle \alpha^{(i+1)} |e^{-\tau \hat{H}} | \alpha^{(i)} \rangle  \approx 
+e^{-\tau H_0} \langle \alpha^{(i+1)} | e^{-\tau \hat{V}}| \alpha^{(i)}\rangle \approx 
+e^{-\tau H_0} \langle \alpha^{(i+1)} | {\bf 1} - \tau \hat{V}| \alpha^{(i)}\rangle
 $$
 其中 $\hat{H} = \hat{H}_0 + \hat{V}$, 前者为所选基矢量下的对角项，后者是非对角项。第一个近似利用到了 Trotter 分解，即：</p>
-<p>$$e^{-d\tau\hat{H}} = e^{-d\tau\hat{H_0}} e^{-d\tau\hat{V}} + \mathcal{O}(d\tau^2)\approx e^{-d\tau\hat{H_0}} e^{-d\tau\hat{V}}$$</p>
-<p>第二个近似是根据 $d\tau$ 为小量而进行的泰勒展开，并展开到1阶 (也可以展开到高阶，但高阶一般都会忽略掉)。</p>
-<p>通常非对角项会改变原本的态，一个构型当中发生这种改变的次数计为 $\mathcal{N}$, 从而我们可以写出构型的权重为：
-$$W =  \prod_{(\cdot)=1}^{\mathcal{N}} \langle \alpha^{(i)}|-d\tau\hat{V} | \alpha^{(j)} \rangle \exp \left({-\int_{0}^{\beta} H_0(\tau') d\tau'} \right)$$
-其中 $\alpha^{(i)}$ 和 $\alpha^{(j)}$ 分别表示态发生改变之前和之后的世界面，因此我们只需计算 $\langle \alpha^{(i)}|\hat{V} | \alpha^{(j)} \rangle$，便可根据不同模型的情况设计算法了。</p>
+<p>$$e^{-\tau\hat{H}} = e^{-\tau\hat{H}_0} e^{-\tau\hat{V}} + \mathcal{O}(\tau^2)\approx e^{-\tau\hat{H}_0} e^{-\tau\hat{V}}$$</p>
+<p>第二个近似是根据 $\tau$ 为小量而进行的泰勒展开，并展开到1阶 (也可以展开到高阶，但高阶一般都会忽略掉)。</p>
+<blockquote>
+<p>注意，上式当中的 $H_0$ 若不含虚数，表示的是 $\langle \alpha^{(i+1)}|$ 的对角能量，因为 $\langle \alpha^{(i+1)}| e^{-\tau \hat{H}_0} = e^{-\tau H_0} \langle \alpha^{(i+1)}|$. 但实际上由于世界线都是圈，故无论是 $\langle \alpha^{(i+1)}|$ 还是 $|\alpha^{(i)}\rangle$ 的对角能量，经过最终的求和都会得到相同的总的对角能量。</p>
+</blockquote>
+<p>通常非对角项 $\hat{V}$ 会改变原本的态，因此根据表达式
+$$
+\langle \alpha^{(i+1)} |e^{-\tau \hat{H}} | \alpha^{(i)} \rangle  \approx 
+e^{-\tau H_0} \langle \alpha^{(i+1)}| \alpha^{(i)} \rangle - \tau e^{-\tau H_0}  \langle \alpha^{(i+1)}| \hat{V} |\alpha^{(i)} \rangle 
+$$
+我们不难分析出，当序列 $\lbrace \alpha^{(i)} \rbrace$ 相邻的两个态没有发生变化时，上式第二项由于 $\hat{V}$ 的作用，会使两边原本一样的态变得正交，从而做内积之后会消失，仅有第一项有贡献。 相反，若相邻的两个态发生了变化并满足 $\langle \alpha^{(i+1)}| \hat{V} |\alpha^{(i)} \rangle \neq 0$ 时，上式第一项会消失，仅有第二项有贡献；若不满足，则两项均无贡献。</p>
+<p>根据上面的性质，我们可以将配分函数的权重进行合并来简化表达。我们将一个序列或称为虚时构型当中相邻态发生改变的次数计为 $\mathcal{K}$, 从而我们可以写出构型的权重为：
+$$
+\boxed{W(\lbrace \alpha^{(i)} \rbrace) = (-\tau)^{\mathcal{K}} \prod_{0}^{\mathcal{K-1}}\langle \alpha^{(i+1)}|\hat{V} | \alpha^{(i)} \rangle \exp \left({-\sum_{i=0}^{N} H_0^{(i)} \tau} \right)}
+$$
+若将小量 $\tau$ 取为微元 $d\tau$, 可将权重写为连续变量的形式，更符合路径积分的风格：
+$$
+W(\lbrace \alpha^{(i)} \rbrace) = (-d\tau)^{\mathcal{K}} \prod_{0}^{\mathcal{K-1}}\langle \alpha^{(i+1)}|\hat{V} | \alpha^{(i)} \rangle \exp \left({-\int_{0}^{\beta} H_0(\tau') d\tau'} \right)
+$$
+其中 $\alpha^{(i)}$ 和 $\alpha^{(j)}$ 分别表示态发生改变之前和之后的世界面，因此我们只需计算 $\langle \alpha^{(i+1)}|\hat{V} | \alpha^{(i)} \rangle$，便可根据不同模型的情况设计算法了。</p>
 <h3 id="hatv">常见的几种 $\hat{V}$<a class="headerlink" href="#hatv" title="Permanent link">&para;</a></h3>
 <p>为了更加形象，我们举几个例子：</p>
 <p>(1) hopping 项 :
 $$\hat{V} = -t \sum_{\langle ij \rangle} \left(
    \hat{b}_i^\dagger \hat{b}_j + \hat{b}_j^\dagger \hat{b}_i
 \right) $$
-$\langle \alpha^{(i)} |\hat{V}|\alpha^{(j)} \rangle$ 项不为 0 即要求构型 $|\alpha^{(i)} \rangle$ 和 $|\alpha^{(j)} \rangle$ 之间至少相差一个最近邻的 hopping. 一个从格点 $j$ 跃迁到格点 $i$ 的过程贡献：
-$$\langle \alpha^{(i)} |\hat{b}_i^\dagger \hat{b}_j |\alpha^{(j)} \rangle =\sqrt{n_j(n_i+1)} \quad ({\rm site} ~j\rightarrow {\rm site} ~i)$$
+$\langle \alpha^{(i+1)} |\hat{V}|\alpha^{(i)} \rangle$ 项不为 0 即要求构型 $|\alpha^{(i+1)} \rangle$ 和 $|\alpha^{(i)} \rangle$ 之间至少相差一个最近邻的 hopping. 一个从格点 $j$ 跃迁到格点 $i$ 的过程贡献：
+$$
+\langle \alpha^{(i+1)} |\hat{b}_i^\dagger \hat{b}_j |\alpha^{(i)} \rangle =\sqrt{n_j(n_i+1)} \quad ({\rm site} ~j\rightarrow {\rm site} ~i)
+$$
 其中 $n_i$ 与 $n_j$ 表示跃迁发生之前格点 $i$ 与 格点 $j$ 所拥有的粒子数。
 具体情况如下图所示：
 <img alt="" src="../fig/hopping.jpg" /></p>
