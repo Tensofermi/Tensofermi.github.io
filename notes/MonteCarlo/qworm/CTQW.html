@@ -12,13 +12,15 @@
         <link rel="prev" href="../lr_clock_tech/clock_tech.html">
       
       
+        <link rel="next" href="CSQW.html">
+      
       
       <link rel="icon" href="../logo/main.png">
       <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
     
     
       
-        <title>世界线更新算法 - Monte Carlo Simulation</title>
+        <title>连续时间 - Monte Carlo Simulation</title>
       
     
     
@@ -99,7 +101,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              世界线更新算法
+              连续时间
             
           </span>
         </div>
@@ -591,6 +593,49 @@
   
   
   
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    世界线更新算法
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            世界线更新算法
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
@@ -603,18 +648,18 @@
           
   
   <span class="md-ellipsis">
-    世界线更新算法
+    连续时间
   </span>
   
 
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <a href="qworm.html" class="md-nav__link md-nav__link--active">
+      <a href="CTQW.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    世界线更新算法
+    连续时间
   </span>
   
 
@@ -664,9 +709,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#hatv" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      常见的几种 $\hat{V}$
+      几种常见的非对角项
     </span>
   </a>
   
@@ -686,9 +731,47 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      构型的更新
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CSQW.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    连续空间
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -749,9 +832,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#hatv" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      常见的几种 $\hat{V}$
+      几种常见的非对角项
     </span>
   </a>
   
@@ -766,6 +849,15 @@
   <a href="#mathcalz_mathcalg" class="md-nav__link">
     <span class="md-ellipsis">
       格林函数空间 $\mathcal{Z}_{\mathcal{G}}$
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      构型的更新
     </span>
   </a>
   
@@ -794,7 +886,7 @@ MathJax = {
 };
 </script>
 
-<h1 id="worm">世界线的 Worm 算法<a class="headerlink" href="#worm" title="Permanent link">&para;</a></h1>
+<h1 id="worm">连续时间的世界线 Worm 算法<a class="headerlink" href="#worm" title="Permanent link">&para;</a></h1>
 <h2 id="_1">概述<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>考虑一个哈密顿量 $\hat{H}$, 对于完备的基矢量 $\alpha$，配分函数可以写为：
 $$\mathcal{Z} =  {\rm Tr} (e^{-\beta\hat{H}}) = \sum_{\alpha} \langle \alpha  |   e^{-\beta\hat{H}} |\alpha \rangle$$
@@ -815,12 +907,13 @@ ${\rm Tr} [ e^{-\sum_{i,j} A_{i,j} \hat{c}_{i}^\dagger\hat{c}_j } ] = {\rm Det} 
 </blockquote>
 <p>对于世界线的 <strong>Worm</strong> 算法，其将虚时 $\beta$ 离散化为等分的 $N$ 段，即取小量 $\tau = \beta / N$, 再通过插入完备基矢量的方法可以将配分函数写为如下的积和式：
 $$
-\boxed{\mathcal{Z} = \sum_{\lbrace \alpha^{(i)} \rbrace} \prod_{i=0}^{N-1} \langle \alpha^{(i+1)} | e^{-\tau \hat{H}} | \alpha^{(i)} \rangle}
+\boxed{\mathcal{Z} = \sum_{\lbrace \alpha^{(i)} \rbrace} \prod_{i=0}^{N-1} \langle \alpha^{(i+1)} | e^{-\tau \hat{H}} | \alpha^{(i)} \rangle
+=\sum_{\lbrace \alpha^{(i)} \rbrace}  W(\lbrace \alpha^{(i)} \rbrace)}
 $$
 其中 $\alpha^{(0)} $ 与 $ \alpha^{(N)}$ 为同一世界面，即原始求迹过程中 $e^{-
-\beta \hat{H}}$ 两边所夹的基矢量。求和符号下标 $\lbrace \alpha^{(i)} \rbrace$ 表示对于基矢量的序列求和，该序列包含从 $\alpha^{(0)} $ 到 $\alpha^{(N-1)} $ 共 $N$ 项。</p>
+\beta \hat{H}}$ 两边所夹的基矢量。求和符号下标 $\lbrace \alpha^{(i)} \rbrace$ 表示对于基矢量的序列求和，该序列包含从 $\alpha^{(0)} $ 到 $\alpha^{(N-1)} $ 共 $N$ 项。而 $W(\lbrace \alpha^{(i)} \rbrace)$ 记为序列的权重。</p>
 <h2 id="mathcalz">配分函数空间 $\mathcal{Z}$<a class="headerlink" href="#mathcalz" title="Permanent link">&para;</a></h2>
-<p>值得注意的是，尽管这里的求和遍历了序列 $\lbrace \alpha^{(i)} \rbrace$ 所有的可能性，但是有些可能性会使得连乘式当中出现值为 0 的项，从而导致整个序列对配分函数的权重不做贡献。而是否出现值为 0 项，需要分析哈密顿量的具体形式，并且通常取决于 hopping 的形式，具体分析如下。</p>
+<p>值得注意的是，尽管这里的求和遍历了序列 $\lbrace \alpha^{(i)} \rbrace$ 所有的可能性，但是有些可能性会使得连乘式当中出现值为 0 的项，从而导致整个序列对配分函数的权重不做贡献。而判断是否出现值为 0 项，则需要分析哈密顿量的具体形式，并且通常取决于 hopping 的形式，具体分析如下。</p>
 <h3 id="_2">构型的权重<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p>对配分函数其中的一个重复单元有:
 $$
@@ -828,7 +921,7 @@ $$
 e^{-\tau H_0} \langle \alpha^{(i+1)} | e^{-\tau \hat{V}}| \alpha^{(i)}\rangle \approx 
 e^{-\tau H_0} \langle \alpha^{(i+1)} | {\bf 1} - \tau \hat{V}| \alpha^{(i)}\rangle
 $$
-其中 $\hat{H} = \hat{H}_0 + \hat{V}$, 前者为所选基矢量下的对角项，后者是非对角项。第一个近似利用到了 Trotter 分解，即：</p>
+其中 $\boxed{\hat{H} = \hat{H}_0 + \hat{V}}$ , 前者为所选基矢量下的对角项，后者是非对角项。第一个近似利用到了 Trotter 分解，即：</p>
 <p>$$e^{-\tau\hat{H}} = e^{-\tau\hat{H}_0} e^{-\tau\hat{V}} + \mathcal{O}(\tau^2)\approx e^{-\tau\hat{H}_0} e^{-\tau\hat{V}}$$</p>
 <p>第二个近似是根据 $\tau$ 为小量而进行的泰勒展开，并展开到1阶 (也可以展开到高阶，但高阶一般都会忽略掉)。</p>
 <blockquote>
@@ -840,16 +933,23 @@ $$
 e^{-\tau H_0} \langle \alpha^{(i+1)}| \alpha^{(i)} \rangle - \tau e^{-\tau H_0}  \langle \alpha^{(i+1)}| \hat{V} |\alpha^{(i)} \rangle 
 $$
 我们不难分析出，当序列 $\lbrace \alpha^{(i)} \rbrace$ 相邻的两个态没有发生变化时，上式第二项由于 $\hat{V}$ 的作用，会使两边原本一样的态变得正交，从而做内积之后会消失，仅有第一项有贡献。 相反，若相邻的两个态发生了变化并满足 $\langle \alpha^{(i+1)}| \hat{V} |\alpha^{(i)} \rangle \neq 0$ 时，上式第一项会消失，仅有第二项有贡献；若不满足，则两项均无贡献。</p>
-<p>根据上面的性质，我们可以将配分函数的权重进行合并来简化表达。我们将一个序列或称为虚时构型当中相邻态发生改变的次数计为 $\mathcal{K}$, 从而我们可以写出构型的权重为：
+<p>根据上面的性质，我们可以将配分函数的权重进行合并来简化表达。我们将一个序列 (或称为虚时构型) 当中相邻态 (或相邻世界面) 发生改变的次数计为 $\mathcal{K}$, 从而我们可以写出构型的权重为：
 $$
-\boxed{W(\lbrace \alpha^{(i)} \rbrace) = (-\tau)^{\mathcal{K}} \prod_{0}^{\mathcal{K-1}}\langle \alpha^{(i+1)}|\hat{V} | \alpha^{(i)} \rangle \exp \left({-\sum_{i=0}^{N} H_0^{(i)} \tau} \right)}
+\boxed{W(\lbrace \alpha^{(i)} \rbrace) \approx W(\mathcal{K},i(k),\alpha) = (-\tau)^{\mathcal{K}} \prod_{k = 0}^{\mathcal{K}-1}\langle \alpha^{(i(k)+1)}|\hat{V} | \alpha^{(i(k))} \rangle \exp \left({-\sum_{i=0}^{N-1} H_0^{(i)} \tau} \right)}
 $$
-若将小量 $\tau$ 取为微元 $d\tau$, 可将权重写为连续变量的形式，更符合路径积分的风格：
+其中 $i(k)$ 表示第 $k$ 个发生改变的虚时层数。相比原始形式的求和，上述形式的权重相当于将序列根据发生改变次数进行分类，关系如下：
 $$
-W(\lbrace \alpha^{(i)} \rbrace) = (-d\tau)^{\mathcal{K}} \prod_{0}^{\mathcal{K-1}}\langle \alpha^{(i+1)}|\hat{V} | \alpha^{(i)} \rangle \exp \left({-\int_{0}^{\beta} H_0(\tau') d\tau'} \right)
+\sum_{\lbrace \alpha^{(i)} \rbrace} W(\lbrace \alpha^{(i)} \rbrace) \rightarrow \sum_{\mathcal{K}=0}^{\infty}  \sum_{i(0) = 0}^N \sum_{i(1) = i(0)}^N \cdots \sum_{i(\mathcal{K}-1)=i(\mathcal{K}-2)}^N \sum_{\alpha} W(\mathcal{K},i(k),\alpha) 
+$$</p>
+<p>当 $N\rightarrow\infty$, 可将小量 $\tau$ 取为微元 $d\tau$, 同时原本离散的序列也变为连续的函数 $\alpha(\tau)$, 可将权重写为连续变量的形式，更符合路径积分的风格：
+$$
+W(\mathcal{K},\tau(k),\alpha) = (-d\tau)^{\mathcal{K}} \prod_{k=0}^{\mathcal{K}-1}\langle \alpha({\tau}(k) + d\tau)|\hat{V} | \alpha({\tau}(k)) \rangle \exp \left({-\int_{0}^{\beta} H_0(\tau') d\tau'} \right)
 $$
 其中 $\alpha^{(i)}$ 和 $\alpha^{(j)}$ 分别表示态发生改变之前和之后的世界面，因此我们只需计算 $\langle \alpha^{(i+1)}|\hat{V} | \alpha^{(i)} \rangle$，便可根据不同模型的情况设计算法了。</p>
-<h3 id="hatv">常见的几种 $\hat{V}$<a class="headerlink" href="#hatv" title="Permanent link">&para;</a></h3>
+<p>$$
+\sum_{\mathcal{K}=0}^{\infty}  \int_{0}^\beta \int_{\tau(0)}^\beta \cdots \int_{\tau(\mathcal{K}-2)}^\beta \sum_{\alpha} W(\mathcal{K},\tau(k),\alpha) 
+$$</p>
+<h3 id="_3">几种常见的非对角项<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>为了更加形象，我们举几个例子：</p>
 <p>(1) hopping 项 :
 $$\hat{V} = -t \sum_{\langle ij \rangle} \left(
@@ -857,14 +957,14 @@ $$\hat{V} = -t \sum_{\langle ij \rangle} \left(
 \right) $$
 $\langle \alpha^{(i+1)} |\hat{V}|\alpha^{(i)} \rangle$ 项不为 0 即要求构型 $|\alpha^{(i+1)} \rangle$ 和 $|\alpha^{(i)} \rangle$ 之间至少相差一个最近邻的 hopping. 一个从格点 $j$ 跃迁到格点 $i$ 的过程贡献：
 $$
-\langle \alpha^{(i+1)} |\hat{b}_i^\dagger \hat{b}_j |\alpha^{(i)} \rangle =\sqrt{n_j(n_i+1)} \quad ({\rm site} ~j\rightarrow {\rm site} ~i)
-$$
-其中 $n_i$ 与 $n_j$ 表示跃迁发生之前格点 $i$ 与 格点 $j$ 所拥有的粒子数。
-具体情况如下图所示：
-<img alt="" src="../fig/hopping.jpg" /></p>
+\boxed{\langle \alpha^{(i+1)} |\hat{b}_j^\dagger \hat{b}_i |\alpha^{(i)} \rangle =\sqrt{n_i(n_j+1)} \quad ({\rm site} ~i\rightarrow {\rm site} ~j)}
+$$</p>
 <blockquote>
 <p>注意 $\alpha^{(i)}$ 当中的 $i$ 是对构型中不同世界面的指标，而 $\hat{b}_i$ 当中的 $i$ 是对某一个世界面当中不同格点的指标。</p>
 </blockquote>
+<p>其中 $n_i$ 与 $n_j$ 表示跃迁发生之前格点 $i$ 与 格点 $j$ 所拥有的粒子数。
+具体情况如下图所示：
+<img alt="" src="../fig/hopping.png" /></p>
 <p>(2) 长程 hopping 项 :
 $$\hat{V} = -t \sum_{i&lt;j} \frac{1}{r_{i,j}^{d+\sigma}}\left(
    \hat{b}_i^\dagger \hat{b}_j + \hat{b}_j^\dagger \hat{b}_i
@@ -873,19 +973,26 @@ $$\hat{V} = -t \sum_{i&lt;j} \frac{1}{r_{i,j}^{d+\sigma}}\left(
 <p>(3) pairing 项 ：
 $$\hat{V} = -t \sum_{\langle ij \rangle} \left(
    \hat{b}_i^\dagger \hat{b}_j^\dagger + \hat{b}_j \hat{b}_i
-\right) $$
-类似于 hopping 项，具体如下图：
-<img alt="" src="../fig/pairing.jpg" /></p>
+\right) $$</p>
+<p>$$
+\boxed{\langle \alpha^{(i+1)} |\hat{b}_j^\dagger \hat{b}_i^\dagger |\alpha^{(i)} \rangle =\sqrt{(n_i+1)(n_j+1)}}
+$$</p>
+<p>类似于 hopping 项，具体如下图：
+<img alt="" src="../fig/pairing.png" /></p>
 <p>(4) flipping 项 ：
-$$\hat{V} = -h\sum_{i}\hat{\sigma}_i^x$$
-$x$ 方向的泡利矩阵，相当于对自旋态做翻转。通常来说，自旋体系对系数的贡献都是 1，即：
-<img alt="" src="../fig/flipping.jpg" /></p>
+$$\hat{V} = -h\sum_{i}\hat{\sigma}_i^x$$</p>
+<p>$$
+\boxed{\langle \alpha^{(i+1)} |\hat{\sigma}^x_i |\alpha^{(i)} \rangle =1}
+$$</p>
+<p>$x$ 方向的泡利矩阵，相当于对自旋态做翻转。通常来说，自旋体系对系数的贡献都是 1，即：
+<img alt="" src="../fig/flipping.png" /></p>
 <h2 id="mathcalz_mathcalg">格林函数空间 $\mathcal{Z}_{\mathcal{G}}$<a class="headerlink" href="#mathcalz_mathcalg" title="Permanent link">&para;</a></h2>
 <p>以上几种是常见的 $\hat{V}$ 类型，为了引入 worm，需要定义格林函数，对于玻色体系，有定义：
 $$\mathcal{G}(i,j,\tau_i,\tau_j) =   {\rm Tr}[\mathcal{T} \hat{b}_j(\tau_j) \hat{b}^\dagger_i(\tau_i) e^{-\beta\hat{H}}]$$
 $\sqrt{n_j(n_i+1)}$</p>
 <p>对于自旋体系，有定义
 $$\mathcal{G}(i,j,\tau_i,\tau_j) = {\rm Tr}[\mathcal{T} \hat{\sigma}^{x}(\tau_j) \hat{\sigma}^{x}(\tau_i) e^{-\beta\hat{H}}]$$</p>
+<h2 id="_4">构型的更新<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 
 
 
@@ -936,6 +1043,22 @@ $$\mathcal{G}(i,j,\tau_i,\tau_j) = {\rm Tr}[\mathcal{T} \hat{\sigma}^{x}(\tau_j)
             </div>
           </a>
         
+        
+          
+          <a href="CSQW.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 连续空间">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                连续空间
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
         
       </nav>
     
