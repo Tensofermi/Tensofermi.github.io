@@ -20,7 +20,7 @@
     
     
       
-        <title>连续时间 - Monte Carlo Simulation</title>
+        <title>连续时间 Worm - Monte Carlo Simulation</title>
       
     
     
@@ -101,7 +101,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              连续时间
+              连续时间 Worm
             
           </span>
         </div>
@@ -648,7 +648,7 @@
           
   
   <span class="md-ellipsis">
-    连续时间
+    连续时间 Worm
   </span>
   
 
@@ -659,7 +659,7 @@
         
   
   <span class="md-ellipsis">
-    连续时间
+    连续时间 Worm
   </span>
   
 
@@ -723,9 +723,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mathcalz_mathcalg" class="md-nav__link">
+  <a href="#mathcalg" class="md-nav__link">
     <span class="md-ellipsis">
-      格林函数空间 $\mathcal{Z}_{\mathcal{G}}$
+      格林函数空间 $\mathcal{G}$
     </span>
   </a>
   
@@ -735,6 +735,57 @@
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       构型的更新
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="构型的更新">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#createclose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create/Close
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kink" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kink
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shift" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shift
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      常见物理量的测量
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      补充
     </span>
   </a>
   
@@ -760,7 +811,7 @@
         
   
   <span class="md-ellipsis">
-    连续空间
+    连续空间 Worm
   </span>
   
 
@@ -846,9 +897,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mathcalz_mathcalg" class="md-nav__link">
+  <a href="#mathcalg" class="md-nav__link">
     <span class="md-ellipsis">
-      格林函数空间 $\mathcal{Z}_{\mathcal{G}}$
+      格林函数空间 $\mathcal{G}$
     </span>
   </a>
   
@@ -858,6 +909,57 @@
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       构型的更新
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="构型的更新">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#createclose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create/Close
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kink" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kink
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shift" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shift
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      常见物理量的测量
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      补充
     </span>
   </a>
   
@@ -939,60 +1041,96 @@ $$
 $$
 其中 $i(k)$ 表示第 $k$ 个发生改变的虚时层数。相比原始形式的求和，上述形式的权重相当于将序列根据发生改变次数进行分类，关系如下：
 $$
-\sum_{\lbrace \alpha^{(i)} \rbrace} W(\lbrace \alpha^{(i)} \rbrace) \rightarrow \sum_{\mathcal{K}=0}^{\infty}  \sum_{i(0) = 0}^N \sum_{i(1) = i(0)}^N \cdots \sum_{i(\mathcal{K}-1)=i(\mathcal{K}-2)}^N \sum_{\alpha} W(\mathcal{K},i(k),\alpha) 
-$$</p>
+\sum_{\lbrace \alpha^{(i)} \rbrace} W(\lbrace \alpha^{(i)} \rbrace) \rightarrow \sum_{\mathcal{K}=0}^{\infty}  \sum_{i(0) = 0}^{N-1} \sum_{i(1) = i(0)}^{N-1} \cdots \sum_{i(\mathcal{K}-1)=i(\mathcal{K}-2)}^{N-1} \sum_{\alpha} W(\mathcal{K},i(k),\alpha) 
+$$
+注意，改变次数 $\mathcal{K}$ 可以从 0 取到 $\infty$. 而改变发生的时刻的虚时层数 $i(k)$ 也有如上的取值方法，遍历了所有可能的情况。除此之外，需要给定一个初始的态 $\alpha$ 作为虚时演化的起始，因而才有了最后的求和 $\sum_{\alpha}$.</p>
+<blockquote>
 <p>当 $N\rightarrow\infty$, 可将小量 $\tau$ 取为微元 $d\tau$, 同时原本离散的序列也变为连续的函数 $\alpha(\tau)$, 可将权重写为连续变量的形式，更符合路径积分的风格：
 $$
 W(\mathcal{K},\tau(k),\alpha) = (-d\tau)^{\mathcal{K}} \prod_{k=0}^{\mathcal{K}-1}\langle \alpha({\tau}(k) + d\tau)|\hat{V} | \alpha({\tau}(k)) \rangle \exp \left({-\int_{0}^{\beta} H_0(\tau') d\tau'} \right)
 $$
-其中 $\alpha^{(i)}$ 和 $\alpha^{(j)}$ 分别表示态发生改变之前和之后的世界面，因此我们只需计算 $\langle \alpha^{(i+1)}|\hat{V} | \alpha^{(i)} \rangle$，便可根据不同模型的情况设计算法了。</p>
-<p>$$
+其中 $\tau(k)$ 表示第 $k$ 个发生改变的虚时时刻。 总的来说，可将配分函数写为如下的求和形式：
+$$
 \sum_{\mathcal{K}=0}^{\infty}  \int_{0}^\beta \int_{\tau(0)}^\beta \cdots \int_{\tau(\mathcal{K}-2)}^\beta \sum_{\alpha} W(\mathcal{K},\tau(k),\alpha) 
-$$</p>
+$$
+事实上，笔者更喜欢权重的离散化表示，因为在实际计算机进行模拟的时候，归根到底仍然是在处理离散的数组。从而后续的推导均采用离散的形式。</p>
+</blockquote>
 <h3 id="_3">几种常见的非对角项<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
-<p>为了更加形象，我们举几个例子：</p>
+<p>现在我们知道，要想解析地写出权重表达式，计算非对角项矩阵元 $\langle \alpha^{(i+1)}|\hat{V} | \alpha^{(i)} \rangle$ 必不可少。
+为了更加形象，我们举几个例子：</p>
 <p>(1) hopping 项 :
 $$\hat{V} = -t \sum_{\langle ij \rangle} \left(
    \hat{b}_i^\dagger \hat{b}_j + \hat{b}_j^\dagger \hat{b}_i
 \right) $$
-$\langle \alpha^{(i+1)} |\hat{V}|\alpha^{(i)} \rangle$ 项不为 0 即要求构型 $|\alpha^{(i+1)} \rangle$ 和 $|\alpha^{(i)} \rangle$ 之间至少相差一个最近邻的 hopping. 一个从格点 $j$ 跃迁到格点 $i$ 的过程贡献：
+上式表明，$\langle \alpha^{(i+1)} |\hat{V}|\alpha^{(i)} \rangle$ 项不为 0 即要求构型 $|\alpha^{(i+1)} \rangle$ 和 $|\alpha^{(i)} \rangle$ 之间相差一个最近邻的 hopping. </p>
+<blockquote>
+<p>严格来说，$e^{-\tau \hat{V}}$ 展开到一阶只能允许同一时刻发生一次最近邻的 hopping, 发生多次需要我们展开到更高阶重新写出权重，重新设计算法。然而一方面在连续时间算法当中，世界面的数目取为 $10^8$ 量级，构型刚好出现同一时刻多次 hopping 的概率非常小；另一方面，考虑高阶会使得程序复杂，效率降低，因而暂时不考虑高阶展开。</p>
+</blockquote>
+<p>考虑一个从格点 $i$ 跃迁到格点 $j$ 的过程贡献：
 $$
-\boxed{\langle \alpha^{(i+1)} |\hat{b}_j^\dagger \hat{b}_i |\alpha^{(i)} \rangle =\sqrt{n_i(n_j+1)} \quad ({\rm site} ~i\rightarrow {\rm site} ~j)}
+\boxed{-t\langle \alpha^{(i+1)} |\hat{b}_j^\dagger \hat{b}_i |\alpha^{(i)} \rangle =-t\sqrt{n_i(n_j+1)} \quad ({\rm site} ~i\rightarrow {\rm site} ~j)}
 $$</p>
 <blockquote>
 <p>注意 $\alpha^{(i)}$ 当中的 $i$ 是对构型中不同世界面的指标，而 $\hat{b}_i$ 当中的 $i$ 是对某一个世界面当中不同格点的指标。</p>
 </blockquote>
 <p>其中 $n_i$ 与 $n_j$ 表示跃迁发生之前格点 $i$ 与 格点 $j$ 所拥有的粒子数。
 具体情况如下图所示：
-<img alt="" src="../fig/hopping.png" /></p>
-<p>(2) 长程 hopping 项 :
-$$\hat{V} = -t \sum_{i&lt;j} \frac{1}{r_{i,j}^{d+\sigma}}\left(
-   \hat{b}_i^\dagger \hat{b}_j + \hat{b}_j^\dagger \hat{b}_i
-\right) $$
-与短程的情况类似，只不过发生跃迁的范围是任意两个格点，并且要额外带一个和两格点距离相关的系数。</p>
-<p>(3) pairing 项 ：
+<img alt="" src="../fig/hopping.png" />
+从图中可以形象的将系数理解为沿着虚时方向，跃迁粒子所在世界线段上的粒子数乘积的根值。</p>
+<p>(2) pairing 项 ：
 $$\hat{V} = -t \sum_{\langle ij \rangle} \left(
    \hat{b}_i^\dagger \hat{b}_j^\dagger + \hat{b}_j \hat{b}_i
-\right) $$</p>
-<p>$$
-\boxed{\langle \alpha^{(i+1)} |\hat{b}_j^\dagger \hat{b}_i^\dagger |\alpha^{(i)} \rangle =\sqrt{(n_i+1)(n_j+1)}}
+\right) $$
+上式表明，$\langle \alpha^{(i+1)} |\hat{V}|\alpha^{(i)} \rangle$ 项不为 0 即要求构型 $|\alpha^{(i+1)} \rangle$ 和 $|\alpha^{(i)} \rangle$ 之间相差一个最近邻的 pairing. </p>
+<p>考虑从某一虚时刻，格点 $i$ 和格点 $j$ 同时增加一个粒子的贡献为：
+$$
+\boxed{-t\langle \alpha^{(i+1)} |\hat{b}_j^\dagger \hat{b}_i^\dagger |\alpha^{(i)} \rangle =-t\sqrt{(n_i+1)(n_j+1)}}
 $$</p>
 <p>类似于 hopping 项，具体如下图：
-<img alt="" src="../fig/pairing.png" /></p>
-<p>(4) flipping 项 ：
-$$\hat{V} = -h\sum_{i}\hat{\sigma}_i^x$$</p>
-<p>$$
-\boxed{\langle \alpha^{(i+1)} |\hat{\sigma}^x_i |\alpha^{(i)} \rangle =1}
-$$</p>
-<p>$x$ 方向的泡利矩阵，相当于对自旋态做翻转。通常来说，自旋体系对系数的贡献都是 1，即：
+<img alt="" src="../fig/pairing.png" />
+可以看出，系数是增加之后 (或减少之前) 的粒子数乘积的根值。</p>
+<p>(3) flipping 项 ：
+$$\hat{V} = -h\sum_{i}\hat{\sigma}_i^x$$
+上式表明，$\langle \alpha^{(i+1)} |\hat{V}|\alpha^{(i)} \rangle$ 项不为 0 即要求构型 $|\alpha^{(i+1)} \rangle$ 和 $|\alpha^{(i)} \rangle$ 之间在同一格点相差一个 flipping. </p>
+<p>考虑一个 $|\uparrow\rangle$ 态在某一虚时刻改变为 $|\downarrow\rangle$ 态，其贡献为：
+$$
+\boxed{-h\langle \alpha^{(i+1)} |\hat{\sigma}^x_i |\alpha^{(i)} \rangle =-h}
+$$
+其中 $x$ 方向的泡利矩阵，相当于对自旋态做翻转。通常来说，自旋体系对系数的贡献都是 1. 具体如下图：
 <img alt="" src="../fig/flipping.png" /></p>
-<h2 id="mathcalz_mathcalg">格林函数空间 $\mathcal{Z}_{\mathcal{G}}$<a class="headerlink" href="#mathcalz_mathcalg" title="Permanent link">&para;</a></h2>
-<p>以上几种是常见的 $\hat{V}$ 类型，为了引入 worm，需要定义格林函数，对于玻色体系，有定义：
-$$\mathcal{G}(i,j,\tau_i,\tau_j) =   {\rm Tr}[\mathcal{T} \hat{b}_j(\tau_j) \hat{b}^\dagger_i(\tau_i) e^{-\beta\hat{H}}]$$
-$\sqrt{n_j(n_i+1)}$</p>
+<h2 id="mathcalg">格林函数空间 $\mathcal{G}$<a class="headerlink" href="#mathcalg" title="Permanent link">&para;</a></h2>
+<p>上述的构型权重所在的相空间被称为配分函数空间 $\mathcal{Z}$，这是因为其构型完全符合物理上世界线的定义。然而，为了高效地更新算法，我们引入具有两个缺陷的世界线构型空间 $\mathcal{G}$, 由于该空间的配分函数可以写作格林函数的求和，也被称为格林函数空间。</p>
+<p>在玻色系统当中，两个缺陷分别表示产生算符 $\hat{b}^\dagger_{M}$ 与湮灭算符 $\hat{b}<em _tau_I_tau_M="\tau_I,\tau_M">{I}$, 分别处于虚时 $\tau_M$ 与 $\tau_I$, 则关联函数可以写为:
+$$
+g(I,M,\tau_I,\tau_M) = <br />
+{\rm Tr}[\mathcal{T} \hat{b}_I(\tau_I)\hat{b}^\dagger_M(\tau_M)  e^{-\beta\hat{H}}]
+$$
+相应的格林函数可以写为：
+$$
+G(I,M,\tau_I,\tau_M) = \frac{g(I,M,\tau_I,\tau_M)}{\mathcal{Z}}
+$$
+那么格林函数的配分函数写为:
+$$
+\mathcal{G} = \sum</em> g(I,M,\tau_I,\tau_M)
+$$
+即对两缺陷处于所有时空的可能情况进行求和。} \sum_{I,M</p>
+<p>$$
+\sum_{\lbrace \alpha^{(i)} \rbrace} \prod_{i=0}^{N-1} \langle \alpha^{(i+1)} | e^{-\tau \hat{H}} | \alpha^{(i)} \rangle
+=\sum_{\lbrace \alpha^{(i)} \rbrace}  W_\mathcal{G}(\lbrace \alpha^{(i)},I(),M() \rbrace) 
+$$</p>
+<p>为了引入 worm，需要定义格林函数，对于玻色体系，有定义：
+$$\mathcal{G}(i,j,\tau_i,\tau_j) = \frac{ {\rm Tr}[\mathcal{T} \hat{b}_i(\tau_i)\hat{b}^\dagger_j(\tau_j)  e^{-\beta\hat{H}}]}{\mathcal{Z}}  $$</p>
 <p>对于自旋体系，有定义
-$$\mathcal{G}(i,j,\tau_i,\tau_j) = {\rm Tr}[\mathcal{T} \hat{\sigma}^{x}(\tau_j) \hat{\sigma}^{x}(\tau_i) e^{-\beta\hat{H}}]$$</p>
+$$\mathcal{G}(i,j,\tau_i,\tau_j) = \frac{{\rm Tr}[\mathcal{T} \hat{\sigma}^{x}(\tau_i) \hat{\sigma}^{x}(\tau_j) e^{-\beta\hat{H}}]}{\mathcal{Z}} $$</p>
+<p>$$
+\mathcal{Z}_w = \mathcal{Z} + \omega\mathcal{G}
+$$</p>
 <h2 id="_4">构型的更新<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="createclose">Create/Close<a class="headerlink" href="#createclose" title="Permanent link">&para;</a></h3>
+<h3 id="kink">Kink<a class="headerlink" href="#kink" title="Permanent link">&para;</a></h3>
+<h3 id="shift">Shift<a class="headerlink" href="#shift" title="Permanent link">&para;</a></h3>
+<h2 id="_5">常见物理量的测量<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h2 id="_6">补充<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 
 
 
@@ -1045,13 +1183,13 @@ $$\mathcal{G}(i,j,\tau_i,\tau_j) = {\rm Tr}[\mathcal{T} \hat{\sigma}^{x}(\tau_j)
         
         
           
-          <a href="CSQW.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 连续空间">
+          <a href="CSQW.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 连续空间 Worm">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 下一页
               </span>
               <div class="md-ellipsis">
-                连续空间
+                连续空间 Worm
               </div>
             </div>
             <div class="md-footer__button md-icon">
