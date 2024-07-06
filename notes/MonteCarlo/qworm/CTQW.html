@@ -1100,20 +1100,20 @@ $$
 <img alt="" src="../fig/flipping.png" /></p>
 <h2 id="mathcalg">格林函数空间 $\mathcal{G}$<a class="headerlink" href="#mathcalg" title="Permanent link">&para;</a></h2>
 <p>上述的构型权重所在的相空间被称为配分函数空间 $\mathcal{Z}$，这是因为其构型完全符合物理上世界线的定义。然而，为了高效地更新算法，我们引入具有两个缺陷的世界线构型空间 $\mathcal{G}$, 由于该空间的配分函数可以写作格林函数的求和，也被称为格林函数空间。</p>
-<p>在玻色系统当中，两个缺陷分别表示产生算符 $\hat{b}^\dagger_{M}$ 与湮灭算符 $\hat{b}<em _tau_I_tau_M="\tau_I,\tau_M">{I}$, 分别处于虚时 $\tau_M$ 与 $\tau_I$, 则关联函数可以写为:
-$$
+<p>在玻色系统当中，两个缺陷分别表示产生算符 $\hat{b}^\dagger_{M}$ 与湮灭算符 $\hat{b}_{I}$, 分别处于虚时 $\tau_M$ 与 $\tau_I$, 则关联函数可以写为:</p>
+<p>$$
 g(I,M,\tau_I,\tau_M) = <br />
 {\rm Tr}[\mathcal{T} \hat{b}_I(\tau_I)\hat{b}^\dagger_M(\tau_M)  e^{-\beta\hat{H}}]
-$$
-相应的格林函数可以写为：
+$$</p>
+<p>相应的格林函数可以写为：
 $$
 G(I,M,\tau_I,\tau_M) = \frac{g(I,M,\tau_I,\tau_M)}{\mathcal{Z}}
 $$
 那么格林函数的配分函数写为:
 $$
-\mathcal{G} = \sum</em> g(I,M,\tau_I,\tau_M)
+\mathcal{G} = \sum_{\tau_I,\tau_M} \sum_{I,M} g(I,M,\tau_I,\tau_M)
 $$
-即对两缺陷处于所有时空的可能情况进行求和。} \sum_{I,M</p>
+即对两缺陷处于所有时空的可能情况进行求和。</p>
 <p>$$
 \sum_{\lbrace \alpha^{(i)} \rbrace} \prod_{i=0}^{N-1} \langle \alpha^{(i+1)} | e^{-\tau \hat{H}} | \alpha^{(i)} \rangle
 =\sum_{\lbrace \alpha^{(i)} \rbrace}  W_\mathcal{G}(\lbrace \alpha^{(i)},I(),M() \rbrace) 
