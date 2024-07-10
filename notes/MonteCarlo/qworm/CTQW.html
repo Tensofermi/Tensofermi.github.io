@@ -744,9 +744,27 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#createdelete-worm" class="md-nav__link">
+  <a href="#shift-cut" class="md-nav__link">
     <span class="md-ellipsis">
-      Create/Delete Worm
+      Shift Cut
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#createdelete-segment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create/Delete Segment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shift-worm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shift Worm
     </span>
   </a>
   
@@ -762,9 +780,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#shift-worm" class="md-nav__link">
+  <a href="#createdelete-worm" class="md-nav__link">
     <span class="md-ellipsis">
-      Shift Worm
+      Create/Delete Worm
     </span>
   </a>
   
@@ -930,9 +948,27 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#createdelete-worm" class="md-nav__link">
+  <a href="#shift-cut" class="md-nav__link">
     <span class="md-ellipsis">
-      Create/Delete Worm
+      Shift Cut
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#createdelete-segment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create/Delete Segment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shift-worm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shift Worm
     </span>
   </a>
   
@@ -948,9 +984,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#shift-worm" class="md-nav__link">
+  <a href="#createdelete-worm" class="md-nav__link">
     <span class="md-ellipsis">
-      Shift Worm
+      Create/Delete Worm
     </span>
   </a>
   
@@ -1154,15 +1190,122 @@ $$
 \sum_{p_I,p_M = 0 ~(p_I\neq p_I)}^{N-1} \sum_{I,M=0}^{N_s-1} \sum_{\mathcal{K}=0}^{\infty}  \sum_{i(0) = 0}^{N-1} \sum_{i(1) = i(0)}^{N-1} \cdots \sum_{i(\mathcal{K}-1)=i(\mathcal{K}-2)}^{N-1} \sum_{\lbrace \alpha^{(i(k))},\alpha^{(i(I))},\alpha^{(i(M))} \rbrace} W_{\mathcal{G}}
 $$</p>
 <blockquote>
-<p>对于自旋体系，可以有类似定义：
+<p>对于自旋体系，也可以有类似定义：
 $$g(I,M,\tau_I,\tau_M) = {\rm Tr}[\mathcal{T} \hat{\sigma}_I^{x}(\tau_I) \hat{\sigma}_M^{x}(\tau_M) e^{-\beta\hat{H}}] $$</p>
 </blockquote>
 <h2 id="_4">构型的更新<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<p>构型的更新在 $\mathcal{Z}_w$ 空间当中进行，</p>
-<h3 id="createdelete-worm">Create/Delete Worm<a class="headerlink" href="#createdelete-worm" title="Permanent link">&para;</a></h3>
-<h3 id="createdelete-kink">Create/Delete Kink<a class="headerlink" href="#createdelete-kink" title="Permanent link">&para;</a></h3>
-<h3 id="shift-worm">Shift Worm<a class="headerlink" href="#shift-worm" title="Permanent link">&para;</a></h3>
+<p>为了尽可能少的占用内存，我们不可能将每个虚时的态都存下来，那样会占用 $O(N N_s)$ 的空间内存。为此，我们引入类 <code>segment</code> 用于存储量子态一致的一段世界线，包含了量子态、起始时刻、长度、发生跃迁和前后衔接的其他片段等等。从而，我们的空间内存可以减少到 $O(\beta N_s)$ 的量级。</p>
+<p>构型的更新在 $\mathcal{Z}_w$ 空间当中进行。然而有些模型，我们并不需要考虑配分函数空间 $\mathcal{G}$, 例如横场伊辛模型：</p>
+<p>$$
+\hat{H_0} = - t \sum_{\langle ij \rangle} \hat{\sigma}_i^z \hat{\sigma}_j^z \quad \hat{V} = \sum_i \hat{\sigma}_i^x 
+$$</p>
+<h3 id="shift-cut"><code>Shift Cut</code><a class="headerlink" href="#shift-cut" title="Permanent link">&para;</a></h3>
+<p><img alt="" src="../fig/shift_cut.png" /></p>
+<p>$$
+W(\nu) \cdot \frac{p_{\rm shift}}{N_{\rm seg}} \cdot \frac{\tau}{L_a + L_b} \cdot P_{\rm acc}^{(\nu\rightarrow\nu')}  = W(\nu') \cdot \frac{p_{\rm shift}}{N_{\rm seg}} \cdot \frac{\tau}{L_a' + L_b'} \cdot P_{\rm acc}^{(\nu'\rightarrow\nu)}
+$$</p>
+<p>$$
+\boxed{P_{\rm acc}^{(\nu\rightarrow\nu')} = {\rm min} \left[1,  e^{{-\sum [H_0(\nu') - H_0(\nu)] \tau} }   \right]}
+$$</p>
+<h3 id="createdelete-segment"><code>Create/Delete Segment</code><a class="headerlink" href="#createdelete-segment" title="Permanent link">&para;</a></h3>
+<p><img alt="" src="../fig/cre_del_seg.png" /></p>
+<p>$$
+W(\nu) \cdot p_{\rm cresg} \cdot \frac{1}{N_{\rm seg}} \cdot \frac{2 \tau^2}{L^2} \cdot P_{\rm acc}^{(\nu\rightarrow\nu')}  = W(\nu') \cdot p_{\rm delsg} \cdot \frac{1}{N_{\rm seg}'} \cdot P_{\rm acc}^{(\nu'\rightarrow\nu)}
+$$</p>
+<ul>
+<li><code>Create Segment</code></li>
+</ul>
+<p>$$
+\boxed{P_{\rm acc}^{(\nu\rightarrow\nu')} = {\rm min} \left[1, \frac{p_{\rm delsg}}{p_{\rm cresg}} \cdot \frac{N_{\rm seg}}{N_{\rm seg}'} \cdot \frac{L^2}{2}
+\cdot \langle \alpha^{(i(k)+1)}  |\hat{V}| \alpha^{i(k)} \rangle^2
+\cdot e^{{-\sum [H_0(\nu') - H_0(\nu)] \tau} }   \right]}
+$$</p>
+<p>$\langle \alpha^{(i(k)+1)}  |\hat{V}| \alpha^{i(k)} \rangle = -h$</p>
+<ul>
+<li><code>Delete Segment</code></li>
+</ul>
+<p>$$
+\boxed{P_{\rm acc}^{(\nu'\rightarrow\nu)} = {\rm min} \left[1, \frac{p_{\rm cresg}}{p_{\rm delsg}} \cdot \frac{N_{\rm seg}'}{N_{\rm seg}} \cdot \frac{2}{L^2}
+\cdot \frac{1}{\langle \alpha^{(i(k)+1)}  |\hat{V}| \alpha^{i(k)} \rangle^2}
+\cdot e^{{-\sum [H_0(\nu) - H_0(\nu')] \tau} }   \right]}
+$$</p>
+<p>事实上，当我们</p>
+<p>下面，我们以 Bose-Hubbard 模型为例，对于存在 hopping 项的玻色格点系统，通常有如下三种更新，其中前两个分别指的是 Worm 在虚时方向移动以及在格点空间方向移动，第三个则是在 $\mathcal{Z}$ 空间与 $\mathcal{G}$ 空间当中转换。</p>
+<h3 id="shift-worm"><code>Shift Worm</code><a class="headerlink" href="#shift-worm" title="Permanent link">&para;</a></h3>
+<p>$\nu \rightarrow \nu'$</p>
+<p><img alt="" src="../fig/shift_worm.png" /></p>
+<p>$$
+\omega_G W_{\mathcal{G}} (\nu) \cdot p_{\rm shift} \cdot \frac{\tau}{L_a + L_b} \cdot P_{\rm acc}^{(\nu\rightarrow\nu')} = \omega_G W_{\mathcal{G}} (\nu') \cdot p_{\rm shift} \cdot \frac{\tau}{L_a' + L_b'} \cdot P_{\rm acc}^{(\nu'\rightarrow\nu)}
+$$</p>
+<p>$$
+\boxed{P_{\rm acc}^{(\nu\rightarrow\nu')} = {\rm min} \left[1,  e^{{-\sum [H_0(\nu') - H_0(\nu)] \tau} }   \right]}
+$$</p>
+<h3 id="createdelete-kink"><code>Create/Delete Kink</code><a class="headerlink" href="#createdelete-kink" title="Permanent link">&para;</a></h3>
+<p>Kink Before:</p>
+<p><img alt="" src="../fig/cre_del_kink_b.png" /></p>
+<p>$$
+\omega_G W_{\mathcal{G}} (\nu) \cdot p_{\rm crekb} \cdot \frac{1}{z} \cdot \frac{\tau}{L_a} \cdot P_{\rm acc}^{(\nu\rightarrow\nu')} = \omega_G W_{\mathcal{G}} (\nu') \cdot p_{\rm delkb} \cdot P_{\rm acc}^{(\nu'\rightarrow\nu)}
+$$</p>
+<ul>
+<li><code>Create Kink Before</code></li>
+</ul>
+<p>$$
+\boxed{P_{\rm acc}^{(\nu\rightarrow\nu')} = {\rm min} \left[1,  \frac{p_{\rm delkb}}{p_{\rm crekb}} \cdot z L_a \cdot \frac{\sqrt{n_I'(n_M'+1)}}{\sqrt{n_I(n_M+1)}} \cdot [- \langle \alpha^{(i(k)+1)}  |\hat{V}| \alpha^{i(k)} \rangle]  \cdot e^{{-\sum [H_0(\nu') - H_0(\nu)] \tau} }   \right]}
+$$</p>
+<p>$\langle \alpha^{(i(k)+1)}  |\hat{V}| \alpha^{i(k)} \rangle = - t\sqrt{n_I n_I'}$</p>
+<ul>
+<li><code>Delete Kink Before</code></li>
+</ul>
+<p>$$
+\boxed{P_{\rm acc}^{(\nu'\rightarrow\nu)} = {\rm min} \left[1, \frac{p_{\rm crekb}}{p_{\rm delkb}} \cdot \frac{1}{z L_a} \cdot \frac{\sqrt{n_I(n_M+1)}}{\sqrt{n_I'(n_M'+1)}} \cdot \frac{-1}{\langle \alpha^{(i(k)+1)}  |\hat{V}| \alpha^{i(k)} \rangle} \cdot e^{{-\sum [H_0(\nu) - H_0(\nu')] \tau} }   \right]}
+$$</p>
+<p>Kink After:</p>
+<p><img alt="" src="../fig/cre_del_kink_a.png" /></p>
+<p>$$
+\omega_G W_{\mathcal{G}} (\nu) \cdot p_{\rm creka} \cdot \frac{1}{z} \cdot \frac{\tau}{L_b} \cdot P_{\rm acc}^{(\nu\rightarrow\nu')} = \omega_G W_{\mathcal{G}} (\nu') \cdot p_{\rm delka} \cdot P_{\rm acc}^{(\nu'\rightarrow\nu)}
+$$</p>
+<ul>
+<li><code>Create Kink After</code></li>
+</ul>
+<p>$$
+\boxed{P_{\rm acc}^{(\nu\rightarrow\nu')} = {\rm min} \left[1,  \frac{p_{\rm delka}}{p_{\rm creka}} \cdot z L_b \cdot \frac{\sqrt{n_I'(n_M'+1)}}{\sqrt{n_I(n_M+1)}} \cdot [- \langle \alpha^{(i(k)+1)}  |\hat{V}| \alpha^{i(k)} \rangle] \cdot e^{{-\sum [H_0(\nu') - H_0(\nu)] \tau} }   \right]}
+$$</p>
+<ul>
+<li><code>Delete Kink After</code></li>
+</ul>
+<p>$$
+\boxed{P_{\rm acc}^{(\nu'\rightarrow\nu)} = {\rm min} \left[1, \frac{p_{\rm creka}}{p_{\rm delka}} \cdot \frac{1}{z L_b} \cdot \frac{\sqrt{n_I(n_M+1)}}{\sqrt{n_I'(n_M'+1)}} \cdot \frac{-1}{\langle \alpha^{(i(k)+1)}  |\hat{V}| \alpha^{i(k)} \rangle} \cdot e^{{-\sum [H_0(\nu) - H_0(\nu')] \tau} }   \right]}
+$$</p>
+<h3 id="createdelete-worm"><code>Create/Delete Worm</code><a class="headerlink" href="#createdelete-worm" title="Permanent link">&para;</a></h3>
+<p>非圈的情况：</p>
+<p><img alt="" src="../fig/cre_del_worm_1.png" /></p>
+<p><img alt="" src="../fig/cre_del_worm_2.png" /></p>
+<p>$$
+W (\nu) \cdot p_{\rm crew} \cdot \frac{1}{N_{\rm seg}}  \frac{\tau^2}{L^2} \cdot P_{\rm acc}^{(\nu\rightarrow\nu')} = \omega_G W_{\mathcal{G}} (\nu') \cdot p_{\rm delw} \cdot P_{\rm acc}^{(\nu'\rightarrow\nu)}
+$$</p>
+<ul>
+<li><code>Create Worm</code></li>
+</ul>
+<p>$$
+\boxed{P_{\rm acc}^{(\nu\rightarrow\nu')} = {\rm min} \left[1, \frac{p_{\rm delw}}{p_{\rm crew}} N_{\rm seg} \omega_G \sqrt{n_I (n_M + 1)} L^2 e^{{-\sum [H_0(\nu') - H_0(\nu)] \tau} }   \right]
+}
+$$</p>
+<ul>
+<li><code>Delete Worm</code></li>
+</ul>
+<p>$$
+\boxed{P_{\rm acc}^{(\nu'\rightarrow\nu)} = {\rm min} \left[1, \frac{p_{\rm crew}}{p_{\rm delw}} \frac{1}{N_{\rm seg}} \frac{1}{\omega_G} \frac{1}{\sqrt{n_I (n_M + 1)}} \frac{1}{L^2} e^{{-\sum [H_0(\nu) - H_0(\nu')] \tau} }   \right]
+}
+$$</p>
+<p>圈的情况：</p>
+<p><img alt="" src="../fig/loop_cre_del_worm.png" /></p>
+<p>$$
+W (\nu) \cdot p_{\rm crew} \cdot \frac{1}{N_{\rm seg}}  \frac{1}{2} \frac{\tau^2}{L^2} \cdot P_{\rm acc}^{(\nu\rightarrow\nu')} = \omega_G W_{\mathcal{G}} (\nu') \cdot p_{\rm delw} \cdot \frac{1}{2}\cdot P_{\rm acc}^{(\nu'\rightarrow\nu)}
+$$</p>
 <h2 id="_5">补充<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ul>
+<li>为了增加接受概率，我们也可以对于 <code>Shift Worm</code> 等操作当中的虚时移动距离进行限制，使得不至于由于抽出很大的虚时上态的变动导致接受概率变小。</li>
+</ul>
 
 
 
