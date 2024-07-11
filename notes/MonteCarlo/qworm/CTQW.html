@@ -1044,10 +1044,11 @@ $$\mathcal{Z} =  {\rm Tr} (e^{-\beta\hat{H}}) = \sum_{\alpha} \langle \alpha  | 
 <p><strong>费曼图蒙卡 (DiagMC)</strong> : 类比实时量子场论的做法，从虚时演化算符与其格林函数出发，利用微扰论展开得到均值表达式，通过对费曼图的抽样，直接得到热力学极限下的观测量。</p>
 <p><strong>行列式蒙卡 (DQMC)</strong> : 以 Hubbard 模型为例，对于 hopping 项，利用等式
 ${\rm Tr} [ e^{-\sum_{i,j} A_{i,j} \hat{c}_{i}^\dagger\hat{c}_j } ] = {\rm Det} [{\bf 1}+e^{-{\bf A}}]$<br />
-将权重转化为行列式；对于相互作用项，利用 HS 变换引入辅助场进行解耦。</p>
+将权重转化为行列式；对于相互作用项，利用 Hubbard-Stratonovich 变换引入辅助场进行解耦。</p>
 <p>(2) 对于玻色子或自旋体系：</p>
 <p><strong>随机级数展开 (SSE)</strong> : 利用展开 $e^{-\beta \hat{H}} = \sum_{n=0}^{\infty} \frac{\beta^n}{n!}(-\hat{H})^n$, 将指数上的哈密顿量放下来，从而能够通过写出矩阵元 $\langle \alpha^{(i+1)} |\hat{H}| \alpha^{(i)} \rangle$ 来计算权重，设计算法。</p>
 </blockquote>
+<h2 id="mathcalz">配分函数空间 $\mathcal{Z}$<a class="headerlink" href="#mathcalz" title="Permanent link">&para;</a></h2>
 <p>对于世界线的 <strong>Worm</strong> 算法，其将虚时 $\beta$ 离散化为等分的 $N$ 段，即取小量 $\tau = \beta / N$, 再通过插入完备基矢量的方法可以将配分函数写为如下的积和式：
 $$
 \boxed{\mathcal{Z} = \sum_{\lbrace \alpha^{(i)} \rbrace} \prod_{i=0}^{N-1} \langle \alpha^{(i+1)} | e^{-\tau \hat{H}} | \alpha^{(i)} \rangle
@@ -1055,8 +1056,7 @@ $$
 $$
 其中 $\alpha^{(0)} $ 与 $ \alpha^{(N)}$ 为同一世界面，即原始求迹过程中 $e^{-
 \beta \hat{H}}$ 两边所夹的基矢量。求和符号下标 $\lbrace \alpha^{(i)} \rbrace$ 表示对于基矢量的序列求和，该序列包含从 $\alpha^{(0)} $ 到 $\alpha^{(N-1)} $ 共 $N$ 项。而 $W(\lbrace \alpha^{(i)} \rbrace)$ 记为序列的权重。</p>
-<h2 id="mathcalz">配分函数空间 $\mathcal{Z}$<a class="headerlink" href="#mathcalz" title="Permanent link">&para;</a></h2>
-<p>值得注意的是，尽管这里的求和遍历了序列 $\lbrace \alpha^{(i)} \rbrace$ 所有的可能性，但是有些可能性会使得连乘式当中出现值为 0 的项，从而导致整个序列对配分函数的权重不做贡献。而判断是否出现值为 0 的项，则需要分析哈密顿量的具体形式，并且通常取决于 hopping 的形式，具体分析如下。</p>
+<p>值得注意的是，尽管这里的求和遍历了序列 $\lbrace \alpha^{(i)} \rbrace$ 所有的可能性，但是有些可能性会使得连乘式当中出现值为 0 的项，从而导致整个序列对配分函数的权重不做贡献。而判断是否出现值为 0 的项，则需要分析哈密顿量的具体形式，并且通常取决于 hopping 等具体形式，具体分析如下。</p>
 <h3 id="_2">构型的权重<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p>对配分函数其中的一个重复单元有:
 $$
@@ -1098,7 +1098,7 @@ $$
 事实上，笔者更喜欢权重的离散化表示，因为在实际计算机进行模拟的时候，归根到底仍然是在处理离散的数组。从而后续的推导均采用离散的形式。</p>
 </blockquote>
 <h3 id="_3">几种常见的非对角项<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
-<p>现在我们知道，要想解析地写出权重表达式，计算非对角项矩阵元 $\langle \alpha^{(i+1)}|\hat{V} | \alpha^{(i)} \rangle$ 必不可少。
+<p>现在我们知道，要想解析地写出权重表达式 $W$，计算非对角项矩阵元 $\langle \alpha^{(i+1)}|\hat{V} | \alpha^{(i)} \rangle$ 必不可少。
 为了更加形象，我们举几个例子：</p>
 <p>(1) hopping 项 :
 $$\hat{V} = -t \sum_{\langle ij \rangle} \left(
@@ -1106,7 +1106,9 @@ $$\hat{V} = -t \sum_{\langle ij \rangle} \left(
 \right) $$
 上式表明，$\langle \alpha^{(i+1)} |\hat{V}|\alpha^{(i)} \rangle$ 项不为 0 即要求构型 $|\alpha^{(i+1)} \rangle$ 和 $|\alpha^{(i)} \rangle$ 之间相差一个最近邻的 hopping. </p>
 <blockquote>
-<p>严格来说，$e^{-\tau \hat{V}}$ 展开到一阶只能允许同一时刻发生一次最近邻的 hopping, 发生多次需要我们展开到更高阶重新写出权重。然而一方面在连续时间算法当中，世界面的数目 $N$ 取为 $10^8$ 量级，构型刚好出现同一时刻多次 hopping 的概率非常小；另一方面，即使考虑高阶项，我们不难发现当我们展开的 $n$ 阶的时候 $\frac{\hat{V}^n}{n!}$ 项正好对应于同一时刻发生 $n$ 次 hopping 的权重，这与我们独立地展开到一阶，在必要时（刚好更新到同一时刻出现多次改变的构型）让各项相乘得到的结果完全一致。</p>
+<p>严格来说，$e^{-\tau \hat{V}}$ 展开到一阶只能允许同一时刻发生一次最近邻的 hopping, 发生多次需要我们展开到更高阶重新写出权重。然而一方面在连续时间算法当中，世界面的数目 $N$ 取为 $10^8$ 量级，构型刚好出现同一时刻多次 hopping 的概率非常小；另一方面，即使考虑高阶项，我们不难发现当我们展开到 $n$ 阶的时候 $\frac{\hat{V}^n}{n!}$ 项正好对应于同一时刻发生 $n$ 次 hopping 的权重，这与我们独立地展开到一阶，在必要时（刚好更新到同一时刻出现多次改变的构型）让各项相乘得到的结果完全一致。即有如下的等式：
+$$ \frac{1}{n!}\langle \alpha^{(i+1)},n| \hat{V}^n | \alpha^{(i)}, 0\rangle =  \langle \alpha^{(i+1)},1| \hat{V} | \alpha^{(i)}, 0\rangle^n$$
+其中态 $|\alpha^{(i+1)},n\rangle$ 表示发生了 $n$ 个 hopping 的态。如上式考虑高阶项之后，系数 $\frac{1}{n!}$ 正好平均掉了多次作用 $\hat{V}$ 出现的相同的冗余项，不难发现其就等价于仅考虑一阶然后多次相乘的结果，如等号右边所示。</p>
 </blockquote>
 <p>考虑一个从格点 $i$ 跃迁到格点 $j$ 的过程贡献：
 $$
@@ -1161,7 +1163,7 @@ $$</p>
 $$ \langle \alpha^{(i(I)+1)}|\hat{b}_I e^{-\tau \hat{H}} | \alpha^{(i(I))} \rangle \rightarrow e^{-\tau H_0} \langle \alpha^{(i(I)+1)}|\hat{b}_I| \alpha^{(i(I))} \rangle $$
 其中 $i(I)$ 表示 $\tau_I$ 对应的虚时层数。类似地，也可以定义 $i(M)$. 严格来说，上式需要额外再加一层完备基矢量，然而由于同一虚时只发生一次改变的要求，故加的基矢量是没有自由度的，只能与 $|\alpha^{(i(I))} \rangle$ 相同才有贡献，即：
 $$ \langle \alpha^{(i(I)+1)}|\hat{b}_I | \alpha^{(i(I))} \rangle \langle \alpha^{(i(I))} |   e^{-\tau \hat{H}} | \alpha^{(i(I))} \rangle $$
-因此我们并不需要增加额外的标识。事实上，尽管发生了 $\hat{V}$ 项的贡献，我们稍微做修改：
+因此我们并不需要增加额外的标识，即世界面仍为 $N$ 个。事实上，尽管 $\hat{V}$ 项有贡献，我们稍微做修改：
 $$ \langle \alpha^{(i(I)+1)}|\hat{b}_I | \alpha^{(i(I)')} \rangle \langle \alpha^{(i(I)')} |   e^{-\tau \hat{H}} | \alpha^{(i(I))} \rangle $$
 即假设一个虚态 $|\alpha^{i(I)'}\rangle$ 作为中间过程，以此解决同时发生跃迁 $\hat{V}$ 以及缺陷 $\hat{b}_I$ 的作用。</p>
 </blockquote>
@@ -1199,95 +1201,121 @@ $$g(I,M,\tau_I,\tau_M) = {\rm Tr}[\mathcal{T} \hat{\sigma}_I^{x}(\tau_I) \hat{\s
 <p>为了尽可能少的占用内存，我们不可能将每个虚时的态都存下来，那样会占用 $O(N N_s)$ 的空间内存。为此，我们引入类 <code>segment</code> 用于存储量子态一致的一段世界线，包含了量子态、起始时刻、长度、发生跃迁和前后衔接的其他片段等等。从而，我们的空间内存可以减少到 $O(\beta N_s)$ 的量级。</p>
 <p>一般地，构型的更新在 $\mathcal{Z}_w = \mathcal{Z} + \omega_G\mathcal{G}$ 空间当中进行。然而有些模型，我们并不需要考虑配分函数空间 $\mathcal{G}$, 例如横场伊辛模型：</p>
 <p>$$
-\hat{H_0} = - t \sum_{\langle ij \rangle} \hat{\sigma}_i^z \hat{\sigma}_j^z \quad \hat{V} = \sum_i \hat{\sigma}_i^x 
+\hat{H_0} = - t \sum_{\langle ij \rangle} \hat{\sigma}_i^z \hat{\sigma}_j^z \quad \hat{V} = -h \sum_i \hat{\sigma}_i^x 
 $$</p>
-<p>对于这类模型，世界线上的某一格点上的态独立变化，并不依赖于其他格点，这是由于上述 $\hat{V}$ 的特殊形式导致的。因此我们并不需要引入两个缺陷（蠕虫），而是将发生改变的结点叫做 cut, 通过移动 cut 或者创建和删除新旧 cut 便可以遍历该世界线的所有构型。因此，有如下两种更新手段：</p>
+<p>对于这类模型，世界线上的某一格点上的态独立变化，并不依赖于其他格点，这是由于上述 $\hat{V}$ 的特殊形式导致的。因此我们并不需要引入两个缺陷（蠕虫），而是将发生改变的结点叫做 Cut, 通过移动 Cut 或者创建和删除新旧 Cut 便可以遍历该世界线的所有构型。因此，有如下两种更新手段：</p>
 <h3 id="shift-cut"><code>Shift Cut</code><a class="headerlink" href="#shift-cut" title="Permanent link">&para;</a></h3>
 <p><img alt="" src="../fig/shift_cut.png" /></p>
-<p>如图所示，当我们以概率 $p_{\rm shift}$ 触发该操作，我们首先在 $N_{\rm seg}$ 个世界线片段当中随机选中一个，如上图长度为 $L_a$ 的片段（若选取的片段为纯粹的圈，没有任何的 cut, 我们拒绝这次更新）。我们规定移动片段当中沿着虚时方向靠右的红色 cut, 为了确定移动的方向和距离，我们从相邻的两个 cut 组成的长度为 $L_a + L_b$ 的片段当中随机选择一个时刻，由于最短的虚时单位为 $\tau$, 因此细致平衡公式如下：</p>
+<p>如图所示，当我们以概率 $p_{\rm shift}$ 触发该操作，我们首先在 $N_{\rm seg}$ 个世界线片段当中随机选中一个，如上图长度为 $L_a$ 的片段（若选取的片段为纯粹的圈，没有任何的 Cut, 我们拒绝这次更新）。我们规定移动片段当中沿着虚时方向靠右的红色 Cut, 为了确定移动的方向和距离，我们从相邻的两个 Cut 组成的长度为 $L_a + L_b$ 的片段当中随机选择一个时刻，由于最短的虚时单位为 $\tau$, 因此细致平衡等式如下：</p>
 <p>$$
 W(\nu) \cdot \frac{p_{\rm shift}}{N_{\rm seg}} \cdot \frac{\tau}{L_a + L_b} \cdot P_{\rm acc}^{(\nu\rightarrow\nu')}  = W(\nu') \cdot \frac{p_{\rm shift}}{N_{\rm seg}} \cdot \frac{\tau}{L_a' + L_b'} \cdot P_{\rm acc}^{(\nu'\rightarrow\nu)}
 $$</p>
 <p>其中旧构型记为 $\nu$ 如图中上半所示，更新后的新构型记为 $\nu'$ 如图中下半所示。反过来，从新构型返回到旧构型，则需要在如图的长度为 $L_a' + L_b'$ 的片段当中选择。综上，我们得到该更新操作的接受概率如下：</p>
 <p>$$
 \boxed{P_{\rm acc}^{(\nu\rightarrow\nu')} = {\rm min} \left[1,  e^{{-\sum [H_0(\nu') - H_0(\nu)] \tau} }   \right]}
-$$</p>
+$$
+即我们只需计算更新前后的对角能量之差即可。</p>
 <h3 id="createdelete-segment"><code>Create/Delete Segment</code><a class="headerlink" href="#createdelete-segment" title="Permanent link">&para;</a></h3>
 <p><img alt="" src="../fig/cre_del_seg.png" /></p>
+<p>如图所示，我们以 $p_{\rm creseg}$ 的概率触发增加片段的更新之后，首先在 $N_{\rm seg}$ 个世界线片段当中随机选中一个，如图上半长度为 $L$ 的片段。之后，我们在其中随机选择如图下半的红蓝两点作为插入片段的起始点和终止点，注意由于红蓝两点前后的位置是等价的，因此抽到相同长度的概率要乘以因子2. 反之，删除片段则是选中之后直接删除。因此，细致平衡等式如下：</p>
 <p>$$
 W(\nu) \cdot p_{\rm cresg} \cdot \frac{1}{N_{\rm seg}} \cdot \frac{2 \tau^2}{L^2} \cdot P_{\rm acc}^{(\nu\rightarrow\nu')}  = W(\nu') \cdot p_{\rm delsg} \cdot \frac{1}{N_{\rm seg}'} \cdot P_{\rm acc}^{(\nu'\rightarrow\nu)}
 $$</p>
 <ul>
 <li><code>Create Segment</code></li>
 </ul>
+<p>对于增加片段的接受概率，我们可以解出为：</p>
 <p>$$
 \boxed{P_{\rm acc}^{(\nu\rightarrow\nu')} = {\rm min} \left[1, \frac{p_{\rm delsg}}{p_{\rm cresg}} \cdot \frac{N_{\rm seg}}{N_{\rm seg}'} \cdot \frac{L^2}{2}
 \cdot \langle \alpha^{(i(k)+1)}  |\hat{V}| \alpha^{i(k)} \rangle^2
 \cdot e^{{-\sum [H_0(\nu') - H_0(\nu)] \tau} }   \right]}
 $$</p>
-<p>$\langle \alpha^{(i(k)+1)}  |\hat{V}| \alpha^{i(k)} \rangle = -h$</p>
+<p>对于横场伊辛模型，其中 $\langle \alpha^{(i(k)+1)}  |\hat{V}| \alpha^{i(k)} \rangle = -h$, 以及注意由于构型权重 $W(\nu')$ 比 $W(\nu)$ 多了 $\tau^2$, 因此被同时约掉了。</p>
 <ul>
 <li><code>Delete Segment</code></li>
 </ul>
+<p>同理，我们可以得到删除一个片段的接受概率：</p>
 <p>$$
 \boxed{P_{\rm acc}^{(\nu'\rightarrow\nu)} = {\rm min} \left[1, \frac{p_{\rm cresg}}{p_{\rm delsg}} \cdot \frac{N_{\rm seg}'}{N_{\rm seg}} \cdot \frac{2}{L^2}
 \cdot \frac{1}{\langle \alpha^{(i(k)+1)}  |\hat{V}| \alpha^{i(k)} \rangle^2}
 \cdot e^{{-\sum [H_0(\nu) - H_0(\nu')] \tau} }   \right]}
 $$</p>
-<p>事实上，当我们</p>
-<p>下面，我们以 Bose-Hubbard 模型为例，对于存在 hopping 项的玻色格点系统，通常有如下三种更新，其中前两个分别指的是 Worm 在虚时方向移动以及在格点空间方向移动，第三个则是在 $\mathcal{Z}$ 空间与 $\mathcal{G}$ 空间当中转换。</p>
+<p>事实上，对于横场伊辛模型，我们也可以强行使用 Worm 算法进行更新，这需要我们将 Pauli 矩阵的基矢量变换为如下的形式：</p>
+<p>$$
+\hat{V} = - t \sum_{\langle ij \rangle} \hat{\sigma}_i^x \hat{\sigma}_j^x \quad \hat{H_0} = -h \sum_i \hat{\sigma}_i^z 
+$$</p>
+<p>从而利用 Holstein-Primakoff 变换可以将 $\hat{V}$ 变为硬核玻色子的 hopping 和 pairing 项，从而进行 Worm 更新。</p>
+<p>由于 pairing 项略显特殊，我们从仅含 hopping 项的 Bose-Hubbard 模型为例，展示构型在 $\mathcal{Z}_w$ 空间当中的更新。</p>
+<p>$$
+\hat{V} = -t \sum_{\langle ij \rangle} \left(
+   \hat{b}_i^\dagger \hat{b}_j + \hat{b}_j^\dagger \hat{b}_i
+\right) \quad \hat{H_0} = \frac{U}{2} \sum_i \hat{n}_i(\hat{n}_i - 1) - \mu \sum_i \hat{n}_i<br />
+$$</p>
+<p>如上式，对于存在 hopping 项的玻色格点系统，通常有如下三种更新，其中前两个分别指的是 Worm 在虚时方向移动以及在格点空间方向移动，第三个则是在 $\mathcal{Z}$ 空间与 $\mathcal{G}$ 空间当中转换。
+值得注意的是，为了算法的简洁性，我们通常固定 $\hat{b}^\dagger_M$ 而仅移动 $\hat{b}_I$ 进行更新。</p>
 <h3 id="shift-worm"><code>Shift Worm</code><a class="headerlink" href="#shift-worm" title="Permanent link">&para;</a></h3>
-<p>$\nu \rightarrow \nu'$</p>
 <p><img alt="" src="../fig/shift_worm.png" /></p>
+<p>如图所示，类似于更新 <code>Shift Cut</code> 的过程，这里不同的是更新是在 $\mathcal{G}$ 空间进行的，因此要考虑因子 $\omega_G$, 具体的细致平衡等式如下：</p>
 <p>$$
 \omega_G W_{\mathcal{G}} (\nu) \cdot p_{\rm shift} \cdot \frac{\tau}{L_a + L_b} \cdot P_{\rm acc}^{(\nu\rightarrow\nu')} = \omega_G W_{\mathcal{G}} (\nu') \cdot p_{\rm shift} \cdot \frac{\tau}{L_a' + L_b'} \cdot P_{\rm acc}^{(\nu'\rightarrow\nu)}
 $$</p>
+<p>我不难得到该更新的接受概率如下：</p>
 <p>$$
 \boxed{P_{\rm acc}^{(\nu\rightarrow\nu')} = {\rm min} \left[1,  e^{{-\sum [H_0(\nu') - H_0(\nu)] \tau} }   \right]}
 $$</p>
 <h3 id="createdelete-kink"><code>Create/Delete Kink</code><a class="headerlink" href="#createdelete-kink" title="Permanent link">&para;</a></h3>
-<p>Kink Before:</p>
+<p>除了上述 $\hat{b}_I$ 在虚时方向移动，还需使 $\hat{b}_I$ 在格点空间方向移动。最简单的做法是不改变 $\hat{b}_I$ 所在的虚实时刻，仅改变其空间方向的坐标。另一方面，考虑到湮灭算符的性质，我们需要将更新分成如下两类进行讨论，即更新之后的 hopping 在 $\hat{b}_I$ 之前还是在之后的问题（沿着虚时方向）。这里的 hopping 也可以称为 Kink, 表示两格点之间态的一种改变。</p>
 <p><img alt="" src="../fig/cre_del_kink_b.png" /></p>
+<p>如图所示，从上到下，沿着虚时方向，更新后的 Kink 在 $\hat{b}<em _rm="\rm" crekb="crekb">I$ 之前，因此世界线呈现图中的结构。首先，我们以 $p</em>_I$ 归到原位即可。由此，细致平衡等式如下：}$ 的概率选中该更新，之后在 $\hat{b}_I$ 所处格点的最近邻的格点中选取其一，组成图中上半的两条世界线，并假设被选中的格点上的世界线对应位置的粒子数为 $n$. 之后我们将 $\hat{b}_I$ 移动到选中的世界线上面，如下半图。然后抽取如图长度为 $L_a$ 片段中的一个点作为 Kink 发生的虚时时刻，根据产生湮灭算符的基本规则，不难标出上图的粒子数。其中 $n_I$ 表示旧构型当中 $\hat{b}_I$ 之前的粒子数，而 $n_I'$ 表示新构型当中 $\hat{b}_I$ 之前的粒子数。反之，若要删除一个 Kink, 只需沿着 $\hat{b}_I$ 之前的 Kink 方向，将 $\hat{b</p>
 <p>$$
 \omega_G W_{\mathcal{G}} (\nu) \cdot p_{\rm crekb} \cdot \frac{1}{z} \cdot \frac{\tau}{L_a} \cdot P_{\rm acc}^{(\nu\rightarrow\nu')} = \omega_G W_{\mathcal{G}} (\nu') \cdot p_{\rm delkb} \cdot P_{\rm acc}^{(\nu'\rightarrow\nu)}
-$$</p>
+$$
+其中配位数也是最近邻格点数为 $z$, 注意权重当中 worm head 的权重以及 Kink 的权重都要考虑到，从而得出增加 Kink 的接受概率和删除 Kink 的接受概率如下：</p>
 <ul>
 <li><code>Create Kink Before</code></li>
 </ul>
 <p>$$
 \boxed{P_{\rm acc}^{(\nu\rightarrow\nu')} = {\rm min} \left[1,  \frac{p_{\rm delkb}}{p_{\rm crekb}} \cdot z L_a \cdot \frac{\sqrt{n_I'(n_M'+1)}}{\sqrt{n_I(n_M+1)}} \cdot [- \langle \alpha^{(i(k)+1)}  |\hat{V}| \alpha^{i(k)} \rangle]  \cdot e^{{-\sum [H_0(\nu') - H_0(\nu)] \tau} }   \right]}
 $$</p>
-<p>$\langle \alpha^{(i(k)+1)}  |\hat{V}| \alpha^{i(k)} \rangle = - t\sqrt{n_I n_I'}$</p>
+<p>对于 Bose-Hubbard 模型有
+$\langle \alpha^{(i(k)+1)}  |\hat{V}| \alpha^{i(k)} \rangle = - t\sqrt{n_I n_I'}$. 事实上，由于我们固定 $\hat{b}_M^\dagger$ 不动，$n_M = n_M'$, 从而 worm head 和 kink 的权重综合起来的贡献为 $t n_I' = t (n+1)$.</p>
 <ul>
 <li><code>Delete Kink Before</code></li>
 </ul>
 <p>$$
 \boxed{P_{\rm acc}^{(\nu'\rightarrow\nu)} = {\rm min} \left[1, \frac{p_{\rm crekb}}{p_{\rm delkb}} \cdot \frac{1}{z L_a} \cdot \frac{\sqrt{n_I(n_M+1)}}{\sqrt{n_I'(n_M'+1)}} \cdot \frac{-1}{\langle \alpha^{(i(k)+1)}  |\hat{V}| \alpha^{i(k)} \rangle} \cdot e^{{-\sum [H_0(\nu) - H_0(\nu')] \tau} }   \right]}
-$$</p>
-<p>Kink After:</p>
+$$
+对于删去操作，worm head 和 Kink 的权重综合起来的贡献为 $\frac{1}{t n_I'} = \frac{1}{t (n+1)}$.</p>
 <p><img alt="" src="../fig/cre_del_kink_a.png" /></p>
+<p>如图所示，当 Kink 发生在 $\hat{b}_I$ 之后，步骤类似，只不过我们需要在如图的长度为 $L_b$ 的片段当中选择 Kink 发生的虚时时刻，并且注意根据湮灭算符的效果将世界线上的粒子数写出正确的关系。从而有类似的细致平衡的等式：</p>
 <p>$$
 \omega_G W_{\mathcal{G}} (\nu) \cdot p_{\rm creka} \cdot \frac{1}{z} \cdot \frac{\tau}{L_b} \cdot P_{\rm acc}^{(\nu\rightarrow\nu')} = \omega_G W_{\mathcal{G}} (\nu') \cdot p_{\rm delka} \cdot P_{\rm acc}^{(\nu'\rightarrow\nu)}
 $$</p>
+<p>以及增加和删除的接受概率：</p>
 <ul>
 <li><code>Create Kink After</code></li>
 </ul>
 <p>$$
 \boxed{P_{\rm acc}^{(\nu\rightarrow\nu')} = {\rm min} \left[1,  \frac{p_{\rm delka}}{p_{\rm creka}} \cdot z L_b \cdot \frac{\sqrt{n_I'(n_M'+1)}}{\sqrt{n_I(n_M+1)}} \cdot [- \langle \alpha^{(i(k)+1)}  |\hat{V}| \alpha^{i(k)} \rangle] \cdot e^{{-\sum [H_0(\nu') - H_0(\nu)] \tau} }   \right]}
-$$</p>
+$$
+对于这里的增加操作，worm head 和 Kink 的权重综合起来的贡献为 $t n_I' = t n$.</p>
 <ul>
 <li><code>Delete Kink After</code></li>
 </ul>
 <p>$$
 \boxed{P_{\rm acc}^{(\nu'\rightarrow\nu)} = {\rm min} \left[1, \frac{p_{\rm creka}}{p_{\rm delka}} \cdot \frac{1}{z L_b} \cdot \frac{\sqrt{n_I(n_M+1)}}{\sqrt{n_I'(n_M'+1)}} \cdot \frac{-1}{\langle \alpha^{(i(k)+1)}  |\hat{V}| \alpha^{i(k)} \rangle} \cdot e^{{-\sum [H_0(\nu) - H_0(\nu')] \tau} }   \right]}
-$$</p>
+$$
+对于这里的删去操作，worm head 和 Kink 的权重综合起来的贡献为 $\frac{1}{t n_I'} = \frac{1}{t n}$.</p>
 <h3 id="createdelete-worm"><code>Create/Delete Worm</code><a class="headerlink" href="#createdelete-worm" title="Permanent link">&para;</a></h3>
-<p>非圈的情况：</p>
+<p>最后，对于 $\mathcal{Z}$ 空间和 $\mathcal{G}$ 之间的转换，情况略微复杂一些。若处于 $\mathcal{G}$ 空间当中，则以 $p_{\rm delw}$ 的概率选中删除 Worm 的操作，并判断 $\hat{b}_I$ 和 $\hat{b}_M^\dagger$ 是否在一个片段的两端，若满足则删除 Worm.</p>
+<p>当构型属于 $\mathcal{Z}$ 空间时，以 $p_{\rm crew}$ 的概率尝试产生 Worm, 通常设 $p_{\rm crew} = 1$. 首先从 $N_{\rm seg}$ 个片段中随机选择其中之一，若片段为非圈的情况，此时如下两图，在其长度 $L$ 当中抽出两个时刻作为 $\hat{b}_I$ 和 $\hat{b}_M^\dagger$ 的时间位置，并且它们之间的前后位置产生的效果略有不同，如下两图所示：</p>
 <p><img alt="" src="../fig/cre_del_worm_1.png" /></p>
 <p><img alt="" src="../fig/cre_del_worm_2.png" /></p>
+<p>但我们据此可以写出统一的细致平衡等式：</p>
 <p>$$
 W (\nu) \cdot p_{\rm crew} \cdot \frac{1}{N_{\rm seg}}  \frac{\tau^2}{L^2} \cdot P_{\rm acc}^{(\nu\rightarrow\nu')} = \omega_G W_{\mathcal{G}} (\nu') \cdot p_{\rm delw} \cdot P_{\rm acc}^{(\nu'\rightarrow\nu)}
 $$</p>
+<p>不难得出创建和删除 Worm 的接受概率分别为：</p>
 <ul>
 <li><code>Create Worm</code></li>
 </ul>
@@ -1302,14 +1330,17 @@ $$</p>
 \boxed{P_{\rm acc}^{(\nu'\rightarrow\nu)} = {\rm min} \left[1, \frac{p_{\rm crew}}{p_{\rm delw}} \frac{1}{N_{\rm seg}} \frac{1}{\omega_G} \frac{1}{\sqrt{n_I (n_M + 1)}} \frac{1}{L^2} e^{{-\sum [H_0(\nu) - H_0(\nu')] \tau} }   \right]
 }
 $$</p>
-<p>圈的情况：</p>
+<p>若抽到的片段为圈的情况，则更新如下图所示：</p>
 <p><img alt="" src="../fig/loop_cre_del_worm.png" /></p>
-<p>$$
+<p>我们需要以 $\frac{1}{2}$ 的概率选择如图的粒子分配情况；反之，删除 Worm 时，我们依然有 $\frac{1}{2}$ 的概率选择不同的情况，因此细致平衡等式写为：
+$$
 W (\nu) \cdot p_{\rm crew} \cdot \frac{1}{N_{\rm seg}}  \frac{1}{2} \frac{\tau^2}{L^2} \cdot P_{\rm acc}^{(\nu\rightarrow\nu')} = \omega_G W_{\mathcal{G}} (\nu') \cdot p_{\rm delw} \cdot \frac{1}{2}\cdot P_{\rm acc}^{(\nu'\rightarrow\nu)}
 $$</p>
+<p>可见，$\frac{1}{2}$ 相互约掉，接受概率不变。但在算法实现上面，需要进行上图的操作和判断。</p>
 <h2 id="_5">补充<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <ul>
-<li>为了增加接受概率，我们也可以对于 <code>Shift Worm</code> 等操作当中的虚时移动距离进行限制，使得不至于由于抽出很大的虚时上态的变动导致接受概率变小。</li>
+<li>为了增加接受概率，我们通常取 $\omega_G = \frac{1}{\beta N_s} \approx \frac{1}{N_{\rm seg}}$, 从而保证接受概率在一个合理的区间。
+另外，我们也可以对于 <code>Shift Worm</code> 等操作当中的虚时移动距离进行限制，使得不至于由于抽出很大的虚时上态的变动导致接受概率变小。</li>
 </ul>
 
 
