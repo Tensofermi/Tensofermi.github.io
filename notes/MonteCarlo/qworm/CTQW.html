@@ -1265,8 +1265,9 @@ $$</p>
 $$</p>
 <h3 id="createdelete-kink"><code>Create/Delete Kink</code><a class="headerlink" href="#createdelete-kink" title="Permanent link">&para;</a></h3>
 <p>除了上述 $\hat{b}_I$ 在虚时方向移动，还需使 $\hat{b}_I$ 在格点空间方向移动。最简单的做法是不改变 $\hat{b}_I$ 所在的虚实时刻，仅改变其空间方向的坐标。另一方面，考虑到湮灭算符的性质，我们需要将更新分成如下两类进行讨论，即更新之后的 hopping 在 $\hat{b}_I$ 之前还是在之后的问题（沿着虚时方向）。这里的 hopping 也可以称为 Kink, 表示两格点之间态的一种改变。</p>
+<p>如下图所示，沿着虚时方向，更新后的 Kink 在 $\hat{b}_I$ 之前。因此世界线呈现图中的结构。</p>
 <p><img alt="" src="../fig/cre_del_kink_b.png" /></p>
-<p>如图所示，从上到下，沿着虚时方向，更新后的 Kink 在 $\hat{b}<em _rm="\rm" crekb="crekb">I$ 之前，因此世界线呈现图中的结构。首先，我们以 $p</em>_I$ 归到原位即可。由此，细致平衡等式如下：}$ 的概率选中该更新，之后在 $\hat{b}_I$ 所处格点的最近邻的格点中选取其一，组成图中上半的两条世界线，并假设被选中的格点上的世界线对应位置的粒子数为 $n$. 之后我们将 $\hat{b}_I$ 移动到选中的世界线上面，如下半图。然后抽取如图长度为 $L_a$ 片段中的一个点作为 Kink 发生的虚时时刻，根据产生湮灭算符的基本规则，不难标出上图的粒子数。其中 $n_I$ 表示旧构型当中 $\hat{b}_I$ 之前的粒子数，而 $n_I'$ 表示新构型当中 $\hat{b}_I$ 之前的粒子数。反之，若要删除一个 Kink, 只需沿着 $\hat{b}_I$ 之前的 Kink 方向，将 $\hat{b</p>
+<p>首先，我们以 $p_{\rm crekb}$ 的概率选中该更新，之后在 $\hat{b}_I$ 所处格点的最近邻的格点中选取其一，组成图中上半的两条世界线，并假设被选中的格点上的世界线对应位置的粒子数为 $n$. 之后我们将 $\hat{b}_I$ 移动到选中的世界线上面，如下半图。然后抽取如图长度为 $L_a$ 片段中的一个点作为 Kink 发生的虚时时刻，根据产生湮灭算符的基本规则，不难标出上图的粒子数。其中 $n_I$ 表示旧构型当中 $\hat{b}_I$ 之前的粒子数，而 $n_I'$ 表示新构型当中 $\hat{b}_I$ 之前的粒子数。反之，若要删除一个 Kink, 只需沿着 $\hat{b}_I$ 之前的 Kink 方向，将 $\hat{b}_I$ 归到原位即可。由此，细致平衡等式如下：</p>
 <p>$$
 \omega_G W_{\mathcal{G}} (\nu) \cdot p_{\rm crekb} \cdot \frac{1}{z} \cdot \frac{\tau}{L_a} \cdot P_{\rm acc}^{(\nu\rightarrow\nu')} = \omega_G W_{\mathcal{G}} (\nu') \cdot p_{\rm delkb} \cdot P_{\rm acc}^{(\nu'\rightarrow\nu)}
 $$
@@ -1286,8 +1287,8 @@ $\langle \alpha^{(i(k)+1)}  |\hat{V}| \alpha^{i(k)} \rangle = - t\sqrt{n_I n_I'}
 \boxed{P_{\rm acc}^{(\nu'\rightarrow\nu)} = {\rm min} \left[1, \frac{p_{\rm crekb}}{p_{\rm delkb}} \cdot \frac{1}{z L_a} \cdot \frac{\sqrt{n_I(n_M+1)}}{\sqrt{n_I'(n_M'+1)}} \cdot \frac{-1}{\langle \alpha^{(i(k)+1)}  |\hat{V}| \alpha^{i(k)} \rangle} \cdot e^{{-\sum [H_0(\nu) - H_0(\nu')] \tau} }   \right]}
 $$
 对于删去操作，worm head 和 Kink 的权重综合起来的贡献为 $\frac{1}{t n_I'} = \frac{1}{t (n+1)}$.</p>
-<p><img alt="" src="../fig/cre_del_kink_a.png" /></p>
 <p>如图所示，当 Kink 发生在 $\hat{b}_I$ 之后，步骤类似，只不过我们需要在如图的长度为 $L_b$ 的片段当中选择 Kink 发生的虚时时刻，并且注意根据湮灭算符的效果将世界线上的粒子数写出正确的关系。从而有类似的细致平衡的等式：</p>
+<p><img alt="" src="../fig/cre_del_kink_a.png" /></p>
 <p>$$
 \omega_G W_{\mathcal{G}} (\nu) \cdot p_{\rm creka} \cdot \frac{1}{z} \cdot \frac{\tau}{L_b} \cdot P_{\rm acc}^{(\nu\rightarrow\nu')} = \omega_G W_{\mathcal{G}} (\nu') \cdot p_{\rm delka} \cdot P_{\rm acc}^{(\nu'\rightarrow\nu)}
 $$</p>
