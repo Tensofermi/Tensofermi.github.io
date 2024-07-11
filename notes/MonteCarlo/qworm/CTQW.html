@@ -1066,7 +1066,7 @@ e^{-\tau H_0} \langle \alpha^{(i+1)} | {\bf 1} - \tau \hat{V}| \alpha^{(i)}\rang
 $$
 其中 $\boxed{\hat{H} = \hat{H}_0 + \hat{V}}$ , 前者为所选基矢量下的对角项，后者是非对角项。第一个近似利用到了 Trotter 分解，即：</p>
 <p>$$e^{-\tau\hat{H}} = e^{-\tau\hat{H}_0} e^{-\tau\hat{V}} + \mathcal{O}(\tau^2)\approx e^{-\tau\hat{H}_0} e^{-\tau\hat{V}}$$</p>
-<p>第二个近似是根据 $\tau$ 为小量而进行的泰勒展开，并展开到1阶 (也可以展开到高阶，但高阶一般都会忽略掉)。</p>
+<p>第二个近似是根据 $\tau$ 为小量而进行的泰勒展开，并展开到1阶。事实上，也可以展开到高阶，但一方面高阶小量一般都会忽略掉；另一方面，通过推导不难发现这与仅考虑一阶的效果是等价的。这一点在后面的具体例子当中会详细解释。</p>
 <blockquote>
 <p>注意，上式当中的 $H_0$ 若不含虚数，表示的是 $\langle \alpha^{(i+1)}|$ 的对角能量，因为 $\langle \alpha^{(i+1)}| e^{-\tau \hat{H}_0} = e^{-\tau H_0} \langle \alpha^{(i+1)}|$. 但实际上由于世界线都是圈，故无论是 $\langle \alpha^{(i+1)}|$ 还是 $|\alpha^{(i)}\rangle$ 的对角能量，经过最终的求和都会得到相同的总的对角能量。</p>
 </blockquote>
@@ -1080,7 +1080,7 @@ $$
 $$
 \boxed{W(\lbrace \alpha^{(i)} \rbrace) \approx W(\mathcal{K},i(k),\lbrace \alpha^{(i(k))} \rbrace) = (-\tau)^{\mathcal{K}} \prod_{k = 0}^{\mathcal{K}-1}\langle \alpha^{(i(k)+1)}|\hat{V} | \alpha^{(i(k))} \rangle \exp \left({-\sum_{i=0}^{N-1} H_0^{(i)} \tau} \right)}
 $$
-其中 $i(k)$ 表示第 $k$ 个发生改变的虚时层数。对于 $\mathcal{K} \geq 2$ 情况下，$\lbrace \alpha^{(i(k))} \rbrace$ 表示发生改变前的 $\mathcal{K}$ 个态组成的序列; $\mathcal{K} = 0$ 时，仅表示一个态组成的序列；而 $\mathcal{K} = 1$ 通常不可能发生。相比原始形式的求和，上述形式的权重相当于将序列根据发生改变次数进行分类，关系如下：
+其中 $i(k)$ 表示第 $k+1$ 个发生改变的虚时层数。对于 $\mathcal{K} \geq 2$ 情况下，$\lbrace \alpha^{(i(k))} \rbrace$ 表示发生改变前的 $\mathcal{K}$ 个态组成的序列； $\mathcal{K} = 0$ 时，世界线上的态均一致，不会发生变化，因此仅表示一个态组成的序列；而 $\mathcal{K} = 1$ 通常不可能发生，这是因为改变一次态之后，需要至少再改变一次才能回到初态，满足世界线为圈的要求。相比原始形式的求和，上述形式的权重相当于将序列根据发生改变次数进行分类，关系如下：
 $$
 \sum_{\lbrace \alpha^{(i)} \rbrace} W(\lbrace \alpha^{(i)} \rbrace) \rightarrow \sum_{\mathcal{K}=0}^{\infty}  \sum_{i(0) = 0}^{N-1} \sum_{i(1) = i(0)}^{N-1} \cdots \sum_{i(\mathcal{K}-1)=i(\mathcal{K}-2)}^{N-1} \sum_{\lbrace \alpha^{(i(k))} \rbrace } W(\mathcal{K},i(k),\lbrace \alpha^{(i)} \rbrace) 
 $$
@@ -1091,7 +1091,7 @@ $$
 $$
 W(\mathcal{K},\tau(k),\lbrace \alpha(\tau(k)) \rbrace) = (-d\tau)^{\mathcal{K}} \prod_{k=0}^{\mathcal{K}-1}\langle \alpha({\tau}(k) + d\tau)|\hat{V} | \alpha({\tau}(k)) \rangle \exp \left({-\int_{0}^{\beta} H_0(\tau') d\tau'} \right)
 $$
-其中 $\tau(k)$ 表示第 $k$ 个发生改变的虚时时刻。 总的来说，可将配分函数写为如下的求和形式：
+其中 $\tau(k)$ 表示第 $k+1$ 个发生改变的虚时时刻。 总的来说，可将配分函数写为如下的求和形式：
 $$
 \sum_{\mathcal{K}=0}^{\infty}  \int_{0}^\beta \int_{\tau(0)}^\beta \cdots \int_{\tau(\mathcal{K}-2)}^\beta \sum_{\lbrace \alpha(\tau(k)) \rbrace} W(\mathcal{K},\tau(k),\lbrace \alpha(\tau(k)) \rbrace) 
 $$
@@ -1106,7 +1106,7 @@ $$\hat{V} = -t \sum_{\langle ij \rangle} \left(
 \right) $$
 上式表明，$\langle \alpha^{(i+1)} |\hat{V}|\alpha^{(i)} \rangle$ 项不为 0 即要求构型 $|\alpha^{(i+1)} \rangle$ 和 $|\alpha^{(i)} \rangle$ 之间相差一个最近邻的 hopping. </p>
 <blockquote>
-<p>严格来说，$e^{-\tau \hat{V}}$ 展开到一阶只能允许同一时刻发生一次最近邻的 hopping, 发生多次需要我们展开到更高阶重新写出权重，重新设计算法。然而一方面在连续时间算法当中，世界面的数目 $N$ 取为 $10^8$ 量级，构型刚好出现同一时刻多次 hopping 的概率非常小；另一方面，考虑高阶会使得程序复杂，效率降低，因而暂时不考虑高阶展开。</p>
+<p>严格来说，$e^{-\tau \hat{V}}$ 展开到一阶只能允许同一时刻发生一次最近邻的 hopping, 发生多次需要我们展开到更高阶重新写出权重。然而一方面在连续时间算法当中，世界面的数目 $N$ 取为 $10^8$ 量级，构型刚好出现同一时刻多次 hopping 的概率非常小；另一方面，即使考虑高阶项，我们不难发现当我们展开的 $n$ 阶的时候 $\frac{\hat{V}^n}{n!}$ 项正好对应于同一时刻发生 $n$ 次 hopping 的权重，这与我们独立地展开到一阶，在必要时（刚好更新到同一时刻出现多次改变的构型）让各项相乘得到的结果完全一致。</p>
 </blockquote>
 <p>考虑一个从格点 $i$ 跃迁到格点 $j$ 的过程贡献：
 $$
@@ -1161,7 +1161,9 @@ $$</p>
 $$ \langle \alpha^{(i(I)+1)}|\hat{b}_I e^{-\tau \hat{H}} | \alpha^{(i(I))} \rangle \rightarrow e^{-\tau H_0} \langle \alpha^{(i(I)+1)}|\hat{b}_I| \alpha^{(i(I))} \rangle $$
 其中 $i(I)$ 表示 $\tau_I$ 对应的虚时层数。类似地，也可以定义 $i(M)$. 严格来说，上式需要额外再加一层完备基矢量，然而由于同一虚时只发生一次改变的要求，故加的基矢量是没有自由度的，只能与 $|\alpha^{(i(I))} \rangle$ 相同才有贡献，即：
 $$ \langle \alpha^{(i(I)+1)}|\hat{b}_I | \alpha^{(i(I))} \rangle \langle \alpha^{(i(I))} |   e^{-\tau \hat{H}} | \alpha^{(i(I))} \rangle $$
-因此我们并不需要增加额外的标识。</p>
+因此我们并不需要增加额外的标识。事实上，尽管发生了 $\hat{V}$ 项的贡献，我们稍微做修改：
+$$ \langle \alpha^{(i(I)+1)}|\hat{b}_I | \alpha^{(i(I)')} \rangle \langle \alpha^{(i(I)')} |   e^{-\tau \hat{H}} | \alpha^{(i(I))} \rangle $$
+即假设一个虚态 $|\alpha^{i(I)'}\rangle$ 作为中间过程，以此解决同时发生跃迁 $\hat{V}$ 以及缺陷 $\hat{b}_I$ 的作用。</p>
 </blockquote>
 <p>为了写出权重的显式，利用上面的技巧以及前面的做法，我们先写出函数 $g$ 的展开形式：
 $$
@@ -1177,7 +1179,7 @@ $$
 $$
 \mathcal{G} = \sum_{p_I,p_M = 0 ~(p_I\neq p_I)}^{N-1} \sum_{I,M=0}^{N_s-1} g(I,M,p_I\tau,p_M\tau) \tau^2 = \sum_{p_I,p_M = 0 ~(p_I\neq p_I)}^{N-1} \sum_{I,M=0}^{N_s-1} W_{\mathcal{G}}
 $$
-即对两缺陷处于时空的所有可能情况进行求和，注意除去处于同一虚时时刻的情况。这里 $N_s$ 表示一个世界面当中的格点数目，$N$ 表示世界面的个数。变量 $p_I,p_M$ 表示虚时层数的标号，注意需要在求和时添加虚时最小间隔 $\tau^2$, 对应到连续化后的 $\int_0^\beta \int_0^\beta d\tau_I d\tau_M$ 当中的 $d\tau_I d\tau_M$. </p>
+即对两缺陷处于时空的所有可能情况进行求和，注意除去处于同一虚时时刻的情况，因为两缺陷完全在一个时空位置相当于回到了配分函数空间 $\mathcal{Z}$, 只不过相差一个系数而已。这里 $N_s$ 表示一个世界面当中的格点数目，$N$ 表示世界面的个数。变量 $p_I,p_M$ 表示虚时层数的标号，注意需要在求和时添加虚时最小间隔 $\tau^2$, 对应到连续化后的 $\int_0^\beta \int_0^\beta d\tau_I d\tau_M$ 当中的 $d\tau_I d\tau_M$. </p>
 <blockquote>
 <p>这里似乎会有疑问，相比配分函数空间权重当中的 $\tau^{\mathcal{K}}$, 这里的 $\tau^2$ 似乎是额外添加的。事实上，这是因为配分函数本身就是一个数字，已经包含了完整的求和变量等；而这里拓展的格林函数空间并没有完整的求和变量，而且函数 $g$ 的求迹过程并不包含对两个缺陷的时空坐标的求和，需要外部添加才行。另一方面，对格点求和，由于间隔为 1, 故不需要添加求和变量；而对虚时的求和，随着 $N$ 不断增大，虚时的划分越来越精细，如果直接求和必然无法收敛，肯定要添加求和变量 $\tau^2$ 使得函数收敛。这一点在连续化时间之后很好理解，但在离散化形式下确实需要洞察力。</p>
 </blockquote>
@@ -1195,15 +1197,18 @@ $$g(I,M,\tau_I,\tau_M) = {\rm Tr}[\mathcal{T} \hat{\sigma}_I^{x}(\tau_I) \hat{\s
 </blockquote>
 <h2 id="_4">构型的更新<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>为了尽可能少的占用内存，我们不可能将每个虚时的态都存下来，那样会占用 $O(N N_s)$ 的空间内存。为此，我们引入类 <code>segment</code> 用于存储量子态一致的一段世界线，包含了量子态、起始时刻、长度、发生跃迁和前后衔接的其他片段等等。从而，我们的空间内存可以减少到 $O(\beta N_s)$ 的量级。</p>
-<p>构型的更新在 $\mathcal{Z}_w$ 空间当中进行。然而有些模型，我们并不需要考虑配分函数空间 $\mathcal{G}$, 例如横场伊辛模型：</p>
+<p>一般地，构型的更新在 $\mathcal{Z}_w = \mathcal{Z} + \omega_G\mathcal{G}$ 空间当中进行。然而有些模型，我们并不需要考虑配分函数空间 $\mathcal{G}$, 例如横场伊辛模型：</p>
 <p>$$
 \hat{H_0} = - t \sum_{\langle ij \rangle} \hat{\sigma}_i^z \hat{\sigma}_j^z \quad \hat{V} = \sum_i \hat{\sigma}_i^x 
 $$</p>
+<p>对于这类模型，世界线上的某一格点上的态独立变化，并不依赖于其他格点，这是由于上述 $\hat{V}$ 的特殊形式导致的。因此我们并不需要引入两个缺陷（蠕虫），而是将发生改变的结点叫做 cut, 通过移动 cut 或者创建和删除新旧 cut 便可以遍历该世界线的所有构型。因此，有如下两种更新手段：</p>
 <h3 id="shift-cut"><code>Shift Cut</code><a class="headerlink" href="#shift-cut" title="Permanent link">&para;</a></h3>
 <p><img alt="" src="../fig/shift_cut.png" /></p>
+<p>如图所示，当我们以概率 $p_{\rm shift}$ 触发该操作，我们首先在 $N_{\rm seg}$ 个世界线片段当中随机选中一个，如上图长度为 $L_a$ 的片段（若选取的片段为纯粹的圈，没有任何的 cut, 我们拒绝这次更新）。我们规定移动片段当中沿着虚时方向靠右的红色 cut, 为了确定移动的方向和距离，我们从相邻的两个 cut 组成的长度为 $L_a + L_b$ 的片段当中随机选择一个时刻，由于最短的虚时单位为 $\tau$, 因此细致平衡公式如下：</p>
 <p>$$
 W(\nu) \cdot \frac{p_{\rm shift}}{N_{\rm seg}} \cdot \frac{\tau}{L_a + L_b} \cdot P_{\rm acc}^{(\nu\rightarrow\nu')}  = W(\nu') \cdot \frac{p_{\rm shift}}{N_{\rm seg}} \cdot \frac{\tau}{L_a' + L_b'} \cdot P_{\rm acc}^{(\nu'\rightarrow\nu)}
 $$</p>
+<p>其中旧构型记为 $\nu$ 如图中上半所示，更新后的新构型记为 $\nu'$ 如图中下半所示。反过来，从新构型返回到旧构型，则需要在如图的长度为 $L_a' + L_b'$ 的片段当中选择。综上，我们得到该更新操作的接受概率如下：</p>
 <p>$$
 \boxed{P_{\rm acc}^{(\nu\rightarrow\nu')} = {\rm min} \left[1,  e^{{-\sum [H_0(\nu') - H_0(\nu)] \tau} }   \right]}
 $$</p>
