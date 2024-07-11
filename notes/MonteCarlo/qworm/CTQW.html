@@ -1240,6 +1240,10 @@ $$</p>
 \cdot \frac{1}{\langle \alpha^{(i(k)+1)}  |\hat{V}| \alpha^{i(k)} \rangle^2}
 \cdot e^{{-\sum [H_0(\nu) - H_0(\nu')] \tau} }   \right]}
 $$</p>
+<p>通常，我们将概率设为满足如下等式的值：
+$$
+p_{\rm cresg} + p_{\rm delsg} + p_{\rm shift} = 1 \quad \quad p_{\rm cresg} + p_{\rm delsg} = p_{\rm shift}
+$$</p>
 <p>事实上，对于横场伊辛模型，我们也可以强行使用 Worm 算法进行更新，这需要我们将 Pauli 矩阵的基矢量变换为如下的形式：</p>
 <p>$$
 \hat{V} = - t \sum_{\langle ij \rangle} \hat{\sigma}_i^x \hat{\sigma}_j^x \quad \hat{H_0} = -h \sum_i \hat{\sigma}_i^z 
@@ -1287,9 +1291,10 @@ $\langle \alpha^{(i(k)+1)}  |\hat{V}| \alpha^{i(k)} \rangle = - t\sqrt{n_I n_I'}
 \boxed{P_{\rm acc}^{(\nu'\rightarrow\nu)} = {\rm min} \left[1, \frac{p_{\rm crekb}}{p_{\rm delkb}} \cdot \frac{1}{z L_a} \cdot \frac{\sqrt{n_I(n_M+1)}}{\sqrt{n_I'(n_M'+1)}} \cdot \frac{-1}{\langle \alpha^{(i(k)+1)}  |\hat{V}| \alpha^{i(k)} \rangle} \cdot e^{{-\sum [H_0(\nu) - H_0(\nu')] \tau} }   \right]}
 $$
 对于删去操作，worm head 和 Kink 的权重综合起来的贡献为 $\frac{1}{t n_I'} = \frac{1}{t (n+1)}$.</p>
-<p>如图所示，当 Kink 发生在 $\hat{b}_I$ 之后，步骤类似，只不过我们需要在如图的长度为 $L_b$ 的片段当中选择 Kink 发生的虚时时刻，并且注意根据湮灭算符的效果将世界线上的粒子数写出正确的关系。从而有类似的细致平衡的等式：</p>
+<p>如图所示，当 Kink 发生在 $\hat{b}_I$ 之后，步骤类似，只不过我们需要在如图的长度为 $L_b$ 的片段当中选择 Kink 发生的虚时时刻，并且注意根据湮灭算符的效果将世界线上的粒子数写出正确的关系。</p>
 <p><img alt="" src="../fig/cre_del_kink_a.png" /></p>
-<p>$$
+<p>从而有类似的细致平衡的等式：
+$$
 \omega_G W_{\mathcal{G}} (\nu) \cdot p_{\rm creka} \cdot \frac{1}{z} \cdot \frac{\tau}{L_b} \cdot P_{\rm acc}^{(\nu\rightarrow\nu')} = \omega_G W_{\mathcal{G}} (\nu') \cdot p_{\rm delka} \cdot P_{\rm acc}^{(\nu'\rightarrow\nu)}
 $$</p>
 <p>以及增加和删除的接受概率：</p>
@@ -1338,11 +1343,16 @@ $$
 W (\nu) \cdot p_{\rm crew} \cdot \frac{1}{N_{\rm seg}}  \frac{1}{2} \frac{\tau^2}{L^2} \cdot P_{\rm acc}^{(\nu\rightarrow\nu')} = \omega_G W_{\mathcal{G}} (\nu') \cdot p_{\rm delw} \cdot \frac{1}{2}\cdot P_{\rm acc}^{(\nu'\rightarrow\nu)}
 $$</p>
 <p>可见，$\frac{1}{2}$ 相互约掉，接受概率不变。但在算法实现上面，需要进行上图的操作和判断。</p>
+<p>通常，我们将概率设为满足如下等式的值：
+$$
+p_{\rm shift} + p_{\rm crek} + p_{\rm delk} + p_{\rm delw} = 1 \quad \quad p_{\rm crek} + p_{\rm delk} = p_{\rm shift} = p_{\rm delw}
+$$</p>
+<p>$$
+p_{\rm crekb} = p_{\rm creka} = \frac{p_{\rm crek}}{2} = p_{\rm delkb} = p_{\rm delka} = \frac{p_{\rm delk}}{2}
+$$</p>
+<p>并且为了增加接受概率，我们通常取 $\omega_G = \frac{1}{\beta N_s} \approx \frac{1}{N_{\rm seg}}$, 从而保证接受概率在一个合理的区间。
+另外，我们也可以对于 <code>Shift Worm</code> 等操作当中的虚时移动距离进行限制，使得不至于抽出很大的虚时变动导致接受概率变小。</p>
 <h2 id="_5">补充<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
-<ul>
-<li>为了增加接受概率，我们通常取 $\omega_G = \frac{1}{\beta N_s} \approx \frac{1}{N_{\rm seg}}$, 从而保证接受概率在一个合理的区间。
-另外，我们也可以对于 <code>Shift Worm</code> 等操作当中的虚时移动距离进行限制，使得不至于由于抽出很大的虚时上态的变动导致接受概率变小。</li>
-</ul>
 
 
 
