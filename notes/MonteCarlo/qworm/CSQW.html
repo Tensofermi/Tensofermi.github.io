@@ -704,6 +704,24 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#mathcalz" class="md-nav__link">
+    <span class="md-ellipsis">
+      配分函数空间 $\mathcal{Z}$
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mathcalg" class="md-nav__link">
+    <span class="md-ellipsis">
+      格林函数空间 $\mathcal{G}$
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       常见体系
@@ -836,6 +854,24 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#mathcalz" class="md-nav__link">
+    <span class="md-ellipsis">
+      配分函数空间 $\mathcal{Z}$
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mathcalg" class="md-nav__link">
+    <span class="md-ellipsis">
+      格林函数空间 $\mathcal{G}$
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       常见体系
@@ -928,12 +964,9 @@ MathJax = {
 </script>
 
 <h1 id="worm">连续空间的世界线 Worm 算法<a class="headerlink" href="#worm" title="Permanent link">&para;</a></h1>
-<p>如果将粒子的位置连续化，即不再限制于离散的格点，
-$$
-\boxed{\mathcal{Z} = \sum_{\lbrace \alpha^{(i)} \rbrace} \prod_{i=0}^{N-1} \langle \alpha^{(i+1)} | e^{-\tau \hat{H}} | \alpha^{(i)} \rangle
-=\sum_{\lbrace \alpha^{(i)} \rbrace}  W(\lbrace \alpha^{(i)} \rbrace)}
-$$</p>
-<p>相比于连续时间的...</p>
+<p>上一节当中，我们将世界线构型的时间连续化，即虚时方向世界面的数目几近于 $10^8$ 的量级；而世界面的空间坐标是离散晶格，从而能够模拟晶格上的相互作用模型。
+然而，对于许多真实体系的问题，例如计算 $^4{\rm He}$ 气体的超流转变温度时，空间必然不能取得过于离散化。因此，我们可以放宽对时间连续化的程度，即取到尽可能离散化而不失去表达物理现象的能力，通常最高可到 $10^4$ 的量级；同时对世界面的空间尽可能取连续化坐标。</p>
+<p>相比于晶格上的哈密顿量，连续空间的哈密顿量仍然可以分为对角项 $\hat{H}_0$ 和非对角项 $\hat{V}$ :</p>
 <p>$$
 \hat{H} = \hat{H}_0 + \hat{V}
 $$</p>
@@ -941,25 +974,66 @@ $$</p>
 \hat{H_0} = \sum_{i&lt;j} U(\vec{r}_{i,j}), \quad
 \hat{V} = - \sum_i \lambda_i \nabla_i^2
 $$</p>
-<p>$\lambda_i = {\hbar^2}/{2m_i}$
-对配分函数其中的一个重复单元有:
+<p>其中非对角项 $\hat{V}$ 当中 $\lambda_i = {\hbar^2}/{2m_i}$ 与不同粒子的质量相关，描述了动能项。对角项 $\hat{H}_0$ 则描述了不同粒子之间的相互作用。</p>
+<h2 id="mathcalz">配分函数空间 $\mathcal{Z}$<a class="headerlink" href="#mathcalz" title="Permanent link">&para;</a></h2>
+<p>同样地，我们可以写出连续空间体系的配分函数：</p>
+<p>$$
+\mathcal{Z} = \sum_{\lbrace \alpha^{(i)} \rbrace} \prod_{i=0}^{N-1} \langle \alpha^{(i+1)} | e^{-\tau \hat{H}} | \alpha^{(i)} \rangle
+=\sum_{\lbrace \alpha^{(i)} \rbrace}  W(\lbrace \alpha^{(i)} \rbrace)
+$$</p>
+<p>其中基矢量 $\alpha$ 由各个粒子的空间位置组成，
+对配分函数其中的一个重复单元，利用 Trotter 分解有:
 $$
 \langle \alpha^{(i+1)} |e^{-\tau \hat{H}} | \alpha^{(i)} \rangle  \approx 
 e^{-\tau H_0} \langle \alpha^{(i+1)} | e^{-\tau \hat{V}}| \alpha^{(i)}\rangle 
+$$</p>
+<p>注意这里与之前不同，我们可以解析地写出动能的权重。利用矩阵的直积公式：
 $$
-可以解析地写出
+(\textbf{A}_1 \otimes \textbf{B}_1) (\textbf{A}_2 \otimes \textbf{B}_2) = 
+(\textbf{A}_1 \textbf{A}_2) \otimes (\textbf{B}_1 \textbf{B}_2)
+$$</p>
+<p>再根据定义 $| \alpha^{(i)}\rangle = \bigotimes_{j}^{N_p} | \alpha^{(i)}_j\rangle$，将多个粒子的动能拆成单个粒子的乘积：
 $$
  \langle \alpha^{(i+1)} | e^{-\tau \hat{V}}| \alpha^{(i)}\rangle = 
- \prod_j \langle \alpha^{(i+1)}_j | e^{-\tau \hat{V}}| \alpha^{(i)}_j\rangle
+ \prod_j^{N_p} \langle \alpha^{(i+1)}_j | e^{-\tau \hat{V}}| \alpha^{(i)}_j\rangle
 $$</p>
+<p>其中 $N_p$ 表示总的粒子数，下指标 $j$ 表示不同的粒子，上指标 $(i)$ 表示不同的世界面。这里我们相当于将基矢量 $| \alpha^{(i)}\rangle$ 拆成了不同粒子的直积，即 $| \alpha^{(i)}_j\rangle$ 的直积。值得注意的是，对于单个粒子的动能权重，$\hat{V}$ 并不会像之前晶格体系当中那样会筛选掉不满足的态，也就是说不会对下一个世界面当中粒子的位置做出任何限制，权重均由两世界面上粒子位置 $\vec{r}_j^{(i)}$ 与 $\vec{r}_j^{(i+1)}$ 来决定，类似于自由粒子的传播子，如下式所示：</p>
 <p>$$ 
 \langle \alpha^{(i+1)}_j | e^{-\tau \hat{V}}| \alpha^{(i)}_j\rangle
  = \left(\frac{1}{4 \pi \lambda_j \tau} \right)^{d/2} \exp{\left( - \frac{(\vec{r}_j^{(i+1)} - \vec{r}_j^{(i)})^2}{4\lambda_j \tau} \right)}
 $$</p>
+<p>其中 $d$ 表示世界面的空间维度。上式也称为密度矩阵，可以用 $\rho_0(\vec{r}_j^{(i)},\vec{r}_j^{(i+1)},\tau)$ 表示。至此，我们可以写出配分函数空间权重的形式为：</p>
 <p>$$
-\boxed{W(\lbrace \alpha^{(i)} \rbrace) \approx \sum_{\lbrace \alpha^{(i)} \rbrace} \prod_{i=0}^{N-1}  \langle \alpha^{(i+1)} | e^{-\tau \hat{V}}| \alpha^{(i)}\rangle \exp \left({-\sum_{i=0}^{N-1} H_0^{(i)} \tau} \right)}
+W(\lbrace \alpha^{(i)} \rbrace) \approx \sum_{\lbrace \alpha^{(i)} \rbrace} \prod_{i=0}^{N-1}  \langle \alpha^{(i+1)} | e^{-\tau \hat{V}}| \alpha^{(i)}\rangle \exp \left({-\sum_{i=0}^{N-1} H_0^{(i)} \tau} \right)
 $$</p>
+<p>注意，由于空间是近乎连续的，每个世界面的粒子构型几乎都与下一个世界面不同，因此不需要像之前晶格上那样以 Kink 的数目 $\mathcal{K}$ 进行分类，而是非对角项和对角项一样，遍历整个虚时。</p>
+<h2 id="mathcalg">格林函数空间 $\mathcal{G}$<a class="headerlink" href="#mathcalg" title="Permanent link">&para;</a></h2>
+<p>类似地，为了进行 Worm 的更新我们这里可以引入产生湮灭的场算符，定义松原格林函数：</p>
+<p>$$
+G(I,M,\tau_I,\tau_M) = \left \langle \hat{b}_I(\tau_I) \hat{b}^\dagger_M(\tau_M) \right \rangle = \frac{g(I,M,\tau_I,\tau_M)}{\mathcal{Z}}
+$$</p>
+<p>其中
+$
+g(I,M,\tau_I,\tau_M) = <br />
+{\rm Tr}[\mathcal{T} \hat{b}_I(\tau_I)\hat{b}^\dagger_M(\tau_M)  e^{-\beta\hat{H}}]
+$. 同样地，我们也可以定义格林函数空间的配分函数 $\mathcal{G}$, 从而更新构型的算法可以在其中抽样：
+$$
+\mathcal{Z}_w = \mathcal{Z} + \omega_G \mathcal{G}
+$$</p>
+<!-- $$
+\mathcal{G} = \sum_{p_I,p_M = 0}^{N-1} \sum_{I,M=0}^{N_s-1} g(I,M,p_I\tau,p_M\tau) \tau^2 = \sum_{p_I,p_M = 0}^{N-1} \sum_{I,M=0}^{N_s-1} W_{\mathcal{G}}
+$$ -->
+<p>注意，由于连续空间当中，粒子严格处于同一个位置的概率几乎为零，因此同一个位置的粒子数最大到是 1，进而因为算符作用产生额外的系数项 $\sqrt{n_I(n_M+1)} = 1$，与硬核玻色子类似，故可以不用考虑。 </p>
+<p>因此权重 $W_{\mathcal{G}}$ 与 $W$ 的差别仅仅是多了求和变量 $\tau^2 d\vec{r}_I d\vec{r}_M$，以及要扣除被湮灭掉的或加上被产生出的自由粒子的传播子 $\rho_0(\vec{r}_j^{(i)},\vec{r}_j^{(i+1)},\tau)$ 所占的权重。</p>
+<blockquote>
+<p>注意，这里的权重 $W_{\mathcal{G}}$ 与连续时间算法的情况有微妙的不同。连续时间算法当中非对角项 $\hat{V}$ 与 $\hat{b}_I$ （或 $\hat{b}_M^\dagger$）几乎不可能处于同一时空，一方面是因为虚时间是准连续的，出现的概率趋于零；另一方面，在算法的更新上会规避掉同时出现的情况。然而，连续空间算法则不同，这源于其几乎每一个世界面当中的每一个粒子在一下虚时的世界面当中都会有变动，从而虚时上几乎处处都有 $\hat{V}$ 的贡献， 因此 $\hat{b}_I$ （或 $\hat{b}_M^\dagger$）就无法避免地与 $\hat{V}$ 共存，其结果就是 $\sqrt{n_I(n_M+1)}$ 与 $\rho_0(\vec{r}_j^{(i)},\vec{r}_j^{(i+1)},\tau)$ 绑定，因此格林函数空间的权重需要增减 $\rho_0(\vec{r}_j^{(i)},\vec{r}_j^{(i+1)},\tau)$ 项。</p>
+</blockquote>
 <h2 id="_1">常见体系<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>$$  <br />
+\hat{H} = -\frac{1}{2}\sum_{i=1}^N \nabla_i^2
++ \frac{1}{2} \sum_{i=1}^N \frac{z_i^2}{\xi^4} + 
+\sum_{i&lt;j} \left\lbrace  V_{\rm{dd}}(r_{ij}) + \left(\frac{\sigma}{r_{ij}}\right)^{12} \right\rbrace
+$$</p>
 <h2 id="_2">构型的更新<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <h3 id="openclose">Open/Close<a class="headerlink" href="#openclose" title="Permanent link">&para;</a></h3>
 <h3 id="insertremove">Insert/Remove<a class="headerlink" href="#insertremove" title="Permanent link">&para;</a></h3>
