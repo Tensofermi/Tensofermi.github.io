@@ -1,4 +1,7 @@
-/* 全局样式 */
+/*******************************************************/
+/********************** 全局样式 ************************/
+/*******************************************************/
+/* 设置整个网页的基础样式，包括字体、边距、背景色和鼠标指针 */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -8,79 +11,21 @@ body {
     color: #333;
     cursor: url('../images/cursor/custom-cursor-default.gif'), auto; /* 默认状态的自定义鼠标指针 */
 }
-
-/* 悬停状态的鼠标指针 */
 a:hover {
     cursor: url('../images/cursor/custom-cursor-default.gif'), pointer; /* 超链接悬停状态 */
 }
-
-/* 点击状态的鼠标指针 */
 a:active {
     cursor: url('../images/cursor/custom-cursor-default.gif'), pointer; /* 超链接点击状态 */
 }
-
-/* 输入框悬停状态的鼠标指针 */
 input:hover {
     cursor: url('../images/cursor/custom-cursor-default.gif'), text; /* 输入框悬停状态 */
 }
-
-/* 输入框聚焦状态的鼠标指针 */
 input:focus {
     cursor: url('../images/cursor/custom-cursor-default.gif'), text; /* 输入框聚焦状态 */
 }
 
-h1 {
-    color: rgb(4, 2, 42);
-}
-
-
-
-
-/* 头部背景图片 */
-.header-bg {
-    background-image: url('../images/header-bg1.jpg'); /* 替换为你自己的背景图片路径 */
-    background-size: cover;
-    background-position: center;
-    color: white;
-    padding: 400px 0;
-    text-align: center;
-}
-
-/* 导航栏样式 */
-nav ul {
-    list-style: none;
-    background-color: #333;
-    padding: 10px 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-}
-
-nav ul li {
-    margin: 0 15px;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    padding: 10px;
-    display: block;
-}
-
-nav ul li a:hover {
-    background-color: #575757;
-    border-radius: 5px;
-}
-
-.navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: #333;
-    z-index: 1000;
-}
-
 /* 各部分样式 */
+/* 设置页面中各个部分的样式，包括填充、边距、最大宽度、背景色、边角圆滑效果和阴影 */
 section {
     padding: 20px;
     margin: 20px auto;
@@ -90,7 +35,36 @@ section {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* 增加列表项之间的间隔 */
+section ul li {
+    margin-bottom: 10px; /* 调整此值以增加或减少间隔 */
+}
+
+/* 链接样式 */
+/* 设置页面中所有链接的基础样式，包括去除下划线、颜色、字体和过渡效果 */
+a {
+    text-decoration: none; /* 去除下划线 */
+    color: #00002afb; /* 设置链接颜色 */
+    font-family: Arial, sans-serif; /* 设置字体 */
+    font-weight: bold; /* 设置字体粗细 */
+    transition: color 0.3s; /* 添加颜色变化的过渡效果 */
+}
+
+/* 链接悬停样式 */
+/* 设置链接在悬停时的颜色 */
+a:hover {
+    color: #894808; /* 设置悬停时的链接颜色 */
+}
+
+
+/* 标题样式 */
+/* 设置所有一级标题的颜色 */
+h1 {
+    color: rgb(4, 2, 42);
+}
+
 /* 页脚样式 */
+/* 设置页脚的文本对齐方式、填充、背景色和文本颜色 */
 footer {
     text-align: center;
     padding: 10px;
@@ -98,17 +72,86 @@ footer {
     color: white;
 }
 
-/* 背景更换样式（可选） */
-body.dark-mode {
-    background-color: #1a1a1a;
-    color: #f4f4f4;
-}
-
-body.dark-mode section {
+/*******************************************************/
+/********************* 导航栏样式 ***********************/
+/*******************************************************/
+/* 设置导航栏的基本样式，包括列表、背景色、填充、对齐方式等 */
+nav ul {
+    list-style: none;
     background-color: #333;
-    color: #f4f4f4;
+    padding: 10px 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
 }
 
-header.dark-mode {
-    background-image: url('../images/header-bg2.jpg'); /* 替换为暗模式背景图片路径 */
+/* 导航栏列表项样式 */
+/* 设置导航栏中的列表项的边距 */
+nav ul li {
+    margin: 0 15px;
+}
+
+/* 导航栏链接样式 */
+/* 设置导航栏中的链接样式，包括颜色、填充、显示方式等 */
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+}
+
+/* 导航栏链接悬停样式 */
+/* 设置导航栏链接在悬停时的背景颜色和边角圆滑效果 */
+nav ul li a:hover {
+    background-color: #575757;
+    border-radius: 5px;
+}
+
+/* 固定导航栏 */
+/* 设置导航栏固定在页面顶部的样式 */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #333;
+    z-index: 1000;
+}
+
+/*******************************************************/
+/*********************** 背景图片 ***********************/
+/*******************************************************/
+/* 头部背景图片 */
+/* 设置头部背景图片、大小、位置以及文本样式 */
+.header-bg {
+    background-image: url('../images/header-bg1.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 400px 0;
+    text-align: center;
+    position: relative;
+}
+
+.btn-left, .btn-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.btn-left {
+    left: 10px;
+}
+
+.btn-right {
+    right: 10px;
+}
+
+.btn-left:hover, .btn-right:hover {
+    background-color: rgba(0, 0, 0, 0.8);
 }
