@@ -40,6 +40,16 @@ section ul li {
     margin-bottom: 10px; /* 调整此值以增加或减少间隔 */
 }
 
+/* 仅调整 PDF 和 Link 部分的 <b> 元素的字号 */
+section ul > p > b {
+    font-size: 1.25em; /* 调整 PDF 和 Link 部分的标题字号 */
+}
+
+/* 调整 PDF 和 Link 部分的链接字号 */
+section ul > li > a {
+    font-size: 1.em; /* 调整 PDF 和 Link 部分的链接字号 */
+}
+
 /* 链接样式 */
 /* 设置页面中所有链接的基础样式，包括去除下划线、颜色、字体和过渡效果 */
 a {
@@ -72,6 +82,10 @@ footer {
     color: white;
 }
 
+audio,canvas,progress,video {
+    display:inline-block;
+    vertical-align:baseline
+}
 /*******************************************************/
 /********************* 导航栏样式 ***********************/
 /*******************************************************/

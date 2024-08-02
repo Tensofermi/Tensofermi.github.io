@@ -4,7 +4,7 @@ const images_bg = [
     './images/header-bg3.jpg' // 添加更多图片路径
 ];
 
-let currentImageIndex = 1;
+let currentImageIndex = 2;
 
 const headerBg = document.querySelector('.header-bg');
 const prevBtn = document.getElementById('prev-btn');
