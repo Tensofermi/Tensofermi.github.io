@@ -24,6 +24,9 @@ input:focus {
     cursor: url('../images/cursor/custom-cursor-default.gif'), text; /* 输入框聚焦状态 */
 }
 
+/*******************************************************/
+/******************** section 样式 *********************/
+/*******************************************************/
 /* 各部分样式 */
 /* 设置页面中各个部分的样式，包括填充、边距、最大宽度、背景色、边角圆滑效果和阴影 */
 section {
@@ -50,6 +53,9 @@ section ul > li > a {
     font-size: 1.em; /* 调整 PDF 和 Link 部分的链接字号 */
 }
 
+/*******************************************************/
+/********************** 字体样式 ************************/
+/*******************************************************/
 /* 链接样式 */
 /* 设置页面中所有链接的基础样式，包括去除下划线、颜色、字体和过渡效果 */
 a {
@@ -63,9 +69,8 @@ a {
 /* 链接悬停样式 */
 /* 设置链接在悬停时的颜色 */
 a:hover {
-    color: #894808; /* 设置悬停时的链接颜色 */
+    color: #739ee8; /* 设置悬停时的链接颜色 */
 }
-
 
 /* 标题样式 */
 /* 设置所有一级标题的颜色 */
@@ -78,7 +83,7 @@ h1 {
 footer {
     text-align: center;
     padding: 10px;
-    background-color: #333;
+    background-color: #083A7C;
     color: white;
 }
 
@@ -92,7 +97,7 @@ audio,canvas,progress,video {
 /* 设置导航栏的基本样式，包括列表、背景色、填充、对齐方式等 */
 nav ul {
     list-style: none;
-    background-color: #333;
+    background-color: #083A7C;
     padding: 10px 0;
     margin: 0;
     display: flex;
@@ -117,8 +122,8 @@ nav ul li a {
 /* 导航栏链接悬停样式 */
 /* 设置导航栏链接在悬停时的背景颜色和边角圆滑效果 */
 nav ul li a:hover {
-    background-color: #575757;
-    border-radius: 5px;
+    background-color: #1176ba;
+    border-radius: 10px;
 }
 
 /* 固定导航栏 */
@@ -127,9 +132,38 @@ nav ul li a:hover {
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: #333;
+    background-color: #ffffff;
     z-index: 1000;
 }
+
+.nav-links {
+    display: flex;
+    flex: 1;
+    justify-content: center; /* 导航链接居中对齐 */
+    margin-right: 150px; /* 调整这个值来偏移到右边 */
+}
+
+.navbar .logo {
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+}
+
+.navbar .logo img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.navbar .logo span {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.navbar .nav_item:hover {
+    color: #e3e9f4; /* 设置悬停时的链接颜色 */
+}
+
 
 /*******************************************************/
 /*********************** 背景图片 ***********************/
@@ -144,7 +178,17 @@ nav ul li a:hover {
     padding: 400px 0;
     text-align: center;
     position: relative;
+    /* transition: background-image 0.5s ease-in-out; */
 }
+
+/* .fade-in {
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+} */
 
 .btn-left, .btn-right {
     position: absolute;
