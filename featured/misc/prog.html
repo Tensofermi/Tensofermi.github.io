@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>打孔纸带时代：8位玩具CPU可视化</title>
+  <style>
+    :root{
+      --bg:#0b0d10;
+      --panel:#11151b;
+      --panel2:#0f1318;
+      --text:#e8eef7;
+      --muted:#a9b6c7;
+      --accent:#7bd389;
+      --warn:#f6c177;
+      --bad:#ff6b6b;
+      --line:#233042;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:linear-gradient(180deg, var(--bg), #07090c 60%);
+      color:var(--text);
+      font-family:var(--sans);
+    }
+    header{
+      padding:18px 18px 10px;
+      border-bottom:1px solid var(--line);
+      position:sticky; top:0; z-index:5;
+      backdrop-filter:saturate(1.2) blur(6px);
+      background:rgba(11,13,16,.82);
+    }
+    header h1{margin:0;font-size:18px;font-weight:700}
+    header .sub{margin-top:6px;color:var(--muted);font-size:12px;line-height:1.35}
+
+    main{padding:14px 14px 24px; max-width:1200px; margin:0 auto;}
+    .grid{display:grid; gap:12px; grid-template-columns: 1.15fr .85fr; align-items:start;}
+    @media (max-width: 980px){ .grid{grid-template-columns: 1fr;} header{position:static;} }
+
+    .card{
+      background:linear-gradient(180deg, rgba(17,21,27,.92), rgba(13,16,22,.92));
+      border:1px solid var(--line);
+      border-radius:14px;
+      overflow:hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+    .card h2{
+      margin:0;
+      padding:12px 14px;
+      font-size:14px;
+      border-bottom:1px solid var(--line);
+      background:rgba(15,19,24,.85);
+      letter-spacing:.2px;
+    }
+    .card .content{padding:12px 14px;}
+
+    .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+    .pill{
+      font-family:var(--mono);
+      font-size:12px;
+      padding:6px 8px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(0,0,0,.15);
+      color:var(--text);
+    }
+    .pill strong{color:var(--accent)}
+
+    button{
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.18);
+      color:var(--text);
+      border-radius:10px;
+      padding:8px 10px;
+      font-size:12px;
+      cursor:pointer;
+    }
+    button:hover{border-color:#2f425b}
+    button.primary{background:rgba(123,211,137,.14); border-color:rgba(123,211,137,.35)}
+    button.danger{background:rgba(255,107,107,.12); border-color:rgba(255,107,107,.35)}
+    button:disabled{opacity:.45; cursor:not-allowed}
+
+    .split{display:grid; grid-template-columns: 1fr 1fr; gap:10px;}
+    @media (max-width: 520px){ .split{grid-template-columns: 1fr;} }
+
+    table{width:100%; border-collapse:collapse; font-size:12px;}
+    th,td{border-bottom:1px solid var(--line); padding:8px 6px; text-align:left; vertical-align:top;}
+    th{color:var(--muted); font-weight:600; background:rgba(0,0,0,.08)}
+
+    .mono{font-family:var(--mono)}
+    .muted{color:var(--muted)}
+    .small{font-size:12px; line-height:1.45}
+
+    .prog{
+      font-family:var(--mono);
+      font-size:12px;
+      line-height:1.45;
+      background:rgba(0,0,0,.22);
+      border:1px solid var(--line);
+      border-radius:12px;
+      overflow:auto;
+      max-height:360px;
+    }
+    .prog .line{
+      display:grid;
+      grid-template-columns: 58px 60px 1fr;
+      gap:10px;
+      padding:7px 10px;
+      border-bottom:1px solid rgba(35,48,66,.6);
+      white-space:pre;
+    }
+    .prog .line:last-child{border-bottom:none}
+    .prog .addr{color:var(--muted)}
+    .prog .bytes{color:#d6e5ff}
+    .prog .asm{color:#e8eef7}
+    .prog .line.active{background:rgba(123,211,137,.12)}
+    .prog .line.bad{background:rgba(255,107,107,.12)}
+
+    .tape{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(240px, 1fr));
+      gap:10px;
+    }
+    @media (max-width: 880px){ .tape{grid-template-columns:1fr;} }
+
+    .bytecard{
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:rgba(0,0,0,.18);
+      padding:10px;
+    }
+    .bytecard .top{
+      display:flex; justify-content:space-between; align-items:baseline; gap:8px;
+      margin-bottom:8px;
+      font-family:var(--mono);
+      font-size:12px;
+    }
+    .holes{display:flex; gap:5px; align-items:center;}
+    .hole{
+      width:12px; height:12px; border-radius:3px;
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(255,255,255,.06);
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.35);
+    }
+    .hole.on{background:rgba(123,211,137,.75); border-color:rgba(123,211,137,.9)}
+    .bytecard.active{outline:2px solid rgba(123,211,137,.5)}
+
+    .mem{
+      display:grid;
+      grid-template-columns: repeat(16, 1fr);
+      gap:6px;
+      font-family:var(--mono);
+      font-size:11px;
+    }
+    .cell{
+      border:1px solid rgba(35,48,66,.9);
+      border-radius:8px;
+      padding:6px 6px;
+      background:rgba(0,0,0,.16);
+      display:flex; justify-content:space-between; gap:8px;
+    }
+    .cell .a{color:var(--muted)}
+    .cell .v{color:var(--text)}
+    .cell.hl{background:rgba(246,193,119,.13); border-color:rgba(246,193,119,.35)}
+    .cell.pc{background:rgba(123,211,137,.13); border-color:rgba(123,211,137,.35)}
+
+    .status{
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:10px;
+      background:rgba(0,0,0,.18);
+      font-family:var(--mono);
+      font-size:12px;
+      line-height:1.5;
+    }
+    .status .ok{color:var(--accent)}
+    .status .warn{color:var(--warn)}
+    .status .bad{color:var(--bad)}
+
+    .kbd{font-family:var(--mono); font-size:12px; padding:2px 6px; border:1px solid var(--line); border-radius:8px; background:rgba(0,0,0,.15)}
+
+    footer{max-width:1200px;margin:0 auto; padding:0 14px 18px; color:var(--muted); font-size:12px;}
+  </style>
+</head>
+<body>
+<header>
+  <h1>打孔纸带时代：8 位玩具 CPU + 纸带孔眼可视化</h1>
+  <div class="sub">指令固定 2 字节（opcode + operand），内存 256 字节，A 为 8-bit 累加器。右侧可单步/运行，观察 PC、A 与关键内存（i、sum、out）。可一键注入“跳转地址打错一字节”的经典事故。</div>
+</header>
+
+<main>
+  <div class="grid">
+
+    <section class="card">
+      <h2>模型与指令集</h2>
+      <div class="content">
+        <div class="row" style="margin-bottom:10px">
+          <span class="pill">寄存器：<strong>A</strong>（8-bit）、<strong>PC</strong></span>
+          <span class="pill">内存：<strong>256B</strong>（0x00–0xFF）</span>
+          <span class="pill">指令宽度：<strong>2B</strong></span>
+          <span class="pill">输出：结果写入 <strong>0x80</strong></span>
+        </div>
+
+        <div class="split">
+          <div>
+            <div class="small muted" style="margin-bottom:6px">指令集（足够原始：加载/存储/加减/跳转/停机）</div>
+            <table>
+              <thead><tr><th class="mono">Opcode</th><th>助记符</th><th>语义</th></tr></thead>
+              <tbody id="isa"></tbody>
+            </table>
+          </div>
+          <div>
+            <div class="small muted" style="margin-bottom:6px">示例程序：求和 1..10，写入 mem[0x80]</div>
+            <div class="prog" id="program"></div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px" class="small muted">
+          提示：每步执行 1 条指令（PC 增加 2），除非发生跳转。把 <span class="kbd">JNZ</span> 的跳转地址打错，PC 可能落在“操作数字节”上，从而把 operand 当 opcode 执行，程序立刻跑飞。
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>模拟器</h2>
+      <div class="content">
+        <div class="row" style="margin-bottom:10px">
+          <button class="primary" id="btnStep">单步</button>
+          <button class="primary" id="btnRun">运行</button>
+          <button id="btnStop" disabled>停止</button>
+          <button id="btnReset">复位</button>
+          <button class="danger" id="btnBug">注入跳转错误</button>
+          <span class="pill">速度：<span class="mono" id="speedLabel">8 steps/s</span></span>
+          <input id="speed" type="range" min="1" max="30" value="8" style="flex:1; min-width:160px" />
+        </div>
+
+        <div class="split" style="margin-bottom:10px">
+          <div class="status" id="status"></div>
+          <div class="status" id="trace"></div>
+        </div>
+
+        <div class="small muted" style="margin:8px 0 6px">内存（展示 0x60–0x8F 区间，重点高亮 i=0x70、sum=0x71、out=0x80）</div>
+        <div class="mem" id="mem"></div>
+
+      </div>
+    </section>
+
+    <section class="card" style="grid-column:1 / -1">
+      <h2>纸带孔眼（每字节 8 孔）</h2>
+      <div class="content">
+        <div class="row" style="margin-bottom:10px">
+          <span class="pill">显示范围：程序字节流（从 0x00 开始）</span>
+          <span class="pill">孔位顺序：<span class="mono">b7 → b0</span>（高位到低位）</span>
+          <span class="pill">当前 PC 指向的 opcode 字节会高亮</span>
+        </div>
+        <div class="tape" id="tape"></div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  使用方式：先点“单步”观察 i、sum 的变化，再点“运行”直到停机（out=0x37=55）。然后点“复位”，再点“注入跳转错误”，观察 PC 如何落在错误对齐的位置并跑飞。
+</footer>
+
+<script>
+  // ---------------------------
+  // ISA / Program definition
+  // ---------------------------
+  const ISA = [
+    {op:0x00, m:"NOP",  s:"无操作"},
+    {op:0x10, m:"LDI",  s:"A = imm"},
+    {op:0x11, m:"LDA",  s:"A = mem[addr]"},
+    {op:0x12, m:"STA",  s:"mem[addr] = A"},
+    {op:0x20, m:"ADDI", s:"A = A + imm (mod 256)"},
+    {op:0x21, m:"ADD",  s:"A = A + mem[addr]"},
+    {op:0x30, m:"SUBI", s:"A = A - imm (mod 256)"},
+    {op:0x40, m:"JMP",  s:"PC = addr"},
+    {op:0x41, m:"JZ",   s:"if A==0 then PC=addr"},
+    {op:0x42, m:"JNZ",  s:"if A!=0 then PC=addr"},
+    {op:0xFF, m:"HLT",  s:"停机"},
+  ];
+
+  // Program: sum 1..10 -> mem[0x80]
+  // Two-byte instructions. Addresses shown are byte addresses.
+  const BASE_PROGRAM_BYTES = [
+    0x10,0x00,  // 00 LDI 0
+    0x12,0x71,  // 02 STA 0x71 (sum)
+    0x10,0x01,  // 04 LDI 1
+    0x12,0x70,  // 06 STA 0x70 (i)
+    0x11,0x71,  // 08 LDA sum
+    0x21,0x70,  // 0A ADD i
+    0x12,0x71,  // 0C STA sum
+    0x11,0x70,  // 0E LDA i
+    0x20,0x01,  // 10 ADDI 1
+    0x12,0x70,  // 12 STA i
+    0x11,0x70,  // 14 LDA i
+    0x30,0x0B,  // 16 SUBI 11
+    0x42,0x08,  // 18 JNZ 0x08 (loop)
+    0x11,0x71,  // 1A LDA sum
+    0x12,0x80,  // 1C STA 0x80 (out)
+    0xFF,0x00,  // 1E HLT
+  ];
+
+  // ---------------------------
+  // CPU Emulator (8-bit)
+  // ---------------------------
+  const MEM_SIZE = 256;
+  const WATCH_START = 0x60;
+  const WATCH_END   = 0x8F;
+  const WATCH_LEN   = (WATCH_END - WATCH_START + 1);
+
+  const state = {
+    mem: new Uint8Array(MEM_SIZE),
+    A: 0,
+    PC: 0,
+    halted: false,
+    steps: 0,
+    last: {pc:0, op:0, arg:0, text:""},
+    bugInjected: false,
+    runTimer: null,
+    speed: 8,
+  };
+
+  function hex2(n){ return n.toString(16).toUpperCase().padStart(2,'0'); }
+  function bin8(n){ return n.toString(2).padStart(8,'0'); }
+
+  function disasm(op,arg){
+    const item = ISA.find(x => x.op === op);
+    const m = item ? item.m : "???";
+    if(op === 0x00) return "NOP";
+    if(op === 0xFF) return "HLT";
+    return `${m} 0x${hex2(arg)}`;
+  }
+
+  function resetCPU(){
+    state.mem.fill(0);
+    // load program at 0x00
+    getProgramBytes().forEach((b,i)=>{ state.mem[i] = b; });
+    state.A = 0;
+    state.PC = 0;
+    state.halted = false;
+    state.steps = 0;
+    state.last = {pc:0, op:0, arg:0, text:"(尚未执行)"};
+    renderAll();
+  }
+
+  function getProgramBytes(){
+    const bytes = BASE_PROGRAM_BYTES.slice();
+    if(state.bugInjected){
+      // classic bug: wrong JNZ target. operand 0x08 -> 0x0A
+      // JNZ is at address 0x18, so operand is at 0x19 => index 0x19
+      bytes[0x19] = 0x0A;
+    }
+    return bytes;
+  }
+
+  function step(){
+    if(state.halted) return;
+
+    const pc = state.PC & 0xFF;
+    const op = state.mem[pc];
+    const arg = state.mem[(pc+1) & 0xFF];
+
+    let nextPC = (pc + 2) & 0xFF;
+    let note = "";
+
+    const wrap = (x) => (x & 0xFF);
+
+    switch(op){
+      case 0x00: // NOP
+        break;
+      case 0x10: // LDI
+        state.A = arg;
+        break;
+      case 0x11: // LDA
+        state.A = state.mem[arg];
+        break;
+      case 0x12: // STA
+        state.mem[arg] = state.A;
+        break;
+      case 0x20: // ADDI
+        state.A = wrap(state.A + arg);
+        break;
+      case 0x21: // ADD
+        state.A = wrap(state.A + state.mem[arg]);
+        break;
+      case 0x30: // SUBI
+        state.A = wrap(state.A - arg);
+        break;
+      case 0x40: // JMP
+        nextPC = arg;
+        note = "(跳转)";
+        break;
+      case 0x41: // JZ
+        if(state.A === 0){ nextPC = arg; note = "(A==0 跳转)"; }
+        break;
+      case 0x42: // JNZ
+        if(state.A !== 0){ nextPC = arg; note = "(A!=0 跳转)"; }
+        break;
+      case 0xFF: // HLT
+        state.halted = true;
+        note = "(停机)";
+        break;
+      default:
+        // Unknown opcode: treat as fault and halt
+        state.halted = true;
+        note = "(未知 opcode，停机)";
+        break;
+    }
+
+    state.last = {
+      pc, op, arg,
+      text: `${hex2(pc)}: ${hex2(op)} ${hex2(arg)}   ${disasm(op,arg)} ${note}`.trim()
+    };
+
+    state.PC = nextPC;
+    state.steps++;
+
+    // soft guard: if PC points beyond loaded program but not halted, show warning
+    renderAll();
+  }
+
+  // ---------------------------
+  // Rendering
+  // ---------------------------
+  const elISA = document.getElementById('isa');
+  const elProg = document.getElementById('program');
+  const elTape = document.getElementById('tape');
+  const elMem = document.getElementById('mem');
+  const elStatus = document.getElementById('status');
+  const elTrace = document.getElementById('trace');
+
+  function renderISA(){
+    elISA.innerHTML = ISA.map(x => {
+      const op = `0x${hex2(x.op)}`;
+      return `<tr><td class="mono">${op}</td><td class="mono">${x.m}</td><td class="muted">${x.s}</td></tr>`;
+    }).join('');
+  }
+
+  function renderProgram(){
+    const bytes = getProgramBytes();
+    const lines = [];
+    for(let addr=0; addr<bytes.length; addr+=2){
+      const op = bytes[addr];
+      const arg = bytes[addr+1];
+      const asm = disasm(op,arg);
+      const active = (state.PC === addr) && !state.halted;
+      const cls = ["line", active ? "active" : ""].join(' ').trim();
+      const maybeBad = (state.bugInjected && addr===0x18) ? "bad" : "";
+      lines.push(
+        `<div class="${cls} ${maybeBad}">
+          <div class="addr">${hex2(addr)}:</div>
+          <div class="bytes">${hex2(op)} ${hex2(arg)}</div>
+          <div class="asm">${asm}${(state.bugInjected && addr===0x18) ? "  <span class='muted'>(已篡改目标)</span>" : ""}</div>
+        </div>`
+      );
+    }
+    elProg.innerHTML = lines.join('');
+  }
+
+  function renderTape(){
+    const bytes = getProgramBytes();
+    const pc = state.PC & 0xFF;
+    const cards = bytes.map((b, idx) => {
+      const bits = bin8(b).split('').map(ch => ch === '1');
+      const active = (idx === pc) && !state.halted;
+      const holes = bits.map(on => `<span class="hole ${on ? 'on' : ''}"></span>`).join('');
+      return `
+        <div class="bytecard ${active ? 'active' : ''}">
+          <div class="top">
+            <div>addr 0x${hex2(idx)} · <span class="muted">byte</span></div>
+            <div>0x${hex2(b)} · <span class="muted">${bin8(b)}</span></div>
+          </div>
+          <div class="holes" aria-label="b7到b0孔位">${holes}</div>
+        </div>
+      `;
+    });
+    elTape.innerHTML = cards.join('');
+  }
+
+  function renderMem(){
+    const pc = state.PC & 0xFF;
+    const cells = [];
+    for(let i=0; i<WATCH_LEN; i++){
+      const addr = WATCH_START + i;
+      const v = state.mem[addr];
+      const isHL = (addr === 0x70 || addr === 0x71 || addr === 0x80);
+      // If PC points into this watch window (rare here), highlight
+      const isPC = (addr === pc || addr === ((pc+1)&0xFF)) && addr>=WATCH_START && addr<=WATCH_END;
+      const cls = ["cell", isHL ? "hl" : "", isPC ? "pc" : ""].join(' ').trim();
+      cells.push(`<div class="${cls}"><span class="a">${hex2(addr)}</span><span class="v">${hex2(v)}</span></div>`);
+    }
+    elMem.innerHTML = cells.join('');
+  }
+
+  function renderStatus(){
+    const out = state.mem[0x80];
+    const i = state.mem[0x70];
+    const sum = state.mem[0x71];
+
+    let health = `<span class="ok">READY</span>`;
+    let hint = "";
+
+    // detect misalignment: PC should be even for this 2-byte ISA when program is aligned
+    if(!state.halted && (state.PC % 2 !== 0)){
+      health = `<span class="bad">FAULT</span>`;
+      hint = "PC 落在奇地址：很可能跳转对齐错误（operand 被当作 opcode）。";
+    } else if(state.halted){
+      health = `<span class="warn">HALTED</span>`;
+      hint = "已停机。";
+    }
+
+    elStatus.innerHTML = `
+      状态：${health}<br>
+      PC=0x${hex2(state.PC)} · A=0x${hex2(state.A)} · steps=${state.steps}<br>
+      i@0x70=0x${hex2(i)} · sum@0x71=0x${hex2(sum)} · out@0x80=0x${hex2(out)}<br>
+      <span class="muted">${hint}</span>
+    `;
+
+    const last = state.last.text;
+    const explain = explainLast(state.last);
+    elTrace.innerHTML = `
+      上一条：<br>
+      <span class="mono">${escapeHtml(last)}</span><br>
+      <span class="muted">${escapeHtml(explain)}</span>
+    `;
+  }
+
+  function explainLast(last){
+    const {op,arg} = last;
+    switch(op){
+      case 0x10: return `把立即数 0x${hex2(arg)} 装入 A。`;
+      case 0x11: return `从内存 0x${hex2(arg)} 读取到 A。`;
+      case 0x12: return `把 A 写入内存 0x${hex2(arg)}。`;
+      case 0x20: return `A 加上 0x${hex2(arg)}（8-bit 溢出取模）。`;
+      case 0x21: return `A 加上 mem[0x${hex2(arg)}]（8-bit 取模）。`;
+      case 0x30: return `A 减去 0x${hex2(arg)}（8-bit 取模）。`;
+      case 0x42: return `若 A!=0 则跳转到 0x${hex2(arg)}，否则顺序执行。`;
+      case 0xFF: return `停机。`;
+      case 0x00: return `无操作，顺序前进。`;
+      default: return `未知 opcode：0x${hex2(op)}。`;
+    }
+  }
+
+  function renderAll(){
+    renderProgram();
+    renderTape();
+    renderMem();
+    renderStatus();
+    syncControls();
+  }
+
+  function syncControls(){
+    const btnStop = document.getElementById('btnStop');
+    const btnRun = document.getElementById('btnRun');
+    const btnStep = document.getElementById('btnStep');
+
+    btnStop.disabled = !state.runTimer;
+    btnRun.disabled = !!state.runTimer;
+    btnStep.disabled = !!state.runTimer;
+  }
+
+  function escapeHtml(s){
+    return (s||"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+  }
+
+  // ---------------------------
+  // Controls
+  // ---------------------------
+  document.getElementById('btnStep').addEventListener('click', () => step());
+
+  document.getElementById('btnRun').addEventListener('click', () => {
+    if(state.runTimer) return;
+    state.runTimer = setInterval(() => {
+      if(state.halted){ stopRun(); return; }
+      // if misaligned, stop early so users can observe
+      if(state.PC % 2 !== 0){ stopRun(); return; }
+      step();
+    }, Math.max(10, Math.floor(1000/state.speed)));
+    renderAll();
+  });
+
+  function stopRun(){
+    if(state.runTimer){
+      clearInterval(state.runTimer);
+      state.runTimer = null;
+      renderAll();
+    }
+  }
+
+  document.getElementById('btnStop').addEventListener('click', stopRun);
+
+  document.getElementById('btnReset').addEventListener('click', () => {
+    stopRun();
+    resetCPU();
+  });
+
+  document.getElementById('btnBug').addEventListener('click', () => {
+    stopRun();
+    state.bugInjected = !state.bugInjected;
+    // reload program bytes in memory
+    const bytes = getProgramBytes();
+    state.mem.fill(0);
+    bytes.forEach((b,i)=>{ state.mem[i]=b; });
+    // keep registers but reset execution position for clarity
+    state.A = 0;
+    state.PC = 0;
+    state.halted = false;
+    state.steps = 0;
+    state.last = {pc:0, op:0, arg:0, text: state.bugInjected ? "(已注入跳转错误：JNZ 0x08 → 0x0A)" : "(已恢复正常程序)"};
+
+    document.getElementById('btnBug').textContent = state.bugInjected ? "撤销跳转错误" : "注入跳转错误";
+    renderAll();
+  });
+
+  const elSpeed = document.getElementById('speed');
+  const elSpeedLabel = document.getElementById('speedLabel');
+  elSpeed.addEventListener('input', () => {
+    state.speed = parseInt(elSpeed.value,10);
+    elSpeedLabel.textContent = `${state.speed} steps/s`;
+    if(state.runTimer){
+      stopRun();
+      // restart with new speed
+      document.getElementById('btnRun').click();
+    }
+  });
+
+  // ---------------------------
+  // Init
+  // ---------------------------
+  renderISA();
+  resetCPU();
+</script>
+</body>
+</html>

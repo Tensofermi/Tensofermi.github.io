@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Sphere + Unit Cubic Lattice</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        background: #0b0f14;
+        overflow: hidden;
+      }
+      #app {
+        width: 100%;
+        height: 100%;
+      }
+      .hud {
+        position: fixed;
+        left: 12px;
+        top: 12px;
+        font: 13px/1.35 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+        color: #cbd5e1;
+        background: rgba(15, 23, 42, 0.78);
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        padding: 12px 14px;
+        border-radius: 10px;
+        backdrop-filter: blur(8px);
+        max-width: 460px;
+      }
+      .hud kbd {
+        font: 12px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+        background: rgba(2, 6, 23, 0.55);
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        padding: 2px 6px;
+        border-radius: 6px;
+      }
+      .hud .row {
+        margin-top: 8px;
+        opacity: 0.96;
+      }
+      .hud button {
+        margin-top: 8px;
+        margin-right: 8px;
+        background: rgba(59, 130, 246, 0.18);
+        color: #e2e8f0;
+        border: 1px solid rgba(59, 130, 246, 0.35);
+        padding: 6px 10px;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+      .hud button:hover {
+        background: rgba(59, 130, 246, 0.26);
+      }
+      .slider-wrap {
+        margin-top: 10px;
+      }
+      .slider-wrap label {
+        display: block;
+        margin-bottom: 4px;
+      }
+      .slider-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .slider-row input[type="range"] {
+        flex: 1;
+      }
+      .value-box {
+        min-width: 72px;
+        text-align: right;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        color: #93c5fd;
+      }
+      .note {
+        color: #93c5fd;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <div class="hud">
+      <div><b>Drag</b> to orbit. Scroll to zoom. Right-drag to pan.</div>
+      <div class="row"><kbd>R</kbd> reset view · <kbd>G</kbd> toggle lattice · <kbd>P</kbd> toggle lattice points · <kbd>W</kbd> toggle sphere wireframe</div>
+      <div class="row">Cubic lattice with lattice constant <span class="note">a = 1</span>.</div>
+
+      <div class="slider-wrap">
+        <label for="radiusSlider">Sphere radius <b>r</b></label>
+        <div class="slider-row">
+          <input id="radiusSlider" type="range" min="0.1" max="3" step="0.01" value="1" />
+          <div id="radiusValue" class="value-box">1.00</div>
+        </div>
+      </div>
+
+      <div class="slider-wrap">
+        <label for="latticeSlider">Lattice range <b>L</b> (visible range: <span class="note">[-L, L]</span>)</label>
+        <div class="slider-row">
+          <input id="latticeSlider" type="range" min="0" max="12" step="1" value="5" />
+          <div id="latticeValue" class="value-box">5</div>
+        </div>
+      </div>
+
+      <div class="row">
+        Since <span class="note">a = 1</span>, the dimensionless ratio is
+        <span class="note">r/a = r</span>.
+      </div>
+      <div class="row">
+        Sphere center is placed at the center of a unit cell:
+        <span class="note">(0.5, 0.5, 0.5)</span>.
+      </div>
+      <div class="row" id="latticeInfo">
+        Visible lattice: <span class="note">[-5,5]</span>, points per axis:
+        <span class="note">11</span>
+      </div>
+
+      <button id="toggleLattice">Toggle Lattice</button>
+      <button id="togglePoints">Toggle Points</button>
+      <button id="toggleSphere">Toggle Sphere</button>
+    </div>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
+
+    <script type="module">
+      import * as THREE from "three";
+      import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+      const container = document.getElementById("app");
+
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x0b0f14);
+
+      const camera = new THREE.PerspectiveCamera(
+        55,
+        container.clientWidth / container.clientHeight,
+        0.01,
+        300
+      );
+      camera.position.set(8.5, 6.7, 9.0);
+
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      container.appendChild(renderer.domElement);
+
+      const hemi = new THREE.HemisphereLight(0xffffff, 0x223344, 0.95);
+      scene.add(hemi);
+
+      const dir = new THREE.DirectionalLight(0xffffff, 0.95);
+      dir.position.set(6, 8, 5);
+      scene.add(dir);
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.06;
+      controls.target.set(0.5, 0.5, 0.5);
+
+      const axes = new THREE.AxesHelper(2.2);
+      scene.add(axes);
+
+      const latticeGroup = new THREE.Group();
+      scene.add(latticeGroup);
+
+      const pointGroup = new THREE.Group();
+      scene.add(pointGroup);
+
+      const CELL = 1.0;
+      const sphereCenter = new THREE.Vector3(0.5, 0.5, 0.5);
+
+      let latticeRange = 5;
+      let latticeLines = null;
+      let latticePoints = null;
+
+      function createCubicLatticeLines(nMin, nMax, spacing = 1) {
+        const positions = [];
+        const Lmin = nMin * spacing;
+        const Lmax = nMax * spacing;
+
+        for (let y = nMin; y <= nMax; y++) {
+          for (let z = nMin; z <= nMax; z++) {
+            positions.push(Lmin, y * spacing, z * spacing, Lmax, y * spacing, z * spacing);
+          }
+        }
+
+        for (let x = nMin; x <= nMax; x++) {
+          for (let z = nMin; z <= nMax; z++) {
+            positions.push(x * spacing, Lmin, z * spacing, x * spacing, Lmax, z * spacing);
+          }
+        }
+
+        for (let x = nMin; x <= nMax; x++) {
+          for (let y = nMin; y <= nMax; y++) {
+            positions.push(x * spacing, y * spacing, Lmin, x * spacing, y * spacing, Lmax);
+          }
+        }
+
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute(
+          "position",
+          new THREE.Float32BufferAttribute(positions, 3)
+        );
+
+        const material = new THREE.LineBasicMaterial({
+          color: 0x708090,
+          transparent: true,
+          opacity: 0.86
+        });
+
+        return new THREE.LineSegments(geometry, material);
+      }
+
+      function createLatticePoints(nMin, nMax, spacing = 1) {
+        const positions = [];
+        for (let x = nMin; x <= nMax; x++) {
+          for (let y = nMin; y <= nMax; y++) {
+            for (let z = nMin; z <= nMax; z++) {
+              positions.push(x * spacing, y * spacing, z * spacing);
+            }
+          }
+        }
+
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute(
+          "position",
+          new THREE.Float32BufferAttribute(positions, 3)
+        );
+
+        const material = new THREE.PointsMaterial({
+          color: 0xfbbf24,
+          size: 0.12,
+          sizeAttenuation: true
+        });
+
+        return new THREE.Points(geometry, material);
+      }
+
+      function rebuildLattice(range) {
+        if (latticeLines) {
+          latticeGroup.remove(latticeLines);
+          latticeLines.geometry.dispose();
+          latticeLines.material.dispose();
+        }
+
+        if (latticePoints) {
+          pointGroup.remove(latticePoints);
+          latticePoints.geometry.dispose();
+          latticePoints.material.dispose();
+        }
+
+        latticeLines = createCubicLatticeLines(-range, range, CELL);
+        latticePoints = createLatticePoints(-range, range, CELL);
+
+        latticeGroup.add(latticeLines);
+        pointGroup.add(latticePoints);
+
+        const pointsPerAxis = 2 * range + 1;
+        document.getElementById("latticeValue").textContent = String(range);
+        document.getElementById("latticeInfo").innerHTML =
+          `Visible lattice: <span class="note">[-${range},${range}]</span>, points per axis: <span class="note">${pointsPerAxis}</span>`;
+      }
+
+      rebuildLattice(latticeRange);
+
+      let radius = 1.0;
+
+      let sphereGeom = new THREE.SphereGeometry(radius, 64, 40);
+      const sphereMat = new THREE.MeshStandardMaterial({
+        color: 0x60a5fa,
+        metalness: 0.05,
+        roughness: 0.35,
+        transparent: true,
+        opacity: 0.16
+      });
+      const sphereMesh = new THREE.Mesh(sphereGeom, sphereMat);
+      sphereMesh.position.copy(sphereCenter);
+      scene.add(sphereMesh);
+
+      let sphereWire = new THREE.LineSegments(
+        new THREE.WireframeGeometry(sphereGeom),
+        new THREE.LineBasicMaterial({
+          color: 0x93c5fd,
+          transparent: true,
+          opacity: 0.58
+        })
+      );
+      sphereWire.position.copy(sphereCenter);
+      scene.add(sphereWire);
+
+      function updateSphere(newRadius) {
+        radius = newRadius;
+
+        sphereMesh.geometry.dispose();
+        sphereWire.geometry.dispose();
+
+        sphereGeom = new THREE.SphereGeometry(radius, 64, 40);
+        sphereMesh.geometry = sphereGeom;
+        sphereWire.geometry = new THREE.WireframeGeometry(sphereGeom);
+
+        sphereMesh.position.copy(sphereCenter);
+        sphereWire.position.copy(sphereCenter);
+
+        document.getElementById("radiusValue").textContent = radius.toFixed(2);
+      }
+
+      let latticeOn = true;
+      let pointsOn = true;
+      let wireOn = true;
+
+      function resetView() {
+        camera.position.set(8.5, 6.7, 9.0);
+        controls.target.copy(sphereCenter);
+        controls.update();
+      }
+
+      window.addEventListener("keydown", (e) => {
+        const k = e.key.toLowerCase();
+
+        if (k === "r") {
+          resetView();
+        } else if (k === "g") {
+          latticeOn = !latticeOn;
+          latticeGroup.visible = latticeOn;
+        } else if (k === "p") {
+          pointsOn = !pointsOn;
+          pointGroup.visible = pointsOn;
+        } else if (k === "w") {
+          wireOn = !wireOn;
+          sphereWire.visible = sphereMesh.visible && wireOn;
+        }
+      });
+
+      document.getElementById("toggleLattice").addEventListener("click", () => {
+        latticeOn = !latticeOn;
+        latticeGroup.visible = latticeOn;
+      });
+
+      document.getElementById("togglePoints").addEventListener("click", () => {
+        pointsOn = !pointsOn;
+        pointGroup.visible = pointsOn;
+      });
+
+      document.getElementById("toggleSphere").addEventListener("click", () => {
+        const vis = !sphereMesh.visible;
+        sphereMesh.visible = vis;
+        sphereWire.visible = vis && wireOn;
+      });
+
+      const radiusSlider = document.getElementById("radiusSlider");
+      radiusSlider.addEventListener("input", (e) => {
+        const r = parseFloat(e.target.value);
+        updateSphere(r);
+      });
+
+      const latticeSlider = document.getElementById("latticeSlider");
+      latticeSlider.addEventListener("input", (e) => {
+        latticeRange = parseInt(e.target.value, 10);
+        rebuildLattice(latticeRange);
+      });
+
+      window.addEventListener("resize", () => {
+        const w = container.clientWidth;
+        const h = container.clientHeight;
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h);
+      });
+
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+      }
+
+      animate();
+    </script>
+  </body>
+</html>

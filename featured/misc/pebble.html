@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Rigidity Pebble Game Demo</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#111;
+color:white;
+text-align:center;
+}
+
+canvas{
+background:#222;
+border:1px solid #555;
+}
+
+button{
+padding:10px;
+margin:10px;
+font-size:16px;
+}
+
+#status{
+font-size:18px;
+margin-top:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>2D Rigidity Pebble Game</h2>
+
+<button onclick="addEdge()">Add Edge</button>
+<button onclick="reset()">Reset</button>
+
+<br>
+
+<canvas id="canvas" width="700" height="450"></canvas>
+
+<div id="status"></div>
+
+<script>
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+let nodes = [
+{x:150,y:120,pebbles:2},
+{x:400,y:120,pebbles:2},
+{x:500,y:300,pebbles:2},
+{x:200,y:300,pebbles:2}
+];
+
+let edges=[];
+
+function draw(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+for(let e of edges){
+
+ctx.strokeStyle=e.redundant?"red":"white";
+
+ctx.beginPath();
+ctx.moveTo(nodes[e.a].x,nodes[e.a].y);
+ctx.lineTo(nodes[e.b].x,nodes[e.b].y);
+ctx.stroke();
+
+}
+
+for(let i=0;i<nodes.length;i++){
+
+let n=nodes[i];
+
+ctx.beginPath();
+ctx.arc(n.x,n.y,20,0,2*Math.PI);
+ctx.fillStyle="#444";
+ctx.fill();
+ctx.stroke();
+
+ctx.fillStyle="white";
+ctx.fillText("N"+i,n.x-10,n.y-25);
+
+for(let p=0;p<n.pebbles;p++){
+
+ctx.beginPath();
+ctx.arc(n.x-10+p*10,n.y+5,4,0,2*Math.PI);
+ctx.fillStyle="cyan";
+ctx.fill();
+
+}
+
+}
+
+updateStatus();
+
+}
+
+function addEdge(){
+
+let a=Math.floor(Math.random()*nodes.length);
+let b=Math.floor(Math.random()*nodes.length);
+
+if(a==b) return;
+
+for(let e of edges){
+if((e.a==a&&e.b==b)||(e.a==b&&e.b==a)) return;
+}
+
+let redundant=false;
+
+if(nodes[a].pebbles>0){
+
+nodes[a].pebbles--;
+
+}
+else if(nodes[b].pebbles>0){
+
+nodes[b].pebbles--;
+
+}
+else{
+
+redundant=true;
+
+}
+
+edges.push({a:a,b:b,redundant:redundant});
+
+draw();
+
+}
+
+function updateStatus(){
+
+let N=nodes.length;
+let m=edges.length;
+
+let maxEdges=2*N-3;
+
+let rigid=(m>=maxEdges);
+
+let text="Edges m = "+m+
+" | Maxwell limit 2N-3 = "+maxEdges+
+" | ";
+
+if(rigid)
+text+="STRUCTURE: RIGID";
+else
+text+="STRUCTURE: FLOPPY";
+
+document.getElementById("status").innerHTML=text;
+
+}
+
+function reset(){
+
+edges=[];
+
+for(let n of nodes)
+n.pebbles=2;
+
+draw();
+
+}
+
+draw();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Nagaoka & 15-Puzzle Demo</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background: #f2f2f2;
+    }
+    h1 {
+        margin-top: 20px;
+    }
+    #controls {
+        margin: 15px;
+    }
+    select, button {
+        font-size: 15px;
+        padding: 5px 10px;
+        margin: 5px;
+    }
+    #info {
+        margin: 10px;
+        font-size: 16px;
+    }
+    #board {
+        margin: 20px auto;
+        display: grid;
+        gap: 5px;
+        background: #333;
+        padding: 5px;
+        width: fit-content;
+    }
+    .tile {
+        width: 70px;
+        height: 70px;
+        line-height: 70px;
+        font-size: 22px;
+        color: white;
+        user-select: none;
+        cursor: pointer;
+        border-radius: 6px;
+    }
+    .up { background: #2196f3; }
+    .down { background: #e91e63; }
+    .hole {
+        background: #ccc;
+        cursor: default;
+    }
+</style>
+</head>
+<body>
+
+<h1>Nagaoka / 15-Puzzle Demo</h1>
+
+<div id="controls">
+    <select id="modeSelect" onchange="reset()">
+        <option value="puzzle2">2 × 2 Puzzle</option>
+        <option value="puzzle4">4 × 4 Puzzle</option>
+        <option value="nagaoka2">2 × 2 Nagaoka</option>
+        <option value="nagaoka4" selected>4 × 4 Nagaoka</option>
+    </select>
+
+    <button onclick="reset()">Reset</button>
+    <button id="polarBtn" onclick="polarize()">Full Polarization</button>
+    <button id="randBtn" onclick="randomizeSpins()">Random Spins</button>
+</div>
+
+<div id="info">
+    Moves: <span id="moves">0</span> |
+    ↑↓ bonds: <span id="mix">-</span>
+</div>
+
+<div id="board"></div>
+
+<script>
+let size = 4;
+let mode = "nagaoka4";
+let board = [];
+let hole = 0;
+let moves = 0;
+
+function reset() {
+    mode = document.getElementById("modeSelect").value;
+    moves = 0;
+    document.getElementById("moves").innerText = moves;
+
+    const isNagaoka = mode.startsWith("nagaoka");
+    size = (mode.endsWith("2")) ? 2 : 4;
+
+    // Toggle buttons visibility
+    document.getElementById("polarBtn").style.display = isNagaoka ? "inline-block" : "none";
+    document.getElementById("randBtn").style.display = isNagaoka ? "inline-block" : "none";
+
+    board = [];
+
+    if (isNagaoka) {
+        for (let i = 0; i < size * size - 1; i++) {
+            board.push(Math.random() < 0.5 ? "up" : "down");
+        }
+        board.push("hole");
+    } else {
+        for (let i = 1; i < size * size; i++) board.push(i);
+        board.push(0);
+    }
+
+    hole = board.length - 1;
+    shuffle();
+    render();
+}
+
+function shuffle() {
+    for (let i = 0; i < 100; i++) {
+        const nbs = neighbors(hole);
+        const j = nbs[Math.floor(Math.random() * nbs.length)];
+        swap(hole, j);
+        hole = j;
+    }
+}
+
+function polarize() {
+    if (!mode.startsWith("nagaoka")) return;
+    board = board.map(v => v === "hole" ? "hole" : "up");
+    render();
+}
+
+function randomizeSpins() {
+    if (!mode.startsWith("nagaoka")) return;
+    board = board.map(v => {
+        if (v === "hole") return "hole";
+        return Math.random() < 0.5 ? "up" : "down";
+    });
+    render();
+}
+
+function neighbors(i) {
+    const r = Math.floor(i / size);
+    const c = i % size;
+    const n = [];
+    if (r > 0) n.push(i - size);
+    if (r < size - 1) n.push(i + size);
+    if (c > 0) n.push(i - 1);
+    if (c < size - 1) n.push(i + 1);
+    return n;
+}
+
+function swap(i, j) {
+    const t = board[i];
+    board[i] = board[j];
+    board[j] = t;
+}
+
+function clickTile(i) {
+    if (!neighbors(hole).includes(i)) return;
+    swap(i, hole);
+    hole = i;
+    moves++;
+    document.getElementById("moves").innerText = moves;
+    render();
+}
+
+function countMixedBonds() {
+    let cnt = 0;
+    for (let i = 0; i < board.length; i++) {
+        if (board[i] === "hole") continue;
+        for (const j of neighbors(i)) {
+            if (board[j] === "hole") continue;
+            if (board[i] !== board[j]) cnt++;
+        }
+    }
+    return cnt / 2;
+}
+
+function render() {
+    const b = document.getElementById("board");
+    b.innerHTML = "";
+    b.style.gridTemplateColumns = `repeat(${size}, 70px)`;
+
+    board.forEach((v, i) => {
+        const d = document.createElement("div");
+        d.className = "tile";
+
+        if (mode.startsWith("nagaoka")) {
+            if (v === "hole") {
+                d.classList.add("hole");
+            } else {
+                d.classList.add(v);
+                d.innerText = v === "up" ? "↑" : "↓";
+                d.onclick = () => clickTile(i);
+            }
+        } else {
+            if (v === 0) {
+                d.classList.add("hole");
+            } else {
+                d.style.background = "#4caf50";
+                d.innerText = v;
+                d.onclick = () => clickTile(i);
+            }
+        }
+        b.appendChild(d);
+    });
+
+    document.getElementById("mix").innerText =
+        mode.startsWith("nagaoka") ? countMixedBonds() : "-";
+}
+
+reset();
+</script>
+
+</body>
+</html>

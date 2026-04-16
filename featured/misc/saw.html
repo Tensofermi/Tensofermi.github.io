@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SA Lévy Flight (1D) + PERM-like Enrichment — Demo</title>
+  <style>
+    :root{--bg:#0b0f14;--panel:#121a24;--text:#e6eef8;--muted:#9fb3c8;--line:#233244;--accent:#64b5ff;--warn:#ffcf5c;--bad:#ff6b6b;}
+    html,body{height:100%;margin:0;background:var(--bg);color:var(--text);font:14px/1.4 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;}
+    .wrap{max-width:1100px;margin:0 auto;padding:16px;display:grid;grid-template-columns:360px 1fr;gap:14px;}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.25);}
+    .card h2{margin:0;padding:12px 14px;border-bottom:1px solid var(--line);font-size:14px;letter-spacing:.2px;color:var(--muted);font-weight:600;}
+    .card .body{padding:12px 14px;}
+    label{display:block;margin:10px 0 6px;color:var(--muted);}
+    input[type="range"], input[type="number"]{width:100%;}
+    .row{display:flex;gap:10px;align-items:center;}
+    .row > *{flex:1;}
+    .btns{display:flex;gap:10px;margin-top:12px;}
+    button{cursor:pointer;border:1px solid var(--line);background:#0f1721;color:var(--text);padding:10px 12px;border-radius:12px;font-weight:600;}
+    button.primary{border-color:#2a4a66;background:#0b2234;}
+    button:disabled{opacity:.45;cursor:not-allowed;}
+    .kv{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;}
+    .k{color:var(--muted);} .v{font-variant-numeric:tabular-nums;}
+    canvas{display:block;width:100%;height:640px;border-radius:14px;}
+    .legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;color:var(--muted);font-size:12px;}
+    .dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:middle;}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;}
+    .hint{color:var(--muted);font-size:12px;margin-top:10px;}
+    a{color:var(--accent);text-decoration:none;} a:hover{text-decoration:underline;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h2>Controls</h2>
+      <div class="body">
+        <label>σ (tail exponent)</label>
+        <div class="row">
+          <input id="sigma" type="range" min="0.3" max="3.0" step="0.05" value="1.5" />
+          <div class="mono" style="width:64px;text-align:right" id="sigmaVal">1.50</div>
+        </div>
+
+        <label>N_max (steps per tour)</label>
+        <input id="nmax" type="number" min="20" max="1000" step="10" value="250" />
+
+        <label>r_max (truncation)</label>
+        <input id="rmax" type="number" min="100" max="200000" step="100" value="30000" />
+
+        <div class="row">
+          <div>
+            <label>c_low (prune threshold)</label>
+            <input id="clow" type="number" min="0.05" max="2.0" step="0.05" value="0.5" />
+          </div>
+          <div>
+            <label>c_high (clone threshold)</label>
+            <input id="chigh" type="number" min="0.5" max="10" step="0.1" value="2.0" />
+          </div>
+        </div>
+
+        <label>tours per second (speed)</label>
+        <input id="speed" type="range" min="1" max="120" step="1" value="20" />
+        <div class="mono" id="speedVal" style="text-align:right;color:var(--muted)">20 tours/s</div>
+
+        <div class="btns">
+          <button id="start" class="primary">Start</button>
+          <button id="pause">Pause</button>
+          <button id="reset">Reset</button>
+        </div>
+
+        <div class="hint">
+          This visualizes <span class="mono">one tour at a time</span> as a branching population (PERM-like prune/clone). The statistics panel aggregates over tours.
+          
+          <div style="margin-top:8px">Note: in the provided Python, weights <span class="mono">w</span> stay ~1 (no Rosenbluth bias), so prune/clone rarely triggers. This demo keeps the same behavior, but you can force more pruning/cloning by setting <span class="mono">c_low</span> close to 1 and <span class="mono">c_high</span> close to 1.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Visualization + Live Stats</h2>
+      <div class="body">
+        <canvas id="cv" width="1400" height="640"></canvas>
+        <div class="legend">
+          <span><span class="dot" style="background:#a9b4c2"></span>history (faded)</span>
+          <span><span class="dot" style="background:#64b5ff"></span>active chains</span>
+          <span><span class="dot" style="background:#ffcf5c"></span>cloned</span>
+          <span><span class="dot" style="background:#ff6b6b"></span>pruned</span>
+        </div>
+
+        <div class="kv">
+          <div class="k">Tours completed</div><div class="v mono" id="toursDone">0</div>
+          <div class="k">Current step n</div><div class="v mono" id="stepNow">0</div>
+          <div class="k">Active chains</div><div class="v mono" id="chainsNow">1</div>
+          <div class="k">p_n (proxy)</div><div class="v mono" id="pnNow">—</div>
+          <div class="k">⟨log R_n⟩</div><div class="v mono" id="logRNow">—</div>
+          <div class="k">R_geom</div><div class="v mono" id="RgeomNow">—</div>
+        </div>
+
+        <div class="hint" style="margin-top:12px">
+          Scaling reminders (asymptotic): if <span class="mono">R_geom(n) ~ n^ν</span>, then <span class="mono">ν ≈ d⟨log R⟩/d log n</span>. If <span class="mono">p_n ~ μ^n n^{γ-1}</span>, then <span class="mono">A_n=log(p_n/p_{n-1}) ≈ log μ + (γ-1)/n</span>.
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+(() => {
+  // ---------------------------
+  // Utilities
+  // ---------------------------
+  const clamp = (x,a,b)=>Math.max(a,Math.min(b,x));
+
+  // Deterministic-ish RNG for demo (LCG)
+  function makeRng(seed=1){
+    let s = (seed>>>0) || 1;
+    return {
+      next(){
+        s = (1664525*s + 1013904223)>>>0;
+        return s/4294967296;
+      }
+    };
+  }
+
+  // ---------------------------
+  // LevySampler: discrete truncated q(r) ∝ r^{-σ} - (r+1)^{-σ}
+  // ---------------------------
+  class LevySampler {
+    constructor(sigma, rMax){
+      this.sigma = +sigma;
+      this.rMax = (rMax|0);
+      this.cdf = this.buildCdf();
+    }
+    buildCdf(){
+      const s = this.sigma;
+      const cdf = new Float64Array(this.rMax);
+      let total = 0;
+      for(let r=1;r<=this.rMax;r++){
+        let w = Math.pow(r,-s) - Math.pow(r+1,-s);
+        if(!(w>0)) w = 0;
+        total += w;
+        cdf[r-1]=total;
+      }
+      if(!(total>0)) throw new Error('Invalid CDF total; check sigma/r_max');
+      this.total = total;
+      return cdf;
+    }
+    sample(rng){
+      const u = rng.next()*this.total;
+      // binary search
+      let lo=0, hi=this.cdf.length-1;
+      while(lo<hi){
+        const mid = (lo+hi)>>1;
+        if(this.cdf[mid] >= u) hi=mid; else lo=mid+1;
+      }
+      return lo+1;
+    }
+  }
+
+  // ---------------------------
+  // Chain state
+  // ---------------------------
+  class Chain {
+    constructor(x, visited, n, w){
+      this.x=x|0;
+      this.visited=visited; // Set<int>
+      this.n=n|0;
+      this.w=+w;
+      this.color=0; // 0 normal, 1 cloned, 2 pruned
+      this.path=[this.x];
+    }
+    cloneHalf(){
+      const c = new Chain(this.x, new Set(this.visited), this.n, this.w/2);
+      c.path = this.path.slice();
+      c.color=1;
+      return c;
+    }
+  }
+
+  // ---------------------------
+  // Simulation (one tour visualized, stats aggregated over tours)
+  // ---------------------------
+  class Sim {
+    constructor(){
+      this.resetParams();
+      this.resetAll();
+    }
+
+    resetParams(){
+      this.sigma=1.5;
+      this.Nmax=250;
+      this.rMax=30000;
+      this.cLow=0.5;
+      this.cHigh=2.0;
+      this.speedToursPerSec=20;
+      this.seed=1;
+    }
+
+    resetAll(){
+      this.rng = makeRng(this.seed);
+      this.sampler = new LevySampler(this.sigma, this.rMax);
+
+      // aggregated observables across tours (like python)
+      const L = this.Nmax+1;
+      this.W_alive = new Float64Array(L);
+      this.wsum = new Float64Array(L);
+      this.logR_wsum = new Float64Array(L);
+      this.W_avg = new Float64Array(L);
+      for(let i=0;i<L;i++) this.W_avg[i]=1e-12;
+
+      this.toursDone=0;
+      this.newTour();
+
+      // history paths for drawing
+      this.faded=[]; // array of polylines
+    }
+
+    newTour(){
+      this.n=0;
+      this.chains=[new Chain(0, new Set([0]), 0, 1.0)];
+
+      // record n=0
+      this.W_alive[0] += 1.0;
+      this.wsum[0] += 1.0;
+      this.logR_wsum[0] += 0.0;
+      this.W_avg[0] = Math.max(this.W_avg[0], 1.0);
+
+      // mark current tour overlay info
+      this.lastActionMsg='';
+    }
+
+    finishTour(){
+      // push faded snapshot for visualization (one representative from last population)
+      if(this.chains.length){
+        // keep up to 40 faded paths
+        const pick = this.chains[(this.rng.next()*this.chains.length)|0];
+        this.faded.push(pick.path.slice());
+        if(this.faded.length>40) this.faded.shift();
+      }
+      this.toursDone++;
+      this.newTour();
+    }
+
+    stepOnce(){
+      if(!this.chains.length) return false;
+      if(this.n>=this.Nmax) return false;
+
+      const n = this.n;
+      const n1 = n+1;
+
+      // grow each chain by one step
+      const newChains=[];
+      for(const ch of this.chains){
+        const r = this.sampler.sample(this.rng);
+        const sgn = (this.rng.next()<0.5) ? -1 : 1;
+        const xNew = (ch.x + sgn*r)|0;
+        if(ch.visited.has(xNew)){
+          // die
+          continue;
+        }
+        const visitedNew = new Set(ch.visited);
+        visitedNew.add(xNew);
+        const nc = new Chain(xNew, visitedNew, ch.n+1, ch.w);
+        nc.path = ch.path.concat([xNew]);
+        newChains.push(nc);
+      }
+      this.chains = newChains;
+      if(!this.chains.length){
+        this.lastActionMsg='All chains died (self-avoidance).';
+        return true; // tour will end
+      }
+
+      // update running avg weight
+      let sumw=0;
+      for(const ch of this.chains) sumw += ch.w;
+      const avgw = sumw/Math.max(1,this.chains.length);
+      this.W_avg[n1] = 0.98*this.W_avg[n1] + 0.02*avgw;
+
+      const Wlow = this.cLow*this.W_avg[n1];
+      const Whigh = this.cHigh*this.W_avg[n1];
+
+      // prune/clone
+      const enriched=[];
+      let pruned=0, cloned=0;
+      for(const ch of this.chains){
+        ch.color=0;
+        if(ch.w < Wlow){
+          if(this.rng.next()<0.5){
+            pruned++;
+            continue;
+          }
+          ch.w *= 2.0;
+          ch.color=2;
+          enriched.push(ch);
+        } else if(ch.w > Whigh){
+          const a = ch.cloneHalf();
+          const b = ch.cloneHalf();
+          cloned++;
+          enriched.push(a,b);
+        } else {
+          enriched.push(ch);
+        }
+      }
+      this.chains = enriched;
+      if(pruned) this.lastActionMsg = `Pruned ${pruned} chains (low weight).`;
+      else if(cloned) this.lastActionMsg = `Cloned ${cloned} chains (high weight).`;
+      else this.lastActionMsg='';
+
+      if(!this.chains.length){
+        this.lastActionMsg='All chains removed after prune.';
+        return true;
+      }
+
+      // record stats at length n1
+      let totalW=0;
+      for(const ch of this.chains) totalW += ch.w;
+      this.W_alive[n1] += totalW;
+      this.wsum[n1] += totalW;
+      for(const ch of this.chains){
+        const R = Math.abs(ch.x);
+        const logR = Math.log(Math.max(1, R));
+        this.logR_wsum[n1] += ch.w*logR;
+      }
+
+      this.n = n1;
+      return true;
+    }
+
+    // run one whole tour fast (for speed), but keep last population for drawing
+    runTourFast(){
+      while(this.n < this.Nmax && this.chains.length){
+        this.stepOnce();
+      }
+      this.finishTour();
+    }
+
+    getLiveStats(){
+      const n=this.n;
+      const tours=Math.max(1,this.toursDone || 1);
+      const pn = this.W_alive[n]/Math.max(1,this.toursDone || 1);
+      const denom = this.wsum[n];
+      const logR = denom>0 ? (this.logR_wsum[n]/denom) : NaN;
+      const Rgeom = Number.isFinite(logR) ? Math.exp(logR) : NaN;
+      return {n, pn, logR, Rgeom, chains:this.chains.length, toursDone:this.toursDone};
+    }
+  }
+
+  // ---------------------------
+  // Rendering
+  // ---------------------------
+  const cv = document.getElementById('cv');
+  const ctx = cv.getContext('2d');
+
+  function clear(){
+    ctx.clearRect(0,0,cv.width,cv.height);
+    // background grid
+    ctx.fillStyle = '#0b0f14';
+    ctx.fillRect(0,0,cv.width,cv.height);
+
+    ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+    ctx.lineWidth = 1;
+    for(let y=0;y<=cv.height;y+=80){
+      ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(cv.width,y); ctx.stroke();
+    }
+  }
+
+  function draw(sim){
+    clear();
+
+    // scaling to fit: map x range to width, n range to height
+    const nMax = sim.Nmax;
+
+    // Estimate an x-scale based on typical current extents
+    let xAbsMax = 10;
+    // include faded
+    for(const p of sim.faded){
+      for(const x of p) xAbsMax = Math.max(xAbsMax, Math.abs(x));
+    }
+    for(const ch of sim.chains){
+      xAbsMax = Math.max(xAbsMax, Math.abs(ch.x));
+      // sample a few points
+      const p = ch.path;
+      for(let i=0;i<p.length;i+=Math.max(1,(p.length/12)|0)) xAbsMax = Math.max(xAbsMax, Math.abs(p[i]));
+    }
+    xAbsMax = Math.max(xAbsMax, 10);
+
+    const padX = 60;
+    const padY = 30;
+    const x0 = cv.width/2;
+    const y0 = padY;
+
+    const xScale = (cv.width - 2*padX) / (2*xAbsMax);
+    const yScale = (cv.height - 2*padY) / (nMax || 1);
+
+    const X = (x)=> x0 + x*xScale;
+    const Y = (n)=> y0 + n*yScale;
+
+    // axes
+    ctx.strokeStyle = 'rgba(255,255,255,0.18)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(x0, padY); ctx.lineTo(x0, cv.height-padY); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(padX, cv.height-padY); ctx.lineTo(cv.width-padX, cv.height-padY); ctx.stroke();
+
+    ctx.fillStyle = 'rgba(255,255,255,0.6)';
+    ctx.font = '12px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace';
+    ctx.fillText('x', cv.width-padX+10, cv.height-padY+4);
+    ctx.fillText('n', x0+6, padY-8);
+
+    // faded history paths
+    ctx.lineWidth = 1.2;
+    ctx.strokeStyle = 'rgba(169,180,194,0.22)';
+    for(const p of sim.faded){
+      ctx.beginPath();
+      for(let i=0;i<p.length;i++){
+        const px = X(p[i]);
+        const py = Y(i);
+        if(i===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
+      }
+      ctx.stroke();
+    }
+
+    // active chains
+    for(const ch of sim.chains){
+      if(ch.color===1) ctx.strokeStyle = 'rgba(255,207,92,0.9)';
+      else if(ch.color===2) ctx.strokeStyle = 'rgba(255,107,107,0.9)';
+      else ctx.strokeStyle = 'rgba(100,181,255,0.9)';
+      ctx.lineWidth = 2.2;
+      ctx.beginPath();
+      for(let i=0;i<ch.path.length;i++){
+        const px = X(ch.path[i]);
+        const py = Y(i);
+        if(i===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
+      }
+      ctx.stroke();
+
+      // endpoint marker
+      ctx.fillStyle = ctx.strokeStyle;
+      const ex = X(ch.x);
+      const ey = Y(ch.n);
+      ctx.fillRect(ex-3, ey-3, 6, 6);
+    }
+
+    // overlay status text
+    const st = sim.getLiveStats();
+    ctx.fillStyle = 'rgba(230,238,248,0.92)';
+    ctx.font = '14px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace';
+    ctx.fillText(`tour=${st.toursDone}  n=${st.n}  chains=${st.chains}`, 18, 22);
+    if(sim.lastActionMsg){
+      ctx.fillStyle = 'rgba(255,207,92,0.9)';
+      ctx.fillText(sim.lastActionMsg, 18, 44);
+    }
+  }
+
+  // ---------------------------
+  // UI binding
+  // ---------------------------
+  const el = (id)=>document.getElementById(id);
+  const sim = new Sim();
+
+  const sigma = el('sigma');
+  const sigmaVal = el('sigmaVal');
+  const nmax = el('nmax');
+  const rmax = el('rmax');
+  const clow = el('clow');
+  const chigh = el('chigh');
+  const speed = el('speed');
+  const speedVal = el('speedVal');
+
+  const startBtn = el('start');
+  const pauseBtn = el('pause');
+  const resetBtn = el('reset');
+
+  const toursDone = el('toursDone');
+  const stepNow = el('stepNow');
+  const chainsNow = el('chainsNow');
+  const pnNow = el('pnNow');
+  const logRNow = el('logRNow');
+  const RgeomNow = el('RgeomNow');
+
+  function syncLabels(){
+    sigmaVal.textContent = (+sigma.value).toFixed(2);
+    speedVal.textContent = `${speed.value} tours/s`;
+  }
+
+  function applyParams(){
+    sim.sigma = +sigma.value;
+    sim.Nmax = clamp(parseInt(nmax.value||'250',10), 20, 1000);
+    sim.rMax = clamp(parseInt(rmax.value||'30000',10), 100, 200000);
+    sim.cLow = Math.max(0.01, +clow.value);
+    sim.cHigh = Math.max(sim.cLow, +chigh.value);
+    sim.speedToursPerSec = +speed.value;
+  }
+
+  function resetAll(){
+    applyParams();
+    try{
+      sim.resetAll();
+    } catch(e){
+      alert(String(e.message||e));
+      return;
+    }
+    updateStats();
+    draw(sim);
+  }
+
+  function updateStats(){
+    const st = sim.getLiveStats();
+    toursDone.textContent = String(sim.toursDone);
+    stepNow.textContent = String(st.n);
+    chainsNow.textContent = String(st.chains);
+
+    const pn = sim.W_alive[st.n] / Math.max(1, sim.toursDone || 1);
+    pnNow.textContent = Number.isFinite(pn) ? pn.toExponential(4) : '—';
+
+    const denom = sim.wsum[st.n];
+    const logR = denom>0 ? sim.logR_wsum[st.n]/denom : NaN;
+    logRNow.textContent = Number.isFinite(logR) ? logR.toFixed(6) : '—';
+
+    const Rg = Number.isFinite(logR) ? Math.exp(logR) : NaN;
+    RgeomNow.textContent = Number.isFinite(Rg) ? Rg.toFixed(4) : '—';
+  }
+
+  // events
+  sigma.addEventListener('input', ()=>{syncLabels();});
+  speed.addEventListener('input', ()=>{syncLabels();});
+
+  let running=false;
+  let lastT=performance.now();
+  let tourAccumulator=0;
+
+  function tick(t){
+    requestAnimationFrame(tick);
+    if(!running) return;
+
+    const dt = Math.min(0.05, (t-lastT)/1000);
+    lastT=t;
+
+    applyParams();
+
+    tourAccumulator += dt * sim.speedToursPerSec;
+
+    // run integer number of tours fast
+    const k = Math.floor(tourAccumulator);
+    if(k>0){
+      tourAccumulator -= k;
+      for(let i=0;i<k;i++) sim.runTourFast();
+    }
+
+    // also advance a few visible steps of current tour to show motion
+    // (so even at high speed you see activity)
+    for(let i=0;i<3;i++){
+      if(sim.n >= sim.Nmax || !sim.chains.length){
+        sim.finishTour();
+      } else {
+        sim.stepOnce();
+      }
+    }
+
+    updateStats();
+    draw(sim);
+  }
+
+  startBtn.addEventListener('click', ()=>{running=true;});
+  pauseBtn.addEventListener('click', ()=>{running=false;});
+  resetBtn.addEventListener('click', ()=>{running=false; resetAll();});
+
+  // init
+  syncLabels();
+  resetAll();
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
