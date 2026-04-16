@@ -1,179 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Rigidity Pebble Game Demo</title>
-
-<style>
-
-body{
-font-family:Arial;
-background:#111;
-color:white;
-text-align:center;
-}
-
-canvas{
-background:#222;
-border:1px solid #555;
-}
-
-button{
-padding:10px;
-margin:10px;
-font-size:16px;
-}
-
-#status{
-font-size:18px;
-margin-top:10px;
-}
-
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rigidity Pebble Game Demo - Little Fluctuating Cat _(:&#1079;&#12293;&#8736;)_~</title>
+  <link rel="shortcut icon" href="../../images/main.png">
+  <link rel="stylesheet" href="../../css/styles.css">
+  <style>
+    .feature-demo-page .page-content { max-width: 980px; }
+    .demo-toolbar { display:flex; justify-content:center; gap:12px; margin-bottom:16px; }
+    .demo-toolbar button {
+      min-height: 42px; padding: 0 16px; border:1px solid rgba(18,69,127,.14); border-radius:999px;
+      background: rgba(255,255,255,.92); color:#172033; font-family:"Segoe UI","PingFang SC","Noto Sans SC",sans-serif; font-weight:600; cursor:pointer;
+    }
+    #canvas { display:block; width:min(100%,700px); height:auto; margin:0 auto; background:#f7fafc; border:1px solid rgba(15,23,42,.12); border-radius:18px; }
+    #status { margin-top: 16px; text-align:center; color:#556070; font-family:"Segoe UI","PingFang SC","Noto Sans SC",sans-serif; }
+  </style>
 </head>
-
-<body>
-
-<h2>2D Rigidity Pebble Game</h2>
-
-<button onclick="addEdge()">Add Edge</button>
-<button onclick="reset()">Reset</button>
-
-<br>
-
-<canvas id="canvas" width="700" height="450"></canvas>
-
-<div id="status"></div>
-
+<body class="site-page feature-demo-page">
+  <header class="hero header-bg"><script>var page_index = 2;</script><script defer src="../../js/script.js"></script><button class="carousel-button btn-left" id="prev-btn" aria-label="Previous image">&#10094;</button><button class="carousel-button btn-right" id="next-btn" aria-label="Next image">&#10095;</button></header>
+  <nav class="navbar"><ul class="nav-list"><li class="logo"><img src="../../images/main_full.jpg" alt="Logo" /><span>Tensofermi</span></li><li class="nav-links"><a class="nav_item" href="../../index.html">Home</a><a class="nav_item" href="../../notes.html">Notes</a><a class="nav_item" href="../../featured.html">Featured</a><a class="nav_item" href="../../contact.html">Contact</a></li></ul></nav>
+  <main class="page-content"><section class="content-panel"><h2>Rigidity Pebble Game Demo</h2><div class="demo-toolbar"><button onclick="addEdge()">Add Edge</button><button onclick="reset()">Reset</button></div><canvas id="canvas" width="700" height="450"></canvas><div id="status"></div></section></main>
+  <footer class="site-footer"><p>&copy; 2024 Little Fluctuating Cat _(:&#1079;&#12293;&#8736;)_~. All rights reserved.</p></footer>
 <script>
-
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-
 let nodes = [
-{x:150,y:120,pebbles:2},
-{x:400,y:120,pebbles:2},
-{x:500,y:300,pebbles:2},
-{x:200,y:300,pebbles:2}
+  { x: 150, y: 120, pebbles: 2 },
+  { x: 400, y: 120, pebbles: 2 },
+  { x: 500, y: 300, pebbles: 2 },
+  { x: 200, y: 300, pebbles: 2 }
 ];
+let edges = [];
 
-let edges=[];
-
-function draw(){
-
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-for(let e of edges){
-
-ctx.strokeStyle=e.redundant?"red":"white";
-
-ctx.beginPath();
-ctx.moveTo(nodes[e.a].x,nodes[e.a].y);
-ctx.lineTo(nodes[e.b].x,nodes[e.b].y);
-ctx.stroke();
-
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (const edge of edges) {
+    ctx.strokeStyle = edge.redundant ? "#d6497a" : "#12315c";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(nodes[edge.a].x, nodes[edge.a].y);
+    ctx.lineTo(nodes[edge.b].x, nodes[edge.b].y);
+    ctx.stroke();
+  }
+  ctx.font = '14px Segoe UI';
+  for (let i = 0; i < nodes.length; i += 1) {
+    const node = nodes[i];
+    ctx.beginPath();
+    ctx.arc(node.x, node.y, 20, 0, 2 * Math.PI);
+    ctx.fillStyle = "#e8eef6";
+    ctx.fill();
+    ctx.strokeStyle = '#12315c';
+    ctx.stroke();
+    ctx.fillStyle = "#172033";
+    ctx.fillText(`N${i}`, node.x - 10, node.y - 28);
+    for (let p = 0; p < node.pebbles; p += 1) {
+      ctx.beginPath();
+      ctx.arc(node.x - 10 + p * 10, node.y + 5, 4, 0, 2 * Math.PI);
+      ctx.fillStyle = "#3f7edb";
+      ctx.fill();
+    }
+  }
+  updateStatus();
 }
 
-for(let i=0;i<nodes.length;i++){
-
-let n=nodes[i];
-
-ctx.beginPath();
-ctx.arc(n.x,n.y,20,0,2*Math.PI);
-ctx.fillStyle="#444";
-ctx.fill();
-ctx.stroke();
-
-ctx.fillStyle="white";
-ctx.fillText("N"+i,n.x-10,n.y-25);
-
-for(let p=0;p<n.pebbles;p++){
-
-ctx.beginPath();
-ctx.arc(n.x-10+p*10,n.y+5,4,0,2*Math.PI);
-ctx.fillStyle="cyan";
-ctx.fill();
-
+function addEdge() {
+  let a = Math.floor(Math.random() * nodes.length);
+  let b = Math.floor(Math.random() * nodes.length);
+  if (a === b) return;
+  for (const edge of edges) {
+    if ((edge.a === a && edge.b === b) || (edge.a === b && edge.b === a)) return;
+  }
+  let redundant = false;
+  if (nodes[a].pebbles > 0) {
+    nodes[a].pebbles -= 1;
+  } else if (nodes[b].pebbles > 0) {
+    nodes[b].pebbles -= 1;
+  } else {
+    redundant = true;
+  }
+  edges.push({ a, b, redundant });
+  draw();
 }
 
+function updateStatus() {
+  const N = nodes.length;
+  const edgeCount = edges.length;
+  const maxEdges = 2 * N - 3;
+  const rigid = edgeCount >= maxEdges;
+  document.getElementById("status").textContent = `Edges m = ${edgeCount} | Maxwell limit 2N - 3 = ${maxEdges} | Structure: ${rigid ? 'RIGID' : 'FLOPPY'}`;
 }
 
-updateStatus();
-
-}
-
-function addEdge(){
-
-let a=Math.floor(Math.random()*nodes.length);
-let b=Math.floor(Math.random()*nodes.length);
-
-if(a==b) return;
-
-for(let e of edges){
-if((e.a==a&&e.b==b)||(e.a==b&&e.b==a)) return;
-}
-
-let redundant=false;
-
-if(nodes[a].pebbles>0){
-
-nodes[a].pebbles--;
-
-}
-else if(nodes[b].pebbles>0){
-
-nodes[b].pebbles--;
-
-}
-else{
-
-redundant=true;
-
-}
-
-edges.push({a:a,b:b,redundant:redundant});
-
-draw();
-
-}
-
-function updateStatus(){
-
-let N=nodes.length;
-let m=edges.length;
-
-let maxEdges=2*N-3;
-
-let rigid=(m>=maxEdges);
-
-let text="Edges m = "+m+
-" | Maxwell limit 2N-3 = "+maxEdges+
-" | ";
-
-if(rigid)
-text+="STRUCTURE: RIGID";
-else
-text+="STRUCTURE: FLOPPY";
-
-document.getElementById("status").innerHTML=text;
-
-}
-
-function reset(){
-
-edges=[];
-
-for(let n of nodes)
-n.pebbles=2;
-
-draw();
-
+function reset() {
+  edges = [];
+  for (const node of nodes) node.pebbles = 2;
+  draw();
 }
 
 draw();
-
 </script>
-
 </body>
 </html>

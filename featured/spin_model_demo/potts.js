@@ -1,8 +1,8 @@
 class Potts {
-  constructor(Lx, Ly, Q, TTC, H) {
-    this.Q = Q;
-    this.TTC = TTC;
-    this.H = H;
+  constructor(Lx, Ly, states, reducedTemperature, magneticField) {
+    this.Q = states;
+    this.TTC = reducedTemperature;
+    this.H = magneticField;
     this.resize(Lx, Ly);
   }
 
@@ -10,7 +10,6 @@ class Potts {
     this.Lx = Lx;
     this.Ly = Ly;
     this.N = Lx * Ly;
-    console.log("Lx=", Lx, "Ly=", Ly, "N=", this.N);
 
     this.Spin = new Int8Array(this.N);
     this.NN0 = new Int32Array(this.N);
@@ -18,244 +17,197 @@ class Potts {
     this.NN2 = new Int32Array(this.N);
     this.NN3 = new Int32Array(this.N);
 
-    this.Spin.forEach((val, idx) => {
-      this.Spin[idx] = this.rand_int(this.Q);
-
-      let x, y;
-      [x, y] = this.get_coordinate(idx);
-      this.NN0[idx] = this.get_index(x + 1, y);
-      this.NN1[idx] = this.get_index(x, y + 1);
-      this.NN2[idx] = this.get_index(x - 1, y);
-      this.NN3[idx] = this.get_index(x, y - 1);
+    this.Spin.forEach((_, index) => {
+      this.Spin[index] = this.randomState(this.Q);
+      const [x, y] = this.getCoordinate(index);
+      this.NN0[index] = this.getIndex(x + 1, y);
+      this.NN1[index] = this.getIndex(x, y + 1);
+      this.NN2[index] = this.getIndex(x - 1, y);
+      this.NN3[index] = this.getIndex(x, y - 1);
     });
 
-    // For Swendsen-Wang algorithm
     this.Parent = new Int32Array(this.N);
   }
 
   tc() {
-    return 1.0 / Math.log(Math.sqrt(this.Q) + 1.0);
+    return 1 / Math.log(Math.sqrt(this.Q) + 1);
   }
 
-  rand_int(q) {
+  randomState(q) {
     return Math.floor(Math.random() * q) % q;
   }
 
-  get_coordinate(i) {
-    return [i % this.Lx, Math.floor(i / this.Lx)];
+  getCoordinate(index) {
+    return [index % this.Lx, Math.floor(index / this.Lx)];
   }
 
-  get_index(x, y) {
-    x = (x + this.Lx) % this.Lx;
-    y = (y + this.Ly) % this.Ly;
-    return x + y * this.Lx;
+  getIndex(x, y) {
+    const wrappedX = (x + this.Lx) % this.Lx;
+    const wrappedY = (y + this.Ly) % this.Ly;
+    return wrappedX + wrappedY * this.Lx;
   }
 
   update() {
-    // this.swendsen_wang();
-    this.heat_bath();
+    this.heatBath();
   }
 
-  heat_bath() {
-    const beta = 1.0 / (this.TTC * this.tc());
-    const w = Math.exp(beta);
-    const wh = Math.exp(beta * this.H);
-    for (let i = 0; i < this.N; i += 2) {
-      this.single_flip(i, w, wh);
+  heatBath() {
+    const beta = 1 / (this.TTC * this.tc());
+    const interactionWeight = Math.exp(beta);
+    const fieldWeight = Math.exp(beta * this.H);
+
+    for (let index = 0; index < this.N; index += 2) {
+      this.singleFlip(index, interactionWeight, fieldWeight);
     }
-    for (let i = 1; i < this.N; i += 2) {
-      this.single_flip(i, w, wh);
+    for (let index = 1; index < this.N; index += 2) {
+      this.singleFlip(index, interactionWeight, fieldWeight);
     }
   }
 
-  single_flip(i, w, wh) {
-    let prob = new Float64Array(this.Q);
-    prob.fill(1.0);
-    prob[this.Spin[this.NN0[i]]] *= w;
-    prob[this.Spin[this.NN1[i]]] *= w;
-    prob[this.Spin[this.NN2[i]]] *= w;
-    prob[this.Spin[this.NN3[i]]] *= w;
-    prob[0] *= wh;
-    let sum = prob.reduce((p, c) => {return p + c;}, 0.0);
-    let x = Math.random() * sum;
-    let p = 0.0;
-    for (let q = 0; q < this.Q; ++q) {
-      p += prob[q];
-      if (x < p) {
-        this.Spin[i] = q;
+  singleFlip(index, interactionWeight, fieldWeight) {
+    const probabilities = new Float64Array(this.Q);
+    probabilities.fill(1);
+    probabilities[this.Spin[this.NN0[index]]] *= interactionWeight;
+    probabilities[this.Spin[this.NN1[index]]] *= interactionWeight;
+    probabilities[this.Spin[this.NN2[index]]] *= interactionWeight;
+    probabilities[this.Spin[this.NN3[index]]] *= interactionWeight;
+    probabilities[0] *= fieldWeight;
+
+    const totalWeight = probabilities.reduce((sum, value) => sum + value, 0);
+    const threshold = Math.random() * totalWeight;
+    let cumulative = 0;
+
+    for (let state = 0; state < this.Q; state += 1) {
+      cumulative += probabilities[state];
+      if (threshold < cumulative) {
+        this.Spin[index] = state;
         break;
       }
-    }
-  }
-
-  ////////////////////////////////////////
-  swendsen_wang() {
-    const prob = 1.0 - Math.exp(-1.0 / (this.TTC * this.tc()));
-    this.Parent.forEach((_, i) => {
-      this.Parent[i] = i;
-    });
-    this.Spin.forEach((_, i) => {
-      this.connect(i, this.NN0[i], prob);
-      this.connect(i, this.NN1[i], prob);
-    });
-    this.Spin.forEach((_, i) => {
-      let root = this.find(i);
-      if (i == root) {
-        this.Spin[i] = this.rand_int(this.Q);
-      } else {
-        this.Spin[i] = this.Spin[root];
-      }
-    });
-  }
-
-  find(i) {
-    // Find with path splitting
-    while (i != this.Parent[i]) {
-      [i, this.Parent[i]] = [this.Parent[i], this.Parent[this.Parent[i]]];
-    }
-    return i;
-  }
-
-  unite(i, j) {
-    // Unite by index
-    i = this.find(i);
-    j = this.find(j);
-    if (i == j) {
-      return;
-    }
-    if (i > j) {
-      [i, j] = [j, i];
-    }
-    this.Parent[j] = i;
-  }
-
-  connect(i, j, prob) {
-    if (this.Spin[i] == this.Spin[j] && Math.random() < prob) {
-      this.unite(i, j);
     }
   }
 }
 
 class DrawPotts {
-  constructor(id, full) {
-    const q_min = 2;
-    const q_max = 6;
+  constructor(id, useFullscreenCanvas) {
     this.id = id;
-    this.full = full;
-    this.length = 4;
+    this.useFullscreenCanvas = useFullscreenCanvas;
+    this.cellSize = 4;
+    this.minStates = 2;
+    this.maxStates = 6;
 
     this.stage = new createjs.StageGL(this.id);
-    if (this.full) {
+    if (this.useFullscreenCanvas) {
       this.stage.canvas.width = window.innerWidth;
       this.stage.canvas.height = window.innerHeight;
-      this.stage.updateViewport(
-        this.stage.canvas.width,
-        this.stage.canvas.height
-      );
+      this.stage.updateViewport(this.stage.canvas.width, this.stage.canvas.height);
     }
 
     this.stage.setClearColor("#ffffff");
     this.stage.update();
 
-    let builder = new createjs.SpriteSheetBuilder();
-    let rect = new createjs.Rectangle(0, 0, this.length, this.length);
-    this.frame_number = [];
-    for (let q = q_min; q <= q_max; ++q) {
-      this.frame_number[q] = new Int32Array(q);
-      for (let i = 0; i < q; ++i) {
-        this.frame_number[q][i] = builder.addFrame(this.create_cell(q, i), rect);
+    const builder = new createjs.SpriteSheetBuilder();
+    const rect = new createjs.Rectangle(0, 0, this.cellSize, this.cellSize);
+    this.frameNumber = [];
+    for (let states = this.minStates; states <= this.maxStates; states += 1) {
+      this.frameNumber[states] = new Int32Array(states);
+      for (let index = 0; index < states; index += 1) {
+        this.frameNumber[states][index] = builder.addFrame(this.createCell(states, index), rect);
       }
     }
     this.spriteSheet = builder.build();
 
-    let cx = this.stage.canvas.width;
-    let cy = this.stage.canvas.height;
-    let Lx = Math.floor(cx / this.length) + 1;
-    let Ly = Math.floor(cy / this.length) + 1;
-    let N = Lx * Ly;
+    const width = this.stage.canvas.width;
+    const height = this.stage.canvas.height;
+    const Lx = Math.floor(width / this.cellSize) + 1;
+    const Ly = Math.floor(height / this.cellSize) + 1;
 
-    this.potts = new Potts(Lx, Ly, 4, 1.0, 0.0);
-
-    this.potts.Spin.forEach((c, i) => {
-      let image = new createjs.Sprite(this.spriteSheet);
-      image.gotoAndStop(this.frame_number[this.potts.Q][c]);
-      this.stage.addChild(image);
-      let x, y;
-      [x, y] = this.potts.get_coordinate(i);
-      image.x = this.length * x;
-      image.y = this.length * y;
-    })
+    this.potts = new Potts(Lx, Ly, 4, 1, 0);
+    this.seedStageChildren();
+    this.bindControls();
 
     createjs.Ticker.framerate = 20;
-    createjs.Ticker.addEventListener("tick", () => {
-      this.update();
-    });
+    createjs.Ticker.addEventListener("tick", () => this.update());
 
-    let states_slider = document.getElementById("states");
-    if (states_slider != null) {
-      let states_text = document.getElementById("states_text");
-      states_slider.value = this.potts.Q;
-      states_slider.addEventListener("input", (e) => {
-        let q = Math.floor(e.target.value);
-        this.potts.Q = q;
-        states_text.innerText = q;
-      });
-    }
-
-    let temp_slider = document.getElementById("temperature");
-    if (temp_slider != null) {
-      let temp_text = document.getElementById("temperature_text");
-      temp_slider.value = this.potts.TTC;
-      temp_slider.addEventListener("input", (e) => {
-        this.potts.TTC = e.target.value;
-        if (e.target.value == 1.0) {
-          temp_text.innerText = "";
-        } else {
-          temp_text.innerText = e.target.value;
-        }
-      });
-    }
-
-    let field_slider = document.getElementById("field");
-    if (field_slider != null) {
-      let field_text = document.getElementById("field_text");
-      field_slider.value = this.potts.H;
-      field_slider.addEventListener("input", (e) => {
-        this.potts.H = e.target.value;
-        field_text.innerText = e.target.value;
-      });
-    }
-
-    if (this.full) {
+    if (this.useFullscreenCanvas) {
       this.timeoutID = 0;
       window.addEventListener("resize", () => {
-        if (this.timeoutID) return;
+        if (this.timeoutID) {
+          return;
+        }
         this.timeoutID = setTimeout(() => {
           this.timeoutID = 0;
           this.resize();
-        }, 500);
+        }, 300);
       });
     }
   }
 
-  create_cell(q, i) {
-    const length = this.length;
-    let hue = (360.0 / q) * i;
-    const lw = 0.5;
-    const color_spin = createjs.Graphics.getHSL(hue, 100, 72);
-    const color_back = "#ffffff";
-    let shape = new createjs.Shape();
+  seedStageChildren() {
+    this.potts.Spin.forEach((state, index) => {
+      const sprite = new createjs.Sprite(this.spriteSheet);
+      sprite.gotoAndStop(this.frameNumber[this.potts.Q][state]);
+      this.stage.addChild(sprite);
+      const [x, y] = this.potts.getCoordinate(index);
+      sprite.x = this.cellSize * x;
+      sprite.y = this.cellSize * y;
+    });
+  }
+
+  bindControls() {
+    const stateSlider = document.getElementById("states");
+    const stateText = document.getElementById("states_text");
+    if (stateSlider && stateText) {
+      const updateStates = (value) => {
+        const states = Math.round(Number(value));
+        this.potts.Q = states;
+        stateText.textContent = String(states);
+        stateSlider.value = String(states);
+      };
+      updateStates(this.potts.Q);
+      stateSlider.addEventListener("input", (event) => updateStates(event.target.value));
+    }
+
+    const temperatureSlider = document.getElementById("temperature");
+    const temperatureText = document.getElementById("temperature_text");
+    if (temperatureSlider && temperatureText) {
+      const updateTemperature = (value) => {
+        const reducedTemperature = Number(value);
+        this.potts.TTC = reducedTemperature;
+        temperatureText.textContent = reducedTemperature === 1 ? "" : reducedTemperature.toFixed(2);
+        temperatureSlider.value = String(reducedTemperature);
+      };
+      updateTemperature(this.potts.TTC);
+      temperatureSlider.addEventListener("input", (event) => updateTemperature(event.target.value));
+    }
+
+    const fieldSlider = document.getElementById("field");
+    const fieldText = document.getElementById("field_text");
+    if (fieldSlider && fieldText) {
+      const updateField = (value) => {
+        const field = Number(value);
+        this.potts.H = field;
+        fieldText.textContent = field.toFixed(1);
+        fieldSlider.value = String(field);
+      };
+      updateField(this.potts.H);
+      fieldSlider.addEventListener("input", (event) => updateField(event.target.value));
+    }
+  }
+
+  createCell(states, index) {
+    const hue = (360 / states) * index;
+    const shape = new createjs.Shape();
     shape.graphics
-      .ss(lw)
-      .beginStroke(color_back)
-      .beginFill(color_spin)
-      .drawRect(0, 0, length, length);
+      .ss(0.5)
+      .beginStroke("#ffffff")
+      .beginFill(createjs.Graphics.getHSL(hue, 100, 72))
+      .drawRect(0, 0, this.cellSize, this.cellSize);
     return shape;
   }
 
   draw() {
-    this.potts.Spin.forEach((e, i) => {
-      this.stage.children[i].gotoAndStop(this.frame_number[this.potts.Q][e]);
+    this.potts.Spin.forEach((state, index) => {
+      this.stage.children[index].gotoAndStop(this.frameNumber[this.potts.Q][state]);
     });
     this.stage.update();
   }
@@ -266,35 +218,33 @@ class DrawPotts {
   }
 
   resize() {
-    const cx = window.innerWidth;
-    const cy = window.innerHeight;
-    this.stage.canvas.width = cx;
-    this.stage.canvas.height = cy;
-    this.stage.updateViewport(cx, cy);
-    const Lx = Number.parseInt(cx / this.length) + 1;
-    const Ly = Number.parseInt(cy / this.length) + 1;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    this.stage.canvas.width = width;
+    this.stage.canvas.height = height;
+    this.stage.updateViewport(width, height);
+
+    const Lx = Math.floor(width / this.cellSize) + 1;
+    const Ly = Math.floor(height / this.cellSize) + 1;
     const N = Lx * Ly;
 
-    for (let i = this.stage.numChildren; i < N; ++i) {
-      let image = new createjs.Sprite(this.spriteSheet);
-      this.stage.addChildAt(image, i);
+    for (let index = this.stage.numChildren; index < N; index += 1) {
+      this.stage.addChildAt(new createjs.Sprite(this.spriteSheet), index);
     }
-
-    for (let i = N; i < this.stage.numChildren; ++i) {
-      this.stage.children[i].visible = false;
+    for (let index = N; index < this.stage.numChildren; index += 1) {
+      this.stage.children[index].visible = false;
     }
 
     this.potts.resize(Lx, Ly);
-    this.potts.Spin.forEach((_, i) => {
-      let x, y;
-      [x, y] = this.potts.get_coordinate(i);
-      this.stage.children[i].x = this.length * x;
-      this.stage.children[i].y = this.length * y;
-      this.stage.children[i].visible = true;
+    this.potts.Spin.forEach((_, index) => {
+      const [x, y] = this.potts.getCoordinate(index);
+      this.stage.children[index].x = this.cellSize * x;
+      this.stage.children[index].y = this.cellSize * y;
+      this.stage.children[index].visible = true;
     });
   }
 }
 
 window.addEventListener("load", () => {
-  new DrawPotts("potts", true);
+  new DrawPotts("potts", false);
 });

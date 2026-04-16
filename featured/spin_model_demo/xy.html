@@ -1,77 +1,88 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
-<title>Monte Carlo simulation of the XY model</title>
-<meta charset="UTF-8">
-<meta name="author" content="Satoshi Morita">
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.0/darkly/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="plugins/bootstrap-select.min.css">
-<link rel="stylesheet" href="plugins/bootstrap-slider.min.css">
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Satoshi Morita" />
+  <title>Monte Carlo simulation of the XY model</title>
+  <link rel="stylesheet" href="demo-theme.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
+    integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"
+    integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+    integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
 </head>
+<body class="demo-page">
+  <main class="page-shell">
+    <section class="demo-hero">
+      <a class="demo-back" href="index.html">Back to overview</a>
+      <h1 class="demo-title">Monte Carlo simulation of the XY model</h1>
+      <p class="demo-summary">A continuous-spin lattice model with topological defects. The panel on the right keeps the simulation controls consistent with the rest of the demo collection.</p>
+    </section>
 
-<body>
-<div class="container">
-<div class="page-header">
-  <h1>Monte Carlo simulation of the XY model</h1>
-</div>
-<div class="row">
-  <div class="col-md-5" style="margin-bottom: 20px;">
-    <canvas id="model" width=399 height=399 style="background-color:#eeeeee;"></canvas>
-  </div>
+    <section class="demo-layout">
+      <section class="canvas-card">
+        <div class="canvas-card__frame">
+          <canvas id="model" width="399" height="399"></canvas>
+        </div>
+      </section>
 
-  <div class="col-md-7">
-    <div class="btn-group" role="group">
-     <button id="start" type="button" class="btn btn-primary">Start</button>
-     <button id="stop"  type="button" class="btn btn-primary">Stop</button>
-     <button id="step"  type="button" class="btn btn-primary">Step</button>
-    </div>
+      <aside class="control-card">
+        <div class="control-group">
+          <h2 class="section-title">Actions</h2>
+          <div class="button-row">
+            <button id="start" type="button" class="is-primary">Start</button>
+            <button id="stop" type="button">Stop</button>
+            <button id="step" type="button">Step</button>
+          </div>
+        </div>
 
-    <select class="selectpicker" name="algorithm" id="algorithm">
-     <option value="0">Heat-bath method
-     <option value="1">Swendsen-Wang algorithm
-     <option value="2">Wolff algorithm
-    </select>
-  </div>
+        <div class="control-group">
+          <h2 class="section-title">Controls</h2>
+          <div class="field-stack">
+            <label>
+              <span class="field-label">Update algorithm</span>
+              <select id="algorithm" class="select-input">
+                <option value="0">Heat-bath method</option>
+                <option value="1">Swendsen-Wang algorithm</option>
+                <option value="2">Wolff algorithm</option>
+              </select>
+            </label>
+            <label>
+              <span class="field-label">Color palette</span>
+              <select id="color" class="select-input">
+                <option value="0">Rainbow</option>
+                <option value="1">Blue gradation</option>
+                <option value="2">Three colors</option>
+              </select>
+            </label>
+            <label>
+              <span class="field-label">Temperature: <span class="inline-value">T = <span id="temperature_value">0.50</span></span></span>
+              <input id="temperature" type="range" class="range-input" min="0.1" max="1.5" step="0.01" value="0.5" />
+            </label>
+          </div>
+        </div>
 
-  <div class="col-md-7" style="margin-top: 20px; margin-bottom: 20px;">
-    <div class="btn-group" data-toggle="buttons">
-      <label id="show_vortex" name="show_vortex" class="btn btn-primary active">
-        <input type="checkbox" autocomplete="off" checked>Show Vortices
-      </label>
-      <label  id="rotate_color" name="rotate_color" class="btn btn-primary">
-        <input type="checkbox" autocomplete="off">Color Animation
-      </label>
-    </div>
+        <div class="control-group">
+          <h2 class="section-title">Display</h2>
+          <div class="toggle-grid">
+            <button id="show_vortex" type="button" class="toggle-button is-active" aria-pressed="true">Show vortices</button>
+            <button id="rotate_color" type="button" class="toggle-button" aria-pressed="false">Color animation</button>
+          </div>
+        </div>
 
-    <select class="selectpicker" name="color" id="color">
-     <option value="0">Rainbow
-     <option value="1">Blue gradation
-     <option value="2">Three colors
-    </select>
-  </div>
+        <div class="info-block">
+          <h2>Explanation</h2>
+          <p>Each cell represents a planar spin. The color encodes its orientation, so smooth regions and sudden angular twists can be recognized at a glance.</p>
+          <p>The simulation uses periodic boundary conditions on a (100 x 100) lattice with zero field. Use the slider to change temperature, switch between update algorithms, and inspect how vortices appear and annihilate.</p>
+          <p>The color animation only rotates the color map; it does not rotate the spins themselves. This makes long-lived vortices and the different relaxation speeds of local and cluster updates easier to compare.</p>
+        </div>
+      </aside>
+    </section>
+  </main>
 
-  <div class="col-md-7" style="margin-top: 20px; margin-bottom: 20px;">
-    <input style="width:80%;" type="text" id="temperature">
-    <p>温度 \(\quad T= \) <span id="temperature_value">0.5</span>
-    </p>
-  </div>
-
-  <div class="col-md-6">
-    <p>各ドットはミクロな磁気モーメントに対応し， 磁気モーメントの向きに応じて色が変わる．サイズは周期境界条件の \(L=100\)，磁場は \(H=0.0\) に固定されている．</p>
-    <p>ドロップダウンメニューからアルゴリズムとスピンの色を，スライダーから温度を変更できる．Start, Stopボタンでシミュレーションを再開, 停止できる．Stepボタンを押す度に，1ステップずつ状態が更新される．</p>
-    <p>"Show Vortices" ボタンで，渦の表示を変更できる．渦の色は，右巻き，左巻きに対応している．"Color Animation" ボタンを押すと，スピンに対する色の割り当てを時々刻々と循環させる．スピンが回転しているわけではないので注意．渦の周りでのスピンの振る舞いや，渦の対消滅が観測できて面白い．急冷させた場合，熱浴法では渦が長時間残るが，クラスターフリップで状態更新すると渦は瞬時に消滅することが分かる．</p>
-  </div>
-
-</div> <!-- row -->
-</div> <!-- container -->
-
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-<script src="plugins/bootstrap-select.min.js"></script>
-<script src="plugins/bootstrap-slider.min.js"></script>
-<script src="xy.js"></script>
+  <script src="xy.js"></script>
 </body>
-
 </html>

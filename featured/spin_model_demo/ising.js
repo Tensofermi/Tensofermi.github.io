@@ -1,6 +1,6 @@
 class Ising {
-  constructor(Lx, Ly, T) {
-    this.T = T;
+  constructor(Lx, Ly, temperature) {
+    this.temperature = temperature;
     this.resize(Lx, Ly);
   }
 
@@ -8,7 +8,6 @@ class Ising {
     this.Lx = Lx;
     this.Ly = Ly;
     this.N = Lx * Ly;
-    console.log("Lx=", Lx, "Ly=", Ly, "N=", this.N);
 
     this.Spin = new Int8Array(this.N);
     this.NN0 = new Int32Array(this.N);
@@ -16,145 +15,132 @@ class Ising {
     this.NN2 = new Int32Array(this.N);
     this.NN3 = new Int32Array(this.N);
 
-    this.Spin.forEach((val, idx) => {
-      this.Spin[idx] = Math.random() < 0.5 ? 1 : -1;
-
-      let x, y;
-      [x, y] = this.get_coordinate(idx);
-      this.NN0[idx] = this.get_index(x + 1, y);
-      this.NN1[idx] = this.get_index(x, y + 1);
-      this.NN2[idx] = this.get_index(x - 1, y);
-      this.NN3[idx] = this.get_index(x, y - 1);
+    this.Spin.forEach((_, index) => {
+      this.Spin[index] = Math.random() < 0.5 ? 1 : -1;
+      const [x, y] = this.getCoordinate(index);
+      this.NN0[index] = this.getIndex(x + 1, y);
+      this.NN1[index] = this.getIndex(x, y + 1);
+      this.NN2[index] = this.getIndex(x - 1, y);
+      this.NN3[index] = this.getIndex(x, y - 1);
     });
 
-    // For Swendsen-Wang algorithm
     this.Parent = new Int32Array(this.N);
-
-    // For Swendsen-Wang algorithm
-    this.Stack = new Array();
+    this.Stack = [];
   }
 
-  get_coordinate(i) {
-    return [i % this.Lx, Math.floor(i / this.Lx)];
+  getCoordinate(index) {
+    return [index % this.Lx, Math.floor(index / this.Lx)];
   }
 
-  get_index(x, y) {
-    x = (x + this.Lx) % this.Lx;
-    y = (y + this.Ly) % this.Ly;
-    return x + y * this.Lx;
+  getIndex(x, y) {
+    const wrappedX = (x + this.Lx) % this.Lx;
+    const wrappedY = (y + this.Ly) % this.Ly;
+    return wrappedX + wrappedY * this.Lx;
   }
 
-  is_up(i) {
-    return this.Spin[i] > 0;
+  isUp(index) {
+    return this.Spin[index] > 0;
   }
 
-  update(i) {
-    if (i == 1) {
-      this.swendsen_wang();
-    } else if (i == 2) {
+  update(algorithm) {
+    if (algorithm === 1) {
+      this.swendsenWang();
+    } else if (algorithm === 2) {
       this.wolff();
     } else {
-      this.heat_bath();
+      this.heatBath();
     }
   }
 
-  ////////////////////////////////////////
-  heat_bath() {
-    for (let i = 0; i < this.N; i += 2) {
-      this.single_flip(i);
+  heatBath() {
+    for (let index = 0; index < this.N; index += 2) {
+      this.singleFlip(index);
     }
-    for (let i = 1; i < this.N; i += 2) {
-      this.single_flip(i);
-    }
-  }
-
-  single_flip(i) {
-    let s = this.Spin[i];
-    let s_nn =
-      this.Spin[this.NN0[i]] +
-      this.Spin[this.NN1[i]] +
-      this.Spin[this.NN2[i]] +
-      this.Spin[this.NN3[i]];
-    let prob = 1.0 / (1.0 + Math.exp((2.0 * s * s_nn) / this.T));
-    if (Math.random() < prob) {
-      this.Spin[i] *= -1;
+    for (let index = 1; index < this.N; index += 2) {
+      this.singleFlip(index);
     }
   }
 
-  ////////////////////////////////////////
-  swendsen_wang() {
-    const prob = 1.0 - Math.exp(-2.0 / this.T);
-    this.Parent.forEach((_, i) => {
-      this.Parent[i] = i;
+  singleFlip(index) {
+    const spin = this.Spin[index];
+    const neighborSum =
+      this.Spin[this.NN0[index]] +
+      this.Spin[this.NN1[index]] +
+      this.Spin[this.NN2[index]] +
+      this.Spin[this.NN3[index]];
+    const flipProbability = 1 / (1 + Math.exp((2 * spin * neighborSum) / this.temperature));
+    if (Math.random() < flipProbability) {
+      this.Spin[index] *= -1;
+    }
+  }
+
+  swendsenWang() {
+    const bondProbability = 1 - Math.exp(-2 / this.temperature);
+    this.Parent.forEach((_, index) => {
+      this.Parent[index] = index;
     });
-    this.Spin.forEach((_, i) => {
-      this.connect(i, this.NN0[i], prob);
-      this.connect(i, this.NN1[i], prob);
+    this.Spin.forEach((_, index) => {
+      this.connect(index, this.NN0[index], bondProbability);
+      this.connect(index, this.NN1[index], bondProbability);
     });
-    this.Spin.forEach((_, i) => {
-      let root = this.find(i);
-      if (i == root) {
-        this.Spin[i] = Math.random() < 0.5 ? 1 : -1;
+    this.Spin.forEach((_, index) => {
+      const root = this.find(index);
+      if (index === root) {
+        this.Spin[index] = Math.random() < 0.5 ? 1 : -1;
       } else {
-        this.Spin[i] = this.Spin[root];
+        this.Spin[index] = this.Spin[root];
       }
     });
   }
 
-  find(i) {
-    // Find with path splitting
-    while (i != this.Parent[i]) {
-      [i, this.Parent[i]] = [this.Parent[i], this.Parent[this.Parent[i]]];
+  find(index) {
+    let current = index;
+    while (current !== this.Parent[current]) {
+      [current, this.Parent[current]] = [this.Parent[current], this.Parent[this.Parent[current]]];
     }
-    return i;
+    return current;
   }
 
-  unite(i, j) {
-    // Unite by index
-    i = this.find(i);
-    j = this.find(j);
-    if (i == j) {
+  unite(a, b) {
+    let rootA = this.find(a);
+    let rootB = this.find(b);
+    if (rootA === rootB) {
       return;
     }
-    if (i > j) {
-      [i, j] = [j, i];
+    if (rootA > rootB) {
+      [rootA, rootB] = [rootB, rootA];
     }
-    this.Parent[j] = i;
+    this.Parent[rootB] = rootA;
   }
 
-  connect(i, j, prob) {
-    if (this.Spin[i] == this.Spin[j] && Math.random() < prob) {
-      this.unite(i, j);
+  connect(a, b, probability) {
+    if (this.Spin[a] === this.Spin[b] && Math.random() < probability) {
+      this.unite(a, b);
     }
   }
 
-  ////////////////////////////////////////
   wolff() {
     let count = 0;
-
-    // This implementation is only for visualization.
-    // In the Wolff algorithm, we need to measure the average size of a cluster
-    // and determine the number of flips in one Monte Carlo step.
     while (count < this.N / 5) {
-      count += this.flip_cluster();
+      count += this.flipCluster();
     }
   }
 
-  flip_cluster() {
-    const prob = 1.0 - Math.exp(-2.0 / this.T);
-    let i = Math.floor(Math.random() * this.N) % this.N;
-    const s = this.Spin[i];
+  flipCluster() {
+    const bondProbability = 1 - Math.exp(-2 / this.temperature);
+    let index = Math.floor(Math.random() * this.N) % this.N;
+    const clusterSpin = this.Spin[index];
     let count = 1;
-    this.Spin[i] *= -1;
-    this.Stack.push(i);
+    this.Spin[index] *= -1;
+    this.Stack.push(index);
 
     while (this.Stack.length > 0) {
-      i = this.Stack.pop();
-      [this.NN0[i], this.NN1[i], this.NN2[i], this.NN3[i]].forEach((j) => {
-        if (s == this.Spin[j] && Math.random() < prob) {
-          count++;
-          this.Spin[j] *= -1;
-          this.Stack.push(j);
+      index = this.Stack.pop();
+      [this.NN0[index], this.NN1[index], this.NN2[index], this.NN3[index]].forEach((neighbor) => {
+        if (clusterSpin === this.Spin[neighbor] && Math.random() < bondProbability) {
+          count += 1;
+          this.Spin[neighbor] *= -1;
+          this.Stack.push(neighbor);
         }
       });
     }
@@ -164,93 +150,96 @@ class Ising {
 }
 
 class DrawIsing {
-  constructor(id, full) {
+  constructor(id, useFullscreenCanvas) {
     this.id = id;
-    this.full = full;  
+    this.useFullscreenCanvas = useFullscreenCanvas;
+    this.algorithm = 0;
+    this.framerates = [20, 5, 5];
+    this.cellSize = 1;
 
-    const color_back = "#ffffff";  // backgroud color
-    const color_spin = "#c261f2";  // spin color
-    const lw = 0.5;
-    const length = 1;
-    let shape = new createjs.Shape();
-    shape.graphics
-      .ss(lw)
-      .beginStroke(color_back)
-      .beginFill(color_spin)
-      .drawRect(0, 0, length, length);
-    shape.cache(0, 0, length, length);
-    this.cell_image = shape.cacheCanvas;
-    this.length = length;
-    
+    const backgroundColor = "#ffffff";
+    const spinColor = "#c261f2";
+    const cellShape = new createjs.Shape();
+    cellShape.graphics
+      .ss(0.5)
+      .beginStroke(backgroundColor)
+      .beginFill(spinColor)
+      .drawRect(0, 0, this.cellSize, this.cellSize);
+    cellShape.cache(0, 0, this.cellSize, this.cellSize);
+    this.cellImage = cellShape.cacheCanvas;
+
     this.stage = new createjs.StageGL(this.id);
-    if (this.full) {
+    if (this.useFullscreenCanvas) {
       this.stage.canvas.width = window.innerWidth;
       this.stage.canvas.height = window.innerHeight;
-      this.stage.updateViewport(
-        this.stage.canvas.width,
-        this.stage.canvas.height
-      );
+      this.stage.updateViewport(this.stage.canvas.width, this.stage.canvas.height);
     }
 
-    this.stage.setClearColor(color_back);
-    this.stage.update();    // update   
+    this.stage.setClearColor(backgroundColor);
+    this.stage.update();
 
-    let cx = this.stage.canvas.width;
-    let cy = this.stage.canvas.height;
-    let Lx = Math.floor(cx / this.length) + 1;
-    let Ly = Math.floor(cy / this.length) + 1;
-    let N = Lx * Ly;
+    const width = this.stage.canvas.width;
+    const height = this.stage.canvas.height;
+    const Lx = Math.floor(width / this.cellSize) + 1;
+    const Ly = Math.floor(height / this.cellSize) + 1;
 
     this.ising = new Ising(Lx, Ly, 2.27);
-    this.algorithm = 0;
-    this.framerate = [20, 5, 5];
+    this.seedStageChildren();
+    this.bindControls();
 
-    this.ising.Spin.forEach((_, i) => {
-      let image = new createjs.Bitmap(this.cell_image);
-      this.stage.addChild(image);
-      let x, y;
-      [x, y] = this.ising.get_coordinate(i);
-      image.x = this.length * x;
-      image.y = this.length * y;
-    })
+    createjs.Ticker.framerate = this.framerates[this.algorithm];
+    createjs.Ticker.addEventListener("tick", () => this.update());
 
-    createjs.Ticker.framerate = this.framerate[this.algorithm];
-    createjs.Ticker.addEventListener("tick", () => {
-      this.update();
-    });
-
-    let slider = document.getElementById("temperature");
-    if (slider != null) {
-      let temp_text = document.getElementById("temperature_text");
-      slider.value = this.ising.T;
-      slider.addEventListener("input", (e) => {
-        this.ising.T = e.target.value;
-        temp_text.innerText = e.target.value;
-      });
-    }
-
-    let select_algorithm = document.getElementById("algorithm");
-    if (select_algorithm != null) {
-      select_algorithm.addEventListener("input", (e) => {
-        this.change_algorithm(e.target.value);
-      });
-    }
-
-    if (this.full) {
+    if (this.useFullscreenCanvas) {
       this.timeoutID = 0;
       window.addEventListener("resize", () => {
-        if (this.timeoutID) return;
+        if (this.timeoutID) {
+          return;
+        }
         this.timeoutID = setTimeout(() => {
           this.timeoutID = 0;
           this.resize();
-        }, 500);
+        }, 300);
+      });
+    }
+  }
+
+  seedStageChildren() {
+    this.ising.Spin.forEach((_, index) => {
+      const image = new createjs.Bitmap(this.cellImage);
+      this.stage.addChild(image);
+      const [x, y] = this.ising.getCoordinate(index);
+      image.x = this.cellSize * x;
+      image.y = this.cellSize * y;
+    });
+  }
+
+  bindControls() {
+    const temperatureSlider = document.getElementById("temperature");
+    const temperatureText = document.getElementById("temperature_text");
+    if (temperatureSlider && temperatureText) {
+      const updateTemperature = (value) => {
+        const numericValue = Number(value);
+        this.ising.temperature = numericValue;
+        temperatureText.textContent = numericValue.toFixed(2);
+        temperatureSlider.value = String(numericValue);
+      };
+      updateTemperature(this.ising.temperature);
+      temperatureSlider.addEventListener("input", (event) => updateTemperature(event.target.value));
+    }
+
+    const algorithmSelect = document.getElementById("algorithm");
+    if (algorithmSelect) {
+      algorithmSelect.value = String(this.algorithm);
+      algorithmSelect.addEventListener("change", (event) => {
+        this.changeAlgorithm(Number(event.target.value));
       });
     }
   }
 
   draw() {
-    this.ising.Spin.forEach((e, i) => {
-      this.stage.children[i].visible = this.ising.is_up(i);
+    this.ising.Spin.forEach((_, index) => {
+      this.stage.children[index].visible = this.ising.isUp(index);
     });
     this.stage.update();
   }
@@ -260,39 +249,38 @@ class DrawIsing {
     this.ising.update(this.algorithm);
   }
 
-  change_algorithm(i) {
-    this.algorithm = i;
-    createjs.Ticker.framerate = this.framerate[i];
+  changeAlgorithm(algorithm) {
+    this.algorithm = algorithm;
+    createjs.Ticker.framerate = this.framerates[algorithm];
   }
 
   resize() {
-    const cx = window.innerWidth;
-    const cy = window.innerHeight;
-    this.stage.canvas.width = cx;
-    this.stage.canvas.height = cy;
-    this.stage.updateViewport(cx, cy);
-    const Lx = Number.parseInt(cx / this.length) + 1;
-    const Ly = Number.parseInt(cy / this.length) + 1;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    this.stage.canvas.width = width;
+    this.stage.canvas.height = height;
+    this.stage.updateViewport(width, height);
+
+    const Lx = Math.floor(width / this.cellSize) + 1;
+    const Ly = Math.floor(height / this.cellSize) + 1;
     const N = Lx * Ly;
 
-    for (let i = this.stage.numChildren; i < N; ++i) {
-      let image = new createjs.Bitmap(this.cell_image);
-      this.stage.addChildAt(image, i);
+    for (let index = this.stage.numChildren; index < N; index += 1) {
+      this.stage.addChildAt(new createjs.Bitmap(this.cellImage), index);
     }
-    this.stage.children.forEach((e) => {
-      e.visible = false;
+    this.stage.children.forEach((child) => {
+      child.visible = false;
     });
 
     this.ising.resize(Lx, Ly);
-    this.ising.Spin.forEach((_, i) => {
-      let x, y;
-      [x, y] = this.ising.get_coordinate(i);
-      this.stage.children[i].x = this.length * x;
-      this.stage.children[i].y = this.length * y;
+    this.ising.Spin.forEach((_, index) => {
+      const [x, y] = this.ising.getCoordinate(index);
+      this.stage.children[index].x = this.cellSize * x;
+      this.stage.children[index].y = this.cellSize * y;
     });
   }
 }
 
 window.addEventListener("load", () => {
-  new DrawIsing("ising", true);
+  new DrawIsing("ising", false);
 });

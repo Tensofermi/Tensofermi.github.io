@@ -1,79 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Nagaoka & 15-Puzzle Demo</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        background: #f2f2f2;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nagaoka & 15-Puzzle Demo - Little Fluctuating Cat _(:&#1079;&#12293;&#8736;)_~</title>
+  <link rel="shortcut icon" href="../../images/main.png">
+  <link rel="stylesheet" href="../../css/styles.css">
+  <style>
+    .feature-demo-page .page-content { max-width: 900px; }
+    .demo-shell { text-align: center; }
+    .demo-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 18px;
     }
-    h1 {
-        margin-top: 20px;
+    .demo-actions select,
+    .demo-actions button {
+      min-height: 42px;
+      padding: 0 16px;
+      border: 1px solid rgba(18, 69, 127, 0.14);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.92);
+      color: #172033;
+      font-family: "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+      font-size: 0.94rem;
+      font-weight: 600;
     }
-    #controls {
-        margin: 15px;
-    }
-    select, button {
-        font-size: 15px;
-        padding: 5px 10px;
-        margin: 5px;
-    }
+    .demo-actions button { cursor: pointer; }
     #info {
-        margin: 10px;
-        font-size: 16px;
+      margin: 0 auto 16px;
+      color: #556070;
+      font-family: "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+      font-size: 0.95rem;
     }
     #board {
-        margin: 20px auto;
-        display: grid;
-        gap: 5px;
-        background: #333;
-        padding: 5px;
-        width: fit-content;
+      margin: 0 auto;
+      display: grid;
+      gap: 6px;
+      background: #112744;
+      padding: 6px;
+      width: fit-content;
+      border-radius: 18px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
     }
     .tile {
-        width: 70px;
-        height: 70px;
-        line-height: 70px;
-        font-size: 22px;
-        color: white;
-        user-select: none;
-        cursor: pointer;
-        border-radius: 6px;
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: white;
+      user-select: none;
+      cursor: pointer;
+      border-radius: 10px;
+      font-family: "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+      font-weight: 700;
     }
-    .up { background: #2196f3; }
-    .down { background: #e91e63; }
-    .hole {
-        background: #ccc;
-        cursor: default;
+    .up { background: #3f7edb; }
+    .down { background: #d6497a; }
+    .hole { background: #d5dbe4; color: transparent; cursor: default; }
+    .number { background: #2f8f5b; }
+    .demo-note {
+      margin-top: 16px;
+      color: #556070;
+      font-family: "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+      font-size: 0.92rem;
     }
-</style>
+  </style>
 </head>
-<body>
-
-<h1>Nagaoka / 15-Puzzle Demo</h1>
-
-<div id="controls">
-    <select id="modeSelect" onchange="reset()">
-        <option value="puzzle2">2 × 2 Puzzle</option>
-        <option value="puzzle4">4 × 4 Puzzle</option>
-        <option value="nagaoka2">2 × 2 Nagaoka</option>
-        <option value="nagaoka4" selected>4 × 4 Nagaoka</option>
-    </select>
-
-    <button onclick="reset()">Reset</button>
-    <button id="polarBtn" onclick="polarize()">Full Polarization</button>
-    <button id="randBtn" onclick="randomizeSpins()">Random Spins</button>
-</div>
-
-<div id="info">
-    Moves: <span id="moves">0</span> |
-    ↑↓ bonds: <span id="mix">-</span>
-</div>
-
-<div id="board"></div>
-
+<body class="site-page feature-demo-page">
+  <header class="hero header-bg">
+    <script>var page_index = 2;</script>
+    <script defer src="../../js/script.js"></script>
+    <button class="carousel-button btn-left" id="prev-btn" aria-label="Previous image">&#10094;</button>
+    <button class="carousel-button btn-right" id="next-btn" aria-label="Next image">&#10095;</button>
+  </header>
+  <nav class="navbar">
+    <ul class="nav-list">
+      <li class="logo"><img src="../../images/main_full.jpg" alt="Logo" /><span>Tensofermi</span></li>
+      <li class="nav-links">
+        <a class="nav_item" href="../../index.html">Home</a>
+        <a class="nav_item" href="../../notes.html">Notes</a>
+        <a class="nav_item" href="../../featured.html">Featured</a>
+        <a class="nav_item" href="../../contact.html">Contact</a>
+      </li>
+    </ul>
+  </nav>
+  <main class="page-content">
+    <section class="content-panel demo-shell">
+      <h2>Nagaoka / 15-Puzzle Demo</h2>
+      <div class="demo-actions">
+        <select id="modeSelect" onchange="reset()">
+          <option value="puzzle2">2 x 2 Puzzle</option>
+          <option value="puzzle4">4 x 4 Puzzle</option>
+          <option value="nagaoka2">2 x 2 Nagaoka</option>
+          <option value="nagaoka4" selected>4 x 4 Nagaoka</option>
+        </select>
+        <button type="button" onclick="reset()">Reset</button>
+        <button id="polarBtn" type="button" onclick="polarize()">Full Polarization</button>
+        <button id="randBtn" type="button" onclick="randomizeSpins()">Random Spins</button>
+      </div>
+      <div id="info">Moves: <span id="moves">0</span> | Mixed bonds: <span id="mix">-</span></div>
+      <div id="board"></div>
+      <p class="demo-note">Switch between the classic sliding puzzle and the spin-labeled Nagaoka variant.</p>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p>&copy; 2024 Little Fluctuating Cat _(:&#1079;&#12293;&#8736;)_~. All rights reserved.</p>
+  </footer>
 <script>
 let size = 4;
 let mode = "nagaoka4";
@@ -82,131 +119,126 @@ let hole = 0;
 let moves = 0;
 
 function reset() {
-    mode = document.getElementById("modeSelect").value;
-    moves = 0;
-    document.getElementById("moves").innerText = moves;
+  mode = document.getElementById("modeSelect").value;
+  moves = 0;
+  document.getElementById("moves").innerText = moves;
 
-    const isNagaoka = mode.startsWith("nagaoka");
-    size = (mode.endsWith("2")) ? 2 : 4;
+  const isNagaoka = mode.startsWith("nagaoka");
+  size = mode.endsWith("2") ? 2 : 4;
 
-    // Toggle buttons visibility
-    document.getElementById("polarBtn").style.display = isNagaoka ? "inline-block" : "none";
-    document.getElementById("randBtn").style.display = isNagaoka ? "inline-block" : "none";
+  document.getElementById("polarBtn").style.display = isNagaoka ? "inline-block" : "none";
+  document.getElementById("randBtn").style.display = isNagaoka ? "inline-block" : "none";
 
-    board = [];
-
-    if (isNagaoka) {
-        for (let i = 0; i < size * size - 1; i++) {
-            board.push(Math.random() < 0.5 ? "up" : "down");
-        }
-        board.push("hole");
-    } else {
-        for (let i = 1; i < size * size; i++) board.push(i);
-        board.push(0);
+  board = [];
+  if (isNagaoka) {
+    for (let i = 0; i < size * size - 1; i += 1) {
+      board.push(Math.random() < 0.5 ? "up" : "down");
     }
+    board.push("hole");
+  } else {
+    for (let i = 1; i < size * size; i += 1) board.push(i);
+    board.push(0);
+  }
 
-    hole = board.length - 1;
-    shuffle();
-    render();
+  hole = board.length - 1;
+  shuffle();
+  render();
 }
 
 function shuffle() {
-    for (let i = 0; i < 100; i++) {
-        const nbs = neighbors(hole);
-        const j = nbs[Math.floor(Math.random() * nbs.length)];
-        swap(hole, j);
-        hole = j;
-    }
+  for (let i = 0; i < 100; i += 1) {
+    const options = neighbors(hole);
+    const next = options[Math.floor(Math.random() * options.length)];
+    swap(hole, next);
+    hole = next;
+  }
 }
 
 function polarize() {
-    if (!mode.startsWith("nagaoka")) return;
-    board = board.map(v => v === "hole" ? "hole" : "up");
-    render();
+  if (!mode.startsWith("nagaoka")) return;
+  board = board.map((value) => (value === "hole" ? "hole" : "up"));
+  render();
 }
 
 function randomizeSpins() {
-    if (!mode.startsWith("nagaoka")) return;
-    board = board.map(v => {
-        if (v === "hole") return "hole";
-        return Math.random() < 0.5 ? "up" : "down";
-    });
-    render();
+  if (!mode.startsWith("nagaoka")) return;
+  board = board.map((value) => {
+    if (value === "hole") return "hole";
+    return Math.random() < 0.5 ? "up" : "down";
+  });
+  render();
 }
 
-function neighbors(i) {
-    const r = Math.floor(i / size);
-    const c = i % size;
-    const n = [];
-    if (r > 0) n.push(i - size);
-    if (r < size - 1) n.push(i + size);
-    if (c > 0) n.push(i - 1);
-    if (c < size - 1) n.push(i + 1);
-    return n;
+function neighbors(index) {
+  const row = Math.floor(index / size);
+  const col = index % size;
+  const result = [];
+  if (row > 0) result.push(index - size);
+  if (row < size - 1) result.push(index + size);
+  if (col > 0) result.push(index - 1);
+  if (col < size - 1) result.push(index + 1);
+  return result;
 }
 
-function swap(i, j) {
-    const t = board[i];
-    board[i] = board[j];
-    board[j] = t;
+function swap(a, b) {
+  const temp = board[a];
+  board[a] = board[b];
+  board[b] = temp;
 }
 
-function clickTile(i) {
-    if (!neighbors(hole).includes(i)) return;
-    swap(i, hole);
-    hole = i;
-    moves++;
-    document.getElementById("moves").innerText = moves;
-    render();
+function clickTile(index) {
+  if (!neighbors(hole).includes(index)) return;
+  swap(index, hole);
+  hole = index;
+  moves += 1;
+  document.getElementById("moves").innerText = moves;
+  render();
 }
 
 function countMixedBonds() {
-    let cnt = 0;
-    for (let i = 0; i < board.length; i++) {
-        if (board[i] === "hole") continue;
-        for (const j of neighbors(i)) {
-            if (board[j] === "hole") continue;
-            if (board[i] !== board[j]) cnt++;
-        }
+  let count = 0;
+  for (let i = 0; i < board.length; i += 1) {
+    if (board[i] === "hole") continue;
+    for (const j of neighbors(i)) {
+      if (board[j] === "hole") continue;
+      if (board[i] !== board[j]) count += 1;
     }
-    return cnt / 2;
+  }
+  return count / 2;
 }
 
 function render() {
-    const b = document.getElementById("board");
-    b.innerHTML = "";
-    b.style.gridTemplateColumns = `repeat(${size}, 70px)`;
+  const boardElement = document.getElementById("board");
+  boardElement.innerHTML = "";
+  boardElement.style.gridTemplateColumns = `repeat(${size}, 70px)`;
 
-    board.forEach((v, i) => {
-        const d = document.createElement("div");
-        d.className = "tile";
+  board.forEach((value, index) => {
+    const tile = document.createElement("div");
+    tile.className = "tile";
 
-        if (mode.startsWith("nagaoka")) {
-            if (v === "hole") {
-                d.classList.add("hole");
-            } else {
-                d.classList.add(v);
-                d.innerText = v === "up" ? "↑" : "↓";
-                d.onclick = () => clickTile(i);
-            }
-        } else {
-            if (v === 0) {
-                d.classList.add("hole");
-            } else {
-                d.style.background = "#4caf50";
-                d.innerText = v;
-                d.onclick = () => clickTile(i);
-            }
-        }
-        b.appendChild(d);
-    });
+    if (mode.startsWith("nagaoka")) {
+      if (value === "hole") {
+        tile.classList.add("hole");
+      } else {
+        tile.classList.add(value);
+        tile.innerText = value === "up" ? "\u2191" : "\u2193";
+        tile.onclick = () => clickTile(index);
+      }
+    } else if (value === 0) {
+      tile.classList.add("hole");
+    } else {
+      tile.classList.add("number");
+      tile.innerText = value;
+      tile.onclick = () => clickTile(index);
+    }
 
-    document.getElementById("mix").innerText =
-        mode.startsWith("nagaoka") ? countMixedBonds() : "-";
+    boardElement.appendChild(tile);
+  });
+
+  document.getElementById("mix").innerText = mode.startsWith("nagaoka") ? countMixedBonds() : "-";
 }
 
 reset();
 </script>
-
 </body>
 </html>

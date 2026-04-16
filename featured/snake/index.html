@@ -3,59 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>贪吃蛇小游戏 - Little Fluctuating Cat _(:з」∠)_~</title>
+    <title>&#36138;&#21507;&#34503;&#23567;&#28216;&#25103; - Little Fluctuating Cat _(:&#1079;&#12293;&#8736;)_~</title>
     <link rel="shortcut icon" href="../../images/main.png">
     <link rel="stylesheet" href="../../css/styles.css">
     <style>
-        #gameCanvas {
-            border: 2px solid #000;
-            display: block;
-            margin: 0 auto;
+        .snake-page .page-content {
+            max-width: 760px;
         }
-        .game-controls {
+
+        .snake-panel {
             text-align: center;
+        }
+
+        #gameCanvas {
+            display: block;
+            width: min(100%, 400px);
+            height: auto;
+            margin: 0 auto;
+            border: 1px solid rgba(15, 23, 42, 0.14);
+            border-radius: 16px;
+            background: #ffffff;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+
+        .game-controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
             margin-top: 20px;
+        }
+
+        .game-controls button,
+        .game-controls select {
+            min-height: 42px;
+            padding: 0 16px;
+            border: 1px solid rgba(18, 69, 127, 0.14);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.92);
+            color: #172033;
+            font-family: "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+            font-size: 0.94rem;
+            font-weight: 600;
+        }
+
+        .game-controls button {
+            cursor: pointer;
+            transition: transform 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease;
+        }
+
+        .game-controls button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 22px rgba(17, 56, 100, 0.12);
+            background: #f7faff;
+        }
+
+        .game-note {
+            margin-top: 16px;
+            color: #556070;
+            font-family: "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+            font-size: 0.92rem;
         }
     </style>
 </head>
-<body>
-    <header class="header-bg">
+<body class="site-page snake-page">
+    <header class="hero header-bg">
         <script>
             var page_index = 2;
         </script>
         <script defer src="../../js/script.js"></script>
-        <button class="btn-left" id="prev-btn" aria-label="Previous image">&#10094;</button>
-        <button class="btn-right" id="next-btn" aria-label="Next image">&#10095;</button>
+        <button class="carousel-button btn-left" id="prev-btn" aria-label="Previous image">&#10094;</button>
+        <button class="carousel-button btn-right" id="next-btn" aria-label="Next image">&#10095;</button>
     </header>
 
     <nav class="navbar">
-        <ul>
+        <ul class="nav-list">
             <li class="logo"><img src="../../images/main_full.jpg" alt="Logo" /><span>Tensofermi</span></li>
-            <ul class="nav-links">
-                <li><a class="nav_item" href="../../index.html">Home</a></li>
-                <li><a class="nav_item" href="../../notes.html">Notes</a></li>
-                <li><a class="nav_item" href="../../featured.html">Featured</a></li>
-                <li><a class="nav_item" href="../../contact.html">Contact</a></li>
-            </ul>
+            <li class="nav-links">
+                <a class="nav_item" href="../../index.html">Home</a>
+                <a class="nav_item" href="../../notes.html">Notes</a>
+                <a class="nav_item" href="../../featured.html">Featured</a>
+                <a class="nav_item" href="../../contact.html">Contact</a>
+            </li>
         </ul>
     </nav>
 
-    <section>
-        <h2>贪吃蛇小游戏</h2>
-        <canvas id="gameCanvas" width="400" height="400"></canvas>
-        <div class="game-controls">
-            <button id="startBtn">开始游戏</button>
-            <button id="pauseBtn">暂停</button>
-            <select id="boundaryType">
-                <option value="free">自由边界</option>
-                <option value="periodic">周期性边界</option>
-                <option value="antiperiodic">反周期性边界</option>
-            </select>
-        </div>
-    </section>
+    <main class="page-content">
+        <section class="content-panel snake-panel">
+            <h2>&#36138;&#21507;&#34503;&#23567;&#28216;&#25103;</h2>
+            <canvas id="gameCanvas" width="400" height="400"></canvas>
+            <div class="game-controls">
+                <button id="startBtn" type="button">&#24320;&#22987;&#28216;&#25103;</button>
+                <button id="pauseBtn" type="button">&#26242;&#20572;</button>
+                <select id="boundaryType">
+                    <option value="free">&#33258;&#30001;&#36793;&#30028;</option>
+                    <option value="periodic">&#21608;&#26399;&#24615;&#36793;&#30028;</option>
+                    <option value="antiperiodic">&#21453;&#21608;&#26399;&#24615;&#36793;&#30028;</option>
+                </select>
+            </div>
+            <p class="game-note">&#20351;&#29992; W A S D &#25511;&#21046;&#26041;&#21521;&#12290;</p>
+        </section>
+    </main>
 
-    <footer>
-        <p>&copy; 2024 Little Fluctuating Cat _(:з」∠)_~. All rights reserved.</p>
+    <footer class="site-footer">
+        <p>&copy; 2024 Little Fluctuating Cat _(:&#1079;&#12293;&#8736;)_~. All rights reserved.</p>
     </footer>
 
     <script>
@@ -67,33 +118,33 @@
 
         const gridSize = 20;
         const tileCount = canvas.width / gridSize;
-        let snake = [{x: 10, y: 10}];
-        let food = {x: 5, y: 5};
+        let snake = [{ x: 10, y: 10 }];
+        let food = { x: 5, y: 5 };
         let dx = 0;
         let dy = 0;
         let score = 0;
-        let gameInterval;
+        let gameInterval = null;
         let isPaused = false;
 
         function drawGame() {
             ctx.fillStyle = 'white';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            ctx.fillStyle = 'green';
-            snake.forEach(segment => {
+            ctx.fillStyle = '#2b8a3e';
+            snake.forEach((segment) => {
                 ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
             });
 
-            ctx.fillStyle = 'red';
+            ctx.fillStyle = '#c92a2a';
             ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 2, gridSize - 2);
 
-            ctx.fillStyle = 'black';
-            ctx.font = '20px Arial';
-            ctx.fillText(`得分: ${score}`, 10, 30);
+            ctx.fillStyle = '#172033';
+            ctx.font = '18px Segoe UI';
+            ctx.fillText(`\u5f97\u5206: ${score}`, 12, 28);
         }
 
         function moveSnake() {
-            const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+            const head = { x: snake[0].x + dx, y: snake[0].y + dy };
             snake.unshift(head);
 
             if (head.x === food.x && head.y === food.y) {
@@ -141,56 +192,86 @@
                 }
             }
 
-            for (let i = 1; i < snake.length; i++) {
-                if (head.x === snake[i].x && head.y === snake[i].y) {
+            for (let index = 1; index < snake.length; index += 1) {
+                if (head.x === snake[index].x && head.y === snake[index].y) {
                     return true;
                 }
             }
+
             return false;
         }
 
         function gameLoop() {
-            if (isPaused) return;
+            if (isPaused) {
+                return;
+            }
             moveSnake();
             if (checkCollision()) {
                 clearInterval(gameInterval);
-                alert(`游戏结束！得分：${score}`);
+                gameInterval = null;
+                alert(`\u6e38\u620f\u7ed3\u675f\uff0c\u5f97\u5206\uff1a${score}`);
                 return;
             }
             drawGame();
         }
 
         startBtn.addEventListener('click', () => {
-            if (gameInterval) clearInterval(gameInterval);
-            snake = [{x: 10, y: 10}];
+            if (gameInterval) {
+                clearInterval(gameInterval);
+            }
+            snake = [{ x: 10, y: 10 }];
             dx = 1;
             dy = 0;
             score = 0;
+            isPaused = false;
+            pauseBtn.textContent = '\u6682\u505c';
             generateFood();
+            drawGame();
             gameInterval = setInterval(gameLoop, 100);
         });
 
         pauseBtn.addEventListener('click', () => {
+            if (!gameInterval) {
+                return;
+            }
             isPaused = !isPaused;
-            pauseBtn.textContent = isPaused ? '继续' : '暂停';
+            pauseBtn.textContent = isPaused ? '\u7ee7\u7eed' : '\u6682\u505c';
         });
 
         document.addEventListener('keydown', (event) => {
             switch (event.key.toLowerCase()) {
                 case 'w':
-                    if (dy !== 1) { dx = 0; dy = -1; }
+                case 'arrowup':
+                    if (dy !== 1) {
+                        dx = 0;
+                        dy = -1;
+                    }
                     break;
                 case 's':
-                    if (dy !== -1) { dx = 0; dy = 1; }
+                case 'arrowdown':
+                    if (dy !== -1) {
+                        dx = 0;
+                        dy = 1;
+                    }
                     break;
                 case 'a':
-                    if (dx !== 1) { dx = -1; dy = 0; }
+                case 'arrowleft':
+                    if (dx !== 1) {
+                        dx = -1;
+                        dy = 0;
+                    }
                     break;
                 case 'd':
-                    if (dx !== -1) { dx = 1; dy = 0; }
+                case 'arrowright':
+                    if (dx !== -1) {
+                        dx = 1;
+                        dy = 0;
+                    }
                     break;
             }
         });
+
+        drawGame();
     </script>
 </body>
-</html> 
+</html>

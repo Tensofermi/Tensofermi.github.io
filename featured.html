@@ -12,51 +12,64 @@
     
 </head>
 
-<body>
-    <header class="header-bg">
+<body class="site-page page-featured">
+    <header class="hero header-bg">
         <script>
             var page_index = 2;
             </script>
         <script defer src="js/script.js"></script>  
-        <button class="btn-left" id="prev-btn">&#10094;</button>
-        <button class="btn-right" id="next-btn">&#10095;</button>
+        <button class="carousel-button btn-left" id="prev-btn">&#10094;</button>
+        <button class="carousel-button btn-right" id="next-btn">&#10095;</button>
     </header>
 
     <nav class="navbar">
-        <ul>
+        <ul class="nav-list">
             <li class="logo"><img src="images/main_full.jpg" alt="Logo" /><span>Tensofermi</span></li>
-            <div class="nav-links">
-                <li><a class="nav_item" href="index.html">Home</a></li>
-                <li><a class="nav_item" href="notes.html">Notes</a></li>
-                <li><a class="nav_item" href="featured.html">Featured</a></li>
-                <li><a class="nav_item" href="contact.html">Contact</a></li>
-            </div>
+            <li class="nav-links">
+                <a class="nav_item" href="index.html">Home</a>
+                <a class="nav_item" href="notes.html">Notes</a>
+                <a class="nav_item" href="featured.html">Featured</a>
+                <a class="nav_item" href="contact.html">Contact</a>
+            </li>
         </ul>
     </nav>
     
+    <main class="page-content">
+        <section class="content-panel">
+            <h2>Character</h2>
+            <ul>
+                <li><a href="featured/kuru/index.html">Herta Kuru~ Kuru~</a></li>
+            </ul>
+        </section>
 
-    <section>
-        <h2>Character Show</h2>
-        <ul>
-            <li><a href="featured/kuru/index.html">Herta Kuru~ Kuru~</a></li>
-        </ul>
-    </section>
+        <section class="content-panel">
+            <h2>Games</h2>
+            <ul>
+                <li><a href="featured/15-puzzle/15_p.html">Nagaoka &amp; 15-Puzzle Demo</a></li>
+                <li><a href="featured/snake/index.html">贪吃蛇小游戏</a></li>
+            </ul>
+        </section>
 
-    <section>
-        <h2>Visualization</h2>
-        <ul>
-            <li><a href="featured/spin_model_demo/index.html">Spin Model</a></li>
-        </ul>
-    </section>
+        <section class="content-panel">
+            <h2>Visualization</h2>
+            <ul>
+                <li><a href="featured/spin_model_demo/index.html">Demonstrations of Monte Carlo Simulations</a></li>
+                <li><a href="featured/misc/pebble.html">Rigidity Pebble Game Demo</a></li>
+                <li><a href="featured/misc/prog.html">打孔纸带时代：8位玩具CPU可视化</a></li>
+                <li><a href="featured/misc/saw.html">SA Levy Flight (1D) + PERM-like Enrichment</a></li>
+                <li><a href="featured/misc/sphere2.html">Sphere + Unit Cubic Lattice</a></li>
+            </ul>
+        </section>
 
-    <section>
-        <h2>Fun Games</h2>
-        <ul>
-            <li><a href="featured/snake/index.html">贪吃蛇小游戏</a></li>
-        </ul>
-    </section>
+        <section class="content-panel">
+            <h2>Tools</h2>
+            <ul>
+                <li><a href="featured/color/color.html">RGB 调色器</a></li>
+            </ul>
+        </section>
+    </main>
 
-    <footer>
+    <footer class="site-footer">
         <p>&copy; 2024 Little Fluctuating Cat _(:з」∠)_~. All rights reserved.</p>
     </footer>
 </body>

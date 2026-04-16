@@ -1,67 +1,63 @@
 <!DOCTYPE html>
-<html lang="ja">
-
+<html lang="en">
 <head>
-  <!-- Required meta tags -->
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="author" content="Satoshi Morita" />
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
-
-  <!-- KaTeX -->
+  <title>Monte Carlo simulation of the Potts model</title>
+  <link rel="stylesheet" href="demo-theme.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
     integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
-  <!-- The loading of KaTeX is deferred to speed up page rendering -->
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"
-    integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz"
-    crossorigin="anonymous"></script>
-  <!-- To automatically render math in text elements, include the auto-render extension: -->
+    integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
     integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
     onload="renderMathInElement(document.body);"></script>
-
-  <!-- <script src="https://kit.fontawesome.com/ae5a8fc31f.js" crossorigin="anonymous"></script> -->
   <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
-
-  <title>Monte Carlo simulation of the Potts model</title>
 </head>
+<body class="demo-page">
+  <main class="page-shell">
+    <section class="demo-hero">
+      <a class="demo-back" href="index.html">Back to overview</a>
+      <h1 class="demo-title">Monte Carlo simulation of the Potts model</h1>
+      <p class="demo-summary">A multi-state extension of the Ising model, useful for comparing how symmetry and external fields reshape domain formation.</p>
+    </section>
 
-<body>
-  <canvas id="potts" class="fixed-top" style="z-index: -1; width: 100vw; height: 100vh;"></canvas>
-  <div class="container">
-    <div class="row">
-      <div class="col-12 col-md-10 col-lg-8 col-xl-6 py-3 text-white" style="background-color:rgba(0, 0, 0, 0.75);">
-        <h1 class="h4">Monte Carlo simulation of the Potts model</h1>
-        <div id="options" class="collapse">
-          <label for="states">The number of states: Q = <span id="states_text">4</span></label>
-          <input id="states" type="range" class="custom-range" min="2" max="6" step="1">
-          <label for="temperature">Temperature: T = <span id="temperature_text"></span> T<sub>c</sub></label>
-          <input id="temperature" type="range" class="custom-range" min="0.5" max="1.5" step="0.01">
-          <label for="field">Magnetic field: H = <span id="field_text">0.0</span></label>
-          <input id="field" type="range" class="custom-range" min="-1.0" max="1.0" step="0.1">
+    <section class="demo-layout">
+      <section class="canvas-card">
+        <div class="canvas-card__frame">
+          <canvas id="potts" width="399" height="399"></canvas>
         </div>
-        <div class="text-right">
-          <a class="text-white" data-toggle="collapse" href="#options" role="button" aria-expanded="false">Options</a>
-        </div>
-      </div>
-    </div>
-  </div>
+      </section>
 
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-    crossorigin="anonymous"></script>
+      <aside class="control-card">
+        <div class="control-group">
+          <h2 class="section-title">Controls</h2>
+          <div class="field-stack">
+            <label>
+              <span class="field-label">Number of states: <span class="inline-value">Q = <span id="states_text">4</span></span></span>
+              <input id="states" type="range" class="range-input" min="2" max="6" step="1" value="4" />
+            </label>
+            <label>
+              <span class="field-label">Temperature: <span class="inline-value">T = <span id="temperature_text"></span> T<sub>c</sub></span></span>
+              <input id="temperature" type="range" class="range-input" min="0.5" max="1.5" step="0.01" value="1.0" />
+            </label>
+            <label>
+              <span class="field-label">Magnetic field: <span class="inline-value">H = <span id="field_text">0.0</span></span></span>
+              <input id="field" type="range" class="range-input" min="-1.0" max="1.0" step="0.1" value="0.0" />
+            </label>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <h2>Explanation</h2>
+          <p>Each color corresponds to one of the \(Q\) local spin states. When \(Q\) changes, both the size of ordered regions and the character of the transition change immediately.</p>
+          <p>The temperature is measured relative to \(T_c\), while the magnetic field biases the system toward one preferred state. This makes the competition between thermal disorder and external bias easy to inspect visually.</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
   <script src="potts.js"></script>
 </body>
-
 </html>

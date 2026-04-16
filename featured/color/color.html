@@ -1,152 +1,114 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RGB 调色器</title>
-<style>
-    body {
-        margin: 0;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background: #1e1e2f;
-        color: #fff;
-    }
-
-    .container {
-        background: #2c2c3e;
-        padding: 30px 40px;
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        text-align: center;
-        max-width: 400px;
-        width: 100%;
-    }
-
-    h1 {
-        margin-bottom: 20px;
-        font-size: 24px;
-        font-weight: 600;
-    }
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RGB &#35843;&#33394;&#22120; - Little Fluctuating Cat _(:&#1079;&#12293;&#8736;)_~</title>
+  <link rel="shortcut icon" href="../../images/main.png">
+  <link rel="stylesheet" href="../../css/styles.css">
+  <style>
+    .feature-demo-page .page-content { max-width: 760px; }
+    .color-shell { text-align: center; }
     .color-display {
-        width: 100%;
-        height: 150px;
-        border-radius: 15px;
-        margin: 20px 0;
-        box-shadow: inset 0 0 15px rgba(0,0,0,0.3);
-        transition: background 0.2s;
+      width: 100%;
+      height: 180px;
+      border-radius: 18px;
+      margin: 20px 0;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.12);
+      background: #000;
     }
-
     .hex-code {
-        font-size: 20px;
-        font-weight: 500;
-        margin-bottom: 20px;
+      font-family: "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #12315c;
+      letter-spacing: 0.05em;
     }
-
     .slider-container {
-        display: flex;
-        align-items: center;
-        margin: 15px 0;
+      display: grid;
+      grid-template-columns: 28px 1fr 44px;
+      align-items: center;
+      gap: 12px;
+      margin: 16px 0;
     }
-
-    .slider-label {
-        width: 40px;
-        text-align: left;
-        font-weight: 500;
+    .slider-label,
+    .slider-value {
+      font-family: "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+      font-weight: 600;
     }
-
-    input[type="range"] {
-        -webkit-appearance: none;
-        width: 100%;
-        height: 10px;
-        border-radius: 5px;
-        background: #555;
-        outline: none;
-        margin-left: 10px;
-        margin-right: 10px;
-        transition: 0.2s;
-    }
-
-    input[type="range"]::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 22px;
-        height: 22px;
-        border-radius: 50%;
-        background: #fff;
-        cursor: pointer;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.4);
-        transition: 0.2s;
-    }
-
-    input[type="range"]::-moz-range-thumb {
-        width: 22px;
-        height: 22px;
-        border-radius: 50%;
-        background: #fff;
-        cursor: pointer;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.4);
-        transition: 0.2s;
-    }
-
-    input[type="range"]::-webkit-slider-runnable-track {
-        height: 10px;
-        border-radius: 5px;
-        background: linear-gradient(to right, red, green, blue);
-    }
-</style>
+    input[type="range"] { width: 100%; accent-color: #184985; }
+  </style>
 </head>
-<body>
-<div class="container">
-    <h1>RGB 调色器</h1>
-    <div class="hex-code" id="hexCode">#000000</div>
-    <div class="color-display" id="colorDisplay"></div>
-
-    <div class="slider-container">
+<body class="site-page feature-demo-page">
+  <header class="hero header-bg">
+    <script>var page_index = 2;</script>
+    <script defer src="../../js/script.js"></script>
+    <button class="carousel-button btn-left" id="prev-btn" aria-label="Previous image">&#10094;</button>
+    <button class="carousel-button btn-right" id="next-btn" aria-label="Next image">&#10095;</button>
+  </header>
+  <nav class="navbar">
+    <ul class="nav-list">
+      <li class="logo"><img src="../../images/main_full.jpg" alt="Logo" /><span>Tensofermi</span></li>
+      <li class="nav-links">
+        <a class="nav_item" href="../../index.html">Home</a>
+        <a class="nav_item" href="../../notes.html">Notes</a>
+        <a class="nav_item" href="../../featured.html">Featured</a>
+        <a class="nav_item" href="../../contact.html">Contact</a>
+      </li>
+    </ul>
+  </nav>
+  <main class="page-content">
+    <section class="content-panel color-shell">
+      <h2>RGB &#35843;&#33394;&#22120;</h2>
+      <div class="hex-code" id="hexCode">#000000</div>
+      <div class="color-display" id="colorDisplay"></div>
+      <div class="slider-container">
         <span class="slider-label">R</span>
         <input type="range" min="0" max="255" value="0" id="rSlider">
-    </div>
-    <div class="slider-container">
+        <span class="slider-value" id="rValue">0</span>
+      </div>
+      <div class="slider-container">
         <span class="slider-label">G</span>
         <input type="range" min="0" max="255" value="0" id="gSlider">
-    </div>
-    <div class="slider-container">
+        <span class="slider-value" id="gValue">0</span>
+      </div>
+      <div class="slider-container">
         <span class="slider-label">B</span>
         <input type="range" min="0" max="255" value="0" id="bSlider">
-    </div>
-</div>
-
+        <span class="slider-value" id="bValue">0</span>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p>&copy; 2024 Little Fluctuating Cat _(:&#1079;&#12293;&#8736;)_~. All rights reserved.</p>
+  </footer>
 <script>
-    const rSlider = document.getElementById('rSlider');
-    const gSlider = document.getElementById('gSlider');
-    const bSlider = document.getElementById('bSlider');
-    const colorDisplay = document.getElementById('colorDisplay');
-    const hexCode = document.getElementById('hexCode');
+const rSlider = document.getElementById('rSlider');
+const gSlider = document.getElementById('gSlider');
+const bSlider = document.getElementById('bSlider');
+const rValue = document.getElementById('rValue');
+const gValue = document.getElementById('gValue');
+const bValue = document.getElementById('bValue');
+const colorDisplay = document.getElementById('colorDisplay');
+const hexCode = document.getElementById('hexCode');
 
-    function updateColor() {
-        const r = parseInt(rSlider.value);
-        const g = parseInt(gSlider.value);
-        const b = parseInt(bSlider.value);
+function updateColor() {
+  const r = parseInt(rSlider.value, 10);
+  const g = parseInt(gSlider.value, 10);
+  const b = parseInt(bSlider.value, 10);
+  rValue.textContent = r;
+  gValue.textContent = g;
+  bValue.textContent = b;
+  const hex = '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
+  colorDisplay.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+  hexCode.textContent = hex;
+}
 
-        const hex = '#' + ((1 << 24) + (r << 16) + (g << 8) + b)
-                        .toString(16)
-                        .slice(1)
-                        .toUpperCase();
-
-        colorDisplay.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
-        hexCode.textContent = hex;
-    }
-
-    rSlider.addEventListener('input', updateColor);
-    gSlider.addEventListener('input', updateColor);
-    bSlider.addEventListener('input', updateColor);
-
-    // 初始化颜色
-    updateColor();
+rSlider.addEventListener('input', updateColor);
+gSlider.addEventListener('input', updateColor);
+bSlider.addEventListener('input', updateColor);
+updateColor();
 </script>
 </body>
 </html>
