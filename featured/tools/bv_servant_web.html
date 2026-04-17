@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BV Servant Web - Little Fluctuating Cat _(:&#1079;&#12293;&#8736;)_~</title>
+  <link rel="shortcut icon" href="../../images/main.png">
+  <style>
+    :root {
+      --bg: #09111f;
+      --panel: rgba(11, 22, 39, 0.8);
+      --panel-border: rgba(255, 255, 255, 0.08);
+      --panel-soft: rgba(255, 255, 255, 0.04);
+      --text: #eef4ff;
+      --muted: rgba(238, 244, 255, 0.68);
+      --accent: #8db4ff;
+      --accent-strong: #4f8ff7;
+      --danger: #d4647e;
+      --success: #69c38a;
+      --radius: 22px;
+      --shadow: 0 24px 64px rgba(0, 0, 0, 0.24);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(109, 150, 224, 0.14), transparent 22%),
+        radial-gradient(circle at bottom right, rgba(197, 99, 133, 0.14), transparent 20%),
+        linear-gradient(160deg, #06101b 0%, #0b1630 50%, #08111f 100%);
+      color: var(--text);
+      font-family: "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .app-shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 18px;
+      padding: 20px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 18px;
+      border: 1px solid var(--panel-border);
+      border-radius: 20px;
+      background: rgba(7, 16, 29, 0.64);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, rgba(120, 162, 235, 0.94), rgba(196, 106, 141, 0.84));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    }
+
+    .brand-copy strong,
+    .brand-copy span {
+      display: block;
+    }
+
+    .brand-copy strong {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-copy span {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 16px;
+      border: 1px solid var(--panel-border);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      text-decoration: none;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .back-link:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .workspace {
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 400px minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    .panel {
+      min-height: 0;
+      padding: 20px;
+      border: 1px solid var(--panel-border);
+      border-radius: var(--radius);
+      background: var(--panel);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: var(--shadow);
+    }
+
+    .panel-title {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field label {
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .field input {
+      width: 100%;
+      min-height: 46px;
+      padding: 0 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      outline: none;
+    }
+
+    .field input:focus {
+      border-color: rgba(141, 180, 255, 0.46);
+      box-shadow: 0 0 0 3px rgba(141, 180, 255, 0.1);
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 46px;
+      padding: 0 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .checkbox-row input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent-strong);
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 0.8rem;
+      line-height: 1.5;
+    }
+
+    .action-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .action-btn {
+      min-height: 46px;
+      padding: 0 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .action-btn.primary {
+      background: linear-gradient(180deg, #4f8ff7, #356fd3);
+      border-color: rgba(79, 143, 247, 0.32);
+    }
+
+    .action-btn.danger {
+      color: #ffd8df;
+      border-color: rgba(212, 100, 126, 0.2);
+      background: rgba(212, 100, 126, 0.12);
+    }
+
+    .action-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+      transform: none;
+    }
+
+    .info-grid {
+      display: grid;
+      gap: 16px;
+      min-height: 0;
+    }
+
+    .hero-card {
+      padding: 24px;
+      border: 1px solid var(--panel-border);
+      border-radius: 26px;
+      background:
+        radial-gradient(circle at top right, rgba(255, 255, 255, 0.12), transparent 26%),
+        linear-gradient(145deg, rgba(24, 43, 77, 0.9), rgba(18, 31, 57, 0.86));
+    }
+
+    .hero-card h1 {
+      margin: 0 0 12px;
+      font-size: clamp(1.9rem, 4vw, 3.2rem);
+      line-height: 0.98;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-card p {
+      max-width: 620px;
+      color: rgba(238, 244, 255, 0.78);
+      line-height: 1.65;
+    }
+
+    .status-line {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(238, 244, 255, 0.88);
+      font-size: 0.82rem;
+    }
+
+    .grid-two {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      padding: 18px;
+      border: 1px solid var(--panel-border);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .card h2 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .meta-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .meta-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.9rem;
+    }
+
+    .meta-line:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .meta-line span {
+      color: var(--muted);
+    }
+
+    .meta-line strong {
+      color: var(--text);
+      text-align: right;
+      word-break: break-all;
+    }
+
+    .progress-wrap {
+      display: grid;
+      gap: 12px;
+    }
+
+    progress {
+      width: 100%;
+      height: 12px;
+      border: 0;
+      border-radius: 999px;
+      overflow: hidden;
+      appearance: none;
+    }
+
+    progress::-webkit-progress-bar {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    progress::-webkit-progress-value {
+      background: linear-gradient(90deg, #69c38a, #8db4ff);
+      border-radius: 999px;
+    }
+
+    progress::-moz-progress-bar {
+      background: linear-gradient(90deg, #69c38a, #8db4ff);
+      border-radius: 999px;
+    }
+
+    .message {
+      min-height: 1.4em;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .message.error {
+      color: #ffbccb;
+    }
+
+    .message.success {
+      color: #bfead0;
+    }
+
+    .mono {
+      font-family: "Consolas", "SFMono-Regular", "Menlo", monospace;
+    }
+
+    .support-list {
+      display: grid;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    .support-list strong {
+      color: var(--text);
+    }
+
+    @media (max-width: 1080px) {
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .app-shell {
+        padding: 12px;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .grid-two,
+      .action-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark"></div>
+        <div class="brand-copy">
+          <strong>BV Servant Web</strong>
+          <span>Static browser version of a BV fetch and download helper</span>
+        </div>
+      </div>
+      <a class="back-link" href="../../featured.html">Back to Featured</a>
+    </header>
+
+    <main class="workspace">
+      <section class="panel">
+        <h2 class="panel-title">Input</h2>
+        <div class="form-grid">
+          <div class="field">
+            <label for="backendUrlInput">Local Backend URL</label>
+            <input id="backendUrlInput" type="text" value="http://127.0.0.1:8765">
+          </div>
+          <div class="field">
+            <label for="bvidInput">BV ID</label>
+            <input id="bvidInput" type="text" placeholder="BV..." value="">
+          </div>
+          <div class="field">
+            <label for="partInput">Part Index</label>
+            <input id="partInput" type="number" min="0" step="1" value="0">
+          </div>
+          <div class="field">
+            <label for="filenameInput">Filename Override</label>
+            <input id="filenameInput" type="text" placeholder="Optional custom filename">
+          </div>
+          <div class="field">
+            <label for="directoryInput">Save Directory</label>
+            <input id="directoryInput" type="text" placeholder="Backend default download directory">
+          </div>
+          <div class="field">
+            <label for="threadsInput">Parallel Segments</label>
+            <input id="threadsInput" type="number" min="1" max="8" step="1" value="4">
+          </div>
+          <div class="field">
+            <label for="mp3Checkbox">Convert To MP3</label>
+            <label class="checkbox-row">
+              <input id="mp3Checkbox" type="checkbox">
+              <span>Ask the Python backend to convert the finished file to MP3</span>
+            </label>
+          </div>
+          <div class="hint">
+            This page now expects a local Python backend. Start <span class="mono">featured/tools/bv_servant_backend.py</span> first, then use this UI as the frontend.
+          </div>
+        </div>
+        <div class="action-row">
+          <button class="action-btn primary" id="fetchBtn" type="button">Fetch Metadata</button>
+          <button class="action-btn primary" id="downloadBtn" type="button" disabled>Start Download</button>
+          <button class="action-btn" id="copyUrlBtn" type="button" disabled>Copy Media URL</button>
+          <button class="action-btn danger" id="cancelBtn" type="button" disabled>Cancel</button>
+        </div>
+      </section>
+
+      <section class="info-grid">
+        <div class="hero-card">
+          <h1 id="heroTitle">BV download helper, adapted to a static web page.</h1>
+          <p id="heroDescription">Fill in a BV number, fetch metadata, then try a browser-side segmented download. This version keeps the core lookup flow but cannot emulate desktop-only features like choosing arbitrary save paths or stable MP3 transcoding without a heavier browser toolchain.</p>
+          <div class="status-line">
+            <div class="pill" id="statusPill">Idle</div>
+            <div class="pill" id="backendPill">Backend: unknown</div>
+            <div class="pill" id="rangePill">Range: unknown</div>
+            <div class="pill" id="sizePill">Size: unknown</div>
+          </div>
+        </div>
+
+        <div class="grid-two">
+          <section class="card">
+            <h2>Video Info</h2>
+            <div class="meta-list">
+              <div class="meta-line"><span>Title</span><strong id="titleValue">-</strong></div>
+              <div class="meta-line"><span>CID</span><strong id="cidValue" class="mono">-</strong></div>
+              <div class="meta-line"><span>Part</span><strong id="partValue">-</strong></div>
+              <div class="meta-line"><span>Filename</span><strong id="fileValue">-</strong></div>
+            </div>
+          </section>
+
+          <section class="card">
+            <h2>Download</h2>
+            <div class="progress-wrap">
+              <progress id="progressBar" max="100" value="0"></progress>
+              <div class="meta-list">
+                <div class="meta-line"><span>Progress</span><strong id="progressValue">0%</strong></div>
+                <div class="meta-line"><span>Downloaded</span><strong id="bytesValue">0 B</strong></div>
+                <div class="meta-line"><span>Job ID</span><strong id="jobValue" class="mono">-</strong></div>
+                <div class="meta-line"><span>Media URL</span><strong id="urlValue" class="mono">-</strong></div>
+              </div>
+              <div class="message" id="messageBox"></div>
+            </div>
+          </section>
+        </div>
+
+        <section class="card">
+          <h2>Support Notes</h2>
+          <div class="support-list">
+            <div><strong>Available here:</strong> BV lookup, per-part selection, filename override, save directory, progress display, cancel, multi-thread download, optional MP3 conversion.</div>
+            <div><strong>Backend model:</strong> the browser is only the UI. All Bilibili API calls and the actual download work happen inside the local Python service.</div>
+            <div><strong>What you need to run:</strong> start <span class="mono">python featured/tools/bv_servant_backend.py</span>, then open this page and keep the backend URL pointed to that local service.</div>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const backendUrlInput = document.getElementById('backendUrlInput');
+    const bvidInput = document.getElementById('bvidInput');
+    const partInput = document.getElementById('partInput');
+    const filenameInput = document.getElementById('filenameInput');
+    const directoryInput = document.getElementById('directoryInput');
+    const threadsInput = document.getElementById('threadsInput');
+    const mp3Checkbox = document.getElementById('mp3Checkbox');
+    const fetchBtn = document.getElementById('fetchBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const copyUrlBtn = document.getElementById('copyUrlBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const heroTitle = document.getElementById('heroTitle');
+    const heroDescription = document.getElementById('heroDescription');
+    const statusPill = document.getElementById('statusPill');
+    const backendPill = document.getElementById('backendPill');
+    const rangePill = document.getElementById('rangePill');
+    const sizePill = document.getElementById('sizePill');
+    const titleValue = document.getElementById('titleValue');
+    const cidValue = document.getElementById('cidValue');
+    const partValue = document.getElementById('partValue');
+    const fileValue = document.getElementById('fileValue');
+    const progressBar = document.getElementById('progressBar');
+    const progressValue = document.getElementById('progressValue');
+    const bytesValue = document.getElementById('bytesValue');
+    const jobValue = document.getElementById('jobValue');
+    const urlValue = document.getElementById('urlValue');
+    const messageBox = document.getElementById('messageBox');
+
+    let currentInfo = null;
+    let currentJobId = null;
+    let pollTimer = null;
+
+    function getBackendBaseUrl() {
+      return backendUrlInput.value.trim().replace(/\/+$/, '');
+    }
+
+    function setMessage(message, level = '') {
+      messageBox.textContent = message;
+      messageBox.className = level ? `message ${level}` : 'message';
+    }
+
+    function formatBytes(value) {
+      if (!Number.isFinite(value) || value <= 0) {
+        return '0 B';
+      }
+      const units = ['B', 'KB', 'MB', 'GB'];
+      let size = value;
+      let index = 0;
+      while (size >= 1024 && index < units.length - 1) {
+        size /= 1024;
+        index += 1;
+      }
+      return `${size.toFixed(size >= 100 || index === 0 ? 0 : 2)} ${units[index]}`;
+    }
+
+    async function apiRequest(path, options = {}) {
+      const response = await fetch(`${getBackendBaseUrl()}${path}`, {
+        ...options,
+        headers: {
+          'Content-Type': 'application/json',
+          ...(options.headers || {})
+        }
+      });
+      let payload = {};
+      try {
+        payload = await response.json();
+      } catch (error) {
+        throw new Error(`Backend returned HTTP ${response.status} with a non-JSON body`);
+      }
+      if (!response.ok || payload.ok === false) {
+        throw new Error(payload.error || `Backend returned HTTP ${response.status}`);
+      }
+      return payload;
+    }
+
+    function updateProgress(loaded, total) {
+      const percent = total > 0 ? Math.min(100, (loaded / total) * 100) : 0;
+      progressBar.value = percent;
+      progressValue.textContent = `${percent.toFixed(1)}%`;
+      bytesValue.textContent = total > 0 ? `${formatBytes(loaded)} / ${formatBytes(total)}` : formatBytes(loaded);
+    }
+
+    function resetProgress() {
+      updateProgress(0, currentInfo?.size || 0);
+      jobValue.textContent = currentJobId || '-';
+    }
+
+    function clearPolling() {
+      if (pollTimer) {
+        clearInterval(pollTimer);
+        pollTimer = null;
+      }
+    }
+
+    function setIdleState() {
+      fetchBtn.disabled = false;
+      downloadBtn.disabled = !currentInfo;
+      copyUrlBtn.disabled = !currentInfo?.media_url;
+      cancelBtn.disabled = !currentJobId;
+      if (!currentJobId) {
+        statusPill.textContent = currentInfo ? 'Ready' : 'Idle';
+      }
+    }
+
+    function setCurrentInfo(info) {
+      currentInfo = info;
+      heroTitle.textContent = info.title;
+      heroDescription.textContent = `Part ${info.part_index + 1} of ${info.total_parts}: ${info.part_name}`;
+      titleValue.textContent = info.title;
+      cidValue.textContent = info.cid;
+      partValue.textContent = `${info.part_index} (${info.part_name})`;
+      fileValue.textContent = info.filename;
+      urlValue.textContent = info.media_url || '-';
+      rangePill.textContent = `Range: ${info.supports_range ? 'bytes' : 'single stream'}`;
+      sizePill.textContent = `Size: ${info.size > 0 ? formatBytes(info.size) : 'unknown'}`;
+      if (!directoryInput.value.trim()) {
+        directoryInput.value = info.default_directory || '';
+      }
+      if (!info.mp3_available) {
+        mp3Checkbox.checked = false;
+        mp3Checkbox.disabled = true;
+      } else {
+        mp3Checkbox.disabled = false;
+      }
+      resetProgress();
+    }
+
+    async function checkBackendHealth() {
+      try {
+        const payload = await apiRequest('/health', { method: 'GET', headers: {} });
+        backendPill.textContent = 'Backend: online';
+        if (!directoryInput.value.trim()) {
+          directoryInput.value = payload.default_download_dir || '';
+        }
+        if (!payload.mp3_available) {
+          mp3Checkbox.checked = false;
+          mp3Checkbox.disabled = true;
+        }
+        return payload;
+      } catch (error) {
+        backendPill.textContent = 'Backend: offline';
+        throw error;
+      }
+    }
+
+    async function fetchMetadata() {
+      const bvid = bvidInput.value.trim();
+      const partIndex = Number(partInput.value || 0);
+      if (!/^BV/i.test(bvid)) {
+        throw new Error('Please enter a valid BV ID.');
+      }
+
+      await checkBackendHealth();
+      setMessage('Fetching metadata from local backend...');
+      statusPill.textContent = 'Fetching';
+      fetchBtn.disabled = true;
+      downloadBtn.disabled = true;
+      copyUrlBtn.disabled = true;
+
+      const payload = await apiRequest('/api/metadata', {
+        method: 'POST',
+        body: JSON.stringify({
+          bvid,
+          part: partIndex,
+          filename: filenameInput.value.trim()
+        })
+      });
+
+      setCurrentInfo(payload.metadata);
+      setMessage('Metadata ready. Download work will happen inside the local Python backend.', 'success');
+      setIdleState();
+    }
+
+    async function pollJob(jobId) {
+      const payload = await apiRequest(`/api/jobs/${jobId}`, { method: 'GET', headers: {} });
+      const job = payload.job;
+      currentJobId = job.job_id;
+      jobValue.textContent = job.job_id;
+      updateProgress(job.downloaded_bytes || 0, job.total_size || currentInfo?.size || 0);
+      statusPill.textContent = job.status;
+
+      if (job.message) {
+        const level = job.status === 'error' || job.status === 'cancelled' ? 'error' : (job.status === 'finished' ? 'success' : '');
+        setMessage(job.message, level);
+      }
+
+      if (job.status === 'finished' || job.status === 'error' || job.status === 'cancelled') {
+        clearPolling();
+        currentJobId = null;
+        jobValue.textContent = job.job_id;
+        setIdleState();
+      }
+    }
+
+    async function startDownload() {
+      if (!currentInfo) {
+        return;
+      }
+
+      await checkBackendHealth();
+      clearPolling();
+      currentJobId = null;
+      resetProgress();
+      statusPill.textContent = 'Submitting';
+      fetchBtn.disabled = true;
+      downloadBtn.disabled = true;
+      copyUrlBtn.disabled = true;
+      cancelBtn.disabled = true;
+      setMessage('Submitting download job to local backend...');
+
+      const payload = await apiRequest('/api/download', {
+        method: 'POST',
+        body: JSON.stringify({
+          bvid: currentInfo.bvid,
+          cid: currentInfo.cid,
+          title: currentInfo.title,
+          media_url: currentInfo.media_url,
+          filename: filenameInput.value.trim() || currentInfo.filename,
+          directory: directoryInput.value.trim() || currentInfo.default_directory,
+          threads: Number(threadsInput.value || 4),
+          convert_mp3: mp3Checkbox.checked,
+          part: currentInfo.part_index,
+          size: currentInfo.size,
+          supports_range: currentInfo.supports_range
+        })
+      });
+
+      currentJobId = payload.job.job_id;
+      jobValue.textContent = currentJobId;
+      cancelBtn.disabled = false;
+      statusPill.textContent = payload.job.status;
+      setMessage('Download job started on local backend.');
+      pollTimer = setInterval(() => {
+        pollJob(currentJobId).catch((error) => {
+          clearPolling();
+          currentJobId = null;
+          setMessage(`Polling failed: ${error.message}`, 'error');
+          statusPill.textContent = 'Error';
+          setIdleState();
+        });
+      }, 1000);
+      await pollJob(currentJobId);
+    }
+
+    async function cancelDownload() {
+      if (!currentJobId) {
+        return;
+      }
+      await apiRequest('/api/cancel', {
+        method: 'POST',
+        body: JSON.stringify({ job_id: currentJobId })
+      });
+      setMessage('Cancellation requested.');
+    }
+
+    async function copyMediaUrl() {
+      if (!currentInfo?.media_url) {
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(currentInfo.media_url);
+        setMessage('Media URL copied.', 'success');
+      } catch (error) {
+        setMessage('Clipboard access failed in this browser context.', 'error');
+      }
+    }
+
+    backendUrlInput.addEventListener('blur', () => {
+      checkBackendHealth().catch(() => {});
+    });
+
+    fetchBtn.addEventListener('click', () => {
+      fetchMetadata().catch((error) => {
+        setMessage(`Metadata fetch failed: ${error.message}`, 'error');
+        statusPill.textContent = 'Error';
+        fetchBtn.disabled = false;
+        setIdleState();
+      });
+    });
+
+    downloadBtn.addEventListener('click', () => {
+      startDownload().catch((error) => {
+        clearPolling();
+        currentJobId = null;
+        setMessage(`Download submission failed: ${error.message}`, 'error');
+        statusPill.textContent = 'Error';
+        setIdleState();
+      });
+    });
+
+    cancelBtn.addEventListener('click', () => {
+      cancelDownload().catch((error) => {
+        setMessage(`Cancel request failed: ${error.message}`, 'error');
+      });
+    });
+
+    copyUrlBtn.addEventListener('click', copyMediaUrl);
+
+    checkBackendHealth().catch((error) => {
+      setMessage(`Backend unavailable: ${error.message}`, 'error');
+    });
+  </script>
+</body>
+</html>

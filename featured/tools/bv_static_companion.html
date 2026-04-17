@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BV Static Companion - Little Fluctuating Cat _(:&#1079;&#12293;&#8736;)_~</title>
+  <link rel="shortcut icon" href="../../images/main.png">
+  <style>
+    :root {
+      --bg: #07101b;
+      --panel: rgba(12, 22, 38, 0.82);
+      --panel-soft: rgba(255, 255, 255, 0.04);
+      --panel-border: rgba(255, 255, 255, 0.08);
+      --text: #eef4ff;
+      --muted: rgba(238, 244, 255, 0.68);
+      --accent: #88aff6;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.26);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(113, 147, 220, 0.16), transparent 24%),
+        radial-gradient(circle at bottom right, rgba(206, 102, 136, 0.14), transparent 20%),
+        linear-gradient(160deg, #06101a 0%, #0b162f 48%, #07101b 100%);
+      color: var(--text);
+      font-family: "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+    }
+
+    a,
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    .app-shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 18px;
+      padding: 20px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 18px;
+      border: 1px solid var(--panel-border);
+      border-radius: 20px;
+      background: rgba(7, 16, 29, 0.64);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, rgba(120, 162, 235, 0.94), rgba(196, 106, 141, 0.84));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    }
+
+    .brand-copy strong,
+    .brand-copy span {
+      display: block;
+    }
+
+    .brand-copy strong {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-copy span {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 16px;
+      border: 1px solid var(--panel-border);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      text-decoration: none;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .back-link:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: 380px minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    .panel {
+      min-height: 0;
+      padding: 20px;
+      border: 1px solid var(--panel-border);
+      border-radius: var(--radius);
+      background: var(--panel);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: var(--shadow);
+    }
+
+    .panel-title {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .form-grid,
+    .info-grid,
+    .history-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field label {
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      min-height: 46px;
+      padding: 0 14px;
+      border: 1px solid var(--panel-border);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      outline: none;
+    }
+
+    .field textarea {
+      min-height: 98px;
+      padding: 12px 14px;
+      resize: vertical;
+      line-height: 1.55;
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      border-color: rgba(136, 175, 246, 0.44);
+      box-shadow: 0 0 0 3px rgba(136, 175, 246, 0.1);
+    }
+
+    .hint,
+    .small {
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.55;
+    }
+
+    .action-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .action-btn,
+    .history-item {
+      min-height: 44px;
+      padding: 0 14px;
+      border: 1px solid var(--panel-border);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .action-btn {
+      cursor: pointer;
+    }
+
+    .action-btn:hover,
+    .history-item:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .action-btn.primary {
+      background: linear-gradient(180deg, #4f8ff7, #356fd3);
+      border-color: rgba(79, 143, 247, 0.32);
+    }
+
+    .hero-card {
+      padding: 24px;
+      border: 1px solid var(--panel-border);
+      border-radius: 26px;
+      background:
+        radial-gradient(circle at top right, rgba(255, 255, 255, 0.12), transparent 26%),
+        linear-gradient(145deg, rgba(24, 43, 77, 0.9), rgba(18, 31, 57, 0.86));
+    }
+
+    .hero-card h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      line-height: 0.98;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-card p {
+      max-width: 720px;
+      color: rgba(238, 244, 255, 0.8);
+      line-height: 1.65;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(238, 244, 255, 0.88);
+      font-size: 0.82rem;
+    }
+
+    .grid-two {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      padding: 18px;
+      border: 1px solid var(--panel-border);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .card h2 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .meta-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .meta-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.9rem;
+    }
+
+    .meta-line:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .meta-line span {
+      color: var(--muted);
+    }
+
+    .meta-line strong {
+      color: var(--text);
+      text-align: right;
+      word-break: break-all;
+    }
+
+    .mono {
+      font-family: "Consolas", "SFMono-Regular", "Menlo", monospace;
+    }
+
+    .history-item {
+      display: grid;
+      gap: 4px;
+      align-content: center;
+      padding: 12px 14px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .history-item strong,
+    .history-item span {
+      display: block;
+    }
+
+    .history-item span {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .message {
+      min-height: 1.4em;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .message.success {
+      color: #bfead0;
+    }
+
+    .message.error {
+      color: #ffc0cf;
+    }
+
+    @media (max-width: 1080px) {
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .app-shell {
+        padding: 12px;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .grid-two,
+      .action-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark"></div>
+        <div class="brand-copy">
+          <strong>BV Static Companion</strong>
+          <span>A static-only toolbox for BV links, commands, and local workflow helpers</span>
+        </div>
+      </div>
+      <a class="back-link" href="../../featured.html">Back to Featured</a>
+    </header>
+
+    <main class="workspace">
+      <section class="panel">
+        <h2 class="panel-title">Input</h2>
+        <div class="form-grid">
+          <div class="field">
+            <label for="bvidInput">BV ID Or Bilibili URL</label>
+            <input id="bvidInput" type="text" placeholder="BV... or https://www.bilibili.com/video/BV...">
+          </div>
+          <div class="field">
+            <label for="partInput">Part Index</label>
+            <input id="partInput" type="number" min="0" step="1" value="0">
+          </div>
+          <div class="field">
+            <label for="filenameInput">Filename Override</label>
+            <input id="filenameInput" type="text" placeholder="Optional custom filename">
+          </div>
+          <div class="field">
+            <label for="notesInput">Notes</label>
+            <textarea id="notesInput" placeholder="Optional scratch notes, tags, or reminders"></textarea>
+          </div>
+          <div class="hint">
+            This page is intentionally static-only. It does not promise live Bilibili API access. Instead it gives you stable outputs that GitHub Pages can host safely: normalized links, local command templates, and reusable history.
+          </div>
+        </div>
+        <div class="action-row">
+          <button class="action-btn primary" id="buildBtn" type="button">Build Toolbox</button>
+          <button class="action-btn" id="copyAllBtn" type="button">Copy Summary</button>
+          <button class="action-btn" id="saveBtn" type="button">Save History</button>
+          <button class="action-btn" id="clearBtn" type="button">Clear Form</button>
+        </div>
+        <div class="message" id="messageBox"></div>
+        <div class="small">History is stored locally in your browser via <span class="mono">localStorage</span>.</div>
+      </section>
+
+      <section class="info-grid">
+        <div class="hero-card">
+          <h1 id="heroTitle">Static-first BV toolbox for pages that cannot run a backend.</h1>
+          <p id="heroDescription">Use this when you want something deployable on GitHub Pages with zero server setup. It will normalize BV input, generate the canonical Bilibili page link, build local commands for tools like <span class="mono">yt-dlp</span> or your Python backend, and keep a small local history for repeated use.</p>
+          <div class="pill-row">
+            <div class="pill" id="modePill">Mode: static-only</div>
+            <div class="pill" id="partPill">Part: P1</div>
+            <div class="pill" id="filenamePill">Filename: auto</div>
+          </div>
+        </div>
+
+        <div class="grid-two">
+          <section class="card">
+            <h2>Normalized Info</h2>
+            <div class="meta-list">
+              <div class="meta-line"><span>BV</span><strong id="bvValue" class="mono">-</strong></div>
+              <div class="meta-line"><span>Part</span><strong id="partValue">-</strong></div>
+              <div class="meta-line"><span>Video URL</span><strong id="videoUrlValue" class="mono">-</strong></div>
+              <div class="meta-line"><span>Filename</span><strong id="filenameValue">-</strong></div>
+            </div>
+          </section>
+
+          <section class="card">
+            <h2>Ready Actions</h2>
+            <div class="action-row">
+              <button class="action-btn" id="openVideoBtn" type="button">Open Video Page</button>
+              <button class="action-btn" id="copyVideoBtn" type="button">Copy Video URL</button>
+              <button class="action-btn" id="copyYtdlpBtn" type="button">Copy yt-dlp Command</button>
+              <button class="action-btn" id="copyBackendBtn" type="button">Copy Backend Command</button>
+            </div>
+          </section>
+        </div>
+
+        <div class="grid-two">
+          <section class="card">
+            <h2>yt-dlp Command</h2>
+            <div class="field">
+              <textarea id="ytdlpOutput" class="mono" readonly></textarea>
+            </div>
+          </section>
+
+          <section class="card">
+            <h2>Local Backend Helper</h2>
+            <div class="field">
+              <textarea id="backendOutput" class="mono" readonly></textarea>
+            </div>
+          </section>
+        </div>
+
+        <section class="card">
+          <h2>History</h2>
+          <div class="history-list" id="historyList"></div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const HISTORY_KEY = 'bv-static-companion-history';
+    const bvidInput = document.getElementById('bvidInput');
+    const partInput = document.getElementById('partInput');
+    const filenameInput = document.getElementById('filenameInput');
+    const notesInput = document.getElementById('notesInput');
+    const buildBtn = document.getElementById('buildBtn');
+    const copyAllBtn = document.getElementById('copyAllBtn');
+    const saveBtn = document.getElementById('saveBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const messageBox = document.getElementById('messageBox');
+    const heroTitle = document.getElementById('heroTitle');
+    const heroDescription = document.getElementById('heroDescription');
+    const modePill = document.getElementById('modePill');
+    const partPill = document.getElementById('partPill');
+    const filenamePill = document.getElementById('filenamePill');
+    const bvValue = document.getElementById('bvValue');
+    const partValue = document.getElementById('partValue');
+    const videoUrlValue = document.getElementById('videoUrlValue');
+    const filenameValue = document.getElementById('filenameValue');
+    const openVideoBtn = document.getElementById('openVideoBtn');
+    const copyVideoBtn = document.getElementById('copyVideoBtn');
+    const copyYtdlpBtn = document.getElementById('copyYtdlpBtn');
+    const copyBackendBtn = document.getElementById('copyBackendBtn');
+    const ytdlpOutput = document.getElementById('ytdlpOutput');
+    const backendOutput = document.getElementById('backendOutput');
+    const historyList = document.getElementById('historyList');
+
+    let currentToolbox = null;
+
+    function setMessage(message, level = '') {
+      messageBox.textContent = message;
+      messageBox.className = level ? `message ${level}` : 'message';
+    }
+
+    function sanitizeFilename(filename) {
+      return filename.replace(/[\\/:*?"<>|]/g, '').replace(/\s+/g, '_').slice(0, 255);
+    }
+
+    function ensureMp4Extension(filename) {
+      return filename.toLowerCase().endsWith('.mp4') ? filename : `${filename}.mp4`;
+    }
+
+    function extractBvid(input) {
+      const trimmed = input.trim();
+      const match = trimmed.match(/BV[0-9A-Za-z]+/i);
+      return match ? match[0] : '';
+    }
+
+    function loadHistory() {
+      try {
+        return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function saveHistory(entries) {
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(entries.slice(0, 8)));
+    }
+
+    function renderHistory() {
+      const entries = loadHistory();
+      historyList.innerHTML = '';
+      if (!entries.length) {
+        historyList.innerHTML = '<div class="small">No local history yet.</div>';
+        return;
+      }
+      entries.forEach((entry) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'history-item';
+        button.innerHTML = `<strong>${entry.bvid}</strong><span>P${entry.part + 1} · ${entry.filename}</span>`;
+        button.addEventListener('click', () => {
+          bvidInput.value = entry.bvid;
+          partInput.value = entry.part;
+          filenameInput.value = entry.rawFilename;
+          notesInput.value = entry.notes || '';
+          buildToolbox();
+        });
+        historyList.appendChild(button);
+      });
+    }
+
+    function buildToolbox() {
+      const bvid = extractBvid(bvidInput.value);
+      const part = Math.max(0, Number(partInput.value || 0));
+      if (!bvid) {
+        setMessage('Please enter a valid BV identifier or a Bilibili video URL.', 'error');
+        return;
+      }
+
+      const rawFilename = filenameInput.value.trim() || bvid;
+      const safeFilename = ensureMp4Extension(sanitizeFilename(rawFilename || bvid));
+      const partNumber = part + 1;
+      const videoUrl = `https://www.bilibili.com/video/${bvid}/?p=${partNumber}`;
+      const ytdlpCmd = `yt-dlp "${videoUrl}" -o "${safeFilename}"`;
+      const backendCmd = `python featured/tools/bv_servant_backend.py`;
+      const notes = notesInput.value.trim();
+
+      currentToolbox = {
+        bvid,
+        part,
+        videoUrl,
+        filename: safeFilename,
+        rawFilename,
+        ytdlpCmd,
+        backendCmd,
+        notes
+      };
+
+      heroTitle.textContent = `${bvid}, prepared for a static-only workflow.`;
+      heroDescription.textContent = notes || 'No backend assumptions here. Use the generated links and commands as a launchpad for manual or local-tool workflows.';
+      partPill.textContent = `Part: P${partNumber}`;
+      filenamePill.textContent = `Filename: ${safeFilename}`;
+      modePill.textContent = 'Mode: static-only';
+      bvValue.textContent = bvid;
+      partValue.textContent = `P${partNumber}`;
+      videoUrlValue.textContent = videoUrl;
+      filenameValue.textContent = safeFilename;
+      ytdlpOutput.value = ytdlpCmd;
+      backendOutput.value = `${backendCmd}\n# then open the backend-enabled frontend if you want the local service flow`;
+      setMessage('Toolbox rebuilt.', 'success');
+    }
+
+    async function copyText(text, successMessage) {
+      try {
+        await navigator.clipboard.writeText(text);
+        setMessage(successMessage, 'success');
+      } catch (error) {
+        setMessage('Clipboard access failed in this browser context.', 'error');
+      }
+    }
+
+    function persistCurrent() {
+      if (!currentToolbox) {
+        buildToolbox();
+        if (!currentToolbox) {
+          return;
+        }
+      }
+      const entries = loadHistory().filter((entry) => !(entry.bvid === currentToolbox.bvid && entry.part === currentToolbox.part));
+      entries.unshift(currentToolbox);
+      saveHistory(entries);
+      renderHistory();
+      setMessage('Saved to local history.', 'success');
+    }
+
+    function clearForm() {
+      bvidInput.value = '';
+      partInput.value = '0';
+      filenameInput.value = '';
+      notesInput.value = '';
+      currentToolbox = null;
+      heroTitle.textContent = 'Static-first BV toolbox for pages that cannot run a backend.';
+      heroDescription.textContent = 'Use this when you want something deployable on GitHub Pages with zero server setup. It will normalize BV input, generate the canonical Bilibili page link, build local commands for tools like yt-dlp or your Python backend, and keep a small local history for repeated use.';
+      partPill.textContent = 'Part: P1';
+      filenamePill.textContent = 'Filename: auto';
+      bvValue.textContent = '-';
+      partValue.textContent = '-';
+      videoUrlValue.textContent = '-';
+      filenameValue.textContent = '-';
+      ytdlpOutput.value = '';
+      backendOutput.value = '';
+      setMessage('');
+    }
+
+    buildBtn.addEventListener('click', buildToolbox);
+    copyAllBtn.addEventListener('click', () => {
+      if (!currentToolbox) {
+        buildToolbox();
+      }
+      if (!currentToolbox) {
+        return;
+      }
+      copyText(
+        [
+          `BV: ${currentToolbox.bvid}`,
+          `Part: ${currentToolbox.part + 1}`,
+          `Video URL: ${currentToolbox.videoUrl}`,
+          `Filename: ${currentToolbox.filename}`,
+          `yt-dlp: ${currentToolbox.ytdlpCmd}`,
+          `Backend: ${currentToolbox.backendCmd}`,
+          currentToolbox.notes ? `Notes: ${currentToolbox.notes}` : ''
+        ].filter(Boolean).join('\n'),
+        'Summary copied.'
+      );
+    });
+    saveBtn.addEventListener('click', persistCurrent);
+    clearBtn.addEventListener('click', clearForm);
+    openVideoBtn.addEventListener('click', () => {
+      if (!currentToolbox) {
+        buildToolbox();
+      }
+      if (currentToolbox) {
+        window.open(currentToolbox.videoUrl, '_blank', 'noopener');
+      }
+    });
+    copyVideoBtn.addEventListener('click', () => {
+      if (!currentToolbox) {
+        buildToolbox();
+      }
+      if (currentToolbox) {
+        copyText(currentToolbox.videoUrl, 'Video URL copied.');
+      }
+    });
+    copyYtdlpBtn.addEventListener('click', () => {
+      if (!currentToolbox) {
+        buildToolbox();
+      }
+      if (currentToolbox) {
+        copyText(currentToolbox.ytdlpCmd, 'yt-dlp command copied.');
+      }
+    });
+    copyBackendBtn.addEventListener('click', () => {
+      if (!currentToolbox) {
+        buildToolbox();
+      }
+      if (currentToolbox) {
+        copyText(currentToolbox.backendCmd, 'Backend command copied.');
+      }
+    });
+
+    renderHistory();
+  </script>
+</body>
+</html>

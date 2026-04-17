@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>&#20840;&#23631;&#37197;&#33394;&#23454;&#39564;&#23460; - Little Fluctuating Cat _(:&#1079;&#12293;&#8736;)_~</title>
+  <link rel="shortcut icon" href="../../images/main.png">
+  <style>
+    :root {
+      --bg: #09111f;
+      --panel: rgba(12, 24, 43, 0.78);
+      --panel-border: rgba(255, 255, 255, 0.08);
+      --panel-soft: rgba(255, 255, 255, 0.06);
+      --text: #eef4ff;
+      --muted: rgba(238, 244, 255, 0.68);
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.24);
+      --radius: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(112, 143, 212, 0.18), transparent 22%),
+        radial-gradient(circle at bottom right, rgba(204, 92, 128, 0.16), transparent 20%),
+        linear-gradient(160deg, #07101d 0%, #0d1830 48%, #09111f 100%);
+      color: var(--text);
+      font-family: "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .app-shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      padding: 20px;
+      gap: 18px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 18px;
+      border: 1px solid var(--panel-border);
+      border-radius: 20px;
+      background: rgba(7, 16, 29, 0.62);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, rgba(120, 162, 235, 0.9), rgba(198, 99, 138, 0.82));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    .brand-copy strong,
+    .brand-copy span {
+      display: block;
+    }
+
+    .brand-copy strong {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-copy span {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 16px;
+      border: 1px solid var(--panel-border);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      text-decoration: none;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .back-link:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .workspace {
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 290px minmax(0, 1fr) 320px;
+      gap: 18px;
+    }
+
+    .panel {
+      min-height: 0;
+      padding: 18px;
+      border: 1px solid var(--panel-border);
+      border-radius: var(--radius);
+      background: var(--panel);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: var(--shadow);
+    }
+
+    .panel-title {
+      margin: 0 0 14px;
+      font-size: 0.86rem;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .preset-group + .preset-group {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .group-label {
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-size: 0.76rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .preset-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .preset-btn,
+    .action-btn,
+    .color-chip {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .preset-btn:hover,
+    .action-btn:hover,
+    .color-chip:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .preset-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 18px;
+      text-align: left;
+    }
+
+    .preset-btn.active {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06));
+      border-color: rgba(255, 255, 255, 0.22);
+    }
+
+    .preset-btn strong,
+    .preset-btn span {
+      display: block;
+    }
+
+    .preset-btn strong {
+      margin-bottom: 5px;
+      font-size: 0.96rem;
+      font-weight: 700;
+    }
+
+    .preset-btn span {
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    .stage-panel {
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) auto;
+      gap: 16px;
+    }
+
+    .hero-stage {
+      position: relative;
+      min-height: 0;
+      overflow: hidden;
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #101b31;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .stage-inner {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) 260px;
+      gap: 18px;
+      padding: 28px;
+    }
+
+    .stage-copy {
+      align-self: end;
+      max-width: 640px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow i {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .stage-title {
+      margin: 18px 0 12px;
+      font-size: clamp(2rem, 4vw, 3.6rem);
+      line-height: 0.98;
+      letter-spacing: -0.03em;
+      color: inherit;
+    }
+
+    .stage-desc {
+      max-width: 520px;
+      color: inherit;
+      font-size: 1rem;
+      line-height: 1.6;
+      opacity: 0.82;
+    }
+
+    .stage-meta {
+      display: grid;
+      gap: 12px;
+      align-self: end;
+    }
+
+    .meta-card {
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.11);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .meta-card span,
+    .meta-card strong {
+      display: block;
+    }
+
+    .meta-card span {
+      margin-bottom: 4px;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.74rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .meta-card strong {
+      font-size: 1.02rem;
+    }
+
+    .palette-strip {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .color-chip {
+      padding: 12px;
+      border-radius: 18px;
+      text-align: left;
+    }
+
+    .color-chip.active {
+      border-color: rgba(255, 255, 255, 0.24);
+      outline: 2px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .chip-swatch {
+      width: 100%;
+      aspect-ratio: 1.12;
+      margin-bottom: 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .color-chip strong,
+    .color-chip span {
+      display: block;
+    }
+
+    .color-chip strong {
+      margin-bottom: 4px;
+      font-size: 0.92rem;
+    }
+
+    .color-chip span {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .editor-panel {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slider-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .slider-row {
+      display: grid;
+      grid-template-columns: 34px 1fr 52px;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slider-tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      color: #ffffff;
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+
+    .tag-r { background: linear-gradient(180deg, #d1445d, #a52a42); }
+    .tag-g { background: linear-gradient(180deg, #2d9d73, #1f7556); }
+    .tag-b { background: linear-gradient(180deg, #2f6ec7, #1f4d90); }
+
+    input[type="range"] {
+      width: 100%;
+      margin: 0;
+      accent-color: #8aaef2;
+    }
+
+    .slider-value {
+      text-align: right;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .editor-meta {
+      display: grid;
+      gap: 10px;
+      margin: 18px 0 0;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .meta-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      font-size: 0.9rem;
+    }
+
+    .meta-line span {
+      color: var(--muted);
+    }
+
+    .meta-line strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .action-stack {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .action-btn {
+      width: 100%;
+      min-height: 44px;
+      padding: 0 14px;
+      border-radius: 16px;
+      text-align: left;
+    }
+
+    .feedback {
+      min-height: 1.2em;
+      margin-top: 12px;
+      color: #a9c1ee;
+      font-size: 0.86rem;
+    }
+
+    .note {
+      margin-top: auto;
+      padding-top: 18px;
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 1180px) {
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+
+      .stage-inner {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .app-shell {
+        padding: 12px;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .palette-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .stage-inner {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-badge"></div>
+        <div class="brand-copy">
+          <strong>全屏配色实验室</strong>
+          <span>把口红色系和原神角色配色放到同一个大画布里比较与微调</span>
+        </div>
+      </div>
+      <a class="back-link" href="../../featured.html">返回作品页</a>
+    </header>
+
+    <main class="workspace">
+      <aside class="panel">
+        <h2 class="panel-title">预设库</h2>
+        <div class="preset-group">
+          <div class="group-label">口红色系</div>
+          <div class="preset-list" id="lipstickList"></div>
+        </div>
+        <div class="preset-group">
+          <div class="group-label">原神角色</div>
+          <div class="preset-list" id="genshinList"></div>
+        </div>
+      </aside>
+
+      <section class="stage-panel">
+        <div class="hero-stage" id="heroStage">
+          <div class="stage-inner">
+            <div class="stage-copy">
+              <div class="eyebrow"><i></i><span id="activeCategory">口红色系</span></div>
+              <h1 class="stage-title" id="activeName">Maple Red</h1>
+              <p class="stage-desc" id="activeDescription">A dense red-brown set that feels polished, warm and slightly vintage.</p>
+            </div>
+            <div class="stage-meta">
+              <div class="meta-card" id="surfaceCard">
+                <span>主色</span>
+                <strong id="surfaceHex">#A63A50</strong>
+              </div>
+              <div class="meta-card" id="accentCard">
+                <span>强调色</span>
+                <strong id="accentHex">#E2A9B1</strong>
+              </div>
+              <div class="meta-card" id="contrastCard">
+                <span>对比色</span>
+                <strong id="contrastHex">#311724</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="palette-strip" id="paletteStrip"></div>
+      </section>
+
+      <aside class="panel editor-panel">
+        <h2 class="panel-title">当前色块</h2>
+        <div class="slider-grid">
+          <div class="slider-row">
+            <span class="slider-tag tag-r">R</span>
+            <input type="range" min="0" max="255" value="0" id="rSlider">
+            <span class="slider-value" id="rValue">0</span>
+          </div>
+          <div class="slider-row">
+            <span class="slider-tag tag-g">G</span>
+            <input type="range" min="0" max="255" value="0" id="gSlider">
+            <span class="slider-value" id="gValue">0</span>
+          </div>
+          <div class="slider-row">
+            <span class="slider-tag tag-b">B</span>
+            <input type="range" min="0" max="255" value="0" id="bSlider">
+            <span class="slider-value" id="bValue">0</span>
+          </div>
+        </div>
+
+        <div class="editor-meta">
+          <div class="meta-line"><span>色块</span><strong id="swatchName">主色</strong></div>
+          <div class="meta-line"><span>HEX</span><strong id="hexValue">#000000</strong></div>
+          <div class="meta-line"><span>RGB</span><strong id="rgbValue">rgb(0, 0, 0)</strong></div>
+          <div class="meta-line"><span>HSL</span><strong id="hslValue">hsl(0, 0%, 0%)</strong></div>
+        </div>
+
+        <div class="action-stack">
+          <button class="action-btn" id="copyHexBtn" type="button">复制当前 HEX</button>
+          <button class="action-btn" id="copyPaletteBtn" type="button">复制整组配色</button>
+          <button class="action-btn" id="resetPaletteBtn" type="button">重置当前预设</button>
+        </div>
+
+        <div class="feedback" id="feedback"></div>
+        <p class="note">这页刻意脱离主站外壳，直接作为一个独立的视觉工作台存在。左侧切换预设，中间观察整组气质，右侧精修当前色块。</p>
+      </aside>
+    </main>
+  </div>
+
+  <script>
+    const presets = [
+      {
+        id: 'maple-red',
+        group: 'lipstick',
+        category: '口红色系',
+        name: '枫糖红',
+        description: '偏红棕的一组厚色，暖、稳，也带一点复古感。',
+        colors: [
+          { label: '主色', value: '#A63A50' },
+          { label: '强调', value: '#E2A9B1' },
+          { label: '高光', value: '#F7D6D9' },
+          { label: '对比', value: '#311724' },
+          { label: '铺底', value: '#D27B74' }
+        ]
+      },
+      {
+        id: 'rose-bean',
+        group: 'lipstick',
+        category: '口红色系',
+        name: '豆沙玫瑰',
+        description: '低饱和玫瑰和可可色，更柔和，也更日常。',
+        colors: [
+          { label: '主色', value: '#A35E68' },
+          { label: '强调', value: '#E5C5C5' },
+          { label: '高光', value: '#F5E8E3' },
+          { label: '对比', value: '#5A343D' },
+          { label: '铺底', value: '#C8897E' }
+        ]
+      },
+      {
+        id: 'chili-brick',
+        group: 'lipstick',
+        category: '口红色系',
+        name: '辣椒砖红',
+        description: '砖橘和辛红混在一起，编辑感更强，也更有旧杂志气质。',
+        colors: [
+          { label: '主色', value: '#B84832' },
+          { label: '强调', value: '#F0B18D' },
+          { label: '高光', value: '#F9E1CF' },
+          { label: '对比', value: '#542014' },
+          { label: '铺底', value: '#D46F48' }
+        ]
+      },
+      {
+        id: 'plum-wine',
+        group: 'lipstick',
+        category: '口红色系',
+        name: '梅子酒红',
+        description: '深梅子和浆果色调，偏冷，也更戏剧化。',
+        colors: [
+          { label: '主色', value: '#7A2848' },
+          { label: '强调', value: '#D7A1B9' },
+          { label: '高光', value: '#F2D9E6' },
+          { label: '对比', value: '#2B1020' },
+          { label: '铺底', value: '#A55F84' }
+        ]
+      },
+      {
+        id: 'furina',
+        group: 'genshin',
+        category: '原神角色',
+        name: '芙宁娜',
+        description: '高对比的蓝、白与海军蓝，精致、冷亮，也带舞台感。',
+        colors: [
+          { label: '主色', value: '#4F9EDB' },
+          { label: '强调', value: '#EAF5FF' },
+          { label: '高光', value: '#B8DFFF' },
+          { label: '对比', value: '#0D2745' },
+          { label: '铺底', value: '#7CC2E8' }
+        ]
+      },
+      {
+        id: 'raiden',
+        group: 'genshin',
+        category: '原神角色',
+        name: '雷电将军',
+        description: '电紫配浅薰衣草和深色阴影，冷峻、锐利，也有漆面质感。',
+        colors: [
+          { label: '主色', value: '#7A58C1' },
+          { label: '强调', value: '#E3D9FF' },
+          { label: '高光', value: '#C9B2FF' },
+          { label: '对比', value: '#25153F' },
+          { label: '铺底', value: '#9D7BE3' }
+        ]
+      },
+      {
+        id: 'nahida',
+        group: 'genshin',
+        category: '原神角色',
+        name: '纳西妲',
+        description: '浅叶绿和象牙白的组合，轻、透、柔和，空气感很强。',
+        colors: [
+          { label: '主色', value: '#7ABF72' },
+          { label: '强调', value: '#F3F7DD' },
+          { label: '高光', value: '#D3E8A8' },
+          { label: '对比', value: '#314525' },
+          { label: '铺底', value: '#A6D28D' }
+        ]
+      },
+      {
+        id: 'zhongli',
+        group: 'genshin',
+        category: '原神角色',
+        name: '钟离',
+        description: '石金和深棕的配法很克制，稳定，也有一点建筑感。',
+        colors: [
+          { label: '主色', value: '#B78A3B' },
+          { label: '强调', value: '#E7D4A1' },
+          { label: '高光', value: '#F5EAD1' },
+          { label: '对比', value: '#2C2118' },
+          { label: '铺底', value: '#8E6A38' }
+        ]
+      }
+    ];
+
+    const lipstickList = document.getElementById('lipstickList');
+    const genshinList = document.getElementById('genshinList');
+    const paletteStrip = document.getElementById('paletteStrip');
+    const heroStage = document.getElementById('heroStage');
+    const activeCategory = document.getElementById('activeCategory');
+    const activeName = document.getElementById('activeName');
+    const activeDescription = document.getElementById('activeDescription');
+    const surfaceHex = document.getElementById('surfaceHex');
+    const accentHex = document.getElementById('accentHex');
+    const contrastHex = document.getElementById('contrastHex');
+    const surfaceCard = document.getElementById('surfaceCard');
+    const accentCard = document.getElementById('accentCard');
+    const contrastCard = document.getElementById('contrastCard');
+    const rSlider = document.getElementById('rSlider');
+    const gSlider = document.getElementById('gSlider');
+    const bSlider = document.getElementById('bSlider');
+    const rValue = document.getElementById('rValue');
+    const gValue = document.getElementById('gValue');
+    const bValue = document.getElementById('bValue');
+    const swatchName = document.getElementById('swatchName');
+    const hexValue = document.getElementById('hexValue');
+    const rgbValue = document.getElementById('rgbValue');
+    const hslValue = document.getElementById('hslValue');
+    const feedback = document.getElementById('feedback');
+    const copyHexBtn = document.getElementById('copyHexBtn');
+    const copyPaletteBtn = document.getElementById('copyPaletteBtn');
+    const resetPaletteBtn = document.getElementById('resetPaletteBtn');
+
+    let activePresetId = presets[0].id;
+    let selectedSwatchIndex = 0;
+    const paletteState = new Map(
+      presets.map((preset) => [
+        preset.id,
+        preset.colors.map((item) => ({ ...item }))
+      ])
+    );
+
+    function componentToHex(value) {
+      return value.toString(16).padStart(2, '0').toUpperCase();
+    }
+
+    function hexToRgb(hex) {
+      const cleaned = hex.replace('#', '');
+      return {
+        r: parseInt(cleaned.slice(0, 2), 16),
+        g: parseInt(cleaned.slice(2, 4), 16),
+        b: parseInt(cleaned.slice(4, 6), 16)
+      };
+    }
+
+    function rgbToHex(r, g, b) {
+      return `#${componentToHex(r)}${componentToHex(g)}${componentToHex(b)}`;
+    }
+
+    function rgbToHsl(r, g, b) {
+      const red = r / 255;
+      const green = g / 255;
+      const blue = b / 255;
+      const max = Math.max(red, green, blue);
+      const min = Math.min(red, green, blue);
+      const delta = max - min;
+      let hue = 0;
+      let saturation = 0;
+      const lightness = (max + min) / 2;
+
+      if (delta !== 0) {
+        saturation = delta / (1 - Math.abs(2 * lightness - 1));
+        switch (max) {
+          case red:
+            hue = ((green - blue) / delta) % 6;
+            break;
+          case green:
+            hue = (blue - red) / delta + 2;
+            break;
+          default:
+            hue = (red - green) / delta + 4;
+            break;
+        }
+        hue = Math.round(hue * 60);
+        if (hue < 0) {
+          hue += 360;
+        }
+      }
+
+      return {
+        h: hue,
+        s: Math.round(saturation * 100),
+        l: Math.round(lightness * 100)
+      };
+    }
+
+    function relativeLuminance(r, g, b) {
+      const transform = (channel) => {
+        const value = channel / 255;
+        return value <= 0.03928 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
+      };
+
+      return 0.2126 * transform(r) + 0.7152 * transform(g) + 0.0722 * transform(b);
+    }
+
+    function pickTextColor(hex) {
+      const { r, g, b } = hexToRgb(hex);
+      return relativeLuminance(r, g, b) > 0.42 ? '#111827' : '#f8fbff';
+    }
+
+    function getActivePreset() {
+      return presets.find((preset) => preset.id === activePresetId);
+    }
+
+    function getActiveColors() {
+      return paletteState.get(activePresetId);
+    }
+
+    function renderPresetList(target, group) {
+      target.innerHTML = '';
+      presets
+        .filter((preset) => preset.group === group)
+        .forEach((preset) => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'preset-btn';
+          if (preset.id === activePresetId) {
+            button.classList.add('active');
+          }
+          button.innerHTML = `<strong>${preset.name}</strong><span>${preset.description}</span>`;
+          button.addEventListener('click', () => {
+            activePresetId = preset.id;
+            selectedSwatchIndex = 0;
+            feedback.textContent = `已载入「${preset.name}」。`;
+            renderAll();
+          });
+          target.appendChild(button);
+        });
+    }
+
+    function renderWorkspace() {
+      const preset = getActivePreset();
+      const colors = getActiveColors();
+      const base = colors[0].value;
+      const accent = colors[1].value;
+      const highlight = colors[2].value;
+      const contrast = colors[3].value;
+      const surface = colors[4].value;
+      const stageText = pickTextColor(base);
+      const surfaceText = pickTextColor(base);
+      const accentText = pickTextColor(accent);
+      const contrastText = pickTextColor(contrast);
+
+      heroStage.style.background = base;
+      heroStage.style.color = stageText;
+
+      activeCategory.textContent = preset.category;
+      activeName.textContent = preset.name;
+      activeDescription.textContent = preset.description;
+      surfaceHex.textContent = base;
+      accentHex.textContent = accent;
+      contrastHex.textContent = contrast;
+      surfaceCard.style.background = base;
+      surfaceCard.style.color = surfaceText;
+      accentCard.style.background = accent;
+      accentCard.style.color = accentText;
+      contrastCard.style.background = contrast;
+      contrastCard.style.color = contrastText;
+    }
+
+    function renderPaletteStrip() {
+      const colors = getActiveColors();
+      paletteStrip.innerHTML = '';
+      colors.forEach((item, index) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'color-chip';
+        if (index === selectedSwatchIndex) {
+          button.classList.add('active');
+        }
+        button.innerHTML = `
+          <div class="chip-swatch" style="background:${item.value}"></div>
+          <strong>${item.label}</strong>
+          <span>${item.value}</span>
+        `;
+        button.addEventListener('click', () => {
+          selectedSwatchIndex = index;
+          renderPaletteStrip();
+          syncEditor();
+        });
+        paletteStrip.appendChild(button);
+      });
+    }
+
+    function syncEditor() {
+      const swatch = getActiveColors()[selectedSwatchIndex];
+      const rgb = hexToRgb(swatch.value);
+      const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+
+      rSlider.value = rgb.r;
+      gSlider.value = rgb.g;
+      bSlider.value = rgb.b;
+      rValue.textContent = rgb.r;
+      gValue.textContent = rgb.g;
+      bValue.textContent = rgb.b;
+      swatchName.textContent = swatch.label;
+      hexValue.textContent = swatch.value;
+      rgbValue.textContent = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+      hslValue.textContent = `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`;
+    }
+
+    function updateSelectedSwatch() {
+      const colors = getActiveColors();
+      const nextHex = rgbToHex(
+        parseInt(rSlider.value, 10),
+        parseInt(gSlider.value, 10),
+        parseInt(bSlider.value, 10)
+      );
+      colors[selectedSwatchIndex].value = nextHex;
+      renderWorkspace();
+      renderPaletteStrip();
+      syncEditor();
+    }
+
+    async function copyText(text, message) {
+      try {
+        await navigator.clipboard.writeText(text);
+        feedback.textContent = message;
+      } catch (error) {
+        feedback.textContent = '当前环境无法访问剪贴板。';
+      }
+    }
+
+    function resetCurrentPalette() {
+      const preset = getActivePreset();
+      paletteState.set(
+        preset.id,
+        preset.colors.map((item) => ({ ...item }))
+      );
+      selectedSwatchIndex = 0;
+      feedback.textContent = `已重置「${preset.name}」。`;
+      renderAll();
+    }
+
+    function renderAll() {
+      renderPresetList(lipstickList, 'lipstick');
+      renderPresetList(genshinList, 'genshin');
+      renderWorkspace();
+      renderPaletteStrip();
+      syncEditor();
+    }
+
+    [rSlider, gSlider, bSlider].forEach((slider) => {
+      slider.addEventListener('input', updateSelectedSwatch);
+    });
+
+    copyHexBtn.addEventListener('click', () => {
+      copyText(hexValue.textContent, `已复制 ${hexValue.textContent}。`);
+    });
+
+    copyPaletteBtn.addEventListener('click', () => {
+      const payload = getActiveColors()
+        .map((item) => `${item.label}: ${item.value}`)
+        .join('\n');
+      copyText(payload, '已复制整组配色。');
+    });
+
+    resetPaletteBtn.addEventListener('click', resetCurrentPalette);
+
+    renderAll();
+  </script>
+</body>
+</html>

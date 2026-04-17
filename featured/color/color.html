@@ -7,37 +7,265 @@
   <link rel="shortcut icon" href="../../images/main.png">
   <link rel="stylesheet" href="../../css/styles.css">
   <style>
-    .feature-demo-page .page-content { max-width: 760px; }
-    .color-shell { text-align: center; }
+    .feature-demo-page .page-content { max-width: 1080px; }
+    .color-shell {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(26px, 4vw, 38px);
+      background:
+        radial-gradient(circle at top right, rgba(88, 126, 196, 0.18), transparent 28%),
+        radial-gradient(circle at bottom left, rgba(204, 119, 132, 0.14), transparent 24%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(247, 250, 253, 0.92));
+    }
+    .color-shell::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(15, 23, 42, 0.05);
+      pointer-events: none;
+    }
+    .color-header {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+    .color-header p {
+      max-width: 580px;
+      color: #566274;
+      font-family: "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+      line-height: 1.72;
+    }
+    .color-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+    .color-preview {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
     .color-display {
+      position: relative;
       width: 100%;
-      height: 180px;
-      border-radius: 18px;
-      margin: 20px 0;
+      min-height: 360px;
+      border-radius: 24px;
+      overflow: hidden;
       border: 1px solid rgba(15, 23, 42, 0.08);
-      box-shadow: inset 0 0 15px rgba(0,0,0,0.12);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.28),
+        0 24px 48px rgba(15, 23, 42, 0.12);
       background: #000;
+    }
+    .display-chip {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 24px;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: rgba(8, 18, 34, 0.18);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      color: rgba(255,255,255,0.96);
+      font-family: "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+    }
+    .display-chip small {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      opacity: 0.78;
     }
     .hex-code {
       font-family: "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
-      font-size: 1.4rem;
+      font-size: clamp(1.5rem, 2vw, 1.85rem);
       font-weight: 700;
-      color: #12315c;
       letter-spacing: 0.05em;
+    }
+    .mood-line {
+      max-width: 220px;
+      text-align: right;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      opacity: 0.92;
+    }
+    .color-meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .meta-card {
+      padding: 14px 16px;
+      border: 1px solid rgba(18, 69, 127, 0.12);
+      border-radius: 16px;
+      background: rgba(248, 250, 252, 0.78);
+      font-family: "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+    }
+    .meta-card span {
+      display: block;
+      margin-bottom: 6px;
+      color: #6a7482;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+    }
+    .meta-card strong {
+      color: #12315c;
+      font-size: 1.02rem;
+    }
+    .control-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .control-card,
+    .swatch-card {
+      padding: 20px;
+      border: 1px solid rgba(18, 69, 127, 0.1);
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(252, 253, 255, 0.96), rgba(246, 249, 253, 0.9));
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.65),
+        0 14px 28px rgba(17, 56, 100, 0.06);
+    }
+    .card-title {
+      margin-bottom: 14px;
+      color: #12315c;
+      font-family: "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
     }
     .slider-container {
       display: grid;
-      grid-template-columns: 28px 1fr 44px;
+      grid-template-columns: 36px 1fr 52px;
       align-items: center;
       gap: 12px;
-      margin: 16px 0;
+      margin: 14px 0;
     }
     .slider-label,
     .slider-value {
       font-family: "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
-      font-weight: 600;
+      font-weight: 700;
     }
-    input[type="range"] { width: 100%; accent-color: #184985; }
+    .slider-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      color: #ffffff;
+      font-size: 0.9rem;
+    }
+    .slider-label-red { background: linear-gradient(180deg, #d1445d, #a52a42); }
+    .slider-label-green { background: linear-gradient(180deg, #2d9d73, #1f7556); }
+    .slider-label-blue { background: linear-gradient(180deg, #2f6ec7, #1f4d90); }
+    .slider-value {
+      color: #12315c;
+      text-align: right;
+    }
+    .slider-track {
+      position: relative;
+    }
+    input[type="range"] {
+      width: 100%;
+      margin: 0;
+      accent-color: #184985;
+    }
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .action-btn {
+      min-height: 42px;
+      padding: 0 16px;
+      border: 1px solid rgba(18, 69, 127, 0.14);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.96);
+      color: #172033;
+      font-family: "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease;
+    }
+    .action-btn:hover {
+      transform: translateY(-1px);
+      background: #f7faff;
+      box-shadow: 0 12px 22px rgba(17, 56, 100, 0.1);
+    }
+    .action-btn.primary {
+      background: linear-gradient(180deg, #184985, #113864);
+      color: #f8fbff;
+      border-color: rgba(17, 56, 100, 0.18);
+    }
+    .palette-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .palette-swatch {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 10px;
+      border: 1px solid rgba(18, 69, 127, 0.08);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.84);
+      cursor: pointer;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+    }
+    .palette-swatch:hover {
+      transform: translateY(-2px);
+      border-color: rgba(18, 69, 127, 0.18);
+      box-shadow: 0 12px 24px rgba(17, 56, 100, 0.08);
+    }
+    .palette-swatch span {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 12px;
+      border: 1px solid rgba(15, 23, 42, 0.06);
+    }
+    .palette-swatch strong {
+      color: #475467;
+      font-family: "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-align: center;
+    }
+    .feedback {
+      min-height: 1.2em;
+      margin-top: 8px;
+      color: #55708f;
+      font-family: "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+      font-size: 0.88rem;
+    }
+    @media (max-width: 860px) {
+      .color-grid {
+        grid-template-columns: 1fr;
+      }
+      .color-display {
+        min-height: 300px;
+      }
+      .color-meta {
+        grid-template-columns: 1fr;
+      }
+      .palette-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
   </style>
 </head>
 <body class="site-page feature-demo-page">
@@ -60,23 +288,105 @@
   </nav>
   <main class="page-content">
     <section class="content-panel color-shell">
-      <h2>RGB &#35843;&#33394;&#22120;</h2>
-      <div class="hex-code" id="hexCode">#000000</div>
-      <div class="color-display" id="colorDisplay"></div>
-      <div class="slider-container">
-        <span class="slider-label">R</span>
-        <input type="range" min="0" max="255" value="0" id="rSlider">
-        <span class="slider-value" id="rValue">0</span>
+      <div class="color-header">
+        <h2>RGB 调色器</h2>
+        <p>拖动三个通道，直接观察颜色、亮度与冷暖倾向的变化。这一页不只是取值器，而是一个适合快速试色的小型配色工作台。</p>
       </div>
-      <div class="slider-container">
-        <span class="slider-label">G</span>
-        <input type="range" min="0" max="255" value="0" id="gSlider">
-        <span class="slider-value" id="gValue">0</span>
-      </div>
-      <div class="slider-container">
-        <span class="slider-label">B</span>
-        <input type="range" min="0" max="255" value="0" id="bSlider">
-        <span class="slider-value" id="bValue">0</span>
+      <div class="color-grid">
+        <div class="color-preview">
+          <div class="color-display" id="colorDisplay">
+            <div class="display-chip">
+              <div>
+                <small>当前颜色</small>
+                <div class="hex-code" id="hexCode">#000000</div>
+              </div>
+              <div class="mood-line" id="moodLine">接近纯黑，安静、克制、密度很高。</div>
+            </div>
+          </div>
+          <div class="color-meta">
+            <div class="meta-card">
+              <span>RGB</span>
+              <strong id="rgbCode">rgb(0, 0, 0)</strong>
+            </div>
+            <div class="meta-card">
+              <span>HSL</span>
+              <strong id="hslCode">hsl(0, 0%, 0%)</strong>
+            </div>
+            <div class="meta-card">
+              <span>亮度</span>
+              <strong id="luminanceValue">0.000</strong>
+            </div>
+          </div>
+        </div>
+        <div class="control-panel">
+          <div class="control-card">
+            <div class="card-title">颜色混合</div>
+            <div class="slider-container">
+              <span class="slider-label slider-label-red">R</span>
+              <div class="slider-track">
+                <input type="range" min="0" max="255" value="0" id="rSlider">
+              </div>
+              <span class="slider-value" id="rValue">0</span>
+            </div>
+            <div class="slider-container">
+              <span class="slider-label slider-label-green">G</span>
+              <div class="slider-track">
+                <input type="range" min="0" max="255" value="0" id="gSlider">
+              </div>
+              <span class="slider-value" id="gValue">0</span>
+            </div>
+            <div class="slider-container">
+              <span class="slider-label slider-label-blue">B</span>
+              <div class="slider-track">
+                <input type="range" min="0" max="255" value="0" id="bSlider">
+              </div>
+              <span class="slider-value" id="bValue">0</span>
+            </div>
+            <div class="action-row">
+              <button class="action-btn primary" id="randomBtn" type="button">随机取色</button>
+              <button class="action-btn" id="copyBtn" type="button">复制 HEX</button>
+              <button class="action-btn" id="resetBtn" type="button">重置为黑</button>
+            </div>
+            <div class="feedback" id="feedback"></div>
+          </div>
+          <div class="swatch-card">
+            <div class="card-title">常用预设</div>
+            <div class="palette-grid">
+              <button class="palette-swatch" type="button" data-color="#10294F">
+                <span style="background:#10294F"></span>
+                <strong>深海军蓝</strong>
+              </button>
+              <button class="palette-swatch" type="button" data-color="#C86B7C">
+                <span style="background:#C86B7C"></span>
+                <strong>雾粉玫瑰</strong>
+              </button>
+              <button class="palette-swatch" type="button" data-color="#D7A64A">
+                <span style="background:#D7A64A"></span>
+                <strong>琥珀黄铜</strong>
+              </button>
+              <button class="palette-swatch" type="button" data-color="#2E8B80">
+                <span style="background:#2E8B80"></span>
+                <strong>氧化蓝绿</strong>
+              </button>
+              <button class="palette-swatch" type="button" data-color="#6B6F7B">
+                <span style="background:#6B6F7B"></span>
+                <strong>石板灰</strong>
+              </button>
+              <button class="palette-swatch" type="button" data-color="#7D4A9F">
+                <span style="background:#7D4A9F"></span>
+                <strong>档案紫墨</strong>
+              </button>
+              <button class="palette-swatch" type="button" data-color="#D95A3A">
+                <span style="background:#D95A3A"></span>
+                <strong>焦橘色</strong>
+              </button>
+              <button class="palette-swatch" type="button" data-color="#E8E0D1">
+                <span style="background:#E8E0D1"></span>
+                <strong>纸面暖白</strong>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </main>
@@ -92,22 +402,167 @@ const gValue = document.getElementById('gValue');
 const bValue = document.getElementById('bValue');
 const colorDisplay = document.getElementById('colorDisplay');
 const hexCode = document.getElementById('hexCode');
+const rgbCode = document.getElementById('rgbCode');
+const hslCode = document.getElementById('hslCode');
+const luminanceValue = document.getElementById('luminanceValue');
+const moodLine = document.getElementById('moodLine');
+const randomBtn = document.getElementById('randomBtn');
+const copyBtn = document.getElementById('copyBtn');
+const resetBtn = document.getElementById('resetBtn');
+const feedback = document.getElementById('feedback');
+const paletteButtons = document.querySelectorAll('.palette-swatch');
+
+function componentToHex(value) {
+  return value.toString(16).padStart(2, '0').toUpperCase();
+}
+
+function rgbToHsl(r, g, b) {
+  const red = r / 255;
+  const green = g / 255;
+  const blue = b / 255;
+  const max = Math.max(red, green, blue);
+  const min = Math.min(red, green, blue);
+  const delta = max - min;
+  let hue = 0;
+  let saturation = 0;
+  const lightness = (max + min) / 2;
+
+  if (delta !== 0) {
+    saturation = delta / (1 - Math.abs(2 * lightness - 1));
+    switch (max) {
+      case red:
+        hue = ((green - blue) / delta) % 6;
+        break;
+      case green:
+        hue = (blue - red) / delta + 2;
+        break;
+      default:
+        hue = (red - green) / delta + 4;
+        break;
+    }
+    hue = Math.round(hue * 60);
+    if (hue < 0) {
+      hue += 360;
+    }
+  }
+
+  return {
+    h: hue,
+    s: Math.round(saturation * 100),
+    l: Math.round(lightness * 100)
+  };
+}
+
+function relativeLuminance(r, g, b) {
+  const transform = (channel) => {
+    const value = channel / 255;
+    return value <= 0.03928 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
+  };
+
+  return 0.2126 * transform(r) + 0.7152 * transform(g) + 0.0722 * transform(b);
+}
+
+function describeColor(r, g, b, hsl, luminance) {
+  if (luminance < 0.06) {
+    return '接近纯黑，安静、克制、密度很高。';
+  }
+  if (luminance > 0.82 && hsl.s < 12) {
+    return '像纸面一样偏亮，平静、轻盈、几乎中性。';
+  }
+  if (hsl.s < 10) {
+    return '饱和度很低，偏中性，理性而克制。';
+  }
+  if (hsl.h < 20 || hsl.h >= 345) {
+    return '偏暖红，相当直接，带一点张力和速度感。';
+  }
+  if (hsl.h < 55) {
+    return '落在琥珀区间，明亮，略带金属感。';
+  }
+  if (hsl.h < 90) {
+    return '偏黄绿，锐利，轻快，能量感比较强。';
+  }
+  if (hsl.h < 165) {
+    return '青绿之间的平衡区，清新且稳定。';
+  }
+  if (hsl.h < 220) {
+    return '冷蓝色调，干净、克制、控制感强。';
+  }
+  if (hsl.h < 290) {
+    return '蓝紫过渡，偏理性，也带一点人工感。';
+  }
+  return '洋红到紫色之间，戏剧性更强，但仍然偏冷。';
+}
+
+function setRgb(r, g, b) {
+  rSlider.value = r;
+  gSlider.value = g;
+  bSlider.value = b;
+  updateColor();
+}
+
+function hexToRgb(hex) {
+  const value = hex.replace('#', '');
+  return {
+    r: parseInt(value.slice(0, 2), 16),
+    g: parseInt(value.slice(2, 4), 16),
+    b: parseInt(value.slice(4, 6), 16)
+  };
+}
 
 function updateColor() {
   const r = parseInt(rSlider.value, 10);
   const g = parseInt(gSlider.value, 10);
   const b = parseInt(bSlider.value, 10);
+  const hex = `#${componentToHex(r)}${componentToHex(g)}${componentToHex(b)}`;
+  const hsl = rgbToHsl(r, g, b);
+  const luminance = relativeLuminance(r, g, b);
+
   rValue.textContent = r;
   gValue.textContent = g;
   bValue.textContent = b;
-  const hex = '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
-  colorDisplay.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+  colorDisplay.style.background = `rgb(${r}, ${g}, ${b})`;
   hexCode.textContent = hex;
+  rgbCode.textContent = `rgb(${r}, ${g}, ${b})`;
+  hslCode.textContent = `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`;
+  luminanceValue.textContent = luminance.toFixed(3);
+  moodLine.textContent = describeColor(r, g, b, hsl, luminance);
 }
 
 rSlider.addEventListener('input', updateColor);
 gSlider.addEventListener('input', updateColor);
 bSlider.addEventListener('input', updateColor);
+
+randomBtn.addEventListener('click', () => {
+  setRgb(
+    Math.floor(Math.random() * 256),
+    Math.floor(Math.random() * 256),
+    Math.floor(Math.random() * 256)
+  );
+  feedback.textContent = '已生成一组新的随机颜色。';
+});
+
+resetBtn.addEventListener('click', () => {
+  setRgb(0, 0, 0);
+  feedback.textContent = '已重置为纯黑。';
+});
+
+copyBtn.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(hexCode.textContent);
+    feedback.textContent = `已复制 ${hexCode.textContent}。`;
+  } catch (error) {
+    feedback.textContent = '当前环境无法访问剪贴板。';
+  }
+});
+
+paletteButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    const { r, g, b } = hexToRgb(button.dataset.color);
+    setRgb(r, g, b);
+    feedback.textContent = `已载入「${button.textContent.trim()}」。`;
+  });
+});
+
 updateColor();
 </script>
 </body>

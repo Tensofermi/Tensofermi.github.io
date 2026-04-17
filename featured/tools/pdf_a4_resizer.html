@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF 转 A4 - Little Fluctuating Cat _(:&#1079;&#12293;&#8736;)_~</title>
+  <link rel="shortcut icon" href="../../images/main.png">
+  <style>
+    :root {
+      --bg: #eef3f9;
+      --panel: rgba(255, 255, 255, 0.84);
+      --panel-border: rgba(18, 69, 127, 0.1);
+      --text: #10294f;
+      --muted: #5f6c7d;
+      --accent: #2b5f9e;
+      --shadow: 0 18px 40px rgba(19, 47, 91, 0.12);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(79, 126, 196, 0.18), transparent 24%),
+        radial-gradient(circle at bottom right, rgba(206, 120, 136, 0.12), transparent 20%),
+        linear-gradient(160deg, #edf3f9 0%, #e7eef7 52%, #f4f8fc 100%);
+      color: var(--text);
+      font-family: "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    .app-shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 18px;
+      padding: 20px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 18px;
+      border: 1px solid var(--panel-border);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.74);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, rgba(120, 162, 235, 0.94), rgba(196, 106, 141, 0.84));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    }
+
+    .brand-copy strong,
+    .brand-copy span {
+      display: block;
+    }
+
+    .brand-copy strong {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-copy span {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 16px;
+      border: 1px solid var(--panel-border);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.7);
+      color: var(--text);
+      text-decoration: none;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .back-link:hover {
+      transform: translateY(-1px);
+      background: rgba(244, 248, 253, 0.96);
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: 420px minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    .panel {
+      padding: 20px;
+      border: 1px solid var(--panel-border);
+      border-radius: var(--radius);
+      background: var(--panel);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: var(--shadow);
+    }
+
+    .panel-title {
+      margin: 0 0 14px;
+      color: #5d6d81;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .form-grid,
+    .info-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field label {
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .field input[type="file"],
+    .field select,
+    .field input[type="text"] {
+      width: 100%;
+      min-height: 46px;
+      padding: 0 14px;
+      border: 1px solid var(--panel-border);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      outline: none;
+    }
+
+    .dropzone {
+      display: grid;
+      place-items: center;
+      min-height: 180px;
+      padding: 20px;
+      border: 1px dashed rgba(255, 255, 255, 0.16);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      text-align: center;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .dropzone.dragover {
+      border-color: rgba(136, 175, 246, 0.52);
+      background: rgba(136, 175, 246, 0.08);
+    }
+
+    .dropzone strong,
+    .dropzone span {
+      display: block;
+    }
+
+    .dropzone span {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    .action-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .action-btn {
+      min-height: 46px;
+      padding: 0 14px;
+      border: 1px solid var(--panel-border);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .action-btn.primary {
+      background: linear-gradient(180deg, #4f8ff7, #356fd3);
+      border-color: rgba(79, 143, 247, 0.32);
+    }
+
+    .action-btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .hero-card {
+      padding: 24px;
+      border: 1px solid var(--panel-border);
+      border-radius: 26px;
+      background:
+        radial-gradient(circle at top right, rgba(255, 255, 255, 0.12), transparent 26%),
+        linear-gradient(145deg, rgba(24, 43, 77, 0.9), rgba(18, 31, 57, 0.86));
+    }
+
+    .hero-card h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 0.98;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-card p {
+      max-width: 680px;
+      color: rgba(238, 244, 255, 0.8);
+      line-height: 1.65;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(238, 244, 255, 0.88);
+      font-size: 0.82rem;
+    }
+
+    .grid-two {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      padding: 18px;
+      border: 1px solid var(--panel-border);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .card h2 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .meta-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .meta-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.9rem;
+    }
+
+    .meta-line:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .meta-line span {
+      color: var(--muted);
+    }
+
+    .meta-line strong {
+      color: var(--text);
+      text-align: right;
+      word-break: break-word;
+    }
+
+    progress {
+      width: 100%;
+      height: 12px;
+      border: 0;
+      border-radius: 999px;
+      overflow: hidden;
+      appearance: none;
+    }
+
+    progress::-webkit-progress-bar {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    progress::-webkit-progress-value {
+      background: linear-gradient(90deg, #69c38a, #8db4ff);
+      border-radius: 999px;
+    }
+
+    progress::-moz-progress-bar {
+      background: linear-gradient(90deg, #69c38a, #8db4ff);
+    }
+
+    .message {
+      min-height: 1.4em;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .message.success {
+      color: #bfead0;
+    }
+
+    .message.error {
+      color: #ffc0cf;
+    }
+
+    .mono {
+      font-family: "Consolas", "SFMono-Regular", "Menlo", monospace;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 1080px) {
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .app-shell {
+        padding: 12px;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .grid-two,
+      .action-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark"></div>
+        <div class="brand-copy">
+          <strong>PDF 转 A4</strong>
+          <span>本地浏览器内完成页面缩放与重排，不依赖后端</span>
+        </div>
+      </div>
+      <a class="back-link" href="../../featured.html">返回作品页</a>
+    </header>
+
+    <main class="workspace">
+      <section class="panel">
+        <h2 class="panel-title">输入设置</h2>
+        <div class="form-grid">
+          <div id="dropzone" class="dropzone">
+            <div>
+              <strong>把 PDF 拖到这里</strong>
+              <span>或者直接使用下面的文件选择器。所有处理都只在当前浏览器内完成。</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="fileInput">PDF 文件</label>
+            <input id="fileInput" type="file" accept="application/pdf">
+          </div>
+
+          <div class="field">
+            <label for="modeSelect">缩放模式</label>
+            <select id="modeSelect">
+              <option value="stretch" selected>直接拉伸到 A4</option>
+              <option value="fit">按比例缩放并居中</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="prefixInput">输出前缀</label>
+            <input id="prefixInput" type="text" value="A4_">
+          </div>
+
+          <div class="small">
+            “直接拉伸到 A4” 更贴近你那段 Python 代码的行为。
+            “按比例缩放并居中” 会保留长宽比，因此可能保留少量留白。
+          </div>
+        </div>
+
+        <div class="action-row">
+          <button class="action-btn primary" id="convertBtn" type="button" disabled>开始转换</button>
+          <button class="action-btn" id="downloadBtn" type="button" disabled>下载结果</button>
+        </div>
+
+        <div class="message" id="messageBox"></div>
+      </section>
+
+      <section class="info-grid">
+        <div class="hero-card">
+          <h1>把整份 PDF 统一整理到 A4 页面上。</h1>
+          <p>这一页对应的是你原来那种 `scale_to(A4_WIDTH, A4_HEIGHT)` 工作流，只不过改成了纯前端版本。源文件不会上传，适合快速处理讲义、笔记和扫描件。</p>
+          <div class="pill-row">
+            <div class="pill" id="pageCountPill">页数：未读取</div>
+            <div class="pill" id="modePill">模式：直接拉伸到 A4</div>
+            <div class="pill">目标：A4</div>
+          </div>
+        </div>
+
+        <div class="grid-two">
+          <section class="card">
+            <h2>输入文件</h2>
+            <div class="meta-list">
+              <div class="meta-line"><span>文件名</span><strong id="inputNameValue">-</strong></div>
+              <div class="meta-line"><span>大小</span><strong id="inputSizeValue">-</strong></div>
+              <div class="meta-line"><span>页数</span><strong id="inputPagesValue">-</strong></div>
+            </div>
+          </section>
+
+          <section class="card">
+            <h2>输出结果</h2>
+            <div class="meta-list">
+              <div class="meta-line"><span>输出文件名</span><strong id="outputNameValue">-</strong></div>
+              <div class="meta-line"><span>状态</span><strong id="statusValue">空闲</strong></div>
+              <div class="meta-line"><span>进度</span><strong id="progressValue">0%</strong></div>
+            </div>
+            <div style="margin-top:12px;">
+              <progress id="progressBar" max="100" value="0"></progress>
+            </div>
+          </section>
+        </div>
+
+        <section class="card">
+          <h2>说明</h2>
+          <div class="small">
+            这页只做页面尺寸重排，不做智能白边检测，也不做 OCR 清理。
+            如果你的目标是裁掉扫描稿留白，应该使用另一个 “PDF 白边裁切” 工具。
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script>
+    const { PDFDocument, PageSizes } = PDFLib;
+    const A4_WIDTH = PageSizes.A4[0];
+    const A4_HEIGHT = PageSizes.A4[1];
+
+    const fileInput = document.getElementById('fileInput');
+    const modeSelect = document.getElementById('modeSelect');
+    const prefixInput = document.getElementById('prefixInput');
+    const convertBtn = document.getElementById('convertBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const messageBox = document.getElementById('messageBox');
+    const pageCountPill = document.getElementById('pageCountPill');
+    const modePill = document.getElementById('modePill');
+    const inputNameValue = document.getElementById('inputNameValue');
+    const inputSizeValue = document.getElementById('inputSizeValue');
+    const inputPagesValue = document.getElementById('inputPagesValue');
+    const outputNameValue = document.getElementById('outputNameValue');
+    const statusValue = document.getElementById('statusValue');
+    const progressValue = document.getElementById('progressValue');
+    const progressBar = document.getElementById('progressBar');
+    const dropzone = document.getElementById('dropzone');
+
+    let selectedFile = null;
+    let outputBlob = null;
+    let outputFilename = '';
+
+    function getModeLabel(mode) {
+      return mode === 'fit' ? '按比例缩放并居中' : '直接拉伸到 A4';
+    }
+
+    function setMessage(message, level = '') {
+      messageBox.textContent = message;
+      messageBox.className = level ? `message ${level}` : 'message';
+    }
+
+    function formatBytes(value) {
+      if (!Number.isFinite(value) || value <= 0) {
+        return '0 B';
+      }
+      const units = ['B', 'KB', 'MB', 'GB'];
+      let size = value;
+      let index = 0;
+      while (size >= 1024 && index < units.length - 1) {
+        size /= 1024;
+        index += 1;
+      }
+      return `${size.toFixed(size >= 100 || index === 0 ? 0 : 2)} ${units[index]}`;
+    }
+
+    function updateProgress(value) {
+      progressBar.value = value;
+      progressValue.textContent = `${value.toFixed(0)}%`;
+    }
+
+    function sanitizeFilename(filename) {
+      return filename.replace(/[\\/:*?"<>|]/g, '').replace(/\s+/g, '_').slice(0, 255) || 'document.pdf';
+    }
+
+    async function updateFileInfo(file) {
+      selectedFile = file;
+      outputBlob = null;
+      downloadBtn.disabled = true;
+      updateProgress(0);
+      statusValue.textContent = '就绪';
+      inputNameValue.textContent = file.name;
+      inputSizeValue.textContent = formatBytes(file.size);
+      outputFilename = `${prefixInput.value || 'A4_'}${file.name}`;
+      outputNameValue.textContent = sanitizeFilename(outputFilename);
+
+      try {
+        const bytes = await file.arrayBuffer();
+        const pdfDoc = await PDFDocument.load(bytes);
+        const pageCount = pdfDoc.getPageCount();
+        inputPagesValue.textContent = String(pageCount);
+        pageCountPill.textContent = `页数：${pageCount}`;
+        convertBtn.disabled = false;
+        setMessage('PDF 已载入，可以开始转换。', 'success');
+      } catch (error) {
+        convertBtn.disabled = true;
+        inputPagesValue.textContent = '-';
+        pageCountPill.textContent = '页数：未读取';
+        setMessage(`读取 PDF 失败：${error.message}`, 'error');
+      }
+    }
+
+    async function convertPdf() {
+      if (!selectedFile) {
+        return;
+      }
+
+      const bytes = await selectedFile.arrayBuffer();
+      const sourceDoc = await PDFDocument.load(bytes);
+      const mode = modeSelect.value;
+      const outputDoc = await PDFDocument.create();
+      const totalPages = sourceDoc.getPageCount();
+
+      statusValue.textContent = '处理中';
+      modePill.textContent = `模式：${getModeLabel(mode)}`;
+      setMessage('正在把各页重新排到 A4 画布上……', '');
+      updateProgress(0);
+
+      for (let index = 0; index < totalPages; index += 1) {
+        const [embeddedPage] = await outputDoc.embedPages([sourceDoc.getPage(index)]);
+        const page = outputDoc.addPage([A4_WIDTH, A4_HEIGHT]);
+
+        if (mode === 'stretch') {
+          page.drawPage(embeddedPage, {
+            x: 0,
+            y: 0,
+            width: A4_WIDTH,
+            height: A4_HEIGHT
+          });
+        } else {
+          const sourceWidth = embeddedPage.width;
+          const sourceHeight = embeddedPage.height;
+          const scale = Math.min(A4_WIDTH / sourceWidth, A4_HEIGHT / sourceHeight);
+          const targetWidth = sourceWidth * scale;
+          const targetHeight = sourceHeight * scale;
+          const x = (A4_WIDTH - targetWidth) / 2;
+          const y = (A4_HEIGHT - targetHeight) / 2;
+          page.drawPage(embeddedPage, {
+            x,
+            y,
+            width: targetWidth,
+            height: targetHeight
+          });
+        }
+
+        updateProgress(((index + 1) / totalPages) * 100);
+      }
+
+      const outputBytes = await outputDoc.save();
+      outputBlob = new Blob([outputBytes], { type: 'application/pdf' });
+      outputFilename = sanitizeFilename(`${prefixInput.value || 'A4_'}${selectedFile.name}`);
+      outputNameValue.textContent = outputFilename;
+      statusValue.textContent = '已完成';
+      downloadBtn.disabled = false;
+      setMessage('转换完成，现在可以下载新的 PDF。', 'success');
+    }
+
+    function downloadResult() {
+      if (!outputBlob) {
+        return;
+      }
+      const objectUrl = URL.createObjectURL(outputBlob);
+      const anchor = document.createElement('a');
+      anchor.href = objectUrl;
+      anchor.download = outputFilename;
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+    }
+
+    function handleFiles(files) {
+      const file = files && files[0];
+      if (!file) {
+        return;
+      }
+      if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+        setMessage('请选择一个 PDF 文件。', 'error');
+        return;
+      }
+      updateFileInfo(file);
+    }
+
+    fileInput.addEventListener('change', (event) => {
+      handleFiles(event.target.files);
+    });
+
+    convertBtn.addEventListener('click', () => {
+      convertPdf().catch((error) => {
+        statusValue.textContent = '出错';
+        setMessage(`转换失败：${error.message}`, 'error');
+      });
+    });
+
+    downloadBtn.addEventListener('click', downloadResult);
+
+    modeSelect.addEventListener('change', () => {
+      modePill.textContent = `模式：${getModeLabel(modeSelect.value)}`;
+    });
+
+    ['dragenter', 'dragover'].forEach((eventName) => {
+      dropzone.addEventListener(eventName, (event) => {
+        event.preventDefault();
+        dropzone.classList.add('dragover');
+      });
+    });
+
+    ['dragleave', 'drop'].forEach((eventName) => {
+      dropzone.addEventListener(eventName, (event) => {
+        event.preventDefault();
+        dropzone.classList.remove('dragover');
+      });
+    });
+
+    dropzone.addEventListener('drop', (event) => {
+      handleFiles(event.dataTransfer.files);
+    });
+  </script>
+</body>
+</html>

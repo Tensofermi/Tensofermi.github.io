@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF 白边裁切 - Little Fluctuating Cat _(:&#1079;&#12293;&#8736;)_~</title>
+  <link rel="shortcut icon" href="../../images/main.png">
+  <style>
+    :root {
+      --bg: #eff4fa;
+      --panel: rgba(255, 255, 255, 0.84);
+      --panel-border: rgba(18, 69, 127, 0.1);
+      --text: #10294f;
+      --muted: #5f6c7d;
+      --shadow: 0 18px 40px rgba(19, 47, 91, 0.12);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(79, 126, 196, 0.18), transparent 24%),
+        radial-gradient(circle at bottom right, rgba(206, 120, 136, 0.12), transparent 20%),
+        linear-gradient(160deg, #edf3f9 0%, #e7eef7 52%, #f4f8fc 100%);
+      color: var(--text);
+      font-family: "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+    }
+
+    button, input, select {
+      font: inherit;
+    }
+
+    .app-shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 18px;
+      padding: 20px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 18px;
+      border: 1px solid var(--panel-border);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.74);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, rgba(120, 162, 235, 0.94), rgba(196, 106, 141, 0.84));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    }
+
+    .brand-copy strong, .brand-copy span {
+      display: block;
+    }
+
+    .brand-copy strong {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-copy span {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 16px;
+      border: 1px solid var(--panel-border);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.7);
+      color: var(--text);
+      text-decoration: none;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .back-link:hover {
+      transform: translateY(-1px);
+      background: rgba(244, 248, 253, 0.96);
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: 430px minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    .panel {
+      padding: 20px;
+      border: 1px solid var(--panel-border);
+      border-radius: var(--radius);
+      background: var(--panel);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: var(--shadow);
+    }
+
+    .panel-title {
+      margin: 0 0 14px;
+      color: #5d6d81;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .form-grid, .info-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field label {
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .field input[type="file"],
+    .field input[type="number"],
+    .field select {
+      width: 100%;
+      min-height: 46px;
+      padding: 0 14px;
+      border: 1px solid var(--panel-border);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      outline: none;
+    }
+
+    .grid-four {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .dropzone {
+      display: grid;
+      place-items: center;
+      min-height: 170px;
+      padding: 20px;
+      border: 1px dashed rgba(255, 255, 255, 0.16);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      text-align: center;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .dropzone.dragover {
+      border-color: rgba(136, 175, 246, 0.52);
+      background: rgba(136, 175, 246, 0.08);
+    }
+
+    .dropzone strong, .dropzone span {
+      display: block;
+    }
+
+    .dropzone span {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    .action-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .action-btn {
+      min-height: 46px;
+      padding: 0 14px;
+      border: 1px solid var(--panel-border);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .action-btn.primary {
+      background: linear-gradient(180deg, #4f8ff7, #356fd3);
+      border-color: rgba(79, 143, 247, 0.32);
+    }
+
+    .action-btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .hero-card {
+      padding: 24px;
+      border: 1px solid var(--panel-border);
+      border-radius: 26px;
+      background:
+        radial-gradient(circle at top right, rgba(255, 255, 255, 0.12), transparent 26%),
+        linear-gradient(145deg, rgba(24, 43, 77, 0.9), rgba(18, 31, 57, 0.86));
+    }
+
+    .hero-card h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 0.98;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-card p {
+      max-width: 720px;
+      color: rgba(238, 244, 255, 0.8);
+      line-height: 1.65;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(238, 244, 255, 0.88);
+      font-size: 0.82rem;
+    }
+
+    .grid-two {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      padding: 18px;
+      border: 1px solid var(--panel-border);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .card h2 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .meta-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .meta-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.9rem;
+    }
+
+    .meta-line:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .meta-line span {
+      color: var(--muted);
+    }
+
+    .meta-line strong {
+      color: var(--text);
+      text-align: right;
+      word-break: break-word;
+    }
+
+    progress {
+      width: 100%;
+      height: 12px;
+      border: 0;
+      border-radius: 999px;
+      overflow: hidden;
+      appearance: none;
+    }
+
+    progress::-webkit-progress-bar {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    progress::-webkit-progress-value {
+      background: linear-gradient(90deg, #69c38a, #8db4ff);
+      border-radius: 999px;
+    }
+
+    progress::-moz-progress-bar {
+      background: linear-gradient(90deg, #69c38a, #8db4ff);
+    }
+
+    .message {
+      min-height: 1.4em;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .message.success {
+      color: #bfead0;
+    }
+
+    .message.error {
+      color: #ffc0cf;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.55;
+    }
+
+    .mono {
+      font-family: "Consolas", "SFMono-Regular", "Menlo", monospace;
+    }
+
+    @media (max-width: 1080px) {
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .app-shell {
+        padding: 12px;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .grid-two,
+      .grid-four,
+      .action-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark"></div>
+        <div class="brand-copy">
+          <strong>PDF 白边裁切</strong>
+          <span>在浏览器里直接裁掉留白，或者手动写入裁切框</span>
+        </div>
+      </div>
+      <a class="back-link" href="../../featured.html">返回作品页</a>
+    </header>
+
+    <main class="workspace">
+      <section class="panel">
+        <h2 class="panel-title">输入设置</h2>
+        <div class="form-grid">
+          <div id="dropzone" class="dropzone">
+            <div>
+              <strong>把 PDF 拖到这里</strong>
+              <span>自动模式会估算内容边界，手动模式则直接使用你填写的相对坐标。</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="fileInput">PDF 文件</label>
+            <input id="fileInput" type="file" accept="application/pdf">
+          </div>
+
+          <div class="field">
+            <label for="modeSelect">裁切模式</label>
+            <select id="modeSelect">
+              <option value="auto" selected>自动检测白边</option>
+              <option value="manual">手动相对坐标裁切</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="marginInput">额外边距（检测像素）</label>
+            <input id="marginInput" type="number" min="0" step="1" value="2">
+          </div>
+
+          <div class="field">
+            <label>手动裁切框（0.0 ~ 1.0）</label>
+            <div class="grid-four">
+              <input id="x0Input" type="number" min="0" max="1" step="0.01" value="0.10" title="x0">
+              <input id="y0Input" type="number" min="0" max="1" step="0.01" value="0.10" title="y0">
+              <input id="x1Input" type="number" min="0" max="1" step="0.01" value="0.90" title="x1">
+              <input id="y1Input" type="number" min="0" max="1" step="0.01" value="0.90" title="y1">
+            </div>
+          </div>
+
+          <div class="small">
+            自动模式基于页面渲染后的像素来估算边界，更适合白底文档和扫描稿。
+            手动模式则更接近你原来的 Python 接口，直接使用相对坐标写入裁切框。
+          </div>
+        </div>
+
+        <div class="action-row">
+          <button class="action-btn primary" id="convertBtn" type="button" disabled>开始裁切</button>
+          <button class="action-btn" id="downloadBtn" type="button" disabled>下载结果</button>
+        </div>
+
+        <div class="message" id="messageBox"></div>
+      </section>
+
+      <section class="info-grid">
+        <div class="hero-card">
+          <h1>在本地裁掉 PDF 白边，不依赖后端。</h1>
+          <p>这一页保留了你原工具的思路，但换成了纯静态网站可用的浏览器工作流。自动模式适合快速处理扫描件，手动模式则适合更可控的裁切。</p>
+          <div class="pill-row">
+            <div class="pill" id="pageCountPill">页数：未读取</div>
+            <div class="pill" id="modePill">模式：自动检测白边</div>
+            <div class="pill" id="statusPill">状态：空闲</div>
+          </div>
+        </div>
+
+        <div class="grid-two">
+          <section class="card">
+            <h2>输入文件</h2>
+            <div class="meta-list">
+              <div class="meta-line"><span>文件名</span><strong id="inputNameValue">-</strong></div>
+              <div class="meta-line"><span>大小</span><strong id="inputSizeValue">-</strong></div>
+              <div class="meta-line"><span>页数</span><strong id="inputPagesValue">-</strong></div>
+            </div>
+          </section>
+
+          <section class="card">
+            <h2>输出结果</h2>
+            <div class="meta-list">
+              <div class="meta-line"><span>输出文件名</span><strong id="outputNameValue">-</strong></div>
+              <div class="meta-line"><span>进度</span><strong id="progressValue">0%</strong></div>
+              <div class="meta-line"><span>最近一次边界</span><strong id="boundsValue" class="mono">-</strong></div>
+            </div>
+            <div style="margin-top:12px;">
+              <progress id="progressBar" max="100" value="0"></progress>
+            </div>
+          </section>
+        </div>
+
+        <section class="card">
+          <h2>说明</h2>
+          <div class="small">
+            这页保留的是原 PDF 页面内容本身，最终输出依赖裁切框，而不是把整份文档重新光栅化。
+            但自动检测阶段仍然基于渲染像素，因此彩色底、灰纸或复杂背景更适合改用手动模式。
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.3.136/pdf.min.mjs" type="module"></script>
+  <script type="module">
+    import * as pdfjsLib from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.3.136/pdf.min.mjs';
+
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.3.136/pdf.worker.min.mjs';
+
+    const fileInput = document.getElementById('fileInput');
+    const modeSelect = document.getElementById('modeSelect');
+    const marginInput = document.getElementById('marginInput');
+    const x0Input = document.getElementById('x0Input');
+    const y0Input = document.getElementById('y0Input');
+    const x1Input = document.getElementById('x1Input');
+    const y1Input = document.getElementById('y1Input');
+    const convertBtn = document.getElementById('convertBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const messageBox = document.getElementById('messageBox');
+    const pageCountPill = document.getElementById('pageCountPill');
+    const modePill = document.getElementById('modePill');
+    const statusPill = document.getElementById('statusPill');
+    const inputNameValue = document.getElementById('inputNameValue');
+    const inputSizeValue = document.getElementById('inputSizeValue');
+    const inputPagesValue = document.getElementById('inputPagesValue');
+    const outputNameValue = document.getElementById('outputNameValue');
+    const progressValue = document.getElementById('progressValue');
+    const boundsValue = document.getElementById('boundsValue');
+    const progressBar = document.getElementById('progressBar');
+    const dropzone = document.getElementById('dropzone');
+
+    let selectedFile = null;
+    let sourceBytes = null;
+    let sourcePdf = null;
+    let outputBlob = null;
+    let outputFilename = '';
+
+    function getModeLabel(mode) {
+      return mode === 'manual' ? '手动相对坐标裁切' : '自动检测白边';
+    }
+
+    function setMessage(message, level = '') {
+      messageBox.textContent = message;
+      messageBox.className = level ? `message ${level}` : 'message';
+    }
+
+    function updateProgress(value) {
+      progressBar.value = value;
+      progressValue.textContent = `${value.toFixed(0)}%`;
+    }
+
+    function formatBytes(value) {
+      if (!Number.isFinite(value) || value <= 0) {
+        return '0 B';
+      }
+      const units = ['B', 'KB', 'MB', 'GB'];
+      let size = value;
+      let index = 0;
+      while (size >= 1024 && index < units.length - 1) {
+        size /= 1024;
+        index += 1;
+      }
+      return `${size.toFixed(size >= 100 || index === 0 ? 0 : 2)} ${units[index]}`;
+    }
+
+    function sanitizeFilename(filename) {
+      return filename.replace(/[\\/:*?"<>|]/g, '').replace(/\s+/g, '_').slice(0, 255) || '裁切结果.pdf';
+    }
+
+    function clamp(value, min, max) {
+      return Math.min(max, Math.max(min, value));
+    }
+
+    function getManualCrop() {
+      const x0 = Number(x0Input.value);
+      const y0 = Number(y0Input.value);
+      const x1 = Number(x1Input.value);
+      const y1 = Number(y1Input.value);
+      if (!(x0 >= 0 && x0 < x1 && x1 <= 1 && y0 >= 0 && y0 < y1 && y1 <= 1)) {
+        throw new Error('手动裁切参数必须满足 0 <= x0 < x1 <= 1 且 0 <= y0 < y1 <= 1。');
+      }
+      return { x0, y0, x1, y1 };
+    }
+
+    async function updateFileInfo(file) {
+      selectedFile = file;
+      outputBlob = null;
+      downloadBtn.disabled = true;
+      outputFilename = `裁切_${file.name}`;
+      outputNameValue.textContent = sanitizeFilename(outputFilename);
+      inputNameValue.textContent = file.name;
+      inputSizeValue.textContent = formatBytes(file.size);
+      boundsValue.textContent = '-';
+      updateProgress(0);
+      statusPill.textContent = '状态：就绪';
+
+      try {
+        sourceBytes = await file.arrayBuffer();
+        sourcePdf = await PDFLib.PDFDocument.load(sourceBytes);
+        inputPagesValue.textContent = String(sourcePdf.getPageCount());
+        pageCountPill.textContent = `页数：${sourcePdf.getPageCount()}`;
+        convertBtn.disabled = false;
+        setMessage('PDF 已载入，可以开始裁切。', 'success');
+      } catch (error) {
+        sourcePdf = null;
+        sourceBytes = null;
+        convertBtn.disabled = true;
+        inputPagesValue.textContent = '-';
+        pageCountPill.textContent = '页数：未读取';
+        setMessage(`读取 PDF 失败：${error.message}`, 'error');
+      }
+    }
+
+    async function detectBounds(renderPage, marginPx) {
+      const viewport = renderPage.getViewport({ scale: 2 });
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d', { willReadFrequently: true });
+      canvas.width = Math.ceil(viewport.width);
+      canvas.height = Math.ceil(viewport.height);
+      await renderPage.render({ canvasContext: context, viewport }).promise;
+
+      const { width, height } = canvas;
+      const data = context.getImageData(0, 0, width, height).data;
+      let minX = width;
+      let minY = height;
+      let maxX = -1;
+      let maxY = -1;
+      const threshold = 245;
+
+      for (let y = 0; y < height; y += 1) {
+        for (let x = 0; x < width; x += 1) {
+          const index = (y * width + x) * 4;
+          const r = data[index];
+          const g = data[index + 1];
+          const b = data[index + 2];
+          const a = data[index + 3];
+          const isContent = a > 8 && !(r >= threshold && g >= threshold && b >= threshold);
+          if (isContent) {
+            minX = Math.min(minX, x);
+            minY = Math.min(minY, y);
+            maxX = Math.max(maxX, x);
+            maxY = Math.max(maxY, y);
+          }
+        }
+      }
+
+      if (maxX < minX || maxY < minY) {
+        return null;
+      }
+
+      const paddedMinX = clamp(minX - marginPx, 0, width - 1);
+      const paddedMinY = clamp(minY - marginPx, 0, height - 1);
+      const paddedMaxX = clamp(maxX + marginPx, 0, width - 1);
+      const paddedMaxY = clamp(maxY + marginPx, 0, height - 1);
+
+      return {
+        x0: paddedMinX / width,
+        y0: paddedMinY / height,
+        x1: (paddedMaxX + 1) / width,
+        y1: (paddedMaxY + 1) / height
+      };
+    }
+
+    function applyCropBox(page, crop) {
+      const width = page.getWidth();
+      const height = page.getHeight();
+      const left = crop.x0 * width;
+      const right = crop.x1 * width;
+      const top = height - crop.y0 * height;
+      const bottom = height - crop.y1 * height;
+      page.setCropBox(left, bottom, right - left, top - bottom);
+    }
+
+    async function trimPdf() {
+      if (!selectedFile || !sourceBytes || !sourcePdf) {
+        return;
+      }
+
+      const mode = modeSelect.value;
+      const marginPx = Math.max(0, Number(marginInput.value || 0));
+      const outputDoc = await PDFLib.PDFDocument.load(sourceBytes);
+      const renderDoc = await pdfjsLib.getDocument({ data: sourceBytes }).promise;
+      const pages = outputDoc.getPages();
+      const totalPages = pages.length;
+      let lastBounds = '-';
+
+      statusPill.textContent = '状态：处理中';
+      modePill.textContent = `模式：${getModeLabel(mode)}`;
+      updateProgress(0);
+      setMessage('正在计算边界并写入新的裁切框……', '');
+
+      for (let index = 0; index < totalPages; index += 1) {
+        let crop;
+        if (mode === 'manual') {
+          crop = getManualCrop();
+        } else {
+          const renderPage = await renderDoc.getPage(index + 1);
+          crop = await detectBounds(renderPage, marginPx);
+          if (!crop) {
+            crop = { x0: 0, y0: 0, x1: 1, y1: 1 };
+          }
+        }
+
+        applyCropBox(pages[index], crop);
+        lastBounds = `${crop.x0.toFixed(3)}, ${crop.y0.toFixed(3)}, ${crop.x1.toFixed(3)}, ${crop.y1.toFixed(3)}`;
+        boundsValue.textContent = lastBounds;
+        updateProgress(((index + 1) / totalPages) * 100);
+      }
+
+      const outputBytes = await outputDoc.save();
+      outputBlob = new Blob([outputBytes], { type: 'application/pdf' });
+      outputFilename = sanitizeFilename(`裁切_${selectedFile.name}`);
+      outputNameValue.textContent = outputFilename;
+      downloadBtn.disabled = false;
+      statusPill.textContent = '状态：已完成';
+      setMessage('裁切完成，现在可以下载新的 PDF。', 'success');
+    }
+
+    function downloadResult() {
+      if (!outputBlob) {
+        return;
+      }
+      const url = URL.createObjectURL(outputBlob);
+      const anchor = document.createElement('a');
+      anchor.href = url;
+      anchor.download = outputFilename;
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    function handleFiles(files) {
+      const file = files && files[0];
+      if (!file) {
+        return;
+      }
+      if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+        setMessage('请选择一个 PDF 文件。', 'error');
+        return;
+      }
+      updateFileInfo(file);
+    }
+
+    fileInput.addEventListener('change', (event) => handleFiles(event.target.files));
+    convertBtn.addEventListener('click', () => {
+      trimPdf().catch((error) => {
+        statusPill.textContent = '状态：出错';
+        setMessage(`裁切失败：${error.message}`, 'error');
+      });
+    });
+    downloadBtn.addEventListener('click', downloadResult);
+    modeSelect.addEventListener('change', () => {
+      modePill.textContent = `模式：${getModeLabel(modeSelect.value)}`;
+    });
+
+    ['dragenter', 'dragover'].forEach((eventName) => {
+      dropzone.addEventListener(eventName, (event) => {
+        event.preventDefault();
+        dropzone.classList.add('dragover');
+      });
+    });
+
+    ['dragleave', 'drop'].forEach((eventName) => {
+      dropzone.addEventListener(eventName, (event) => {
+        event.preventDefault();
+        dropzone.classList.remove('dragover');
+      });
+    });
+
+    dropzone.addEventListener('drop', (event) => {
+      handleFiles(event.dataTransfer.files);
+    });
+  </script>
+</body>
+</html>
