@@ -1,0 +1,2546 @@
+<!DOCTYPE html><html lang="zh" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../basic/data_process.html">
+      
+      
+        <link rel="next" href="fss.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../logo/main.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>重整化群 - Monte Carlo Simulation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lgw" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../index.html" title="Monte Carlo Simulation" class="md-header__button md-logo" aria-label="Monte Carlo Simulation" data-md-component="logo">
+      
+  <img src="../logo/dice.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Monte Carlo Simulation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              重整化群
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至深色模式" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换至深色模式" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至浅色模式" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至浅色模式" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Monte Carlo Simulation" class="md-nav__button md-logo" aria-label="Monte Carlo Simulation" data-md-component="logo">
+      
+  <img src="../logo/dice.png" alt="logo">
+
+    </a>
+    Monte Carlo Simulation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    蒙卡基础
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    蒙卡基础
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basic/mc_abc.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    蒙卡原理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basic/data_process.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据处理与误差估计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    重整化群与有限尺寸标度
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    重整化群与有限尺寸标度
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    重整化群
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="rg.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    重整化群
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        概述
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#landau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Landau 零模理论
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Landau 零模理论">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最简单的无梯度哈密顿量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#y_t-y_h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        无梯度项时的 \(y_t\) 和 \(y_h\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#y_ty_h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        \(y_t,y_h\) 与六个临界指数
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="\(y_t,y_h\) 与六个临界指数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关长度指数 \(\nu\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alpha" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        比热指数 \(\alpha\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        序参量指数 \(\beta\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gamma" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        磁化率指数 \(\gamma\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        临界等温线指数 \(\delta\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        反常维数 \(\eta\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        平均场与无穷维图像
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ginzburg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ginzburg 泛函与梯度涨落
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gaussian" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gaussian 固定点的量纲分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gaussian 固定点的量纲分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#y_t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        求 \(y_t\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#y_h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        求 \(y_h\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#u" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        求 \(u\) 与上临界维度
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phi4-phip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        从 \(\phi^4\) 到 \(\phi^p\)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#k2-ksigma" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        从 \(k^2\) 到 \(k^\sigma\)：长程情况
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wilson-rg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wilson RG 的理论深化
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        总结
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fss.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    有限尺寸标度
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常用更新算法
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    常用更新算法
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster/cluster_algo.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集团算法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster/loop_cluster.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    蠕虫算法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster/geo_obs_list.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    几何观测量
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    长程体系与更新算法
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    长程体系与更新算法
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lr_clock_tech/lr_def.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    长程体系定义和困难
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lr_clock_tech/clock_tech.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clock算法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lr_clock_tech/other_lr_algos.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    其他长程算法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    世界线更新算法
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    世界线更新算法
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qworm/CTQW.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    连续时间 Worm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qworm/CSQW.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    连续空间 Worm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    辅助场蒙卡
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    辅助场蒙卡
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../afqmc/basic_idea.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    辅助场基本思想
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../afqmc/zero_T.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    零温算法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../afqmc/finite_T.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    有限温算法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        概述
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#landau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Landau 零模理论
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Landau 零模理论">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最简单的无梯度哈密顿量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#y_t-y_h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        无梯度项时的 \(y_t\) 和 \(y_h\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#y_ty_h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        \(y_t,y_h\) 与六个临界指数
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="\(y_t,y_h\) 与六个临界指数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关长度指数 \(\nu\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alpha" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        比热指数 \(\alpha\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        序参量指数 \(\beta\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gamma" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        磁化率指数 \(\gamma\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        临界等温线指数 \(\delta\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        反常维数 \(\eta\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        平均场与无穷维图像
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ginzburg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ginzburg 泛函与梯度涨落
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gaussian" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gaussian 固定点的量纲分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gaussian 固定点的量纲分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#y_t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        求 \(y_t\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#y_h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        求 \(y_h\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#u" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        求 \(u\) 与上临界维度
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phi4-phip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        从 \(\phi^4\) 到 \(\phi^p\)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#k2-ksigma" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        从 \(k^2\) 到 \(k^\sigma\)：长程情况
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wilson-rg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wilson RG 的理论深化
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        总结
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="lgw">LGW 相变理论与重整化群<a class="headerlink" href="#lgw" title="Permanent link">¶</a></h1>
+<h2 id="_1">概述<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
+<p>连续相变附近，体系会出现越来越大的相关长度。此时许多微观细节会被长距离涨落平均掉，真正重要的是少数慢变量、对称性、维度以及相互作用范围。Landau-Ginzburg-Wilson 理论正是沿着这条思路建立起来的。</p>
+<p>这篇笔记按下面的顺序展开：</p>
+<ol>
+<li>从最简单的 Landau 零模理论出发，只考虑均匀序参量；</li>
+<li>说明在无梯度项时如何理解 <span class="arithmatex">\(y_t\)</span> 和 <span class="arithmatex">\(y_h\)</span>；</li>
+<li>推导 <span class="arithmatex">\(y_t,y_h\)</span> 与六个常见临界指数之间的关系；</li>
+<li>解释平均场理论为什么可看成高维或无穷维极限；</li>
+<li>引入 Ginzburg 的空间涨落项，得到 LGW 泛函；</li>
+<li>用量纲分析求 Gaussian 固定点的 <span class="arithmatex">\(y_t,y_h\)</span> 与上临界维度；</li>
+<li>推广到 <span class="arithmatex">\(\phi^p\)</span> 相互作用与长程 <span class="arithmatex">\(k^\sigma\)</span> 涨落项；</li>
+<li>用 Wilson RG 的语言重新整理这些结论。</li>
+</ol>
+<p>为了避免符号混乱，下文统一记</p>
+<div class="arithmatex">\[
+t\propto T-T_c
+\]</div>
+<p>为距离临界点的温度变量，<span class="arithmatex">\(h\)</span> 为外场，<span class="arithmatex">\(d\)</span> 为空间维度。</p>
+<h2 id="landau">Landau 零模理论<a class="headerlink" href="#landau" title="Permanent link">¶</a></h2>
+<h3 id="_2">最简单的无梯度哈密顿量<a class="headerlink" href="#_2" title="Permanent link">¶</a></h3>
+<p>Landau 理论从序参量出发。对于 Ising 型相变，序参量是标量 <span class="arithmatex">\(m\)</span>，体系具有</p>
+<div class="arithmatex">\[
+m\to -m
+\]</div>
+<p>的对称性。在只保留均匀序参量的情况下，可以写出最简单的 Landau 哈密顿量或自由能：</p>
+<div class="arithmatex">\[
+\mathcal H_L(m)=L^d\left[
+\frac{t}{2}m^2+\frac{u}{4}m^4-hm
+\right].
+\]</div>
+<p>这里 <span class="arithmatex">\(L^d\)</span> 是系统体积，<span class="arithmatex">\(u&gt;0\)</span> 保证自由能稳定。这个理论只保留全空间平均的 <span class="arithmatex">\(m\)</span>，因此常被称为零模理论。</p>
+<p>平衡态由鞍点方程给出：</p>
+<div class="arithmatex">\[
+\frac{\partial \mathcal H_L}{\partial m}=0.
+\]</div>
+<p>直接计算得到</p>
+<div class="arithmatex">\[
+tm+um^3-h=0.
+\]</div>
+<p>当 <span class="arithmatex">\(h=0\)</span> 且 <span class="arithmatex">\(t&lt;0\)</span> 时，非零解满足</p>
+<div class="arithmatex">\[
+m^2=-\frac{t}{u}.
+\]</div>
+<p>所以</p>
+<div class="arithmatex">\[
+m\sim (-t)^{1/2},
+\]</div>
+<p>由此得到平均场指数</p>
+<div class="arithmatex">\[
+\boxed{\beta=\frac12}.
+\]</div>
+<p>当 <span class="arithmatex">\(t&gt;0\)</span> 且 <span class="arithmatex">\(h\to 0\)</span> 时，<span class="arithmatex">\(m\)</span> 很小，鞍点方程近似为</p>
+<div class="arithmatex">\[
+tm\simeq h.
+\]</div>
+<p>于是</p>
+<div class="arithmatex">\[
+m\simeq \frac{h}{t},
+\]</div>
+<p>磁化率为</p>
+<div class="arithmatex">\[
+\chi=\frac{\partial m}{\partial h}\sim t^{-1}.
+\]</div>
+<p>因此</p>
+<div class="arithmatex">\[
+\boxed{\gamma=1}.
+\]</div>
+<p>在临界等温线 <span class="arithmatex">\(t=0\)</span> 上，</p>
+<div class="arithmatex">\[
+um^3=h,
+\]</div>
+<p>所以</p>
+<div class="arithmatex">\[
+m\sim h^{1/3},
+\]</div>
+<p>得到</p>
+<div class="arithmatex">\[
+\boxed{\delta=3}.
+\]</div>
+<p>再看自由能奇异部分。将 <span class="arithmatex">\(m^2=-t/u\)</span> 代回自由能密度，可得</p>
+<div class="arithmatex">\[
+f_{\rm sing}\sim -\frac{t^2}{u}.
+\]</div>
+<p>比热对应自由能对温度变量的二阶导数，因此</p>
+<div class="arithmatex">\[
+C\sim -\frac{\partial^2 f_{\rm sing}}{\partial t^2}\sim {\rm const}.
+\]</div>
+<p>平均场比热指数为</p>
+<div class="arithmatex">\[
+\boxed{\alpha=0}.
+\]</div>
+<blockquote>
+<p>这一套推导只用到了均匀序参量的鞍点。它可以给出 <span class="arithmatex">\(\alpha,\beta,\gamma,\delta\)</span>，却还没有真正的空间涨落和相关长度。</p>
+</blockquote>
+<h3 id="y_t-y_h">无梯度项时的 <span class="arithmatex">\(y_t\)</span> 和 <span class="arithmatex">\(y_h\)</span><a class="headerlink" href="#y_t-y_h" title="Permanent link">¶</a></h3>
+<p>RG 语境下，<span class="arithmatex">\(y_t\)</span> 和 <span class="arithmatex">\(y_h\)</span> 描述温度变量与外场在尺度变换下的放大规律：</p>
+<div class="arithmatex">\[
+t'=b^{y_t}t,\qquad h'=b^{y_h}h.
+\]</div>
+<p>纯 Landau 零模理论缺少空间坐标和梯度项，无法直接执行通常的空间粗粒化。不过它仍然可以给出一组有限尺寸意义下的有效标度指数。</p>
+<p>在临界点 <span class="arithmatex">\(t=h=0\)</span>，四次项控制零模涨落：</p>
+<div class="arithmatex">\[
+\mathcal H_L(m)\sim L^d u m^4.
+\]</div>
+<p>典型涨落由 <span class="arithmatex">\(\mathcal H_L(m)\sim 1\)</span> 估计：</p>
+<div class="arithmatex">\[
+L^d m^4\sim 1.
+\]</div>
+<p>因此</p>
+<div class="arithmatex">\[
+m\sim L^{-d/4}.
+\]</div>
+<p>质量项的尺度为</p>
+<div class="arithmatex">\[
+\begin{aligned}
+L^d t m^2
+&amp;\sim L^d t L^{-d/2}\\
+&amp;=tL^{d/2}.
+\end{aligned}
+\]</div>
+<p>所以温度变量的有限尺寸组合是</p>
+<div class="arithmatex">\[
+tL^{d/2}.
+\]</div>
+<p>这给出零模有效指数</p>
+<div class="arithmatex">\[
+\boxed{y_t^\ast=\frac d2}.
+\]</div>
+<p>外场项的尺度为</p>
+<div class="arithmatex">\[
+\begin{aligned}
+L^d h m
+&amp;\sim L^d h L^{-d/4}\\
+&amp;=hL^{3d/4}.
+\end{aligned}
+\]</div>
+<p>因此</p>
+<div class="arithmatex">\[
+\boxed{y_h^\ast=\frac{3d}{4}}.
+\]</div>
+<p>这两个量带有星号，是为了提醒它们属于零模有限尺寸标度。真正的 Gaussian RG 本征值会在加入梯度项后自然出现。</p>
+<p>把 <span class="arithmatex">\(y_t^\ast,y_h^\ast\)</span> 代入常见标度关系，可以重新得到 Landau 平均场指数。例如</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\beta
+&amp;=\frac{d-y_h^\ast}{y_t^\ast}\\
+&amp;=\frac{d-\frac{3d}{4}}{\frac d2}\\
+&amp;=\frac12,
+\end{aligned}
+\]</div>
+<div class="arithmatex">\[
+\begin{aligned}
+\gamma
+&amp;=\frac{2y_h^\ast-d}{y_t^\ast}\\
+&amp;=\frac{\frac{3d}{2}-d}{\frac d2}\\
+&amp;=1,
+\end{aligned}
+\]</div>
+<div class="arithmatex">\[
+\begin{aligned}
+\delta
+&amp;=\frac{y_h^\ast}{d-y_h^\ast}\\
+&amp;=\frac{\frac{3d}{4}}{\frac d4}\\
+&amp;=3.
+\end{aligned}
+\]</div>
+<h2 id="y_ty_h"><span class="arithmatex">\(y_t,y_h\)</span> 与六个临界指数<a class="headerlink" href="#y_ty_h" title="Permanent link">¶</a></h2>
+<p>接下来先不限制 <span class="arithmatex">\(y_t,y_h\)</span> 的来源，只假设在某个 RG 固定点附近，奇异自由能密度满足齐次标度形式：</p>
+<div class="arithmatex">\[
+f_s(t,h)=b^{-d}f_s(tb^{y_t},hb^{y_h}).
+\]</div>
+<p>这里 <span class="arithmatex">\(b&gt;1\)</span> 表示把长度尺度放大的因子。这个式子是临界指数之间建立联系的核心。</p>
+<h3 id="nu">相关长度指数 <span class="arithmatex">\(\nu\)</span><a class="headerlink" href="#nu" title="Permanent link">¶</a></h3>
+<p>相关长度满足</p>
+<div class="arithmatex">\[
+\xi(t)=b\,\xi(tb^{y_t}).
+\]</div>
+<p>取</p>
+<div class="arithmatex">\[
+tb^{y_t}=1,
+\]</div>
+<p>即</p>
+<div class="arithmatex">\[
+b=t^{-1/y_t},
+\]</div>
+<p>可得</p>
+<div class="arithmatex">\[
+\xi\sim t^{-1/y_t}.
+\]</div>
+<p>因此</p>
+<div class="arithmatex">\[
+\boxed{\nu=\frac1{y_t}}.
+\]</div>
+<h3 id="alpha">比热指数 <span class="arithmatex">\(\alpha\)</span><a class="headerlink" href="#alpha" title="Permanent link">¶</a></h3>
+<p>令</p>
+<div class="arithmatex">\[
+b=\lvert t\rvert^{-1/y_t}.
+\]</div>
+<p>自由能奇异部分满足</p>
+<div class="arithmatex">\[
+f_s(t,0)\sim \lvert t\rvert^{d/y_t}.
+\]</div>
+<p>比热来自自由能对温度变量的二阶导数：</p>
+<div class="arithmatex">\[
+C\sim \frac{\partial^2 f_s}{\partial t^2}.
+\]</div>
+<p>因此</p>
+<div class="arithmatex">\[
+C\sim \lvert t\rvert^{d/y_t-2}.
+\]</div>
+<p>得到</p>
+<div class="arithmatex">\[
+\boxed{\alpha=2-\frac d{y_t}}.
+\]</div>
+<h3 id="beta">序参量指数 <span class="arithmatex">\(\beta\)</span><a class="headerlink" href="#beta" title="Permanent link">¶</a></h3>
+<p>磁化强度为</p>
+<div class="arithmatex">\[
+m=-\frac{\partial f_s}{\partial h}.
+\]</div>
+<p>由自由能标度形式可得</p>
+<div class="arithmatex">\[
+m(t,h)=b^{-d+y_h}m(tb^{y_t},hb^{y_h}).
+\]</div>
+<p>仍取 <span class="arithmatex">\(b=\lvert t\rvert^{-1/y_t}\)</span>，有</p>
+<div class="arithmatex">\[
+m(t,0)\sim \lvert t\rvert^{(d-y_h)/y_t}.
+\]</div>
+<p>所以</p>
+<div class="arithmatex">\[
+\boxed{\beta=\frac{d-y_h}{y_t}}.
+\]</div>
+<h3 id="gamma">磁化率指数 <span class="arithmatex">\(\gamma\)</span><a class="headerlink" href="#gamma" title="Permanent link">¶</a></h3>
+<p>磁化率为</p>
+<div class="arithmatex">\[
+\chi=\frac{\partial m}{\partial h}
+=-\frac{\partial^2 f_s}{\partial h^2}.
+\]</div>
+<p>所以</p>
+<div class="arithmatex">\[
+\chi(t,0)\sim b^{-d+2y_h}.
+\]</div>
+<p>取 <span class="arithmatex">\(b=\lvert t\rvert^{-1/y_t}\)</span>，得到</p>
+<div class="arithmatex">\[
+\chi\sim \lvert t\rvert^{-(2y_h-d)/y_t}.
+\]</div>
+<p>因此</p>
+<div class="arithmatex">\[
+\boxed{\gamma=\frac{2y_h-d}{y_t}}.
+\]</div>
+<h3 id="delta">临界等温线指数 <span class="arithmatex">\(\delta\)</span><a class="headerlink" href="#delta" title="Permanent link">¶</a></h3>
+<p>在 <span class="arithmatex">\(t=0\)</span> 时取</p>
+<div class="arithmatex">\[
+hb^{y_h}=1,
+\]</div>
+<p>即</p>
+<div class="arithmatex">\[
+b=h^{-1/y_h}.
+\]</div>
+<p>于是</p>
+<div class="arithmatex">\[
+m(0,h)\sim b^{-d+y_h}
+\sim h^{(d-y_h)/y_h}.
+\]</div>
+<p>与</p>
+<div class="arithmatex">\[
+m\sim h^{1/\delta}
+\]</div>
+<p>比较，得到</p>
+<div class="arithmatex">\[
+\boxed{\delta=\frac{y_h}{d-y_h}}.
+\]</div>
+<h3 id="eta">反常维数 <span class="arithmatex">\(\eta\)</span><a class="headerlink" href="#eta" title="Permanent link">¶</a></h3>
+<p>外场项为</p>
+<div class="arithmatex">\[
+\int d^d x\,h\phi.
+\]</div>
+<p>若场的 scaling dimension 为 <span class="arithmatex">\(x_\phi\)</span>，则</p>
+<div class="arithmatex">\[
+y_h=d-x_\phi.
+\]</div>
+<p>临界点处的关联函数满足</p>
+<div class="arithmatex">\[
+G(r)=\langle \phi(r)\phi(0)\rangle
+\sim \frac1{r^{2x_\phi}}.
+\]</div>
+<p>标准定义写作</p>
+<div class="arithmatex">\[
+G(r)\sim \frac1{r^{d-2+\eta}}.
+\]</div>
+<p>于是</p>
+<div class="arithmatex">\[
+2x_\phi=d-2+\eta.
+\]</div>
+<p>代入 <span class="arithmatex">\(x_\phi=d-y_h\)</span>，得到</p>
+<div class="arithmatex">\[
+\boxed{\eta=d+2-2y_h}.
+\]</div>
+<p>常见指数可整理为：</p>
+<table>
+<thead>
+<tr>
+<th>指数</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\alpha\)</span></td>
+<td><span class="arithmatex">\(C\sim \lvert t\rvert^{-\alpha}\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\beta\)</span></td>
+<td><span class="arithmatex">\(m\sim (-t)^\beta\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\gamma\)</span></td>
+<td><span class="arithmatex">\(\chi\sim \lvert t\rvert^{-\gamma}\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\delta\)</span></td>
+<td><span class="arithmatex">\(m\sim h^{1/\delta}\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\nu\)</span></td>
+<td><span class="arithmatex">\(\xi\sim \lvert t\rvert^{-\nu}\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\eta\)</span></td>
+<td><span class="arithmatex">\(G(r)\sim r^{-(d-2+\eta)}\)</span></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>上述关系依赖普通 hyperscaling。高于上临界维度时，危险无关变量会改变有限尺寸标度结构，使用这些关系时需要结合具体固定点判断。</p>
+</blockquote>
+<h2 id="_3">平均场与无穷维图像<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<p>Landau 平均场理论忽略空间涨落，只保留一个全局序参量 <span class="arithmatex">\(m\)</span>。这等价于假设每个自由度都感受到整体平均环境，局域涨落被充分平均。</p>
+<p>高维体系中，这种图像会越来越准确。直观原因包括：</p>
+<ul>
+<li>格点的有效邻居数增多，单个邻居的涨落影响被平均；</li>
+<li>随机行走在高维中回返概率降低，局域涨落的反馈变弱；</li>
+<li>临界涨落相对于平均序参量的贡献下降；</li>
+<li>鞍点近似越来越稳定。</li>
+</ul>
+<p>这一点可以通过 Ginzburg 判据看得更清楚。Landau 平均场给出</p>
+<div class="arithmatex">\[
+m^2\sim \frac{\lvert t\rvert}{u}.
+\]</div>
+<p>Gaussian 理论中</p>
+<div class="arithmatex">\[
+\xi\sim \lvert t\rvert^{-1/2}.
+\]</div>
+<p>一个相关体积内的场涨落大致满足</p>
+<div class="arithmatex">\[
+\langle(\delta\phi)^2\rangle_\xi\sim \xi^{2-d}.
+\]</div>
+<p>于是涨落与平均序参量平方的比值为</p>
+<div class="arithmatex">\[
+\frac{\langle(\delta\phi)^2\rangle_\xi}{m^2}
+\sim
+\frac{\xi^{2-d}}{\lvert t\rvert}.
+\]</div>
+<p>代入 <span class="arithmatex">\(\xi\sim \lvert t\rvert^{-1/2}\)</span>，得到</p>
+<div class="arithmatex">\[
+\frac{\langle(\delta\phi)^2\rangle_\xi}{m^2}
+\sim
+\lvert t\rvert^{(d-4)/2}.
+\]</div>
+<p>当 <span class="arithmatex">\(t\to 0\)</span> 时：</p>
+<ul>
+<li><span class="arithmatex">\(d&gt;4\)</span> 时，该比值趋于 <span class="arithmatex">\(0\)</span>，平均场稳定；</li>
+<li><span class="arithmatex">\(d&lt;4\)</span> 时，该比值发散，涨落改变临界行为；</li>
+<li><span class="arithmatex">\(d=4\)</span> 时为边缘情况，通常出现对数修正。</li>
+</ul>
+<p>因此短程 <span class="arithmatex">\(\phi^4\)</span> 理论的上临界维度为</p>
+<div class="arithmatex">\[
+\boxed{d_c=4}.
+\]</div>
+<p>从这个意义上说，Landau 平均场可看成高维极限或无穷维极限中的临界理论。</p>
+<h2 id="ginzburg">Ginzburg 泛函与梯度涨落<a class="headerlink" href="#ginzburg" title="Permanent link">¶</a></h2>
+<p>Landau 理论只考虑均匀序参量。Ginzburg 的关键推广是允许序参量随空间变化：</p>
+<div class="arithmatex">\[
+m\longrightarrow \phi(x).
+\]</div>
+<p>自由能也从普通函数推广为泛函：</p>
+<div class="arithmatex">\[
+\mathcal H[\phi]
+=\int d^d x
+\left[
+\frac12(\nabla\phi)^2
++\frac{t}{2}\phi^2
++\frac{u}{4!}\phi^4
+-h\phi
+\right].
+\]</div>
+<p>这就是 Landau-Ginzburg-Wilson 理论的基本形式。各项含义如下：</p>
+<ul>
+<li><span class="arithmatex">\(\frac12(\nabla\phi)^2\)</span> 描述空间涨落的代价；</li>
+<li><span class="arithmatex">\(\frac{t}{2}\phi^2\)</span> 是质量项；</li>
+<li><span class="arithmatex">\(\frac{u}{4!}\phi^4\)</span> 是相互作用项；</li>
+<li><span class="arithmatex">\(h\phi\)</span> 是外场耦合。</li>
+</ul>
+<p>对于 <span class="arithmatex">\(O(n)\)</span> 模型，序参量是 <span class="arithmatex">\(n\)</span> 分量场</p>
+<div class="arithmatex">\[
+\boldsymbol\phi=(\phi_1,\cdots,\phi_n),
+\]</div>
+<p>泛函写为</p>
+<div class="arithmatex">\[
+\mathcal H[\boldsymbol\phi]
+=\int d^d x
+\left[
+\frac12(\nabla\boldsymbol\phi)^2
++\frac{t}{2}\boldsymbol\phi^2
++\frac{u}{4!}(\boldsymbol\phi^2)^2
+-\boldsymbol h\cdot\boldsymbol\phi
+\right].
+\]</div>
+<p>加入梯度项之后，理论中出现空间尺度、动量、传播子和相关长度。<span class="arithmatex">\(y_t,y_h\)</span> 也就可以通过标准量纲分析得到。</p>
+<h2 id="gaussian">Gaussian 固定点的量纲分析<a class="headerlink" href="#gaussian" title="Permanent link">¶</a></h2>
+<p>先看 Gaussian 部分：</p>
+<div class="arithmatex">\[
+\mathcal H_G
+=\int d^d x
+\left[
+\frac12(\nabla\phi)^2
++\frac{t}{2}\phi^2
+-h\phi
+\right].
+\]</div>
+<p>量纲分析的原则是让 Gaussian 动能项保持无量纲：</p>
+<div class="arithmatex">\[
+\int d^d x\,(\nabla\phi)^2\sim 1.
+\]</div>
+<p>由于</p>
+<div class="arithmatex">\[
+[d^d x]\sim L^d,\qquad [\nabla]\sim L^{-1},
+\]</div>
+<p>可得</p>
+<div class="arithmatex">\[
+L^d L^{-2}[\phi]^2\sim 1.
+\]</div>
+<p>因此</p>
+<div class="arithmatex">\[
+[\phi]\sim L^{-(d-2)/2}.
+\]</div>
+<p>场的 scaling dimension 为</p>
+<div class="arithmatex">\[
+\boxed{x_\phi=\frac{d-2}{2}}.
+\]</div>
+<h3 id="y_t">求 <span class="arithmatex">\(y_t\)</span><a class="headerlink" href="#y_t" title="Permanent link">¶</a></h3>
+<p>质量项满足</p>
+<div class="arithmatex">\[
+\int d^d x\,t\phi^2\sim 1.
+\]</div>
+<p>代入 <span class="arithmatex">\([\phi]^2\sim L^{-(d-2)}\)</span>，得到</p>
+<div class="arithmatex">\[
+L^d[t]L^{-(d-2)}\sim 1.
+\]</div>
+<p>所以</p>
+<div class="arithmatex">\[
+[t]\sim L^{-2}.
+\]</div>
+<p>对应 RG 本征指数</p>
+<div class="arithmatex">\[
+\boxed{y_t=2}.
+\]</div>
+<h3 id="y_h">求 <span class="arithmatex">\(y_h\)</span><a class="headerlink" href="#y_h" title="Permanent link">¶</a></h3>
+<p>外场项满足</p>
+<div class="arithmatex">\[
+\int d^d x\,h\phi\sim 1.
+\]</div>
+<p>代入 <span class="arithmatex">\([\phi]\sim L^{-(d-2)/2}\)</span>，得到</p>
+<div class="arithmatex">\[
+L^d[h]L^{-(d-2)/2}\sim 1.
+\]</div>
+<p>因此</p>
+<div class="arithmatex">\[
+[h]\sim L^{-(d+2)/2}.
+\]</div>
+<p>对应</p>
+<div class="arithmatex">\[
+\boxed{y_h=\frac{d+2}{2}}.
+\]</div>
+<h3 id="u">求 <span class="arithmatex">\(u\)</span> 与上临界维度<a class="headerlink" href="#u" title="Permanent link">¶</a></h3>
+<p>四次项满足</p>
+<div class="arithmatex">\[
+\int d^d x\,u\phi^4\sim 1.
+\]</div>
+<p>由于</p>
+<div class="arithmatex">\[
+[\phi]^4\sim L^{-2(d-2)},
+\]</div>
+<p>有</p>
+<div class="arithmatex">\[
+L^d[u]L^{-2(d-2)}\sim 1.
+\]</div>
+<p>所以</p>
+<div class="arithmatex">\[
+[u]\sim L^{-(4-d)}.
+\]</div>
+<p>四次耦合的 RG 指数为</p>
+<div class="arithmatex">\[
+\boxed{y_u=4-d}.
+\]</div>
+<p>于是：</p>
+<ul>
+<li><span class="arithmatex">\(d&lt;4\)</span> 时，<span class="arithmatex">\(u\)</span> 为 relevant；</li>
+<li><span class="arithmatex">\(d=4\)</span> 时，<span class="arithmatex">\(u\)</span> 为 marginal；</li>
+<li><span class="arithmatex">\(d&gt;4\)</span> 时，<span class="arithmatex">\(u\)</span> 为 irrelevant。</li>
+</ul>
+<p>上临界维度由 <span class="arithmatex">\(y_u=0\)</span> 给出：</p>
+<div class="arithmatex">\[
+\boxed{d_c=4}.
+\]</div>
+<p>这里的 <span class="arithmatex">\(y_t=2\)</span> 和 <span class="arithmatex">\(y_h=(d+2)/2\)</span> 是 Gaussian 固定点的量纲分析结果。低于上临界维度时，<span class="arithmatex">\(u\)</span> 会把体系带向新的相互作用固定点，真实指数会发生修正。</p>
+<h2 id="phi4-phip">从 <span class="arithmatex">\(\phi^4\)</span> 到 <span class="arithmatex">\(\phi^p\)</span><a class="headerlink" href="#phi4-phip" title="Permanent link">¶</a></h2>
+<p>考虑更一般的相互作用：</p>
+<div class="arithmatex">\[
+\mathcal H[\phi]
+=\int d^d x
+\left[
+\frac12(\nabla\phi)^2
++\frac{t}{2}\phi^2
++g_p\phi^p
+-h\phi
+\right].
+\]</div>
+<p>在 Gaussian 固定点，</p>
+<div class="arithmatex">\[
+x_\phi=\frac{d-2}{2}.
+\]</div>
+<p>因此 <span class="arithmatex">\(\phi^p\)</span> 耦合的 RG 指数为</p>
+<div class="arithmatex">\[
+y_p=d-px_\phi.
+\]</div>
+<p>代入 <span class="arithmatex">\(x_\phi\)</span> 得到</p>
+<div class="arithmatex">\[
+y_p=d-\frac{p(d-2)}2.
+\]</div>
+<p>上临界维度由 <span class="arithmatex">\(y_p=0\)</span> 决定：</p>
+<div class="arithmatex">\[
+d-\frac{p(d-2)}2=0.
+\]</div>
+<p>解得</p>
+<div class="arithmatex">\[
+\boxed{d_c(p)=\frac{2p}{p-2}}.
+\]</div>
+<p>几个例子为：</p>
+<table>
+<thead>
+<tr>
+<th>相互作用</th>
+<th>上临界维度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\phi^3\)</span></td>
+<td><span class="arithmatex">\(d_c=6\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\phi^4\)</span></td>
+<td><span class="arithmatex">\(d_c=4\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\phi^6\)</span></td>
+<td><span class="arithmatex">\(d_c=3\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>这里 <span class="arithmatex">\(\phi^4\)</span> 对应普通 Ising 或 <span class="arithmatex">\(O(n)\)</span> 临界点；<span class="arithmatex">\(\phi^6\)</span> 常出现在三临界点，因为此时 <span class="arithmatex">\(\phi^4\)</span> 项也需要被调到零；<span class="arithmatex">\(\phi^3\)</span> 常出现在缺少 <span class="arithmatex">\(\phi\to-\phi\)</span> 对称性的理论中。</p>
+<p>对应的 Landau 平均场指数也可以直接求。若</p>
+<div class="arithmatex">\[
+F(m)=L^d\left[
+\frac{t}{2}m^2+g_pm^p-hm
+\right],
+\]</div>
+<p>极值方程为</p>
+<div class="arithmatex">\[
+tm+pg_pm^{p-1}-h=0.
+\]</div>
+<p>当 <span class="arithmatex">\(h=0,t&lt;0\)</span> 时，</p>
+<div class="arithmatex">\[
+m^{p-2}\sim -t,
+\]</div>
+<p>所以</p>
+<div class="arithmatex">\[
+\boxed{\beta=\frac1{p-2}}.
+\]</div>
+<p>在 <span class="arithmatex">\(t=0\)</span> 时，</p>
+<div class="arithmatex">\[
+h\sim m^{p-1},
+\]</div>
+<p>因此</p>
+<div class="arithmatex">\[
+\boxed{\delta=p-1}.
+\]</div>
+<p>磁化率仍满足</p>
+<div class="arithmatex">\[
+\boxed{\gamma=1}.
+\]</div>
+<p>自由能奇异部分满足</p>
+<div class="arithmatex">\[
+f_s\sim \lvert t\rvert^{p/(p-2)}.
+\]</div>
+<p>于是</p>
+<div class="arithmatex">\[
+\boxed{\alpha=2-\frac{p}{p-2}=\frac{p-4}{p-2}}.
+\]</div>
+<p>例如 <span class="arithmatex">\(p=4\)</span> 给出普通平均场指数；<span class="arithmatex">\(p=6\)</span> 给出三临界平均场指数：</p>
+<div class="arithmatex">\[
+\alpha=\frac12,\qquad
+\beta=\frac14,\qquad
+\gamma=1,\qquad
+\delta=5.
+\]</div>
+<h2 id="k2-ksigma">从 <span class="arithmatex">\(k^2\)</span> 到 <span class="arithmatex">\(k^\sigma\)</span>：长程情况<a class="headerlink" href="#k2-ksigma" title="Permanent link">¶</a></h2>
+<p>短程体系的 Gaussian 涨落项在动量空间中为</p>
+<div class="arithmatex">\[
+k^2|\phi_k|^2.
+\]</div>
+<p>对于长程相互作用，低动量行为常写为</p>
+<div class="arithmatex">\[
+k^\sigma|\phi_k|^2.
+\]</div>
+<p>对应的实空间形式可记为分数 Laplacian：</p>
+<div class="arithmatex">\[
+\frac12\int d^d x\,
+\phi(x)(-\nabla^2)^{\sigma/2}\phi(x).
+\]</div>
+<p>此时 Gaussian 泛函为</p>
+<div class="arithmatex">\[
+\mathcal H_G
+=\int d^d x
+\left[
+\frac12\phi(-\nabla^2)^{\sigma/2}\phi
++\frac{t}{2}\phi^2
+-h\phi
+\right].
+\]</div>
+<p>量纲分析从长程动能项开始：</p>
+<div class="arithmatex">\[
+\int d^d x\,\phi(-\nabla^2)^{\sigma/2}\phi\sim 1.
+\]</div>
+<p>由于</p>
+<div class="arithmatex">\[
+(-\nabla^2)^{\sigma/2}\sim L^{-\sigma},
+\]</div>
+<p>有</p>
+<div class="arithmatex">\[
+L^d[\phi]^2L^{-\sigma}\sim 1.
+\]</div>
+<p>所以</p>
+<div class="arithmatex">\[
+[\phi]\sim L^{-(d-\sigma)/2},
+\]</div>
+<p>即</p>
+<div class="arithmatex">\[
+\boxed{x_\phi=\frac{d-\sigma}{2}}.
+\]</div>
+<p>质量项给出</p>
+<div class="arithmatex">\[
+\boxed{y_t=\sigma}.
+\]</div>
+<p>外场项给出</p>
+<div class="arithmatex">\[
+\boxed{y_h=\frac{d+\sigma}{2}}.
+\]</div>
+<p>四次项的指数为</p>
+<div class="arithmatex">\[
+\begin{aligned}
+y_u
+&amp;=d-4x_\phi\\
+&amp;=d-2(d-\sigma)\\
+&amp;=2\sigma-d.
+\end{aligned}
+\]</div>
+<p>因此长程 <span class="arithmatex">\(\phi^4\)</span> 理论的上临界维度为</p>
+<div class="arithmatex">\[
+\boxed{d_c=2\sigma}.
+\]</div>
+<p>更一般地，长程 <span class="arithmatex">\(\phi^p\)</span> 理论满足</p>
+<div class="arithmatex">\[
+y_p=d-p\frac{d-\sigma}{2}.
+\]</div>
+<p>令 <span class="arithmatex">\(y_p=0\)</span>，得到</p>
+<div class="arithmatex">\[
+\boxed{d_c(p,\sigma)=\frac{p\sigma}{p-2}}.
+\]</div>
+<p>当 <span class="arithmatex">\(\sigma=2\)</span> 时，回到短程结果：</p>
+<div class="arithmatex">\[
+d_c(p)=\frac{2p}{p-2}.
+\]</div>
+<p>长程 Gaussian 传播子满足</p>
+<div class="arithmatex">\[
+G(k)\sim \frac1{k^\sigma}.
+\]</div>
+<p>而一般临界理论中</p>
+<div class="arithmatex">\[
+G(k)\sim \frac1{k^{2-\eta}}.
+\]</div>
+<p>因此长程 Gaussian 区域中</p>
+<div class="arithmatex">\[
+\boxed{\eta=2-\sigma}.
+\]</div>
+<blockquote>
+<p>长程模型还存在长程固定点与短程固定点之间的 crossover。简单量纲分析给出边界 <span class="arithmatex">\(\sigma=2\)</span>，更精细的 Sak 判据会把边界修正为 <span class="arithmatex">\(\sigma_\ast=2-\eta_{\rm SR}\)</span>。</p>
+</blockquote>
+<h2 id="wilson-rg">Wilson RG 的理论深化<a class="headerlink" href="#wilson-rg" title="Permanent link">¶</a></h2>
+<p>Landau 与 Ginzburg 的构造给出了有效场论。Wilson RG 进一步说明这些有效理论为什么具有普适性，以及为什么低维涨落会改变平均场指数。</p>
+<p>从 LGW 泛函出发：</p>
+<div class="arithmatex">\[
+\mathcal H[\phi]
+=\int d^d x
+\left[
+\frac12(\nabla\phi)^2
++\frac{t}{2}\phi^2
++\frac{u}{4!}\phi^4
+-h\phi
++\cdots
+\right].
+\]</div>
+<p>Wilson RG 的基本步骤如下。</p>
+<p>第一步，将场分成慢模和快模：</p>
+<div class="arithmatex">\[
+\phi=\phi_&lt;+\phi_&gt;,
+\]</div>
+<p>其中</p>
+<div class="arithmatex">\[
+\phi_&lt;:\ |k|&lt;\Lambda/b,
+\qquad
+\phi_&gt;:\ \Lambda/b&lt;|k|&lt;\Lambda.
+\]</div>
+<p>第二步，积分掉快模：</p>
+<div class="arithmatex">\[
+e^{-\mathcal H_{\rm eff}[\phi_&lt;]}
+=\int D\phi_&gt;\,
+e^{-\mathcal H[\phi_&lt;+\phi_&gt;]}.
+\]</div>
+<p>第三步，重新缩放动量、坐标和场：</p>
+<div class="arithmatex">\[
+k'=bk,\qquad x'=x/b,
+\]</div>
+<div class="arithmatex">\[
+\phi'(x')=b^{x_\phi}\phi(x).
+\]</div>
+<p>完成这些步骤后，耦合常数会发生流动：</p>
+<div class="arithmatex">\[
+t\to t',\qquad h\to h',\qquad u\to u'.
+\]</div>
+<p>固定点满足耦合在尺度变换下保持不变。固定点附近可以线性化：</p>
+<div class="arithmatex">\[
+t'=b^{y_t}t,\qquad h'=b^{y_h}h,\qquad u'=b^{y_u}u.
+\]</div>
+<p>若 <span class="arithmatex">\(y&gt;0\)</span>，该扰动为 relevant；若 <span class="arithmatex">\(y&lt;0\)</span>，该扰动为 irrelevant；若 <span class="arithmatex">\(y=0\)</span>，该扰动为 marginal，需要更高阶分析。</p>
+<p>Gaussian 固定点为</p>
+<div class="arithmatex">\[
+u^\ast=0.
+\]</div>
+<p>在短程 <span class="arithmatex">\(\phi^4\)</span> 理论中，</p>
+<div class="arithmatex">\[
+y_t=2,\qquad
+y_h=\frac{d+2}{2},\qquad
+y_u=4-d.
+\]</div>
+<p>因此：</p>
+<ul>
+<li><span class="arithmatex">\(d&gt;4\)</span> 时，<span class="arithmatex">\(u\)</span> 在长距离下衰减，平均场指数成立；</li>
+<li><span class="arithmatex">\(d=4\)</span> 时，<span class="arithmatex">\(u\)</span> 为边缘变量，出现对数修正；</li>
+<li><span class="arithmatex">\(d&lt;4\)</span> 时，<span class="arithmatex">\(u\)</span> 增长，Gaussian 固定点不稳定。</li>
+</ul>
+<p>当 <span class="arithmatex">\(d&lt;4\)</span> 时，体系会流向 Wilson-Fisher 固定点：</p>
+<div class="arithmatex">\[
+u^\ast\neq 0.
+\]</div>
+<p>在这个固定点，临界指数包含涨落修正。例如三维 Ising 普适类中，</p>
+<div class="arithmatex">\[
+\nu\approx 0.630,\qquad \eta\approx 0.036.
+\]</div>
+<p>于是</p>
+<div class="arithmatex">\[
+y_t=\frac1\nu\approx 1.587,
+\]</div>
+<div class="arithmatex">\[
+y_h=\frac{d+2-\eta}{2}\approx 2.482.
+\]</div>
+<p>这说明量纲分析能准确给出 Gaussian 固定点附近的指数和上临界维度；若体系流向相互作用固定点，真实指数需要 Wilson RG、<span class="arithmatex">\(\epsilon\)</span> 展开、Monte Carlo 或 bootstrap 等方法来确定。</p>
+<h2 id="_4">总结<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
+<p>从最简单的 Landau 零模理论开始，可以得到平均场指数</p>
+<div class="arithmatex">\[
+\alpha=0,\qquad
+\beta=\frac12,\qquad
+\gamma=1,\qquad
+\delta=3.
+\]</div>
+<p>在零模有限尺寸意义下，临界涨落给出</p>
+<div class="arithmatex">\[
+\boxed{y_t^\ast=\frac d2,\qquad y_h^\ast=\frac{3d}{4}}.
+\]</div>
+<p>加入 Ginzburg 梯度项后，Gaussian 固定点的量纲分析给出</p>
+<div class="arithmatex">\[
+\boxed{y_t=2,\qquad y_h=\frac{d+2}{2},\qquad y_u=4-d}.
+\]</div>
+<p>短程 <span class="arithmatex">\(\phi^4\)</span> 理论的上临界维度为</p>
+<div class="arithmatex">\[
+\boxed{d_c=4}.
+\]</div>
+<p>若相互作用推广为 <span class="arithmatex">\(\phi^p\)</span>，则</p>
+<div class="arithmatex">\[
+\boxed{d_c(p)=\frac{2p}{p-2}}.
+\]</div>
+<p>若涨落项从 <span class="arithmatex">\(k^2\)</span> 推广为 <span class="arithmatex">\(k^\sigma\)</span>，则</p>
+<div class="arithmatex">\[
+\boxed{y_t=\sigma,\qquad y_h=\frac{d+\sigma}{2},\qquad d_c=2\sigma}.
+\]</div>
+<p>更一般地，</p>
+<div class="arithmatex">\[
+\boxed{d_c(p,\sigma)=\frac{p\sigma}{p-2}}.
+\]</div>
+<p>最后，<span class="arithmatex">\(y_t,y_h\)</span> 与六个常见临界指数之间的关系为</p>
+<div class="arithmatex">\[
+\boxed{
+\nu=\frac1{y_t},\quad
+\alpha=2-\frac d{y_t},\quad
+\beta=\frac{d-y_h}{y_t},\quad
+\gamma=\frac{2y_h-d}{y_t},\quad
+\delta=\frac{y_h}{d-y_h},\quad
+\eta=d+2-2y_h
+}.
+\]</div>
+<p>这些公式把 Landau 平均场、Ginzburg 涨落、Wilson RG 和有限尺寸标度连接在一起。实际使用时，需要先判断体系对应的固定点，再决定使用 Gaussian 指数、平均场指数，或带有涨落修正的非平庸指数。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚">
+        
+          
+          <a href="../basic/data_process.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: 数据处理与误差估计">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                数据处理与误差估计
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="fss.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 有限尺寸标度">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                有限尺寸标度
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="http://tensofermi.github.io/" target="_blank" rel="noopener" title="tensofermi.github.io" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.97 2.59a1.5 1.5 0 0 0-1.94 0l-7.5 6.363A1.5 1.5 0 0 0 3 10.097V19.5A1.5 1.5 0 0 0 4.5 21h4.75a.75.75 0 0 0 .75-.75V14h4v6.25c0 .414.336.75.75.75h4.75a1.5 1.5 0 0 0 1.5-1.5v-9.403a1.5 1.5 0 0 0-.53-1.144z"></path></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="../javascripts/mathjax/es5/tex-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": false, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "none"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
