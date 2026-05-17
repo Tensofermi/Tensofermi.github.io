@@ -1,0 +1,1688 @@
+<!DOCTYPE html><html lang="zh" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="index.html">
+      
+      
+        <link rel="next" href="model_architecture.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>从薛定谔方程到 NNQS - Neural Network Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#nnqs" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="index.html" title="Neural Network Notes" class="md-header__button md-logo" aria-label="Neural Network Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Neural Network Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              从薛定谔方程到 NNQS
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至深色模式" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换至深色模式" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至浅色模式" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至浅色模式" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Neural Network Notes" class="md-nav__button md-logo" aria-label="Neural Network Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+
+    </a>
+    Neural Network Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NNQS 主线
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    NNQS 主线
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    从薛定谔方程到 NNQS
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="from_schrodinger_to_nnqs.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    从薛定谔方程到 NNQS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        定态方程
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#occupation-bitstring-basis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Occupation Bitstring Basis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        维度困难
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        变分原理
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nnqs_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NNQS 表示
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        自回归振幅
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相位
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-energy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local Energy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#counts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        采样与 Counts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vmc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VMC 梯度
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        代码总结构
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阅读建议
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一句话总结
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="model_architecture.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模型结构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="vmc_training.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VMC 训练
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="Transformer/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Transformer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Transformer/tokenization_embedding.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Token、Embedding 与 Shape
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Transformer/position_encoding.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    位置信息
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Transformer/attention.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Attention 机制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Transformer/encoder.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Encoder 的基本结构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Transformer/decoder.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decoder 的基本结构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Transformer/kv_cache.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KV Cache
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Transformer/training.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    训练目标与 Mask
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Transformer/transformer_nnqs.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer 与 NNQS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工程导读
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    工程导读
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="code_walkthrough.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    代码导读
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="formula_cheatsheet.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    公式速查
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="verification.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    正确性验证
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        定态方程
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#occupation-bitstring-basis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Occupation Bitstring Basis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        维度困难
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        变分原理
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nnqs_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NNQS 表示
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        自回归振幅
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相位
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-energy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local Energy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#counts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        采样与 Counts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vmc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VMC 梯度
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        代码总结构
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阅读建议
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一句话总结
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="nnqs">从薛定谔方程到 NNQS<a class="headerlink" href="#nnqs" title="Permanent link">¶</a></h1>
+<p>NNQS 的核心问题来自定态薛定谔方程：</p>
+<div class="arithmatex">\[
+H|\Psi\rangle = E|\Psi\rangle .
+\]</div>
+<p>在数值计算中，这常常变成一个巨大 Hamiltonian 矩阵的最小本征值问题。神经网络量子态的想法是用一个可微函数 <span class="arithmatex">\(\psi_\theta(x)\)</span> 表示本征向量分量，再用变分 Monte Carlo 估计能量和梯度。</p>
+<p>对应到教学版程序：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>物理问题        H |Psi&gt; = E |Psi&gt;
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>矩阵语言        求 Hamiltonian 最小本征值
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>basis 标签      occupation bitstring x
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>NNQS 表示       psi_theta(x)
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>VMC 估计        sample x -&gt; E_loc(x) -&gt; energy/gradient
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>代码流程        state -&gt; model -&gt; sampler -&gt; hamiltonian -&gt; trainer
+</code></pre></div>
+<h2 id="_1">定态方程<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
+<p>含时薛定谔方程为：</p>
+<div class="arithmatex">\[
+i\hbar{\partial\over\partial t}|\Psi(t)\rangle
+  = H|\Psi(t)\rangle .
+\]</div>
+<p>许多电子结构计算关心定态，尤其是能量最低的基态。定态问题写作：</p>
+<div class="arithmatex">\[
+H|\Psi\rangle = E|\Psi\rangle .
+\]</div>
+<p>这就是线性代数中的本征值问题。<span class="arithmatex">\(E\)</span> 是能量本征值，<span class="arithmatex">\(|\Psi\rangle\)</span> 是对应的波函数；基态能量 <span class="arithmatex">\(E_0\)</span> 是最小本征值。</p>
+<p>如果选定一组 basis <span class="arithmatex">\(\{|x\rangle\}\)</span>，波函数可以展开为：</p>
+<div class="arithmatex">\[
+|\Psi\rangle = \sum_x \psi(x)|x\rangle .
+\]</div>
+<p>代回定态方程得到：</p>
+<div class="arithmatex">\[
+\sum_{x'}H_{xx'}\psi(x') = E\psi(x),
+\qquad
+H_{xx'}=\langle x|H|x'\rangle .
+\]</div>
+<p>于是物理问题落成了矩阵问题：求矩阵 <span class="arithmatex">\(H\)</span> 的最小本征值和本征向量。</p>
+<h2 id="occupation-bitstring-basis">Occupation Bitstring Basis<a class="headerlink" href="#occupation-bitstring-basis" title="Permanent link">¶</a></h2>
+<p>电子结构问题先选一组 spin orbital。每个 spin orbital 只能空着或被占据，因此一个 many-body basis state 可以写成 occupation bitstring：</p>
+<div class="arithmatex">\[
+x = [0,1,1,0,0,1,\ldots].
+\]</div>
+<p>在二次量子化语言中，Hamiltonian 常写为：</p>
+<div class="arithmatex">\[
+H
+= \sum_{pq}h_{pq}a_p^\dagger a_q
++ {1\over 2}\sum_{pqrs}h_{pqrs}
+  a_p^\dagger a_q^\dagger a_r a_s .
+\]</div>
+<p>这里 <span class="arithmatex">\(a_p^\dagger\)</span> 和 <span class="arithmatex">\(a_p\)</span> 分别创建、湮灭第 <span class="arithmatex">\(p\)</span> 个 spin orbital 上的电子。选定 basis 后，occupation bitstring 就成为矩阵行列的标签。</p>
+<p>教学版采用的 qubit 顺序为：</p>
+<div class="arithmatex">\[
+[\alpha_0,\beta_0,\alpha_1,\beta_1,\ldots].
+\]</div>
+<p>例如：</p>
+<div class="arithmatex">\[
+[1,0,0,1]
+\]</div>
+<p>表示 <span class="arithmatex">\(\alpha_0\)</span> 占据、<span class="arithmatex">\(\beta_1\)</span> 占据，其余为空。</p>
+<p>如果有 <span class="arithmatex">\(M\)</span> 个 spin orbital，完整 Fock space 维度为：</p>
+<div class="arithmatex">\[
+2^M .
+\]</div>
+<p>固定电子数 <span class="arithmatex">\(N\)</span> 后，维度降为：</p>
+<div class="arithmatex">\[
+{M\choose N}.
+\]</div>
+<p>如果进一步固定 <span class="arithmatex">\(\alpha,\beta\)</span> 电子数：</p>
+<div class="arithmatex">\[
+{M/2\choose N_\alpha}{M/2\choose N_\beta}.
+\]</div>
+<p>这解释了 <code>state.py</code> 为什么要处理 <code>n_alpha</code>、<code>n_beta</code> 和 electron conservation mask。</p>
+<h2 id="_2">维度困难<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<p>小体系可以显式构造 Hamiltonian 矩阵并对角化：</p>
+<div class="arithmatex">\[
+H\psi = E\psi .
+\]</div>
+<p>但 Hilbert space 维度随 orbital 数组合爆炸。例如：</p>
+<div class="arithmatex">\[
+{60\choose 30}\sim 10^{17}.
+\]</div>
+<p>这意味着：</p>
+<ul>
+<li>波函数向量 <span class="arithmatex">\(\psi(x)\)</span> 无法完整存储。</li>
+<li>Hamiltonian 矩阵更无法显式存储。</li>
+<li>精确对角化只能处理很小的 active space。</li>
+</ul>
+<p>所以需要一个压缩表示：给定 state <span class="arithmatex">\(x\)</span>，能按需计算 <span class="arithmatex">\(\psi(x)\)</span>，同时避免保存完整向量。</p>
+<h2 id="_3">变分原理<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<p>变分原理给出：</p>
+<div class="arithmatex">\[
+E[\psi]
+= {\langle\psi|H|\psi\rangle\over\langle\psi|\psi\rangle}
+\ge E_0 .
+\]</div>
+<p>只要给出一个合法的候选波函数，就可以算出一个基态能量上界。求基态可以转化成优化问题：</p>
+<div class="arithmatex">\[
+\min_\theta
+E[\psi_\theta]
+=
+\min_\theta
+{\langle\psi_\theta|H|\psi_\theta\rangle
+\over
+\langle\psi_\theta|\psi_\theta\rangle}.
+\]</div>
+<p>NNQS 把候选波函数写成神经网络：</p>
+<div class="arithmatex">\[
+x \mapsto \psi_\theta(x).
+\]</div>
+<p>这样，模型参数 <span class="arithmatex">\(\theta\)</span> 替代完整的波函数向量成为优化对象。</p>
+<h2 id="nnqs_1">NNQS 表示<a class="headerlink" href="#nnqs_1" title="Permanent link">¶</a></h2>
+<p>教学版使用复波函数：</p>
+<div class="arithmatex">\[
+\psi_\theta(x)
+  = \exp(\log A_\theta(x))\exp(i\phi_\theta(x)).
+\]</div>
+<p>其中：</p>
+<ul>
+<li><code>AmplitudeTransformer</code> 输出 <span class="arithmatex">\(\log A_\theta(x)\)</span>。</li>
+<li><code>PhaseMLP</code> 输出 <span class="arithmatex">\(\phi_\theta(x)\)</span>。</li>
+<li><code>NeuralQuantumState.forward(states)</code> 返回 <code>log_amp</code>、<code>phase</code>、<code>psi</code>。</li>
+</ul>
+<p>代码接口为：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">out</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">log_amp</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="s2">"log_amp"</span><span class="p">]</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">phase</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="s2">"phase"</span><span class="p">]</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">psi</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="s2">"psi"</span><span class="p">]</span>
+</code></pre></div>
+<p>对应公式：</p>
+<div class="arithmatex">\[
+\psi_\theta(x)
+  = \exp(\mathrm{log\_amp}(x))
+    \exp(i\,\mathrm{phase}(x)).
+\]</div>
+<h2 id="_4">自回归振幅<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
+<p>VMC 需要从概率分布中采样：</p>
+<div class="arithmatex">\[
+p_\theta(x)
+  = {|\psi_\theta(x)|^2\over\sum_{x'}|\psi_\theta(x')|^2}.
+\]</div>
+<p>教学版把 bitstring 按 spatial orbital 合成 token：</p>
+<table>
+<thead>
+<tr>
+<th>pair</th>
+<th style="text-align: right;">token</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(00\)</span></td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(10\)</span></td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(01\)</span></td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(11\)</span></td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+<p>自回归模型写出联合概率：</p>
+<div class="arithmatex">\[
+P_\theta(x)
+  = \prod_i P_\theta(t_i\mid t_{&lt;i}).
+\]</div>
+<p>取对数：</p>
+<div class="arithmatex">\[
+\log P_\theta(x)
+  = \sum_i \log P_\theta(t_i\mid t_{&lt;i}).
+\]</div>
+<p>由于采样概率等于模方：</p>
+<div class="arithmatex">\[
+P_\theta(x)=|\psi_\theta(x)|^2
+  = \exp(2\log A_\theta(x)),
+\]</div>
+<p>振幅部分定义为：</p>
+<div class="arithmatex">\[
+\log A_\theta(x)
+  = {1\over 2}\sum_i\log P_\theta(t_i\mid t_{&lt;i}).
+\]</div>
+<p>这个结构让 amplitude 可以直接逐 token 采样，并自然给出 normalized probability。</p>
+<h2 id="_5">相位<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
+<p>相位不影响 <span class="arithmatex">\(x\)</span> 被采样到的概率，因为：</p>
+<div class="arithmatex">\[
+|\exp(\log A+i\phi)|^2=\exp(2\log A).
+\]</div>
+<p>但 local energy 里会出现：</p>
+<div class="arithmatex">\[
+{\psi_\theta(x')\over\psi_\theta(x)}.
+\]</div>
+<p>当 Hamiltonian 连接不同 basis state 时，相位决定不同贡献的相干叠加。教学版用 <code>PhaseMLP</code> 直接读取完整 bitstring，输出一个实数相位：</p>
+<div class="arithmatex">\[
+\phi_\theta(x)=\mathrm{PhaseMLP}(x).
+\]</div>
+<h2 id="local-energy">Local Energy<a class="headerlink" href="#local-energy" title="Permanent link">¶</a></h2>
+<p>能量期望为：</p>
+<div class="arithmatex">\[
+E_\theta
+  = {\sum_{xx'}\psi_\theta(x)^*H_{xx'}\psi_\theta(x')
+     \over
+     \sum_x |\psi_\theta(x)|^2}.
+\]</div>
+<p>整理成采样友好的形式：</p>
+<div class="arithmatex">\[
+E_\theta
+  = \sum_x p_\theta(x)E_{\rm loc}(x),
+\]</div>
+<p>其中：</p>
+<div class="arithmatex">\[
+E_{\rm loc}(x)
+  = \sum_{x'}H_{xx'}{\psi_\theta(x')\over\psi_\theta(x)}.
+\]</div>
+<p>这个公式很重要：对采样到的 <span class="arithmatex">\(x\)</span>，只需要找出 Hamiltonian 能连接到哪些 <span class="arithmatex">\(x'\)</span>，再调用模型计算 <span class="arithmatex">\(\psi_\theta(x')\)</span> 和 <span class="arithmatex">\(\psi_\theta(x)\)</span>。</p>
+<p>如果 Hamiltonian 是 Pauli string 之和：</p>
+<div class="arithmatex">\[
+H = \sum_k c_kP_k,
+\]</div>
+<p>每个 <span class="arithmatex">\(P_k\)</span> 作用到 bitstring 后只产生一个 connected state 以及一个矩阵元因子。<code>ExactHamiltonian</code> 正是在逐项执行这件事。</p>
+<h2 id="counts">采样与 Counts<a class="headerlink" href="#counts" title="Permanent link">¶</a></h2>
+<p>采样 <span class="arithmatex">\(10^5\)</span> 次时，很多 state 会重复出现。VMC 估计只需要知道每个 unique state 出现了几次，所以采样器返回：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>unique_states, counts, psi_values
+</code></pre></div>
+<p>权重为：</p>
+<div class="arithmatex">\[
+w(x) = {\mathrm{count}(x)\over\sum_{x'}\mathrm{count}(x')}.
+\]</div>
+<p>能量估计写成：</p>
+<div class="arithmatex">\[
+E_{\rm mean}
+  = \sum_x w(x)E_{\rm loc}(x).
+\]</div>
+<p>教学版采样器还在每一步使用 restricted electron mask，保证最终 bitstring 满足固定的 <span class="arithmatex">\(N_\alpha\)</span> 和 <span class="arithmatex">\(N_\beta\)</span>。</p>
+<h2 id="vmc">VMC 梯度<a class="headerlink" href="#vmc" title="Permanent link">¶</a></h2>
+<p>目标是最小化：</p>
+<div class="arithmatex">\[
+E(\theta)
+  = {\langle\psi_\theta|H|\psi_\theta\rangle
+     \over
+     \langle\psi_\theta|\psi_\theta\rangle}.
+\]</div>
+<p>VMC 梯度可以写成：</p>
+<div class="arithmatex">\[
+\nabla_\theta E
+  = 2\,\mathrm{Re}\left[
+      \left\langle
+      (E_{\rm loc}(x)-E_{\rm mean})
+      \nabla_\theta\log\psi_\theta(x)^*
+      \right\rangle_{p_\theta}
+    \right].
+\]</div>
+<p>教学版构造一个 proxy loss：</p>
+<div class="arithmatex">\[
+L_{\rm proxy}
+  = 2\,\mathrm{Re}\left[
+      \sum_x w(x)\,
+      \overline{\log\psi_\theta(x)}
+      (E_{\rm loc}(x)-E_{\rm mean})
+    \right].
+\]</div>
+<p>对这个 proxy 调用 <code>backward()</code>，PyTorch 就会把 VMC 梯度写入模型参数。</p>
+<h2 id="_6">代码总结构<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
+<p>整个程序可以按物理概念对应到模块：</p>
+<table>
+<thead>
+<tr>
+<th>物理概念</th>
+<th>代码模块</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>occupation basis</td>
+<td><code>state.py</code></td>
+<td>bitstring、token、电子数约束</td>
+</tr>
+<tr>
+<td>波函数 ansatz</td>
+<td><code>models.py</code></td>
+<td><code>AmplitudeTransformer</code> + <code>PhaseMLP</code></td>
+</tr>
+<tr>
+<td>(</td>
+<td>\psi</td>
+<td>^2) 采样</td>
+</tr>
+<tr>
+<td>Hamiltonian</td>
+<td><code>hamiltonian.py</code></td>
+<td>local energy</td>
+</tr>
+<tr>
+<td>变分优化</td>
+<td><code>trainer.py</code></td>
+<td>energy mean、loss proxy、optimizer</td>
+</tr>
+<tr>
+<td>实验配置</td>
+<td><code>config.py</code></td>
+<td>YAML 到 dataclass</td>
+</tr>
+<tr>
+<td>命令行</td>
+<td><code>cli/train.py</code></td>
+<td>训练入口</td>
+</tr>
+</tbody>
+</table>
+<p>一轮训练可以压缩为：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>sample states
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  -&gt; evaluate local energies
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  -&gt; estimate energy mean
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  -&gt; build VMC proxy loss
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>  -&gt; backward and optimizer.step
+</code></pre></div>
+<h2 id="_7">阅读建议<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
+<p>初读代码可以按这个顺序：</p>
+<ol>
+<li><code>state.py</code>：先确认 bitstring 和 token 表示。</li>
+<li><code>models.py</code>：看 <code>log_amp</code>、<code>phase</code>、<code>psi</code> 如何生成。</li>
+<li><code>sampling.py</code>：看自回归采样和 counts。</li>
+<li><code>hamiltonian.py</code>：看 local energy。</li>
+<li><code>trainer.py</code>：看一轮训练如何串联。</li>
+<li><code>cli/train.py</code>：看命令行如何进入 trainer。</li>
+</ol>
+<p>修改代码时，建议每次只动一条链路，并同步补对应测试：</p>
+<table>
+<thead>
+<tr>
+<th>修改对象</th>
+<th>优先测试</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>模型</td>
+<td><code>tests/test_models.py</code>、<code>tests/test_sampling.py</code></td>
+</tr>
+<tr>
+<td>采样</td>
+<td><code>tests/test_sampling.py</code>、trainer smoke</td>
+</tr>
+<tr>
+<td>Hamiltonian</td>
+<td><code>tests/test_hamiltonian.py</code>、CPU CLI smoke</td>
+</tr>
+<tr>
+<td>训练公式</td>
+<td><code>tests/test_trainer.py</code>、CPU/GPU smoke</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_8">一句话总结<a class="headerlink" href="#_8" title="Permanent link">¶</a></h2>
+<p>NNQS+VMC 的图像是：</p>
+<div class="arithmatex">\[
+\text{用神经网络按需计算 }\psi_\theta(x),
+\quad
+\text{用采样估计 }E_\theta\text{ 和 }\nabla_\theta E,
+\quad
+\text{通过变分优化逼近基态。}
+\]</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚">
+        
+          
+          <a href="index.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: 概述">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                概述
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="model_architecture.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 模型结构">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                模型结构
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="http://tensofermi.github.io/" target="_blank" rel="noopener" title="tensofermi.github.io" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.97 2.59a1.5 1.5 0 0 0-1.94 0l-7.5 6.363A1.5 1.5 0 0 0 3 10.097V19.5A1.5 1.5 0 0 0 4.5 21h4.75a.75.75 0 0 0 .75-.75V14h4v6.25c0 .414.336.75.75.75h4.75a1.5 1.5 0 0 0 1.5-1.5v-9.403a1.5 1.5 0 0 0-.53-1.144z"></path></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="javascripts/mathjax.js"></script>
+      
+        <script src="javascripts/mathjax/es5/tex-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": false, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "none"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

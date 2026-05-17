@@ -1,7 +1,4 @@
-
-<!doctype html>
-<html lang="zh" class="no-js">
-  <head>
+<!DOCTYPE html><html lang="zh" class="no-js"><head>
     
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -15,19 +12,22 @@
         <link rel="next" href="edit_distance_problem.html">
       
       
+        
+      
+      
       <link rel="icon" href="../logo/main.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>14.5   完全背包问题 - Computer Science</title>
+        <title>14.5 &nbsp; 完全背包问题 - Computer Science</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.6543a935.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -40,23 +40,23 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
     
     
-    
-   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-    html.glightbox-open { overflow: initial; height: 100%; }
-    .gslide-title { margin-top: 0px; user-select: text; }
-    .gslide-desc { color: #666; user-select: text; }
-    .gslide-image img { background: white; }
-    .gscrollbar-fixer { padding-right: 15px; }
-    .gdesc-inner { font-size: 0.75rem; }
-    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
   
   
     
@@ -98,7 +98,7 @@
     </a>
     <label class="md-header__button md-icon" for="__drawer">
       
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -123,20 +123,20 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换至深色模式"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至深色模式" type="radio" name="__palette" id="__palette_0">
     
-      <label class="md-header__button md-icon" title="切换至深色模式" for="__palette_1" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+      <label class="md-header__button md-icon" title="切换至深色模式" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
       </label>
     
   
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换至浅色模式"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至浅色模式" type="radio" name="__palette" id="__palette_1">
     
-      <label class="md-header__button md-icon" title="切换至浅色模式" for="__palette_0" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+      <label class="md-header__button md-icon" title="切换至浅色模式" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
       </label>
     
   
@@ -144,22 +144,10 @@
       
     
     
-      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
     
     
-    
-      <div class="md-header__source">
-        <a href="https://github.com/krahets/hello-algo" title="前往仓库" class="md-source" data-md-component="source">
-  <div class="md-source__icon md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
-  </div>
-  <div class="md-source__repository">
-    krahets/hello-algo
-  </div>
-</a>
-      </div>
     
   </nav>
   
@@ -177,7 +165,7 @@
           
             
               
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -194,19 +182,7 @@
     Computer Science
   </label>
   
-    <div class="md-nav__source">
-      <a href="https://github.com/krahets/hello-algo" title="前往仓库" class="md-source" data-md-component="source">
-  <div class="md-source__icon md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
-  </div>
-  <div class="md-source__repository">
-    krahets/hello-algo
-  </div>
-</a>
-    </div>
-  
-  <ul class="md-nav__list" data-md-scrollfix>
+  <ul class="md-nav__list" data-md-scrollfix="">
     
       
       
@@ -221,6 +197,7 @@
           
         
       
+    
     
     
     
@@ -228,17 +205,23 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1">
         
-          
           
           <div class="md-nav__link md-nav__container">
             <a href="../index.html" class="md-nav__link ">
               
   
+  
   <span class="md-ellipsis">
+    
+  
     概述
+  
+
+    
   </span>
+  
   
 
             </a>
@@ -248,9 +231,13 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_1">
             <span class="md-nav__icon md-icon"></span>
-            概述
+            
+  
+    概述
+  
+
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          <ul class="md-nav__list" data-md-scrollfix="">
             
               
             
@@ -283,21 +270,28 @@
     
     
     
+    
     <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
         
-          
           
           <div class="md-nav__link md-nav__container">
             <a href="../chapter_introduction/index.html" class="md-nav__link ">
               
   
+  
   <span class="md-ellipsis">
+    
+  
     第 1 章 &nbsp; 初识算法
+  
+
+    
   </span>
+  
   
 
             </a>
@@ -312,9 +306,13 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
-            第 1 章 &nbsp; 初识算法
+            
+  
+    第 1 章 &nbsp; 初识算法
+  
+
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          <ul class="md-nav__list" data-md-scrollfix="">
             
               
             
@@ -328,9 +326,16 @@
       <a href="../chapter_introduction/algorithms_are_everywhere.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     1.1 &nbsp; 算法无处不在
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -349,9 +354,16 @@
       <a href="../chapter_introduction/what_is_dsa.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     1.2 &nbsp; 算法是什么
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -370,9 +382,16 @@
       <a href="../chapter_introduction/summary.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     1.3 &nbsp; 小结
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -414,21 +433,28 @@
     
     
     
+    
     <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
         
-          
           
           <div class="md-nav__link md-nav__container">
             <a href="../chapter_computational_complexity/index.html" class="md-nav__link ">
               
   
+  
   <span class="md-ellipsis">
+    
+  
     第 2 章 &nbsp; 复杂度分析
+  
+
+    
   </span>
+  
   
 
             </a>
@@ -443,9 +469,13 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
-            第 2 章 &nbsp; 复杂度分析
+            
+  
+    第 2 章 &nbsp; 复杂度分析
+  
+
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          <ul class="md-nav__list" data-md-scrollfix="">
             
               
             
@@ -459,9 +489,16 @@
       <a href="../chapter_computational_complexity/performance_evaluation.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     2.1 &nbsp; 算法效率评估
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -480,9 +517,16 @@
       <a href="../chapter_computational_complexity/iteration_and_recursion.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     2.2 &nbsp; 迭代与递归
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -501,9 +545,16 @@
       <a href="../chapter_computational_complexity/time_complexity.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     2.3 &nbsp; 时间复杂度
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -522,9 +573,16 @@
       <a href="../chapter_computational_complexity/space_complexity.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     2.4 &nbsp; 空间复杂度
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -543,9 +601,16 @@
       <a href="../chapter_computational_complexity/summary.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     2.5 &nbsp; 小结
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -587,21 +652,28 @@
     
     
     
+    
     <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
         
-          
           
           <div class="md-nav__link md-nav__container">
             <a href="../chapter_data_structure/index.html" class="md-nav__link ">
               
   
+  
   <span class="md-ellipsis">
+    
+  
     第 3 章 &nbsp; 数据结构
+  
+
+    
   </span>
+  
   
 
             </a>
@@ -616,9 +688,13 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            第 3 章 &nbsp; 数据结构
+            
+  
+    第 3 章 &nbsp; 数据结构
+  
+
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          <ul class="md-nav__list" data-md-scrollfix="">
             
               
             
@@ -632,9 +708,16 @@
       <a href="../chapter_data_structure/classification_of_data_structure.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     3.1 &nbsp; 数据结构分类
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -653,9 +736,16 @@
       <a href="../chapter_data_structure/basic_data_types.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     3.2 &nbsp; 基本数据类型
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -674,9 +764,16 @@
       <a href="../chapter_data_structure/number_encoding.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     3.3 &nbsp; 数字编码 *
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -695,9 +792,16 @@
       <a href="../chapter_data_structure/character_encoding.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     3.4 &nbsp; 字符编码 *
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -716,9 +820,16 @@
       <a href="../chapter_data_structure/summary.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     3.5 &nbsp; 小结
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -760,21 +871,28 @@
     
     
     
+    
     <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
         
-          
           
           <div class="md-nav__link md-nav__container">
             <a href="../chapter_array_and_linkedlist/index.html" class="md-nav__link ">
               
   
+  
   <span class="md-ellipsis">
+    
+  
     第 4 章 &nbsp; 数组与链表
+  
+
+    
   </span>
+  
   
 
             </a>
@@ -789,9 +907,13 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
-            第 4 章 &nbsp; 数组与链表
+            
+  
+    第 4 章 &nbsp; 数组与链表
+  
+
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          <ul class="md-nav__list" data-md-scrollfix="">
             
               
             
@@ -805,9 +927,16 @@
       <a href="../chapter_array_and_linkedlist/array.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     4.1 &nbsp; 数组
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -826,9 +955,16 @@
       <a href="../chapter_array_and_linkedlist/linked_list.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     4.2 &nbsp; 链表
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -847,9 +983,16 @@
       <a href="../chapter_array_and_linkedlist/list.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     4.3 &nbsp; 列表
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -868,9 +1011,16 @@
       <a href="../chapter_array_and_linkedlist/ram_and_cache.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     4.4 &nbsp; 内存与缓存 *
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -889,9 +1039,16 @@
       <a href="../chapter_array_and_linkedlist/summary.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     4.5 &nbsp; 小结
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -931,21 +1088,28 @@
     
     
     
+    
     <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
         
-          
           
           <div class="md-nav__link md-nav__container">
             <a href="../chapter_stack_and_queue/index.html" class="md-nav__link ">
               
   
+  
   <span class="md-ellipsis">
+    
+  
     第 5 章 &nbsp; 栈与队列
+  
+
+    
   </span>
+  
   
 
             </a>
@@ -960,9 +1124,13 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
-            第 5 章 &nbsp; 栈与队列
+            
+  
+    第 5 章 &nbsp; 栈与队列
+  
+
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          <ul class="md-nav__list" data-md-scrollfix="">
             
               
             
@@ -976,9 +1144,16 @@
       <a href="../chapter_stack_and_queue/stack.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     5.1 &nbsp; 栈
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -997,9 +1172,16 @@
       <a href="../chapter_stack_and_queue/queue.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     5.2 &nbsp; 队列
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1018,9 +1200,16 @@
       <a href="../chapter_stack_and_queue/deque.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     5.3 &nbsp; 双向队列
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1039,9 +1228,16 @@
       <a href="../chapter_stack_and_queue/summary.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     5.4 &nbsp; 小结
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1081,21 +1277,28 @@
     
     
     
+    
     <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
         
-          
           
           <div class="md-nav__link md-nav__container">
             <a href="../chapter_hashing/index.html" class="md-nav__link ">
               
   
+  
   <span class="md-ellipsis">
+    
+  
     第 6 章 &nbsp; 哈希表
+  
+
+    
   </span>
+  
   
 
             </a>
@@ -1110,9 +1313,13 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
-            第 6 章 &nbsp; 哈希表
+            
+  
+    第 6 章 &nbsp; 哈希表
+  
+
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          <ul class="md-nav__list" data-md-scrollfix="">
             
               
             
@@ -1126,9 +1333,16 @@
       <a href="../chapter_hashing/hash_map.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     6.1 &nbsp; 哈希表
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1147,9 +1361,16 @@
       <a href="../chapter_hashing/hash_collision.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     6.2 &nbsp; 哈希冲突
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1168,9 +1389,16 @@
       <a href="../chapter_hashing/hash_algorithm.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     6.3 &nbsp; 哈希算法
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1189,9 +1417,16 @@
       <a href="../chapter_hashing/summary.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     6.4 &nbsp; 小结
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1235,21 +1470,28 @@
     
     
     
+    
     <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
         
-          
           
           <div class="md-nav__link md-nav__container">
             <a href="../chapter_tree/index.html" class="md-nav__link ">
               
   
+  
   <span class="md-ellipsis">
+    
+  
     第 7 章 &nbsp; 树
+  
+
+    
   </span>
+  
   
 
             </a>
@@ -1264,9 +1506,13 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
-            第 7 章 &nbsp; 树
+            
+  
+    第 7 章 &nbsp; 树
+  
+
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          <ul class="md-nav__list" data-md-scrollfix="">
             
               
             
@@ -1280,9 +1526,16 @@
       <a href="../chapter_tree/binary_tree.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     7.1 &nbsp; 二叉树
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1301,9 +1554,16 @@
       <a href="../chapter_tree/binary_tree_traversal.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     7.2 &nbsp; 二叉树遍历
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1322,9 +1582,16 @@
       <a href="../chapter_tree/array_representation_of_tree.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     7.3 &nbsp; 二叉树数组表示
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1343,9 +1610,16 @@
       <a href="../chapter_tree/binary_search_tree.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     7.4 &nbsp; 二叉搜索树
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1364,9 +1638,16 @@
       <a href="../chapter_tree/avl_tree.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     7.5 &nbsp; AVL 树 *
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1385,9 +1666,16 @@
       <a href="../chapter_tree/summary.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     7.6 &nbsp; 小结
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1427,21 +1715,28 @@
     
     
     
+    
     <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9">
         
-          
           
           <div class="md-nav__link md-nav__container">
             <a href="../chapter_heap/index.html" class="md-nav__link ">
               
   
+  
   <span class="md-ellipsis">
+    
+  
     第 8 章 &nbsp; 堆
+  
+
+    
   </span>
+  
   
 
             </a>
@@ -1456,9 +1751,13 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
-            第 8 章 &nbsp; 堆
+            
+  
+    第 8 章 &nbsp; 堆
+  
+
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          <ul class="md-nav__list" data-md-scrollfix="">
             
               
             
@@ -1472,9 +1771,16 @@
       <a href="../chapter_heap/heap.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     8.1 &nbsp; 堆
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1493,9 +1799,16 @@
       <a href="../chapter_heap/build_heap.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     8.2 &nbsp; 建堆操作
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1514,9 +1827,16 @@
       <a href="../chapter_heap/top_k.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     8.3 &nbsp; Top-k 问题
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1535,9 +1855,16 @@
       <a href="../chapter_heap/summary.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     8.4 &nbsp; 小结
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1577,21 +1904,28 @@
     
     
     
+    
     <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10">
         
-          
           
           <div class="md-nav__link md-nav__container">
             <a href="../chapter_graph/index.html" class="md-nav__link ">
               
   
+  
   <span class="md-ellipsis">
+    
+  
     第 9 章 &nbsp; 图
+  
+
+    
   </span>
+  
   
 
             </a>
@@ -1606,9 +1940,13 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_10">
             <span class="md-nav__icon md-icon"></span>
-            第 9 章 &nbsp; 图
+            
+  
+    第 9 章 &nbsp; 图
+  
+
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          <ul class="md-nav__list" data-md-scrollfix="">
             
               
             
@@ -1622,9 +1960,16 @@
       <a href="../chapter_graph/graph.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     9.1 &nbsp; 图
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1643,9 +1988,16 @@
       <a href="../chapter_graph/graph_operations.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     9.2 &nbsp; 图基础操作
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1664,9 +2016,16 @@
       <a href="../chapter_graph/graph_traversal.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     9.3 &nbsp; 图的遍历
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1685,9 +2044,16 @@
       <a href="../chapter_graph/summary.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     9.4 &nbsp; 小结
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1731,21 +2097,28 @@
     
     
     
+    
     <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11">
         
-          
           
           <div class="md-nav__link md-nav__container">
             <a href="../chapter_searching/index.html" class="md-nav__link ">
               
   
+  
   <span class="md-ellipsis">
+    
+  
     第 10 章 &nbsp; 搜索
+  
+
+    
   </span>
+  
   
 
             </a>
@@ -1760,9 +2133,13 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_11">
             <span class="md-nav__icon md-icon"></span>
-            第 10 章 &nbsp; 搜索
+            
+  
+    第 10 章 &nbsp; 搜索
+  
+
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          <ul class="md-nav__list" data-md-scrollfix="">
             
               
             
@@ -1776,9 +2153,16 @@
       <a href="../chapter_searching/binary_search.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     10.1 &nbsp; 二分查找
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1797,9 +2181,16 @@
       <a href="../chapter_searching/binary_search_insertion.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     10.2 &nbsp; 二分查找插入点
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1818,9 +2209,16 @@
       <a href="../chapter_searching/binary_search_edge.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     10.3 &nbsp; 二分查找边界
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1839,9 +2237,16 @@
       <a href="../chapter_searching/replace_linear_by_hashing.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     10.4 &nbsp; 哈希优化策略
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1860,9 +2265,16 @@
       <a href="../chapter_searching/searching_algorithm_revisited.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     10.5 &nbsp; 重识搜索算法
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1881,9 +2293,16 @@
       <a href="../chapter_searching/summary.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     10.6 &nbsp; 小结
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1937,21 +2356,28 @@
     
     
     
+    
     <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12">
         
-          
           
           <div class="md-nav__link md-nav__container">
             <a href="../chapter_sorting/index.html" class="md-nav__link ">
               
   
+  
   <span class="md-ellipsis">
+    
+  
     第 11 章 &nbsp; 排序
+  
+
+    
   </span>
+  
   
 
             </a>
@@ -1966,9 +2392,13 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_12">
             <span class="md-nav__icon md-icon"></span>
-            第 11 章 &nbsp; 排序
+            
+  
+    第 11 章 &nbsp; 排序
+  
+
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          <ul class="md-nav__list" data-md-scrollfix="">
             
               
             
@@ -1982,9 +2412,16 @@
       <a href="../chapter_sorting/sorting_algorithm.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     11.1 &nbsp; 排序算法
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2003,9 +2440,16 @@
       <a href="../chapter_sorting/selection_sort.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     11.2 &nbsp; 选择排序
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2024,9 +2468,16 @@
       <a href="../chapter_sorting/bubble_sort.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     11.3 &nbsp; 冒泡排序
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2045,9 +2496,16 @@
       <a href="../chapter_sorting/insertion_sort.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     11.4 &nbsp; 插入排序
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2066,9 +2524,16 @@
       <a href="../chapter_sorting/quick_sort.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     11.5 &nbsp; 快速排序
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2087,9 +2552,16 @@
       <a href="../chapter_sorting/merge_sort.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     11.6 &nbsp; 归并排序
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2108,9 +2580,16 @@
       <a href="../chapter_sorting/heap_sort.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     11.7 &nbsp; 堆排序
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2129,9 +2608,16 @@
       <a href="../chapter_sorting/bucket_sort.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     11.8 &nbsp; 桶排序
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2150,9 +2636,16 @@
       <a href="../chapter_sorting/counting_sort.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     11.9 &nbsp; 计数排序
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2171,9 +2664,16 @@
       <a href="../chapter_sorting/radix_sort.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     11.10 &nbsp; 基数排序
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2192,9 +2692,16 @@
       <a href="../chapter_sorting/summary.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     11.11 &nbsp; 小结
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2236,21 +2743,28 @@
     
     
     
+    
     <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13">
         
-          
           
           <div class="md-nav__link md-nav__container">
             <a href="../chapter_divide_and_conquer/index.html" class="md-nav__link ">
               
   
+  
   <span class="md-ellipsis">
+    
+  
     第 12 章 &nbsp; 分治
+  
+
+    
   </span>
+  
   
 
             </a>
@@ -2265,9 +2779,13 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_13">
             <span class="md-nav__icon md-icon"></span>
-            第 12 章 &nbsp; 分治
+            
+  
+    第 12 章 &nbsp; 分治
+  
+
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          <ul class="md-nav__list" data-md-scrollfix="">
             
               
             
@@ -2281,9 +2799,16 @@
       <a href="../chapter_divide_and_conquer/divide_and_conquer.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     12.1 &nbsp; 分治算法
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2302,9 +2827,16 @@
       <a href="../chapter_divide_and_conquer/binary_search_recur.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     12.2 &nbsp; 分治搜索策略
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2323,9 +2855,16 @@
       <a href="../chapter_divide_and_conquer/build_binary_tree_problem.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     12.3 &nbsp; 构建树问题
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2344,9 +2883,16 @@
       <a href="../chapter_divide_and_conquer/hanota_problem.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     12.4 &nbsp; 汉诺塔问题
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2365,9 +2911,16 @@
       <a href="../chapter_divide_and_conquer/summary.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     12.5 &nbsp; 小结
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2409,21 +2962,28 @@
     
     
     
+    
     <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14">
         
-          
           
           <div class="md-nav__link md-nav__container">
             <a href="../chapter_backtracking/index.html" class="md-nav__link ">
               
   
+  
   <span class="md-ellipsis">
+    
+  
     第 13 章 &nbsp; 回溯
+  
+
+    
   </span>
+  
   
 
             </a>
@@ -2438,9 +2998,13 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_14">
             <span class="md-nav__icon md-icon"></span>
-            第 13 章 &nbsp; 回溯
+            
+  
+    第 13 章 &nbsp; 回溯
+  
+
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          <ul class="md-nav__list" data-md-scrollfix="">
             
               
             
@@ -2454,9 +3018,16 @@
       <a href="../chapter_backtracking/backtracking_algorithm.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     13.1 &nbsp; 回溯算法
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2475,9 +3046,16 @@
       <a href="../chapter_backtracking/permutations_problem.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     13.2 &nbsp; 全排列问题
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2496,9 +3074,16 @@
       <a href="../chapter_backtracking/subset_sum_problem.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     13.3 &nbsp; 子集和问题
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2517,9 +3102,16 @@
       <a href="../chapter_backtracking/n_queens_problem.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     13.4 &nbsp; N 皇后问题
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2538,9 +3130,16 @@
       <a href="../chapter_backtracking/summary.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     13.5 &nbsp; 小结
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2588,21 +3187,28 @@
     
     
     
+    
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" checked="">
         
-          
           
           <div class="md-nav__link md-nav__container">
             <a href="index.html" class="md-nav__link ">
               
   
+  
   <span class="md-ellipsis">
+    
+  
     第 14 章 &nbsp; 动态规划
+  
+
+    
   </span>
+  
   
 
             </a>
@@ -2617,9 +3223,13 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_15">
             <span class="md-nav__icon md-icon"></span>
-            第 14 章 &nbsp; 动态规划
+            
+  
+    第 14 章 &nbsp; 动态规划
+  
+
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          <ul class="md-nav__list" data-md-scrollfix="">
             
               
             
@@ -2633,9 +3243,16 @@
       <a href="intro_to_dynamic_programming.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     14.1 &nbsp; 初探动态规划
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2654,9 +3271,16 @@
       <a href="dp_problem_features.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     14.2 &nbsp; DP 问题特性
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2675,9 +3299,16 @@
       <a href="dp_solution_pipeline.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     14.3 &nbsp; DP 解题思路
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2696,9 +3327,16 @@
       <a href="knapsack_problem.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     14.4 &nbsp; 0-1 背包问题
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2726,9 +3364,16 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
+  
   <span class="md-ellipsis">
+    
+  
     14.5 &nbsp; 完全背包问题
+  
+
+    
   </span>
+  
   
 
           <span class="md-nav__icon md-icon"></span>
@@ -2737,9 +3382,16 @@
       <a href="unbounded_knapsack_problem.html" class="md-nav__link md-nav__link--active">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     14.5 &nbsp; 完全背包问题
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2757,12 +3409,14 @@
       <span class="md-nav__icon md-icon"></span>
       目录
     </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      完全背包问题
+      
+        完全背包问题
+      
     </span>
   </a>
   
@@ -2772,7 +3426,9 @@
           <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      动态规划思路
+      
+        动态规划思路
+      
     </span>
   </a>
   
@@ -2781,7 +3437,9 @@
           <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      代码实现
+      
+        代码实现
+      
     </span>
   </a>
   
@@ -2790,7 +3448,9 @@
           <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      空间优化
+      
+        空间优化
+      
     </span>
   </a>
   
@@ -2804,7 +3464,9 @@
         <li class="md-nav__item">
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      零钱兑换问题
+      
+        零钱兑换问题
+      
     </span>
   </a>
   
@@ -2814,7 +3476,9 @@
           <li class="md-nav__item">
   <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      动态规划思路
+      
+        动态规划思路
+      
     </span>
   </a>
   
@@ -2823,7 +3487,9 @@
           <li class="md-nav__item">
   <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      代码实现
+      
+        代码实现
+      
     </span>
   </a>
   
@@ -2832,7 +3498,9 @@
           <li class="md-nav__item">
   <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
-      空间优化
+      
+        空间优化
+      
     </span>
   </a>
   
@@ -2846,7 +3514,9 @@
         <li class="md-nav__item">
   <a href="#ii" class="md-nav__link">
     <span class="md-ellipsis">
-      零钱兑换问题 II
+      
+        零钱兑换问题 II
+      
     </span>
   </a>
   
@@ -2856,7 +3526,9 @@
           <li class="md-nav__item">
   <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
-      动态规划思路
+      
+        动态规划思路
+      
     </span>
   </a>
   
@@ -2865,7 +3537,9 @@
           <li class="md-nav__item">
   <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
-      代码实现
+      
+        代码实现
+      
     </span>
   </a>
   
@@ -2874,7 +3548,9 @@
           <li class="md-nav__item">
   <a href="#_12" class="md-nav__link">
     <span class="md-ellipsis">
-      空间优化
+      
+        空间优化
+      
     </span>
   </a>
   
@@ -2904,9 +3580,16 @@
       <a href="edit_distance_problem.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     14.6 &nbsp; 编辑距离问题
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2925,9 +3608,16 @@
       <a href="summary.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     14.7 &nbsp; 小结
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2969,21 +3659,28 @@
     
     
     
+    
     <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16">
         
-          
           
           <div class="md-nav__link md-nav__container">
             <a href="../chapter_greedy/index.html" class="md-nav__link ">
               
   
+  
   <span class="md-ellipsis">
+    
+  
     第 15 章 &nbsp; 贪心
+  
+
+    
   </span>
+  
   
 
             </a>
@@ -2998,9 +3695,13 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_16">
             <span class="md-nav__icon md-icon"></span>
-            第 15 章 &nbsp; 贪心
+            
+  
+    第 15 章 &nbsp; 贪心
+  
+
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          <ul class="md-nav__list" data-md-scrollfix="">
             
               
             
@@ -3014,9 +3715,16 @@
       <a href="../chapter_greedy/greedy_algorithm.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     15.1 &nbsp; 贪心算法
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -3035,9 +3743,16 @@
       <a href="../chapter_greedy/fractional_knapsack_problem.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     15.2 &nbsp; 分数背包问题
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -3056,9 +3771,16 @@
       <a href="../chapter_greedy/max_capacity_problem.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     15.3 &nbsp; 最大容量问题
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -3077,9 +3799,16 @@
       <a href="../chapter_greedy/max_product_cutting_problem.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     15.4 &nbsp; 最大切分乘积问题
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -3098,15 +3827,88 @@
       <a href="../chapter_greedy/summary.html" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     15.5 &nbsp; 小结
+  
+
+    
   </span>
+  
   
 
       </a>
     </li>
   
 
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_17">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../chapter_reference/index.html" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"></path></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    参考资料
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_17">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    参考资料
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
               
             
           </ul>
@@ -3124,7 +3926,7 @@
             
             
               
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -3140,12 +3942,14 @@
       <span class="md-nav__icon md-icon"></span>
       目录
     </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      完全背包问题
+      
+        完全背包问题
+      
     </span>
   </a>
   
@@ -3155,7 +3959,9 @@
           <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      动态规划思路
+      
+        动态规划思路
+      
     </span>
   </a>
   
@@ -3164,7 +3970,9 @@
           <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      代码实现
+      
+        代码实现
+      
     </span>
   </a>
   
@@ -3173,7 +3981,9 @@
           <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      空间优化
+      
+        空间优化
+      
     </span>
   </a>
   
@@ -3187,7 +3997,9 @@
         <li class="md-nav__item">
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      零钱兑换问题
+      
+        零钱兑换问题
+      
     </span>
   </a>
   
@@ -3197,7 +4009,9 @@
           <li class="md-nav__item">
   <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      动态规划思路
+      
+        动态规划思路
+      
     </span>
   </a>
   
@@ -3206,7 +4020,9 @@
           <li class="md-nav__item">
   <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      代码实现
+      
+        代码实现
+      
     </span>
   </a>
   
@@ -3215,7 +4031,9 @@
           <li class="md-nav__item">
   <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
-      空间优化
+      
+        空间优化
+      
     </span>
   </a>
   
@@ -3229,7 +4047,9 @@
         <li class="md-nav__item">
   <a href="#ii" class="md-nav__link">
     <span class="md-ellipsis">
-      零钱兑换问题 II
+      
+        零钱兑换问题 II
+      
     </span>
   </a>
   
@@ -3239,7 +4059,9 @@
           <li class="md-nav__item">
   <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
-      动态规划思路
+      
+        动态规划思路
+      
     </span>
   </a>
   
@@ -3248,7 +4070,9 @@
           <li class="md-nav__item">
   <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
-      代码实现
+      
+        代码实现
+      
     </span>
   </a>
   
@@ -3257,7 +4081,9 @@
           <li class="md-nav__item">
   <a href="#_12" class="md-nav__link">
     <span class="md-ellipsis">
-      空间优化
+      
+        空间优化
+      
     </span>
   </a>
   
@@ -3278,156 +4104,309 @@
           
           
             <div class="md-content" data-md-component="content">
+              
               <article class="md-content__inner md-typeset">
                 
                   
 
-  
-  
 
 
-<script>
-MathJax = {
-  tex: {
-    inlineMath: [['$', '$']]
-  }
-};
-</script>
-
-<h1 id="_1">完全背包问题<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h1 id="_1">完全背包问题<a class="headerlink" href="#_1" title="Permanent link">¶</a></h1>
 <p>在本节中，我们先求解另一个常见的背包问题：完全背包，再了解它的一种特例：零钱兑换。</p>
-<h2 id="_2">完全背包问题<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">完全背包问题<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <div class="admonition question">
 <p class="admonition-title">Question</p>
-<p>给定 $n$ 个物品，第 $i$ 个物品的重量为 $wgt[i-1]$、价值为 $val[i-1]$ ，和一个容量为 $cap$ 的背包。<strong>每个物品可以重复选取</strong>，问在限定背包容量下能放入物品的最大价值。示例如下图所示。</p>
+<p>给定 <span class="arithmatex">\(n\)</span> 个物品，第 <span class="arithmatex">\(i\)</span> 个物品的重量为 <span class="arithmatex">\(wgt[i-1]\)</span>、价值为 <span class="arithmatex">\(val[i-1]\)</span> ，和一个容量为 <span class="arithmatex">\(cap\)</span> 的背包。<strong>每个物品可以重复选取</strong>，问在限定背包容量下能放入物品的最大价值。示例如下图所示。</p>
 </div>
-<p><a class="glightbox" href="unbounded_knapsack_problem.assets/unbounded_knapsack_example.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="完全背包问题的示例数据" src="unbounded_knapsack_problem.assets/unbounded_knapsack_example.png" /></a></p>
-<h3 id="_3">动态规划思路<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="unbounded_knapsack_problem.assets/unbounded_knapsack_example.png" data-desc-position="bottom"><img alt="完全背包问题的示例数据" src="unbounded_knapsack_problem.assets/unbounded_knapsack_example.png"></a></p>
+<h3 id="_3">动态规划思路<a class="headerlink" href="#_3" title="Permanent link">¶</a></h3>
 <p>完全背包问题和 0-1 背包问题非常相似，<strong>区别仅在于不限制物品的选择次数</strong>。</p>
 <ul>
-<li>在 0-1 背包问题中，每种物品只有一个，因此将物品 $i$ 放入背包后，只能从前 $i-1$ 个物品中选择。</li>
-<li>在完全背包问题中，每种物品的数量是无限的，因此将物品 $i$ 放入背包后，<strong>仍可以从前 $i$ 个物品中选择</strong>。</li>
+<li>在 0-1 背包问题中，每种物品只有一个，因此将物品 <span class="arithmatex">\(i\)</span> 放入背包后，只能从前 <span class="arithmatex">\(i-1\)</span> 个物品中选择。</li>
+<li>在完全背包问题中，每种物品的数量是无限的，因此将物品 <span class="arithmatex">\(i\)</span> 放入背包后，<strong>仍可以从前 <span class="arithmatex">\(i\)</span> 个物品中选择</strong>。</li>
 </ul>
-<p>在完全背包问题的规定下，状态 $[i, c]$ 的变化分为两种情况。</p>
+<p>在完全背包问题的规定下，状态 <span class="arithmatex">\([i, c]\)</span> 的变化分为两种情况。</p>
 <ul>
-<li><strong>不放入物品 $i$</strong> ：与 0-1 背包问题相同，转移至 $[i-1, c]$ 。</li>
-<li><strong>放入物品 $i$</strong> ：与 0-1 背包问题不同，转移至 $[i, c-wgt[i-1]]$ 。</li>
+<li><strong>不放入物品 <span class="arithmatex">\(i\)</span></strong> ：与 0-1 背包问题相同，转移至 <span class="arithmatex">\([i-1, c]\)</span> 。</li>
+<li><strong>放入物品 <span class="arithmatex">\(i\)</span></strong> ：与 0-1 背包问题不同，转移至 <span class="arithmatex">\([i, c-wgt[i-1]]\)</span> 。</li>
 </ul>
 <p>从而状态转移方程变为：</p>
-<p>$$
+<div class="arithmatex">\[
 dp[i, c] = \max(dp[i-1, c], dp[i, c - wgt[i-1]] + val[i-1])
-$$</p>
-<h3 id="_4">代码实现<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
-<p>对比两道题目的代码，状态转移中有一处从 $i-1$ 变为 $i$ ，其余完全一致：</p>
-<div class="highlight"><pre><span></span><code>[file]{unbounded_knapsack}-[class]{}-[func]{unbounded_knapsack_dp}
+\]</div>
+<h3 id="_4">代码实现<a class="headerlink" href="#_4" title="Permanent link">¶</a></h3>
+<p>对比两道题目的代码，状态转移中有一处从 <span class="arithmatex">\(i-1\)</span> 变为 <span class="arithmatex">\(i\)</span> ，其余完全一致：</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><span class="filename">unbounded_knapsack.py</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">unbounded_knapsack_dp</span><span class="p">(</span><span class="n">wgt</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">val</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">cap</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="sd">"""完全背包：动态规划"""</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">wgt</span><span class="p">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="c1"># 初始化 dp 表</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">dp</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">cap</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="c1"># 状态转移</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">cap</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>            <span class="k">if</span> <span class="n">wgt</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">c</span><span class="p">:</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>                <span class="c1"># 若超过背包容量，则不选物品 i</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>                <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">c</span><span class="p">]</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>            <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>                <span class="c1"># 不选和选物品 i 这两种方案的较大值</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>                <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">c</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">c</span> <span class="o">-</span> <span class="n">wgt</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">+</span> <span class="n">val</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">cap</span><span class="p">]</span>
 </code></pre></div>
-<h3 id="_5">空间优化<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
-<p>由于当前状态是从左边和上边的状态转移而来的，<strong>因此空间优化后应该对 $dp$ 表中的每一行进行正序遍历</strong>。</p>
+</div>
+</div>
+</div>
+<h3 id="_5">空间优化<a class="headerlink" href="#_5" title="Permanent link">¶</a></h3>
+<p>由于当前状态是从左边和上边的状态转移而来的，<strong>因此空间优化后应该对 <span class="arithmatex">\(dp\)</span> 表中的每一行进行正序遍历</strong>。</p>
 <p>这个遍历顺序与 0-1 背包正好相反。请借助下图来理解两者的区别。</p>
-<p>=== "&lt;1&gt;"
-    <a class="glightbox" href="unbounded_knapsack_problem.assets/unbounded_knapsack_dp_comp_step1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="完全背包问题在空间优化后的动态规划过程" src="unbounded_knapsack_problem.assets/unbounded_knapsack_dp_comp_step1.png" /></a></p>
-<p>=== "&lt;2&gt;"
-    <a class="glightbox" href="unbounded_knapsack_problem.assets/unbounded_knapsack_dp_comp_step2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="unbounded_knapsack_dp_comp_step2" src="unbounded_knapsack_problem.assets/unbounded_knapsack_dp_comp_step2.png" /></a></p>
-<p>=== "&lt;3&gt;"
-    <a class="glightbox" href="unbounded_knapsack_problem.assets/unbounded_knapsack_dp_comp_step3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="unbounded_knapsack_dp_comp_step3" src="unbounded_knapsack_problem.assets/unbounded_knapsack_dp_comp_step3.png" /></a></p>
-<p>=== "&lt;4&gt;"
-    <a class="glightbox" href="unbounded_knapsack_problem.assets/unbounded_knapsack_dp_comp_step4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="unbounded_knapsack_dp_comp_step4" src="unbounded_knapsack_problem.assets/unbounded_knapsack_dp_comp_step4.png" /></a></p>
-<p>=== "&lt;5&gt;"
-    <a class="glightbox" href="unbounded_knapsack_problem.assets/unbounded_knapsack_dp_comp_step5.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="unbounded_knapsack_dp_comp_step5" src="unbounded_knapsack_problem.assets/unbounded_knapsack_dp_comp_step5.png" /></a></p>
-<p>=== "&lt;6&gt;"
-    <a class="glightbox" href="unbounded_knapsack_problem.assets/unbounded_knapsack_dp_comp_step6.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="unbounded_knapsack_dp_comp_step6" src="unbounded_knapsack_problem.assets/unbounded_knapsack_dp_comp_step6.png" /></a></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:6"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><input id="__tabbed_2_3" name="__tabbed_2" type="radio"><input id="__tabbed_2_4" name="__tabbed_2" type="radio"><input id="__tabbed_2_5" name="__tabbed_2" type="radio"><input id="__tabbed_2_6" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">&lt;1&gt;</label><label for="__tabbed_2_2">&lt;2&gt;</label><label for="__tabbed_2_3">&lt;3&gt;</label><label for="__tabbed_2_4">&lt;4&gt;</label><label for="__tabbed_2_5">&lt;5&gt;</label><label for="__tabbed_2_6">&lt;6&gt;</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="unbounded_knapsack_problem.assets/unbounded_knapsack_dp_comp_step1.png" data-desc-position="bottom"><img alt="完全背包问题在空间优化后的动态规划过程" src="unbounded_knapsack_problem.assets/unbounded_knapsack_dp_comp_step1.png"></a></p>
+</div>
+<div class="tabbed-block">
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="unbounded_knapsack_problem.assets/unbounded_knapsack_dp_comp_step2.png" data-desc-position="bottom"><img alt="unbounded_knapsack_dp_comp_step2" src="unbounded_knapsack_problem.assets/unbounded_knapsack_dp_comp_step2.png"></a></p>
+</div>
+<div class="tabbed-block">
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="unbounded_knapsack_problem.assets/unbounded_knapsack_dp_comp_step3.png" data-desc-position="bottom"><img alt="unbounded_knapsack_dp_comp_step3" src="unbounded_knapsack_problem.assets/unbounded_knapsack_dp_comp_step3.png"></a></p>
+</div>
+<div class="tabbed-block">
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="unbounded_knapsack_problem.assets/unbounded_knapsack_dp_comp_step4.png" data-desc-position="bottom"><img alt="unbounded_knapsack_dp_comp_step4" src="unbounded_knapsack_problem.assets/unbounded_knapsack_dp_comp_step4.png"></a></p>
+</div>
+<div class="tabbed-block">
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="unbounded_knapsack_problem.assets/unbounded_knapsack_dp_comp_step5.png" data-desc-position="bottom"><img alt="unbounded_knapsack_dp_comp_step5" src="unbounded_knapsack_problem.assets/unbounded_knapsack_dp_comp_step5.png"></a></p>
+</div>
+<div class="tabbed-block">
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="unbounded_knapsack_problem.assets/unbounded_knapsack_dp_comp_step6.png" data-desc-position="bottom"><img alt="unbounded_knapsack_dp_comp_step6" src="unbounded_knapsack_problem.assets/unbounded_knapsack_dp_comp_step6.png"></a></p>
+</div>
+</div>
+</div>
 <p>代码实现比较简单，仅需将数组 <code>dp</code> 的第一维删除：</p>
-<div class="highlight"><pre><span></span><code>[file]{unbounded_knapsack}-[class]{}-[func]{unbounded_knapsack_dp_comp}
+<div class="tabbed-set tabbed-alternate" data-tabs="3:1"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio"><div class="tabbed-labels"><label for="__tabbed_3_1">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><span class="filename">unbounded_knapsack.py</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">unbounded_knapsack_dp_comp</span><span class="p">(</span><span class="n">wgt</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">val</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">cap</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="sd">"""完全背包：空间优化后的动态规划"""</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">wgt</span><span class="p">)</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="c1"># 初始化 dp 表</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">cap</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="c1"># 状态转移</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="c1"># 正序遍历</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">cap</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>            <span class="k">if</span> <span class="n">wgt</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">c</span><span class="p">:</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>                <span class="c1"># 若超过背包容量，则不选物品 i</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>                <span class="n">dp</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>            <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>                <span class="c1"># 不选和选物品 i 这两种方案的较大值</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>                <span class="n">dp</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">c</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">c</span> <span class="o">-</span> <span class="n">wgt</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">+</span> <span class="n">val</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">cap</span><span class="p">]</span>
 </code></pre></div>
-<h2 id="_6">零钱兑换问题<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+</div>
+</div>
+</div>
+<h2 id="_6">零钱兑换问题<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
 <p>背包问题是一大类动态规划问题的代表，其拥有很多变种，例如零钱兑换问题。</p>
 <div class="admonition question">
 <p class="admonition-title">Question</p>
-<p>给定 $n$ 种硬币，第 $i$ 种硬币的面值为 $coins[i - 1]$ ，目标金额为 $amt$ ，<strong>每种硬币可以重复选取</strong>，问能够凑出目标金额的最少硬币数量。如果无法凑出目标金额，则返回 $-1$ 。示例如下图所示。</p>
+<p>给定 <span class="arithmatex">\(n\)</span> 种硬币，第 <span class="arithmatex">\(i\)</span> 种硬币的面值为 <span class="arithmatex">\(coins[i - 1]\)</span> ，目标金额为 <span class="arithmatex">\(amt\)</span> ，<strong>每种硬币可以重复选取</strong>，问能够凑出目标金额的最少硬币数量。如果无法凑出目标金额，则返回 <span class="arithmatex">\(-1\)</span> 。示例如下图所示。</p>
 </div>
-<p><a class="glightbox" href="unbounded_knapsack_problem.assets/coin_change_example.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="零钱兑换问题的示例数据" src="unbounded_knapsack_problem.assets/coin_change_example.png" /></a></p>
-<h3 id="_7">动态规划思路<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="unbounded_knapsack_problem.assets/coin_change_example.png" data-desc-position="bottom"><img alt="零钱兑换问题的示例数据" src="unbounded_knapsack_problem.assets/coin_change_example.png"></a></p>
+<h3 id="_7">动态规划思路<a class="headerlink" href="#_7" title="Permanent link">¶</a></h3>
 <p><strong>零钱兑换可以看作完全背包问题的一种特殊情况</strong>，两者具有以下联系与不同点。</p>
 <ul>
 <li>两道题可以相互转换，“物品”对应“硬币”、“物品重量”对应“硬币面值”、“背包容量”对应“目标金额”。</li>
 <li>优化目标相反，完全背包问题是要最大化物品价值，零钱兑换问题是要最小化硬币数量。</li>
 <li>完全背包问题是求“不超过”背包容量下的解，零钱兑换是求“恰好”凑到目标金额的解。</li>
 </ul>
-<p><strong>第一步：思考每轮的决策，定义状态，从而得到 $dp$ 表</strong></p>
-<p>状态 $[i, a]$ 对应的子问题为：<strong>前 $i$ 种硬币能够凑出金额 $a$ 的最少硬币数量</strong>，记为 $dp[i, a]$ 。</p>
-<p>二维 $dp$ 表的尺寸为 $(n+1) \times (amt+1)$ 。</p>
+<p><strong>第一步：思考每轮的决策，定义状态，从而得到 <span class="arithmatex">\(dp\)</span> 表</strong></p>
+<p>状态 <span class="arithmatex">\([i, a]\)</span> 对应的子问题为：<strong>前 <span class="arithmatex">\(i\)</span> 种硬币能够凑出金额 <span class="arithmatex">\(a\)</span> 的最少硬币数量</strong>，记为 <span class="arithmatex">\(dp[i, a]\)</span> 。</p>
+<p>二维 <span class="arithmatex">\(dp\)</span> 表的尺寸为 <span class="arithmatex">\((n+1) \times (amt+1)\)</span> 。</p>
 <p><strong>第二步：找出最优子结构，进而推导出状态转移方程</strong></p>
 <p>本题与完全背包问题的状态转移方程存在以下两点差异。</p>
 <ul>
-<li>本题要求最小值，因此需将运算符 $\max()$ 更改为 $\min()$ 。</li>
-<li>优化主体是硬币数量而非商品价值，因此在选中硬币时执行 $+1$ 即可。</li>
+<li>本题要求最小值，因此需将运算符 <span class="arithmatex">\(\max()\)</span> 更改为 <span class="arithmatex">\(\min()\)</span> 。</li>
+<li>优化主体是硬币数量而非商品价值，因此在选中硬币时执行 <span class="arithmatex">\(+1\)</span> 即可。</li>
 </ul>
-<p>$$
+<div class="arithmatex">\[
 dp[i, a] = \min(dp[i-1, a], dp[i, a - coins[i-1]] + 1)
-$$</p>
+\]</div>
 <p><strong>第三步：确定边界条件和状态转移顺序</strong></p>
-<p>当目标金额为 $0$ 时，凑出它的最少硬币数量为 $0$ ，即首列所有 $dp[i, 0]$ 都等于 $0$ 。</p>
-<p>当无硬币时，<strong>无法凑出任意 $&gt; 0$ 的目标金额</strong>，即是无效解。为使状态转移方程中的 $\min()$ 函数能够识别并过滤无效解，我们考虑使用 $+ \infty$ 来表示它们，即令首行所有 $dp[0, a]$ 都等于 $+ \infty$ 。</p>
-<h3 id="_8">代码实现<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
-<p>大多数编程语言并未提供 $+ \infty$ 变量，只能使用整型 <code>int</code> 的最大值来代替。而这又会导致大数越界：状态转移方程中的 $+ 1$ 操作可能发生溢出。</p>
-<p>为此，我们采用数字 $amt + 1$ 来表示无效解，因为凑出 $amt$ 的硬币数量最多为 $amt$ 。最后返回前，判断 $dp[n, amt]$ 是否等于 $amt + 1$ ，若是则返回 $-1$ ，代表无法凑出目标金额。代码如下所示：</p>
-<div class="highlight"><pre><span></span><code>[file]{coin_change}-[class]{}-[func]{coin_change_dp}
+<p>当目标金额为 <span class="arithmatex">\(0\)</span> 时，凑出它的最少硬币数量为 <span class="arithmatex">\(0\)</span> ，即首列所有 <span class="arithmatex">\(dp[i, 0]\)</span> 都等于 <span class="arithmatex">\(0\)</span> 。</p>
+<p>当无硬币时，<strong>无法凑出任意 <span class="arithmatex">\(&gt; 0\)</span> 的目标金额</strong>，即是无效解。为使状态转移方程中的 <span class="arithmatex">\(\min()\)</span> 函数能够识别并过滤无效解，我们考虑使用 <span class="arithmatex">\(+ \infty\)</span> 来表示它们，即令首行所有 <span class="arithmatex">\(dp[0, a]\)</span> 都等于 <span class="arithmatex">\(+ \infty\)</span> 。</p>
+<h3 id="_8">代码实现<a class="headerlink" href="#_8" title="Permanent link">¶</a></h3>
+<p>大多数编程语言并未提供 <span class="arithmatex">\(+ \infty\)</span> 变量，只能使用整型 <code>int</code> 的最大值来代替。而这又会导致大数越界：状态转移方程中的 <span class="arithmatex">\(+ 1\)</span> 操作可能发生溢出。</p>
+<p>为此，我们采用数字 <span class="arithmatex">\(amt + 1\)</span> 来表示无效解，因为凑出 <span class="arithmatex">\(amt\)</span> 的硬币数量最多为 <span class="arithmatex">\(amt\)</span> 。最后返回前，判断 <span class="arithmatex">\(dp[n, amt]\)</span> 是否等于 <span class="arithmatex">\(amt + 1\)</span> ，若是则返回 <span class="arithmatex">\(-1\)</span> ，代表无法凑出目标金额。代码如下所示：</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:1"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio"><div class="tabbed-labels"><label for="__tabbed_4_1">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><span class="filename">coin_change.py</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">coin_change_dp</span><span class="p">(</span><span class="n">coins</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">amt</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="sd">"""零钱兑换：动态规划"""</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">coins</span><span class="p">)</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">MAX</span> <span class="o">=</span> <span class="n">amt</span> <span class="o">+</span> <span class="mi">1</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="c1"># 初始化 dp 表</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">dp</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">amt</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="c1"># 状态转移：首行首列</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">amt</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="n">MAX</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="c1"># 状态转移：其余行和列</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">amt</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>            <span class="k">if</span> <span class="n">coins</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">a</span><span class="p">:</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>                <span class="c1"># 若超过目标金额，则不选硬币 i</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>                <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">a</span><span class="p">]</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>            <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>                <span class="c1"># 不选和选硬币 i 这两种方案的较小值</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>                <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">a</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">a</span> <span class="o">-</span> <span class="n">coins</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">amt</span><span class="p">]</span> <span class="k">if</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">amt</span><span class="p">]</span> <span class="o">!=</span> <span class="n">MAX</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
 </code></pre></div>
+</div>
+</div>
+</div>
 <p>下图展示了零钱兑换的动态规划过程，和完全背包问题非常相似。</p>
-<p>=== "&lt;1&gt;"
-    <a class="glightbox" href="unbounded_knapsack_problem.assets/coin_change_dp_step1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="零钱兑换问题的动态规划过程" src="unbounded_knapsack_problem.assets/coin_change_dp_step1.png" /></a></p>
-<p>=== "&lt;2&gt;"
-    <a class="glightbox" href="unbounded_knapsack_problem.assets/coin_change_dp_step2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="coin_change_dp_step2" src="unbounded_knapsack_problem.assets/coin_change_dp_step2.png" /></a></p>
-<p>=== "&lt;3&gt;"
-    <a class="glightbox" href="unbounded_knapsack_problem.assets/coin_change_dp_step3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="coin_change_dp_step3" src="unbounded_knapsack_problem.assets/coin_change_dp_step3.png" /></a></p>
-<p>=== "&lt;4&gt;"
-    <a class="glightbox" href="unbounded_knapsack_problem.assets/coin_change_dp_step4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="coin_change_dp_step4" src="unbounded_knapsack_problem.assets/coin_change_dp_step4.png" /></a></p>
-<p>=== "&lt;5&gt;"
-    <a class="glightbox" href="unbounded_knapsack_problem.assets/coin_change_dp_step5.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="coin_change_dp_step5" src="unbounded_knapsack_problem.assets/coin_change_dp_step5.png" /></a></p>
-<p>=== "&lt;6&gt;"
-    <a class="glightbox" href="unbounded_knapsack_problem.assets/coin_change_dp_step6.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="coin_change_dp_step6" src="unbounded_knapsack_problem.assets/coin_change_dp_step6.png" /></a></p>
-<p>=== "&lt;7&gt;"
-    <a class="glightbox" href="unbounded_knapsack_problem.assets/coin_change_dp_step7.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="coin_change_dp_step7" src="unbounded_knapsack_problem.assets/coin_change_dp_step7.png" /></a></p>
-<p>=== "&lt;8&gt;"
-    <a class="glightbox" href="unbounded_knapsack_problem.assets/coin_change_dp_step8.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="coin_change_dp_step8" src="unbounded_knapsack_problem.assets/coin_change_dp_step8.png" /></a></p>
-<p>=== "&lt;9&gt;"
-    <a class="glightbox" href="unbounded_knapsack_problem.assets/coin_change_dp_step9.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="coin_change_dp_step9" src="unbounded_knapsack_problem.assets/coin_change_dp_step9.png" /></a></p>
-<p>=== "&lt;10&gt;"
-    <a class="glightbox" href="unbounded_knapsack_problem.assets/coin_change_dp_step10.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="coin_change_dp_step10" src="unbounded_knapsack_problem.assets/coin_change_dp_step10.png" /></a></p>
-<p>=== "&lt;11&gt;"
-    <a class="glightbox" href="unbounded_knapsack_problem.assets/coin_change_dp_step11.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="coin_change_dp_step11" src="unbounded_knapsack_problem.assets/coin_change_dp_step11.png" /></a></p>
-<p>=== "&lt;12&gt;"
-    <a class="glightbox" href="unbounded_knapsack_problem.assets/coin_change_dp_step12.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="coin_change_dp_step12" src="unbounded_knapsack_problem.assets/coin_change_dp_step12.png" /></a></p>
-<p>=== "&lt;13&gt;"
-    <a class="glightbox" href="unbounded_knapsack_problem.assets/coin_change_dp_step13.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="coin_change_dp_step13" src="unbounded_knapsack_problem.assets/coin_change_dp_step13.png" /></a></p>
-<p>=== "&lt;14&gt;"
-    <a class="glightbox" href="unbounded_knapsack_problem.assets/coin_change_dp_step14.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="coin_change_dp_step14" src="unbounded_knapsack_problem.assets/coin_change_dp_step14.png" /></a></p>
-<p>=== "&lt;15&gt;"
-    <a class="glightbox" href="unbounded_knapsack_problem.assets/coin_change_dp_step15.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="coin_change_dp_step15" src="unbounded_knapsack_problem.assets/coin_change_dp_step15.png" /></a></p>
-<h3 id="_9">空间优化<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:15"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio"><input id="__tabbed_5_2" name="__tabbed_5" type="radio"><input id="__tabbed_5_3" name="__tabbed_5" type="radio"><input id="__tabbed_5_4" name="__tabbed_5" type="radio"><input id="__tabbed_5_5" name="__tabbed_5" type="radio"><input id="__tabbed_5_6" name="__tabbed_5" type="radio"><input id="__tabbed_5_7" name="__tabbed_5" type="radio"><input id="__tabbed_5_8" name="__tabbed_5" type="radio"><input id="__tabbed_5_9" name="__tabbed_5" type="radio"><input id="__tabbed_5_10" name="__tabbed_5" type="radio"><input id="__tabbed_5_11" name="__tabbed_5" type="radio"><input id="__tabbed_5_12" name="__tabbed_5" type="radio"><input id="__tabbed_5_13" name="__tabbed_5" type="radio"><input id="__tabbed_5_14" name="__tabbed_5" type="radio"><input id="__tabbed_5_15" name="__tabbed_5" type="radio"><div class="tabbed-labels"><label for="__tabbed_5_1">&lt;1&gt;</label><label for="__tabbed_5_2">&lt;2&gt;</label><label for="__tabbed_5_3">&lt;3&gt;</label><label for="__tabbed_5_4">&lt;4&gt;</label><label for="__tabbed_5_5">&lt;5&gt;</label><label for="__tabbed_5_6">&lt;6&gt;</label><label for="__tabbed_5_7">&lt;7&gt;</label><label for="__tabbed_5_8">&lt;8&gt;</label><label for="__tabbed_5_9">&lt;9&gt;</label><label for="__tabbed_5_10">&lt;10&gt;</label><label for="__tabbed_5_11">&lt;11&gt;</label><label for="__tabbed_5_12">&lt;12&gt;</label><label for="__tabbed_5_13">&lt;13&gt;</label><label for="__tabbed_5_14">&lt;14&gt;</label><label for="__tabbed_5_15">&lt;15&gt;</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="unbounded_knapsack_problem.assets/coin_change_dp_step1.png" data-desc-position="bottom"><img alt="零钱兑换问题的动态规划过程" src="unbounded_knapsack_problem.assets/coin_change_dp_step1.png"></a></p>
+</div>
+<div class="tabbed-block">
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="unbounded_knapsack_problem.assets/coin_change_dp_step2.png" data-desc-position="bottom"><img alt="coin_change_dp_step2" src="unbounded_knapsack_problem.assets/coin_change_dp_step2.png"></a></p>
+</div>
+<div class="tabbed-block">
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="unbounded_knapsack_problem.assets/coin_change_dp_step3.png" data-desc-position="bottom"><img alt="coin_change_dp_step3" src="unbounded_knapsack_problem.assets/coin_change_dp_step3.png"></a></p>
+</div>
+<div class="tabbed-block">
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="unbounded_knapsack_problem.assets/coin_change_dp_step4.png" data-desc-position="bottom"><img alt="coin_change_dp_step4" src="unbounded_knapsack_problem.assets/coin_change_dp_step4.png"></a></p>
+</div>
+<div class="tabbed-block">
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="unbounded_knapsack_problem.assets/coin_change_dp_step5.png" data-desc-position="bottom"><img alt="coin_change_dp_step5" src="unbounded_knapsack_problem.assets/coin_change_dp_step5.png"></a></p>
+</div>
+<div class="tabbed-block">
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="unbounded_knapsack_problem.assets/coin_change_dp_step6.png" data-desc-position="bottom"><img alt="coin_change_dp_step6" src="unbounded_knapsack_problem.assets/coin_change_dp_step6.png"></a></p>
+</div>
+<div class="tabbed-block">
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="unbounded_knapsack_problem.assets/coin_change_dp_step7.png" data-desc-position="bottom"><img alt="coin_change_dp_step7" src="unbounded_knapsack_problem.assets/coin_change_dp_step7.png"></a></p>
+</div>
+<div class="tabbed-block">
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="unbounded_knapsack_problem.assets/coin_change_dp_step8.png" data-desc-position="bottom"><img alt="coin_change_dp_step8" src="unbounded_knapsack_problem.assets/coin_change_dp_step8.png"></a></p>
+</div>
+<div class="tabbed-block">
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="unbounded_knapsack_problem.assets/coin_change_dp_step9.png" data-desc-position="bottom"><img alt="coin_change_dp_step9" src="unbounded_knapsack_problem.assets/coin_change_dp_step9.png"></a></p>
+</div>
+<div class="tabbed-block">
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="unbounded_knapsack_problem.assets/coin_change_dp_step10.png" data-desc-position="bottom"><img alt="coin_change_dp_step10" src="unbounded_knapsack_problem.assets/coin_change_dp_step10.png"></a></p>
+</div>
+<div class="tabbed-block">
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="unbounded_knapsack_problem.assets/coin_change_dp_step11.png" data-desc-position="bottom"><img alt="coin_change_dp_step11" src="unbounded_knapsack_problem.assets/coin_change_dp_step11.png"></a></p>
+</div>
+<div class="tabbed-block">
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="unbounded_knapsack_problem.assets/coin_change_dp_step12.png" data-desc-position="bottom"><img alt="coin_change_dp_step12" src="unbounded_knapsack_problem.assets/coin_change_dp_step12.png"></a></p>
+</div>
+<div class="tabbed-block">
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="unbounded_knapsack_problem.assets/coin_change_dp_step13.png" data-desc-position="bottom"><img alt="coin_change_dp_step13" src="unbounded_knapsack_problem.assets/coin_change_dp_step13.png"></a></p>
+</div>
+<div class="tabbed-block">
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="unbounded_knapsack_problem.assets/coin_change_dp_step14.png" data-desc-position="bottom"><img alt="coin_change_dp_step14" src="unbounded_knapsack_problem.assets/coin_change_dp_step14.png"></a></p>
+</div>
+<div class="tabbed-block">
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="unbounded_knapsack_problem.assets/coin_change_dp_step15.png" data-desc-position="bottom"><img alt="coin_change_dp_step15" src="unbounded_knapsack_problem.assets/coin_change_dp_step15.png"></a></p>
+</div>
+</div>
+</div>
+<h3 id="_9">空间优化<a class="headerlink" href="#_9" title="Permanent link">¶</a></h3>
 <p>零钱兑换的空间优化的处理方式和完全背包问题一致：</p>
-<div class="highlight"><pre><span></span><code>[file]{coin_change}-[class]{}-[func]{coin_change_dp_comp}
+<div class="tabbed-set tabbed-alternate" data-tabs="6:1"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio"><div class="tabbed-labels"><label for="__tabbed_6_1">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><span class="filename">coin_change.py</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">coin_change_dp_comp</span><span class="p">(</span><span class="n">coins</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">amt</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="sd">"""零钱兑换：空间优化后的动态规划"""</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">coins</span><span class="p">)</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">MAX</span> <span class="o">=</span> <span class="n">amt</span> <span class="o">+</span> <span class="mi">1</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="c1"># 初始化 dp 表</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="n">MAX</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">amt</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="c1"># 状态转移</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>        <span class="c1"># 正序遍历</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">amt</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>            <span class="k">if</span> <span class="n">coins</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">a</span><span class="p">:</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>                <span class="c1"># 若超过目标金额，则不选硬币 i</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>                <span class="n">dp</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>            <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>                <span class="c1"># 不选和选硬币 i 这两种方案的较小值</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>                <span class="n">dp</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">a</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">a</span> <span class="o">-</span> <span class="n">coins</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">amt</span><span class="p">]</span> <span class="k">if</span> <span class="n">dp</span><span class="p">[</span><span class="n">amt</span><span class="p">]</span> <span class="o">!=</span> <span class="n">MAX</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
 </code></pre></div>
-<h2 id="ii">零钱兑换问题 II<a class="headerlink" href="#ii" title="Permanent link">&para;</a></h2>
+</div>
+</div>
+</div>
+<h2 id="ii">零钱兑换问题 II<a class="headerlink" href="#ii" title="Permanent link">¶</a></h2>
 <div class="admonition question">
 <p class="admonition-title">Question</p>
-<p>给定 $n$ 种硬币，第 $i$ 种硬币的面值为 $coins[i - 1]$ ，目标金额为 $amt$ ，每种硬币可以重复选取，<strong>问凑出目标金额的硬币组合数量</strong>。示例如下图所示。</p>
+<p>给定 <span class="arithmatex">\(n\)</span> 种硬币，第 <span class="arithmatex">\(i\)</span> 种硬币的面值为 <span class="arithmatex">\(coins[i - 1]\)</span> ，目标金额为 <span class="arithmatex">\(amt\)</span> ，每种硬币可以重复选取，<strong>问凑出目标金额的硬币组合数量</strong>。示例如下图所示。</p>
 </div>
-<p><a class="glightbox" href="unbounded_knapsack_problem.assets/coin_change_ii_example.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="零钱兑换问题 II 的示例数据" src="unbounded_knapsack_problem.assets/coin_change_ii_example.png" /></a></p>
-<h3 id="_10">动态规划思路<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
-<p>相比于上一题，本题目标是求组合数量，因此子问题变为：<strong>前 $i$ 种硬币能够凑出金额 $a$ 的组合数量</strong>。而 $dp$ 表仍然是尺寸为 $(n+1) \times (amt + 1)$ 的二维矩阵。</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="unbounded_knapsack_problem.assets/coin_change_ii_example.png" data-desc-position="bottom"><img alt="零钱兑换问题 II 的示例数据" src="unbounded_knapsack_problem.assets/coin_change_ii_example.png"></a></p>
+<h3 id="_10">动态规划思路<a class="headerlink" href="#_10" title="Permanent link">¶</a></h3>
+<p>相比于上一题，本题目标是求组合数量，因此子问题变为：<strong>前 <span class="arithmatex">\(i\)</span> 种硬币能够凑出金额 <span class="arithmatex">\(a\)</span> 的组合数量</strong>。而 <span class="arithmatex">\(dp\)</span> 表仍然是尺寸为 <span class="arithmatex">\((n+1) \times (amt + 1)\)</span> 的二维矩阵。</p>
 <p>当前状态的组合数量等于不选当前硬币与选当前硬币这两种决策的组合数量之和。状态转移方程为：</p>
-<p>$$
+<div class="arithmatex">\[
 dp[i, a] = dp[i-1, a] + dp[i, a - coins[i-1]]
-$$</p>
-<p>当目标金额为 $0$ 时，无须选择任何硬币即可凑出目标金额，因此应将首列所有 $dp[i, 0]$ 都初始化为 $1$ 。当无硬币时，无法凑出任何 $&gt;0$ 的目标金额，因此首行所有 $dp[0, a]$ 都等于 $0$ 。</p>
-<h3 id="_11">代码实现<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>[file]{coin_change_ii}-[class]{}-[func]{coin_change_ii_dp}
+\]</div>
+<p>当目标金额为 <span class="arithmatex">\(0\)</span> 时，无须选择任何硬币即可凑出目标金额，因此应将首列所有 <span class="arithmatex">\(dp[i, 0]\)</span> 都初始化为 <span class="arithmatex">\(1\)</span> 。当无硬币时，无法凑出任何 <span class="arithmatex">\(&gt;0\)</span> 的目标金额，因此首行所有 <span class="arithmatex">\(dp[0, a]\)</span> 都等于 <span class="arithmatex">\(0\)</span> 。</p>
+<h3 id="_11">代码实现<a class="headerlink" href="#_11" title="Permanent link">¶</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:1"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio"><div class="tabbed-labels"><label for="__tabbed_7_1">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><span class="filename">coin_change_ii.py</span><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">coin_change_ii_dp</span><span class="p">(</span><span class="n">coins</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">amt</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="sd">"""零钱兑换 II：动态规划"""</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">coins</span><span class="p">)</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="c1"># 初始化 dp 表</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">dp</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">amt</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="c1"># 初始化首列</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>        <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="c1"># 状态转移</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">amt</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>            <span class="k">if</span> <span class="n">coins</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">a</span><span class="p">:</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>                <span class="c1"># 若超过目标金额，则不选硬币 i</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>                <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">a</span><span class="p">]</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>            <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>                <span class="c1"># 不选和选硬币 i 这两种方案之和</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>                <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">a</span><span class="p">]</span> <span class="o">+</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">a</span> <span class="o">-</span> <span class="n">coins</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">amt</span><span class="p">]</span>
 </code></pre></div>
-<h3 id="_12">空间优化<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+</div>
+</div>
+</div>
+<h3 id="_12">空间优化<a class="headerlink" href="#_12" title="Permanent link">¶</a></h3>
 <p>空间优化处理方式相同，删除硬币维度即可：</p>
-<div class="highlight"><pre><span></span><code>[file]{coin_change_ii}-[class]{}-[func]{coin_change_ii_dp_comp}
+<div class="tabbed-set tabbed-alternate" data-tabs="8:1"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio"><div class="tabbed-labels"><label for="__tabbed_8_1">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><span class="filename">coin_change_ii.py</span><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">coin_change_ii_dp_comp</span><span class="p">(</span><span class="n">coins</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">amt</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="sd">"""零钱兑换 II：空间优化后的动态规划"""</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">coins</span><span class="p">)</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="c1"># 初始化 dp 表</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">amt</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="c1"># 状态转移</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>        <span class="c1"># 正序遍历</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">amt</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>            <span class="k">if</span> <span class="n">coins</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">a</span><span class="p">:</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>                <span class="c1"># 若超过目标金额，则不选硬币 i</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>                <span class="n">dp</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>            <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>                <span class="c1"># 不选和选硬币 i 这两种方案之和</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>                <span class="n">dp</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">+</span> <span class="n">dp</span><span class="p">[</span><span class="n">a</span> <span class="o">-</span> <span class="n">coins</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">amt</span><span class="p">]</span>
 </code></pre></div>
+</div>
+</div>
+</div>
 
 
 
@@ -3445,12 +4424,14 @@ $$</p>
             </div>
           
           
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
-          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
   回到页面顶部
 </button>
         
@@ -3460,13 +4441,13 @@ $$</p>
   
     
       
-      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+      <nav class="md-footer__inner md-grid" aria-label="页脚">
         
           
           <a href="knapsack_problem.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: 14.4 &amp;nbsp; 0-1 背包问题">
             <div class="md-footer__button md-icon">
               
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
             </div>
             <div class="md-footer__title">
               <span class="md-footer__direction">
@@ -3491,7 +4472,7 @@ $$</p>
             </div>
             <div class="md-footer__button md-icon">
               
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
             </div>
           </a>
         
@@ -3510,7 +4491,8 @@ $$</p>
   
 </div>
       
-        <div class="md-social">
+        
+<div class="md-social">
   
     
     
@@ -3520,7 +4502,7 @@ $$</p>
       
     
     <a href="http://tensofermi.github.io/" target="_blank" rel="noopener" title="tensofermi.github.io" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.97 2.59a1.5 1.5 0 0 0-1.94 0l-7.5 6.363A1.5 1.5 0 0 0 3 10.097V19.5A1.5 1.5 0 0 0 4.5 21h4.75a.75.75 0 0 0 .75-.75V14h4v6.25c0 .414.336.75.75.75h4.75a1.5 1.5 0 0 0 1.5-1.5v-9.403a1.5 1.5 0 0 0-.53-1.144l-7.5-6.363Z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.97 2.59a1.5 1.5 0 0 0-1.94 0l-7.5 6.363A1.5 1.5 0 0 0 3 10.097V19.5A1.5 1.5 0 0 0 4.5 21h4.75a.75.75 0 0 0 .75-.75V14h4v6.25c0 .414.336.75.75.75h4.75a1.5 1.5 0 0 0 1.5-1.5v-9.403a1.5 1.5 0 0 0-.53-1.144z"></path></svg>
     </a>
   
 </div>
@@ -3535,15 +4517,20 @@ $$</p>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
-    
-      <script src="../assets/javascripts/bundle.ad660dcc.min.js"></script>
       
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="../javascripts/mathjax/es5/tex-chtml.js"></script>
       
     
-  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": false, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "none"});
-document$.subscribe(() => { lightbox.reload() });
-</script></body>
-</html>
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": false, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "none"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
