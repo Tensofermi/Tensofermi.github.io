@@ -324,6 +324,8 @@
       
         
       
+        
+      
     
     
     
@@ -420,6 +422,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="basic/rl_mc.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    强化学习中的蒙卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -435,6 +465,14 @@
   
     
     
+      
+        
+      
+        
+      
+        
+      
+        
       
         
       
@@ -458,7 +496,7 @@
   <span class="md-ellipsis">
     
   
-    重整化群与有限尺寸标度
+    相变理论基础
   
 
     
@@ -474,11 +512,39 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    重整化群与有限尺寸标度
+    相变理论基础
   
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="rg-fss/phase_overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    相变理论概览
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -523,6 +589,90 @@
     
   
     有限尺寸标度
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="rg-fss/mermin_wagner.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mermin-Wagner 定理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="rg-fss/bkt.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BKT 相变
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="rg-fss/lr_universality.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    长程相互作用与普适类
   
 
     
@@ -1196,7 +1346,7 @@
 
 
 <h1 id="monte-carlo-simulation">Monte Carlo Simulation<a class="headerlink" href="#monte-carlo-simulation" title="Permanent link">¶</a></h1>
-<p>Monte Carlo 方法的核心不是“随便随机试一试”，而是把一个难以直接求解的问题，转化为对随机变量或随机过程的统计估计。它最适合处理这样的对象：</p>
+<p>Monte Carlo 方法的核心在于：把一个难以直接求解的问题，转化为对随机变量或随机过程的统计估计。它最适合处理这样的对象：</p>
 <div class="arithmatex">\[
 \langle O\rangle=\sum_s O(s)\pi(s)
 \]</div>
@@ -1249,7 +1399,7 @@ W(s)=e^{-\mathcal H(s)}.
 <li><strong>目标量是平均性质</strong>：热力学量、关联函数、风险指标、策略价值都可以写成期望。</li>
 <li><strong>重要区域很稀疏</strong>：高维空间中大部分构型贡献很小，重要性抽样可以把计算资源集中到高权重区域。</li>
 </ul>
-<p>从这个角度看，Monte Carlo 不是物理专属工具，而是一套处理复杂概率分布的通用语言。</p>
+<p>从这个角度看，Monte Carlo 可以作为一套处理复杂概率分布的通用语言，使用范围远远超出物理问题。</p>
 <h2 id="_4">在现代问题中的位置<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
 <p>在强化学习中，Monte Carlo 方法用完整 episode 的随机回报估计价值函数：</p>
 <div class="arithmatex">\[
@@ -1267,10 +1417,11 @@ p(\theta|D)\propto p(D|\theta)p(\theta)
 <p>这份笔记采用从简单到复杂的路线：</p>
 <ol>
 <li><strong>基础</strong>：从 Markov chain 的概率归一化与平稳分布出发，推出 detailed balance 和 Metropolis 接受率。</li>
-<li><strong>有限尺寸标度</strong>：说明 Monte Carlo 数据如何用于研究临界现象，连接 RG、LGW 场论和临界指数。</li>
+<li><strong>相变理论基础</strong>：说明 RG、LGW 场论、有限尺寸标度、Mermin-Wagner 定理和 BKT 相变如何组织临界现象的理论语言。</li>
 <li><strong>常用更新算法</strong>：概览 Metropolis、heat bath、cluster、loop、worm 和 lifted 等更新思想。</li>
-<li><strong>长程体系与 Clock 技巧</strong>：讨论长程相互作用下的采样和加速策略。</li>
-<li><strong>世界线更新算法</strong>：进入量子 Monte Carlo 中连续时间、连续空间和 Worm 更新的构型语言。</li>
+<li><strong>长程体系与 Clock 技巧</strong>：讨论长程相互作用下的周期边界、加键过程、累计概率和其他加速策略。</li>
+<li><strong>世界线更新算法</strong>：进入量子 Monte Carlo 中连续时间、连续空间和 Worm 更新的构型语言，并说明常见物理量如何从世界线几何中测量。</li>
+<li><strong>辅助场蒙卡</strong>：从 Hubbard-Stratonovich 变换出发，说明如何把相互作用费米子问题转化为辅助场上的行列式权重，并区分零温投影算法与有限温 trace 算法。</li>
 </ol>
 <p>Monte Carlo 的本质可以压缩为一句话：构造一个正确的随机过程，让它在复杂空间中替我们按照目标权重行走。</p>
 

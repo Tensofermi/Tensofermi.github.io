@@ -1,0 +1,1064 @@
+<!DOCTYPE html><html lang="zh" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="crystal_binding.html">
+      
+      
+        <link rel="next" href="band_theory.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="logo/main.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>第三章 晶格振动与晶体热性质 - Solid State Physics Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="index.html" title="Solid State Physics Notes" class="md-header__button md-logo" aria-label="Solid State Physics Notes" data-md-component="logo">
+      
+  <img src="logo/solid_state.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Solid State Physics Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第三章 晶格振动与晶体热性质
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至深色模式" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换至深色模式" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至浅色模式" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至浅色模式" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Solid State Physics Notes" class="md-nav__button md-logo" aria-label="Solid State Physics Notes" data-md-component="logo">
+      
+  <img src="logo/solid_state.svg" alt="logo">
+
+    </a>
+    Solid State Physics Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="crystal_structure.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第一章 晶体结构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="crystal_binding.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第二章 晶体结合
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三章 晶格振动与晶体热性质
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="lattice_vibration_thermal.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三章 晶格振动与晶体热性质
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        晶格振动理论
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="晶格振动理论">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.一维单原子链
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.一维双原子链
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.任意维晶格振动与声子谱测量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.离子晶体长光学波
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        晶体的热学性质
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="晶体的热学性质">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.晶格热容
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.非简谐效应
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="band_theory.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第四章 量子能带论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="metal_electron_theory.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第五章 金属电子论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="appendix.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    补充内容
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        晶格振动理论
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="晶格振动理论">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.一维单原子链
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.一维双原子链
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.任意维晶格振动与声子谱测量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.离子晶体长光学波
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        晶体的热学性质
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="晶体的热学性质">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.晶格热容
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.非简谐效应
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="_1">第三章 晶格振动与晶体热性质<a class="headerlink" href="#_1" title="Permanent link">¶</a></h1>
+<h2 id="_2">晶格振动理论<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<p>讨论振动问题，通常采用<em>简谐近似</em>，即将势能展开到二次项，并设平衡位置势能为0，从而系统的哈密顿量可以写作：</p>
+<div class="arithmatex">\[
+H=T+V=\frac{1}{2}\dot{q}^T\dot{q}+\frac{1}{2}q^TAq
+\]</div>
+<p>其中<span class="arithmatex">\(q\)</span>为表示广义坐标的列向量，其元素由原子质量<span class="arithmatex">\(m_i\)</span>和位移<span class="arithmatex">\(u_i\)</span>组成<span class="arithmatex">\(q_i=\sqrt{m_i}u_i\)</span>.对于三维问题的N原子问题，<span class="arithmatex">\(q\)</span>就有<span class="arithmatex">\(3N\)</span>个元素。矩阵<span class="arithmatex">\(A\)</span>表示势能的二次型，其元素可以写为<span class="arithmatex">\(A_{ij}=\left(\frac{\partial^2V}{\partial q_i\partial q_j}\right)_0\)</span>.可以引入正交变换<span class="arithmatex">\(Q\)</span>，满足<span class="arithmatex">\(Q^TQ=I\)</span>,使得矩阵<span class="arithmatex">\(A\)</span>进行对角化，并引入新的广义坐标列向量<span class="arithmatex">\(\boxed{x=Qq}\)</span>，以及对角矩阵<span class="arithmatex">\(M=QAQ^T\)</span>，从而使得哈密顿量中不出现交叉项：</p>
+<div class="arithmatex">\[
+H=\frac{1}{2}\dot{q}^TQ^TQ\dot{q}+\frac{1}{2}q^TQ^TQAQ^TQq=\frac{1}{2}\dot{x}^T\dot{x}+\frac{1}{2}x^TMx
+\]</div>
+<p>这组新的坐标<span class="arithmatex">\(x\)</span>被称为<em>简正坐标</em>，如果将之看作“真实运动的原子坐标”，那么相当于将原本耦合的振动进行解耦，成为相互独立的振子。</p>
+<p><em>当然，以上过程略显general,也可以通过原子链的微分方程以及平面波试解和色散关系，实现解耦的过程，详见“补充内容”。</em></p>
+<p><strong>格波</strong>：连续介质的波动方程:</p>
+<div class="arithmatex">\[
+\frac{\partial^2u(\vec{r},t)}{\partial t^2}=c^2\nabla^2u(\vec{r},t)
+\]</div>
+<p>适用于波长很长的情况，即不用考虑振动原子的性质。但当波长与原子尺度可以比拟的时候，之前线性的色散关系就要发生改变，这便是格波引入的动机！</p>
+<p>通常，格波在形式上是平面波，但只在格点处振动，相邻两格点相位差相等；每个原子振动幅度和频率也都相同。此外，“只在格点处振动”这一性质带来许多有趣的问题，例如无法区分相差倒格矢的波矢，因而一个布里渊区就包含了所有信息，这一点似乎与“ <span class="arithmatex">\(Nyquist\)</span>采样定理”也有联系。</p>
+<p><strong>声子</strong>：如果将简正坐标的处理方法过渡到量子力学，应用量子力学的谐振子模型，相当于对格波进行量子化，被称为声子。晶体总能量为：</p>
+<div class="arithmatex">\[
+E=\sum_{i=1}^{SNP}\varepsilon_i=\sum_{i=1}^{SNP}\left(n_i+\frac{1}{2}\right)\hbar\omega
+\]</div>
+<p>其中声子的产生和湮灭使得能量变化<span class="arithmatex">\(\hbar\omega\)</span>，因而这也称为声子的能量；而声子的准动量为<span class="arithmatex">\(\hbar\vec{k}\)</span>。由此可看出声子似乎具有粒子的属性，被称为“准粒子”或“元激发”，事实上，这种思想方法的源头来自于“量子场论”当中！</p>
+<p><em>声子是固体晶格振动的量子化，故不能离开固体而存在。由于晶格具有“离散”的平移对称性，得到的是准动量守恒，即动量相差一个倒格矢的声子是等价的。此外，声子为玻色子，但平衡态声子数通常不守恒，化学势为0，因此普通晶格声子不能像守恒粒子那样直接套用平衡态玻色-爱因斯坦凝聚图像。</em></p>
+<h3 id="1">1.一维单原子链<a class="headerlink" href="#1" title="Permanent link">¶</a></h3>
+<p>首先研究最简单的模型，设在一维单原子链中，晶格常数为<span class="arithmatex">\(a\)</span>,有<span class="arithmatex">\(N\)</span>个原胞。考虑两原子相互作用势能<span class="arithmatex">\(\phi\)</span>,再考虑第<span class="arithmatex">\(n\)</span>个原子受晶格中其他原子的相互作用之和<span class="arithmatex">\(U_n\)</span>.利用<em>简谐近似</em><span class="arithmatex">\(u_n\)</span>展开到二阶项，再利用<em>最近邻近似</em>只考虑原子最近邻的两个原子对其造成的影响，从而列出方程(<em>具体过程见“补充内容”</em>)：</p>
+<div class="arithmatex">\[
+\boxed{m\frac{d^2u_n}{dt^2}=\beta(u_{n+1}+u_{n-1}-2u_n)}
+\]</div>
+<p>利用平面波试探求解方程，设<span class="arithmatex">\(u_n=Ae^{i(qx-\omega t)}\)</span>(<em>为了与电子区分，声子波矢通常记为<span class="arithmatex">\(\vec{q}\)</span>,电子为<span class="arithmatex">\(\vec{k}\)</span></em>),由于格波使<span class="arithmatex">\(x\)</span>的取值只能取晶格常数<span class="arithmatex">\(a\)</span>的整数倍，因而<span class="arithmatex">\(x=na\)</span>，故可写为<span class="arithmatex">\(u_n=Ae^{i(nqa-\omega t)}\)</span>的形式。</p>
+<p>代入得到色散关系<span class="arithmatex">\(\omega(q)\)</span>:</p>
+<div class="arithmatex">\[
+\boxed{\omega(q)=\sqrt{\frac{2\beta}{m}(1-\cos qa)}=\sqrt{\frac{4\beta}{m}}|\sin\frac{qa}{2}|}
+\]</div>
+<p>利用色散关系，格波的性质可以表示为<span class="arithmatex">\(\omega(q+G)=\omega(q)\)</span>，进而可以将<span class="arithmatex">\(q\)</span>限制在简约区，即<span class="arithmatex">\(q\in [-\frac{\pi}{a},\frac{\pi}{a}]\)</span>,并且色散关系也具有偶函数的性质<span class="arithmatex">\(\omega^*(q)=\omega(-q)\)</span>.
+<em>此外，要求晶体稳定，不会随时间而无限增大，<span class="arithmatex">\(\omega\)</span>必须为实数，从而要满足<span class="arithmatex">\(\beta&gt;0\)</span>.关于色散关系群速度和相速度的讨论，见“补充内容”.</em></p>
+<p><strong>玻恩-卡门条件</strong>：对于有限大的晶体，原子链两头仅有一个最近邻，环境与其他原子不同，从而运动方程不同，给求解带来麻烦。将两头原子相接构成链，有：</p>
+<div class="arithmatex">\[
+u_{N+n}=u_n\quad\Rightarrow\quad Naq=2\pi l\quad l\in\mathbb{Z}
+\]</div>
+<p>从而使得每个原子运动方程的形式均相同，且和实验吻合较好。再考虑到之前将波矢<span class="arithmatex">\(q\)</span>限制在简约区，从而有：</p>
+<div class="arithmatex">\[
+q\in [-\frac{\pi}{a},\frac{\pi}{a})\quad\Rightarrow\quad q=\frac{2\pi l}{Na}=\frac{l}{N}b\quad l\in[-\frac{N}{2},\frac{N}{2})
+\]</div>
+<p><em>注意区间的开与闭！</em>由此<span class="arithmatex">\(q\)</span>在简约区的取值个数为原胞数<span class="arithmatex">\(N\)</span>，由于<span class="arithmatex">\(N\)</span>很大，因而<span class="arithmatex">\(q\)</span>的取值可以看作是<em>准连续</em>的。</p>
+<p><em>格波基矢正交性是一个有趣的问题，相关的证明见“补充内容”.</em></p>
+<h3 id="2">2.一维双原子链<a class="headerlink" href="#2" title="Permanent link">¶</a></h3>
+<p>对于双原子链，一个原胞内有两个原子。最一般的形式是两原子质量不同即<span class="arithmatex">\(m_1\)</span>和<span class="arithmatex">\(m_2\)</span>，且受力也有<span class="arithmatex">\(\beta_1\)</span>和<span class="arithmatex">\(\beta_2\)</span>的区分，但这样讨论起来过于复杂，因而大部分书要么将质量<span class="arithmatex">\(m\)</span>设为相同，要么将受力<span class="arithmatex">\(\beta\)</span>设为相同，<strong>这里讨论的是质量<span class="arithmatex">\(m\)</span>相同的情况</strong>，对于更加一般的讨论，详见“补充内容”。</p>
+<p>晶格常数和原胞数与之前一致，两原子间距为<span class="arithmatex">\(d\)</span>，并且满足<span class="arithmatex">\(d&lt;a/2\)</span>.设<span class="arithmatex">\(u_n^1\)</span>为第n个原胞第一个原子的位移，<span class="arithmatex">\(u_n^2\)</span>为第n个原胞第二个原子的位移，考虑最近邻，得到运动方程：</p>
+<div class="arithmatex">\[
+\begin{cases}
+m\ddot{u}^1_n=-\beta_2(u^1_{n}-u^2_n)-\beta_1(u^1_{n}-u^2_{n-1}),\\
+m\ddot{u}^2_n=-\beta_2(u^2_{n}-u^1_n)-\beta_1(u^2_{n}-u^1_{n+1}).
+\end{cases}
+\]</div>
+<p><em>书写时，注意运动方程的正负号和顺序！</em>求解时，与之前一样，代入</p>
+<div class="arithmatex">\[
+u_n^1=Ae^{i(nqa-\omega t)}\quad u_n^2=Be^{i(nqa-\omega t)}
+\]</div>
+<p>详细求解过程见“补充内容”，求解色散关系为：</p>
+<div class="arithmatex">\[
+\boxed{\omega(q)=\sqrt{\frac{\beta_1+\beta_2}{m}\pm\frac{1}{m}\sqrt{\beta_1^2+\beta_2^2+2\beta_1\beta_2\cos(qa)}}}
+\]</div>
+<p>即具有两种色散关系，频率较低的色散关系与之前单原子链的类似，称为<em>声学支</em>，记为<span class="arithmatex">\(\omega_A\)</span>；频率较高的，称为<em>光学支</em>，记为<span class="arithmatex">\(\omega_O\)</span>.色散关系的个数不会影响<span class="arithmatex">\(q\)</span>的取值，因而与单原子的讨论完全类似。</p>
+<p><strong>声学支与光学支</strong>：对于本模型来说，通过色散关系反代回运动方程，得到：</p>
+<div class="arithmatex">\[
+\frac{B}{A}=\pm\frac{\beta_2+\beta_1e^{iaq}}{|\beta_2+\beta_1e^{iaq}|}
+\]</div>
+<p>其中声学支对应正号，光学支对应负号，考虑长波条件<span class="arithmatex">\(q=0\)</span>以及短波极限<span class="arithmatex">\(q=\frac{\pi}{a}\)</span>两种情况，其结果均表明声学支<span class="arithmatex">\(A=B\)</span>，即两原子相对位置不变；光学支<span class="arithmatex">\(A=-B\)</span>，即两原子质心不变。这也是两原子质量相同模型的特色所在。</p>
+<p>此外，这里对格波的种类进行小结：<em>从色散关系分为声学支<span class="arithmatex">\(A\)</span>和光学支<span class="arithmatex">\(O\)</span>、从振动方向分为横波<span class="arithmatex">\(T\)</span>和纵波<span class="arithmatex">\(L\)</span>、从波长大小分为短波和长波。一共8种组合。</em>光学支通常频率在红外区，具有吸收反射等与光子互动的过程，这也是其称为光学支的原因；此外，在离子晶体中，长光学支分为纵波和横波两种，对应的量子化称为“极化声子”和“电磁声子”，详见第四节。</p>
+<blockquote>
+<p><strong>提示：</strong> 相邻两原胞的相位差为<span class="arithmatex">\(\delta=qa\)</span>，长波下<span class="arithmatex">\(q=0\)</span>，故<span class="arithmatex">\(\delta=0\)</span>，即两原胞内部原子整体运动的相位相同；短波下<span class="arithmatex">\(q=\frac{\pi}{a}\)</span>，从而<span class="arithmatex">\(\delta=\pi\)</span>,即两原胞内原子整体互差半个波长。
+    至于原胞内部原子的相对运动，声学支:相对位置不变而整体运动；光学支:整体的质心不变而相对位置变化。</p>
+</blockquote>
+<h3 id="3">3.任意维晶格振动与声子谱测量<a class="headerlink" href="#3" title="Permanent link">¶</a></h3>
+<p>设在<span class="arithmatex">\(S\)</span>维空间中，每个维度下，原胞数为<span class="arithmatex">\(N_i\)</span>，从而总原胞数为<span class="arithmatex">\(N=\prod_iN_i\)</span>;每个原胞内，有<span class="arithmatex">\(P\)</span>个原子，那么就可以列出<span class="arithmatex">\(SPN\)</span>个运动方程。但考虑到晶格的周期性，结果与原胞的位置无关，从而使得方程的数量减少到<span class="arithmatex">\(SP\)</span>个，进而解出<span class="arithmatex">\(SP\)</span>个色散关系。<em>具体来说：系统具有<span class="arithmatex">\(SPN\)</span>个自由度，因而原则上具有<span class="arithmatex">\(SPN\)</span>个</em>振动模式<em>，<span class="arithmatex">\(SP\)</span>个</em>色散关系<em>(其中有<span class="arithmatex">\(S\)</span>个</em>声学支<em>，<span class="arithmatex">\(S(P-1)\)</span>个</em>光学支<em>)</em></p>
+<p>*注意，晶格振动均利用原胞来描述和研究，为了与材料晶体学的范式区分，快速做出反应，需要专注于原胞的观点。例如提到金刚石能够立即反应出fcc晶胞，有4个原胞，每个原胞有2个原子，而振动模式数仅与原胞内原子数有关，故振动模式为6N.
+*</p>
+<p><strong>波矢密度</strong>：以<span class="arithmatex">\(S=3\)</span>为例，经过玻恩-卡门边条之后，波矢<span class="arithmatex">\(\vec{q}\)</span>也限制在简约区当中，并且可有<span class="arithmatex">\(N\)</span>个取值。在简约区当中，一个波矢取值所对应的体积为：</p>
+<div class="arithmatex">\[
+\frac{\vec{b}_1}{N_1}\cdot\left(\frac{\vec{b}_2}{N_2}\times\frac{\vec{b}_3}{N_3}\right)=\frac{(2\pi)^3}{N\Omega}=\frac{(2\pi)^3}{V}
+\]</div>
+<p>其中，<span class="arithmatex">\(\Omega\)</span>为原胞的体积，<span class="arithmatex">\(V\)</span>为晶体的体积。由此得到波矢密度：</p>
+<div class="arithmatex">\[
+\rho=\frac{1}{\frac{(2\pi)^3}{V}}=\frac{V}{(2\pi)^3}\qquad \Omega^*\cdot\rho=N
+\]</div>
+<p>上述第二式表明，简约区的体积乘以波矢密度，正是波矢在简约区可以取值的数目，即总原胞数。</p>
+<p><strong>声子谱与测量</strong>：色散关系<span class="arithmatex">\(\omega(q)\)</span>也称为声子谱，承载着物质重要的信息。测量获得声子谱之后，可以得到模式密度，进而利用统计的方法计算物质的各种物理量，例如热容、比热、热导、电导等。这套思路在研究电子时也同样适用，即测量物质的能带<span class="arithmatex">\(E(\vec{k})\)</span>，进而得到物质的各种信息，详见后文。</p>
+<p>测量的方法主要是其他粒子(中子、光子)与声子发生相互作用，由于需要声子动量发生变化，因而为<em>非弹性散射</em>。所满足的能量守恒和准动量守恒：</p>
+<div class="arithmatex">\[
+\boxed{\hbar\omega=\hbar\omega'\pm\hbar\omega_q\qquad\hbar\vec{k}=\hbar\vec{k}'\pm\hbar\vec{q}+\hbar\vec{G}}
+\]</div>
+<p><em>严格地说，声子的<span class="arithmatex">\(\hbar\vec{q}\)</span>是晶格准动量，只在相差倒格矢<span class="arithmatex">\(\hbar\vec{G}\)</span>的意义下守恒；与中子、光子等粒子散射时，真正使用的是能量守恒和准动量守恒，而不是把声子看作具有普通机械动量的自由粒子。</em></p>
+<p>对于中子散射而言，利用三轴中子谱仪基于单晶布拉格衍射发出单色中子束，经样品散射后，进入分析仪测量中子束的动量，最后探测器测量中子束的强度。中子的能量(0.02-0.04eV)与声子(0.01eV)同一数量级，且波长(<span class="arithmatex">\(2\times10^{-10}m\)</span>)也正好与晶格常数同一数量级。由此中子散射是测声子谱最常用的方法，且能够测量整个布里渊区的声子谱。</p>
+<p>对于光子散射而言，分为与<em>长声学支</em>的<em>布里渊散射</em>和与<em>长光学支</em>的<em>拉曼散射</em>。之所以是长波，是因为光子的色散关系<span class="arithmatex">\(\omega=ck\)</span>中，速度<span class="arithmatex">\(c\)</span>过大，导致斜率过大，与声子色散关系仅能在<span class="arithmatex">\(q\rightarrow0\)</span>处相交，从而对应长波，也正是如此，仅能测量声子谱的长波部分，准动量守恒中也满足<span class="arithmatex">\(\vec{G}=0\)</span>。<em>根据散射过程中吸收还是发射声子，分为反斯托克斯散射以及斯托克斯散射。</em></p>
+<h3 id="4">4.离子晶体长光学波<a class="headerlink" href="#4" title="Permanent link">¶</a></h3>
+<p>在长光学支运动模式下，同种离子位移相同，异种位移相反，由于这种极化效应，长光学波又称为极化波。
+具体来说，对于长光学支的纵波，称为“极化声子”，这是由于离子运动产生的退极化场<span class="arithmatex">\(E=-\frac{P}{\varepsilon_0}\)</span>与波节面垂直，使得回复力增强，进而使得纵波的频率大；对于长光学支的横波，称为“电磁声子”，这是由于电磁波也是横波，两者能够发生耦合，形成“极化激元”，并且退极化场平行于薄层面，薄层厚度<span class="arithmatex">\(\frac{\lambda}{2}\)</span>远小于晶体线度，由<span class="arithmatex">\(E=\frac{ne}{d}\)</span>，进而退极化场<span class="arithmatex">\(E=0\)</span>.</p>
+<p>对于长光学波的宏观运动，利用一下方程描述：</p>
+<div class="arithmatex">\[
+\boxed{
+\begin{cases}
+M\ddot{\mathbf{u}}_+=-\beta(\mathbf{u}_+-\mathbf{u}_-)+Q\mathbf{E}_{eff},\\
+m\ddot{\mathbf{u}}_-=-\beta(\mathbf{u}_--\mathbf{u}_+)-Q\mathbf{E}_{eff}.
+\end{cases}}
+\]</div>
+<p>设离子电量为<span class="arithmatex">\(Q\)</span>，其中<span class="arithmatex">\(\mathbf{u}_+\)</span>为质量<span class="arithmatex">\(M\)</span>的正离子的位移，<span class="arithmatex">\(\mathbf{u}_-\)</span>为质量<span class="arithmatex">\(m\)</span>的负离子的位移，由于离子键各向同性，故<span class="arithmatex">\(\beta\)</span>取同一值；退极化场的存在会提供额外回复力，并考虑有效电场<span class="arithmatex">\(\mathbf{E}_{eff}=\mathbf{E}+\frac{\mathbf{P}}{3\varepsilon_0}\)</span>,来表述这种回复力。</p>
+<p><strong>黄昆方程</strong>：令<span class="arithmatex">\(\mu=\frac{Mm}{M+m}\)</span>及<span class="arithmatex">\(\mathbf{u}=\mathbf{u}_+-\mathbf{u}_-\)</span>,将运动方程相加、相减，整理得到：</p>
+<div class="arithmatex">\[
+\mu\ddot{\mathbf{u}}=-\beta\mathbf{u}+Q\mathbf{E}_{eff}
+\]</div>
+<p>并考虑离子的相对位移在晶体中引起的极化<span class="arithmatex">\(\mathbf{P}\)</span>:</p>
+<div class="arithmatex">\[
+\mathbf{P}=n_0(Q\mathbf{u}+\alpha\mathbf{E}_{eff})
+\]</div>
+<p>定义：</p>
+<div class="arithmatex">\[
+\mathbf{W}=\sqrt{\rho}\mathbf{u}=\sqrt{\frac{\mu}{\Omega}}\mathbf{u}
+\]</div>
+<p>整理得到黄昆方程：</p>
+<div class="arithmatex">\[
+\boxed{\ddot{\mathbf{W}}=b_{11}\mathbf{W}+b_{12}\mathbf{E}\qquad \mathbf{P}=b_{21}\mathbf{W}+b_{22}\mathbf{E}}
+\]</div>
+<p>前者代表振动方程，后者代表极化方程。为了确定各个<span class="arithmatex">\(b_{ij}\)</span>系数，可以通过测量静电场(<span class="arithmatex">\(\ddot{\mathbf{W}}=0\)</span>)下的相对介电常数<span class="arithmatex">\(\varepsilon_r(0)\)</span>,高频电场(<span class="arithmatex">\({\mathbf{W}}=0\)</span>)下相对介电常数<span class="arithmatex">\(\varepsilon_r(\infty)\)</span>,以及无宏观电场(<span class="arithmatex">\(\mathbf{E}=0\)</span>)下的固有频率<span class="arithmatex">\(\omega_0\)</span>得到.具体关系为：</p>
+<div class="arithmatex">\[
+b_{11}=-\omega_0^2\qquad b_{12}=b_{21}=\sqrt{[\varepsilon_r(0)-\varepsilon_r(\infty)]\varepsilon_0}\cdot\omega_0\qquad b_{22}=[\varepsilon_r(\infty)-1]\varepsilon_0
+\]</div>
+<p><strong>LST关系</strong>：利用黄昆方程，可以定量化的描述<span class="arithmatex">\(\omega_L\)</span>和<span class="arithmatex">\(\omega_T\)</span>的大小关系。将矢量分为纵波和横波进行考虑：
+<span class="arithmatex">\(\mathbf{W}=\mathbf{W}_L+\mathbf{W}_T,\mathbf{P}=\mathbf{P}_L+\mathbf{P}_T,\mathbf{E}=\mathbf{E}_L+\mathbf{E}_T\)</span>
+利用电动力学和矢量分析的数学方法，得到：</p>
+<div class="arithmatex">\[
+\boxed{\frac{\omega_L^2}{\omega_T^2}=\frac{\varepsilon_r(0)}{\varepsilon_r(\infty)}}
+\]</div>
+<p>一般而言，离子位移跟不上高频变化的电场，因而<span class="arithmatex">\(\varepsilon_r(0)&gt;\varepsilon_r(\infty)\)</span>，故纵光学波的频率大于横光学波的频率。</p>
+<h2 id="_3">晶体的热学性质<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<h3 id="1_1">1.晶格热容<a class="headerlink" href="#1_1" title="Permanent link">¶</a></h3>
+<p>固体热容通常包括晶格热容(声子热容)和电子热容，本章讨论晶格热容。大体思路是从色散关系出发，求出模式密度，进而按模式密度的分布对物理量进行积分，得到宏观的物理量。注意不同模型的相互比较，以及与实验的差别。</p>
+<p><strong>模式密度</strong>：单位频率内的模式数，称为模式密度：</p>
+<div class="arithmatex">\[
+\boxed{g(\omega)=\frac{dn}{d\omega}}
+\]</div>
+<p>在<span class="arithmatex">\(s\)</span>维空间中，如果从热统的观点出发，基于<span class="arithmatex">\(\oint pdq=nh\)</span>,将<span class="arithmatex">\(dn\)</span>写为相空间中的体积元，并将位形空间提出来，留下动量空间，如果可将色散关系<span class="arithmatex">\(\omega(q)\)</span>在<span class="arithmatex">\(q\)</span>空间的体积写为<span class="arithmatex">\(\omega\)</span>的显式函数<span class="arithmatex">\(V_q(\omega)\)</span>，利用定义即可得到模式密度，其中<span class="arithmatex">\(p_i\)</span>为动量，<span class="arithmatex">\(q_i\)</span>为波矢，这里利用到了<span class="arithmatex">\(p=\hbar q\)</span>:</p>
+<div class="arithmatex">\[
+g(\omega)=\frac{V_s\prod_{i=1}^sdp_i}{h^sd\omega}=\frac{V_s\hbar^s\prod_{i=1}^sdq_i}{h^sd\omega}=\frac{V_s}{(2\pi)^s}\frac{dV_q(\omega)}{d\omega}
+\]</div>
+<p>由此，可以得到：</p>
+<div class="arithmatex">\[
+dn=\frac{V_s}{(2\pi)^s}dV_q(\omega)\quad\Rightarrow\quad \boxed{n=\frac{V_s}{(2\pi)^s}V_q(\omega)}
+\]</div>
+<p><em>即模式数等于波矢密度乘以波矢空间中对应的体积。这种理解方式有时候可以简化复杂的计算，例如在热容模型中的计算，或色散关系在<span class="arithmatex">\(q\)</span>空间是椭圆或者椭球的情形。</em></p>
+<p>除了以上这种比较直接的方法，更多用到的是给定色散关系<span class="arithmatex">\(\omega(q)\)</span>，利用<span class="arithmatex">\(dV_q=\int dSdq_n\)</span>以及<span class="arithmatex">\(d\omega=|\nabla_q\omega(q)|dq_n\)</span>得到：</p>
+<div class="arithmatex">\[
+\boxed{g(\omega)=\frac{V_s}{(2\pi)^s}\frac{\oint dS}{|\nabla_q\omega(q)|}}
+\]</div>
+<p>对于多个色散关系，总的模式密度为各个模式密度的和：</p>
+<div class="arithmatex">\[
+\boxed{g(\omega)=\sum_ig_i(\omega)}
+\]</div>
+<blockquote>
+<p><strong>提示：</strong> 需要注意，对<span class="arithmatex">\(s=1\)</span>的各向同性空间，<span class="arithmatex">\(\oint dS=2\)</span>.这一点可从<span class="arithmatex">\(s\)</span>维空间球的表面积公式看出，参见“热统梳理”p83.</p>
+</blockquote>
+<p><strong>范霍夫奇点</strong>：当出现<span class="arithmatex">\(|\nabla_q\omega(q)|=0\)</span>时，模式密度出现奇点。例如一维单原子链和一维双原子链的色散关系，就会出现范霍夫奇点。对于一维链，其模式密度是简单的：</p>
+<div class="arithmatex">\[
+g(\omega)=\frac{L}{2\pi}\frac{2}{|d\omega(q)/dq|}\propto\frac{1}{|d\omega(q)/dq|}
+\]</div>
+<p>因而只要知晓<span class="arithmatex">\(\omega(q)\)</span>的斜率随<span class="arithmatex">\(\omega\)</span>的变化趋势，即可大致画出<span class="arithmatex">\(g(\omega)\)</span>，并且可知，当<span class="arithmatex">\(\omega(q)\)</span>斜率为<span class="arithmatex">\(0\)</span>时，一般来说，就对应着范霍夫奇点。<em>绘图详见“补充内容”。</em></p>
+<p><strong>爱因斯坦模型</strong>：考虑色散关系<span class="arithmatex">\(\omega(q)=\omega_E\)</span>.由于与光学支色散关系的位置很接近，故通常利用爱因斯坦模型处理光学声子的近似。</p>
+<p>默认在三维空间中讨论热容问题，设每个原胞内有<span class="arithmatex">\(P\)</span>个原子，考虑谐振子量子化之后的能量，利用配分函数求得内能和热容：</p>
+<div class="arithmatex">\[
+U=3PN\left(\frac{\hbar\omega_E}{2}+\frac{\hbar\omega_E}{e^{\beta\hbar\omega_E}-1}\right)\quad\Rightarrow\quad C_V=3NPk_B\left(\frac{\hbar\omega_E}{k_BT}\right)^2\frac{e^{\frac{\hbar\omega_E}{k_BT}}}{(e^{\frac{\hbar\omega_E}{k_BT}}-1)^2}
+\]</div>
+<p>可以定义爱因斯坦温度<span class="arithmatex">\(\theta_E=\frac{\hbar\omega_E}{k_B}\)</span>,进而表示为：</p>
+<div class="arithmatex">\[
+\boxed{C_V=3NPk_B\left(\frac{\theta_E}{T}\right)^2\frac{e^{\frac{\theta_E}{T}}}{(e^{\frac{\theta_E}{T}}-1)^2}}
+\]</div>
+<p>高温下<span class="arithmatex">\(\theta_E\ll T\)</span>，近似得到<span class="arithmatex">\(C_V=3NPk_B\)</span>,符合实验；低温下<span class="arithmatex">\(\theta_E\gg T\)</span>,近似得到<span class="arithmatex">\(C_V=3NPk_B\left(\frac{\theta_E}{T}\right)^2e^{-\frac{\theta_E}{T}}\)</span>,即指数下降，这与实验的<span class="arithmatex">\(T^3\)</span>下降不符，主要原因是低温下难以激发出较高频率的声子<span class="arithmatex">\(\omega_E\)</span>，即频率的分布不应该是狄拉克函数，而是有一定的分布，这也就为德拜模型的提出创造了机会。</p>
+<p><strong>德拜模型</strong>：既然在低温下，频率较低，波长远大于原子间距，因而可以用弹性波的色散关系讨论热容问题。分别考虑纵波色散关系<span class="arithmatex">\(\omega_L(q)=c_Lq\)</span>以及横波色散关系<span class="arithmatex">\(\omega_T(q)=c_Tq\)</span>,并假设存在德拜截止频率<span class="arithmatex">\(\omega_D\)</span>.由于色散关系相当于声学支的长波近似，德拜模型主要描述<span class="arithmatex">\(3\)</span>个声学支；若原胞内有<span class="arithmatex">\(P&gt;1\)</span>个原子，其余<span class="arithmatex">\(3(P-1)\)</span>个光学支通常要另行近似，例如用爱因斯坦模型处理。横波的自由度是2，因而：</p>
+<div class="arithmatex">\[
+g(\omega)=g_L(\omega)+2g_T(\omega)=\frac{9N\omega^2}{\omega^3_D}
+\]</div>
+<p>其中德拜频率可以直接利用波矢密度的观点得到：</p>
+<div class="arithmatex">\[
+3N=\frac{V}{(2\pi)^3}\left(\frac{4}{3}\pi q^3+2\frac{4}{3}\pi q^3\right)=3\frac{V\omega_D^3}{6\pi^2c^3}\quad\Rightarrow\quad\boxed{\omega_D=\left(\frac{6\pi^2c^3N}{V}\right)^{\frac{1}{3}}}
+\]</div>
+<p>其中<span class="arithmatex">\(c\)</span>为平均化的速度。由此得到：</p>
+<div class="arithmatex">\[
+C_V=\int_0^{\omega_D}g(\omega)k_B\left(\frac{\hbar\omega}{k_BT}\right)^2\frac{e^{\frac{\hbar\omega}{k_BT}}}{(e^{\frac{\hbar\omega}{k_BT}}-1)^2}d\omega
+\]</div>
+<p>令<span class="arithmatex">\(x=\frac{\hbar\omega}{k_BT},\theta_D=\frac{\hbar\omega_D}{k_B}\)</span>可写作：</p>
+<div class="arithmatex">\[
+\boxed{C_V=9Nk_B\left(\frac{T}{\theta_D}\right)^3\int_0^{\frac{\theta_D}{T}}\frac{x^4e^x}{(e^x-1)^2}dx}
+\]</div>
+<p>高温下<span class="arithmatex">\(\theta_D\ll T\)</span>，积分式分母<span class="arithmatex">\(e^x-1\approx x\)</span>,分子<span class="arithmatex">\(e^x\approx1\)</span>,积分得到声学支贡献<span class="arithmatex">\(C_V=3Nk_B\)</span>；对于单原子原胞(<span class="arithmatex">\(P=1\)</span>)这就是完整的杜隆-珀替极限，而对于多原子原胞，还需要加上光学支贡献，高温总热容才趋向<span class="arithmatex">\(3NPk_B\)</span>。低温下<span class="arithmatex">\(\theta_D\gg T\)</span>,积分上限变为无穷大，进而得到<span class="arithmatex">\(C_V=\frac{12}{5}Nk_B\pi^4\left(\frac{T}{\theta_D}\right)^3\)</span>,符合<span class="arithmatex">\(T^3\)</span>律。然而，德拜模型由于色散关系过于简单，当处于中温区时，不能很好的与实验相符，可以将德拜温度<span class="arithmatex">\(\theta_D\)</span>看作温度的函数，进而与实验数据相吻合。</p>
+<p><em>对于 <span class="arithmatex">\(T^3\)</span> 律的理解，可以从低温下 <span class="arithmatex">\(\hbar\omega=\hbar cq\sim k_BT\)</span>，以及德拜温度与最大波矢的关系 <span class="arithmatex">\(q_m=\frac{k_B\theta_D}{\hbar c}\)</span> 看出，在倒空间可激发声子的最大数量为 <span class="arithmatex">\(\frac{4}{3}\pi q_m^3\)</span>，低温下热激发显著占据的为 <span class="arithmatex">\(\frac{4}{3}\pi q^3\)</span>，得到：</em></p>
+<div class="arithmatex">\[
+\frac{\frac{4}{3}\pi q^3}{\frac{4}{3}\pi q_m^3}=\left(\frac{T}{\theta_D}\right)^3
+\]</div>
+<p><em>由于声子是玻色子，通常粒子数不守恒，低温下主要从低频长波声学模式开始被热激发，进而体现 <span class="arithmatex">\(T^3\)</span> 律；而电子热容却截然不同，由于粒子数守恒，倒空间中费米球内层电子态几乎不随温度变化，只有费米面附近的电子态对热容有贡献。</em></p>
+<h3 id="2_1">2.非简谐效应<a class="headerlink" href="#2_1" title="Permanent link">¶</a></h3>
+<p>之前的讨论，都是将势能展开到二阶，即简谐近似，然而简谐近似无法解释热传导、热膨胀等效应，这些效应称为非简谐效应。</p>
+<p><strong>格林艾森状态方程</strong>：为了得到晶格的状态方程，可先考虑系统自由能<span class="arithmatex">\(F(T,V)\)</span>:</p>
+<div class="arithmatex">\[
+F(T,V)=F^0(V)+F^V(T,V)
+\]</div>
+<p>其中<span class="arithmatex">\(F^0(V)=U^0(V)\)</span>为晶格基态的能量，仅与体积有关；<span class="arithmatex">\(F^V(T,V)\)</span>为热振动带来的能量，与体积、温度均有关。利用统计物理的方法<span class="arithmatex">\(F^V(T,V)=-k_BTlnZ^V\)</span>得到<span class="arithmatex">\(F^V(T,V)\)</span>与色散关系<span class="arithmatex">\(\omega(q)\)</span>的关系式，再利用<span class="arithmatex">\(p=-\left(\frac{\partial F}{\partial V}\right)_T\)</span>得到：</p>
+<div class="arithmatex">\[
+p=-\frac{dU^0(V)}{dV}-\frac{1}{V}\sum_{q,s}E_s\frac{dln\omega_s(q)}{dlnV}
+\]</div>
+<p>令<span class="arithmatex">\(\gamma\)</span>为<em>格林艾森常数</em>：</p>
+<div class="arithmatex">\[
+\boxed{\gamma=-\frac{d ln\omega_j(q)}{d ln V}}
+\]</div>
+<p>由于<span class="arithmatex">\(\omega_s(q)\)</span>与体积<span class="arithmatex">\(V\)</span>的关系很复杂，格林艾森假设对于所有运动，<span class="arithmatex">\(\gamma\)</span>均为一个常数。由于<span class="arithmatex">\(V\)</span>增大时，原子间作用力减少，故频率<span class="arithmatex">\(\omega\)</span>减小，再考虑到<span class="arithmatex">\(\gamma\)</span>定义式里的负号，因而有<span class="arithmatex">\(\gamma&gt;0\)</span>.进入<span class="arithmatex">\(\gamma\)</span>后，方程可写为：</p>
+<div class="arithmatex">\[
+\boxed{p=-\frac{dU^0(V)}{dV}+\gamma\frac{E}{V}}
+\]</div>
+<p>这便是<em>格林艾森状态方程</em>，其中第一项称为冷压，第二项为热压。</p>
+<p><strong>热膨胀</strong>：利用格林艾森状态方程可以直接讨论热膨胀，由于外压很小，可以近似为<span class="arithmatex">\(p\approx0\)</span>,进而得到：</p>
+<div class="arithmatex">\[
+\frac{dU^0(V)}{dV}=\gamma\frac{E}{V}
+\]</div>
+<p>将<span class="arithmatex">\(\frac{dU^0(V)}{dV}\)</span>在平衡体积<span class="arithmatex">\(V_0\)</span>处进行展开，一阶为<span class="arithmatex">\(0\)</span>，二阶保留，再结合
+<span class="arithmatex">\(K=V\left(\frac{\partial^2U}{\partial V^2}\right)_T\)</span>
+得到：</p>
+<div class="arithmatex">\[
+\frac{dU^0(V)}{dV}=K\frac{V-V_0}{V_0}\quad\Rightarrow\quad\frac{\Delta V}{V_0}=\frac{\gamma}{K}\frac{E}{V}
+\]</div>
+<p>同时对温度微分，得到：</p>
+<div class="arithmatex">\[
+\boxed{\alpha=\frac{1}{V}\left(\frac{\partial V}{\partial T}\right)_p=\frac{\gamma C_V}{KV}}
+\]</div>
+<p>即<em>格林艾森定律</em>，可以通过此关系测得<span class="arithmatex">\(\gamma\)</span>.</p>
+<p>定量讨论，设偏移平衡位置<span class="arithmatex">\(\delta\)</span>,根据玻尔兹曼统计有：</p>
+<div class="arithmatex">\[
+\overline{\delta}=\frac{\int_{-\infty}^{\infty}\delta e^{-\frac{V}{k_BT}}d\delta}{\int_{-\infty}^{\infty} e^{-\frac{V}{k_BT}}d\delta}
+\]</div>
+<p>如果将<span class="arithmatex">\(V\)</span>进行展开，仅考虑二阶项，势能完全对称，从而分子为奇函数，积分为0，即不存在热膨胀效应。而当考虑三阶项：</p>
+<div class="arithmatex">\[
+V(a+\delta)=f\delta^2-g\delta^3\quad\Rightarrow\quad\overline{\delta}=\frac{3}{4}\frac{g}{f^2}k_BT&gt;0
+\]</div>
+<p>可见，热膨胀确实是非简谐效应。</p>
+<p><strong>热传导</strong>：热传导可分为声子导热和电子导热，这里分析声子导热。将晶格振动视为声子气体，如果仅考虑简谐项，声子之间没有相互作用，无法达到热平衡，也无法形成声子气体的定向运动，产生热传导，由此热传导必须有非简谐项参与。</p>
+<div class="arithmatex">\[
+\mathbf{j}_Q=-K\nabla T
+\]</div>
+<p>其中<span class="arithmatex">\(K\)</span>为热导率，是热传导强弱的重要指标，利用分子动理论的方法可以得到：</p>
+<div class="arithmatex">\[
+\boxed{K\sim\frac{1}{3}C_VvL}
+\]</div>
+<p>为了方便，一般认为平均速度<span class="arithmatex">\(v\)</span>就是固体中的声速，通常为定值，因而热导率大小的主要矛盾就在热容<span class="arithmatex">\(C_V\)</span>和平均自由程<span class="arithmatex">\(L\)</span>上，热容随温度的变化之前已经讨论过了；而自由程的影响因素主要来源于(1)声子之间的散射(2)杂质、晶体尺寸对声子的散射。此外，非简谐的三阶项对应三声子过程，即两个声子碰撞产生另一个声子，或一个声子劈裂产生两个声子。</p>
+<p>(1)声子与声子的散射主要分为正常过程(N过程)和倒逆过程(U过程)，满足：</p>
+<div class="arithmatex">\[
+\hbar\omega_1+\hbar\omega_2=\hbar\omega_3\qquad
+\hbar\mathbf{q}_1+\hbar\mathbf{q}_2=\hbar(\mathbf{q}_3+\mathbf{G})
+\]</div>
+<p>对于N过程来说，<span class="arithmatex">\(\mathbf{G}=0\)</span>,此时三声子过程限制在一个布里渊区内进行，此过程对热平衡的建立起重要作用，如果只有N过程，热导率为无穷大。</p>
+<p>对于U过程来说，<span class="arithmatex">\(\mathbf{G}\ne0\)</span>,此时散射过程要跑出第一布里渊区，又根据波矢的平移对称性，结果使得声子的方向发生了逆转，即大角度散射，准动量不守恒，并且声子波矢至少要大于<span class="arithmatex">\(\frac{\mathbf{G}}{4}\)</span>,才能发生，常在高温下发生，且对热阻有贡献。</p>
+<p>(2)考虑固体的缺陷后，对于总的平均自由程<span class="arithmatex">\(L\)</span>：</p>
+<div class="arithmatex">\[
+\frac{1}{L}=\frac{1}{l_p}+\frac{1}{l_i}+\frac{1}{l}
+\]</div>
+<p>其中<span class="arithmatex">\(l_p\)</span>为声子(晶格振动)的平均自由程，<span class="arithmatex">\(l\)</span>为样品的长度，<span class="arithmatex">\(l_i\)</span>为杂质的影响。对于低温下的完美晶体，<span class="arithmatex">\(l_i\rightarrow\infty,l_p\rightarrow\infty\)</span>，但样品长度<span class="arithmatex">\(l\)</span>有限，从而自由程在低温下趋向于有限值。</p>
+<p><em>综上，在高温下，热容基本为常数，由于产生 U 过程，自由程随温度升高而减小，并且考虑杂质等的影响，热导率与温度成反比：</em></p>
+<div class="arithmatex">\[
+K\sim\frac{1}{T}
+\]</div>
+<p><em>在低温下，自由程与声子数成反比，导致：</em></p>
+<div class="arithmatex">\[
+L\sim e^{\frac{\theta_D}{\alpha T}}
+\]</div>
+<p><em>如果自由程对热导率的贡献极大，那么热导率也呈这个关系，即随温度升高而下降。但在更低的温度范围内，热容按 <span class="arithmatex">\(T^3\)</span> 下降，自由程由于晶体尺寸效应不能无限制地增大而趋于定值，故：</em></p>
+<div class="arithmatex">\[
+K\sim T^3
+\]</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚">
+        
+          
+          <a href="crystal_binding.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: 第二章 晶体结合">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                第二章 晶体结合
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="band_theory.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 第四章 量子能带论">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                第四章 量子能带论
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="http://tensofermi.github.io/" target="_blank" rel="noopener" title="tensofermi.github.io" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.97 2.59a1.5 1.5 0 0 0-1.94 0l-7.5 6.363A1.5 1.5 0 0 0 3 10.097V19.5A1.5 1.5 0 0 0 4.5 21h4.75a.75.75 0 0 0 .75-.75V14h4v6.25c0 .414.336.75.75.75h4.75a1.5 1.5 0 0 0 1.5-1.5v-9.403a1.5 1.5 0 0 0-.53-1.144z"></path></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="javascripts/mathjax.js"></script>
+      
+        <script src="javascripts/mathjax/es5/tex-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": false, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "none"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

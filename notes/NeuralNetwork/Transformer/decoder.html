@@ -15,7 +15,7 @@
         
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../logo/main.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
@@ -93,8 +93,7 @@
   <nav class="md-header__inner md-grid" aria-label="页眉">
     <a href="../index.html" title="Neural Network Notes" class="md-header__button md-logo" aria-label="Neural Network Notes" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+  <img src="../logo/neural_network.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -177,8 +176,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../index.html" title="Neural Network Notes" class="md-nav__button md-logo" aria-label="Neural Network Notes" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+  <img src="../logo/neural_network.png" alt="logo">
 
     </a>
     Neural Network Notes
@@ -640,6 +638,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#layernorm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LayerNorm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#residual-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Residual Connection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#masked-self-attention" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -673,10 +693,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#logits" class="md-nav__link">
+  <a href="#lm-head-logits" class="md-nav__link">
     <span class="md-ellipsis">
       
-        输出 Logits
+        LM Head 与输出 Logits
       
     </span>
   </a>
@@ -831,6 +851,8 @@
       
         
       
+        
+      
     
     
     
@@ -886,6 +908,34 @@
     
   
     代码导读
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../numerical_precision.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数值精度
   
 
     
@@ -1011,6 +1061,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#layernorm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LayerNorm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#residual-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Residual Connection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#masked-self-attention" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1044,10 +1116,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#logits" class="md-nav__link">
+  <a href="#lm-head-logits" class="md-nav__link">
     <span class="md-ellipsis">
       
-        输出 Logits
+        LM Head 与输出 Logits
       
     </span>
   </a>
@@ -1126,12 +1198,15 @@ X\in\mathbb{R}^{B\times N\times d_{\rm model}}.
 <li><span class="arithmatex">\(d_{\rm model}\)</span>：每个 token 的隐藏维度。</li>
 </ul>
 <p>进入 decoder block 的 <span class="arithmatex">\(X\)</span> 已经是一组连续向量，不再是离散 token id。</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="assets/decoder_overview.png" data-desc-position="bottom"><img alt="Decoder-only Transformer 的整体数据流" src="assets/decoder_overview.png"></a></p>
 <h2 id="decoder-block">一个 Decoder Block<a class="headerlink" href="#decoder-block" title="Permanent link">¶</a></h2>
 <p>一个 decoder block 可以看成：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>masked self-attention
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  -&gt; residual + layer norm
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  -&gt; feed-forward network
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  -&gt; residual + layer norm
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>layer norm
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  -&gt; masked self-attention
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  -&gt; residual add
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  -&gt; layer norm
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  -&gt; feed-forward network
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  -&gt; residual add
 </code></pre></div>
 <p>常见现代实现使用 Pre-LN：</p>
 <div class="arithmatex">\[
@@ -1145,6 +1220,109 @@ Z=Y+\mathrm{FFN}(\mathrm{LayerNorm}(Y)).
 X,Y,Z\in\mathbb{R}^{B\times N\times d_{\rm model}}.
 \]</div>
 <p>这也是 Transformer block 容易堆叠的原因：每一层输入输出形状保持一致。</p>
+<p>上图中最容易被一眼带过、但对 decoder 很关键的部件有四个：</p>
+<table>
+<thead>
+<tr>
+<th>模块</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LayerNorm</td>
+<td>稳定每一层输入的数值尺度，方便深层训练。</td>
+</tr>
+<tr>
+<td>residual connection</td>
+<td>保留原始信息，并给梯度一条更直接的传播路径。</td>
+</tr>
+<tr>
+<td>多头拼接后的 <span class="arithmatex">\(W^O\)</span></td>
+<td>把不同 attention head 的信息重新混合成统一表示。</td>
+</tr>
+<tr>
+<td>LM head</td>
+<td>把 hidden state 从 <span class="arithmatex">\(d_{\rm model}\)</span> 维映射到词表大小，得到每个 token 的 logits。</td>
+</tr>
+</tbody>
+</table>
+<p>下面把它们放回 decoder 的数据流里看。</p>
+<h2 id="layernorm">LayerNorm<a class="headerlink" href="#layernorm" title="Permanent link">¶</a></h2>
+<p>LayerNorm 作用在每个 token 自己的 hidden vector 上。若某一层输入为：</p>
+<div class="arithmatex">\[
+X\in\mathbb{R}^{B\times N\times d_{\rm model}},
+\]</div>
+<p>则第 <span class="arithmatex">\(b\)</span> 个样本、第 <span class="arithmatex">\(i\)</span> 个位置的向量为：</p>
+<div class="arithmatex">\[
+x_{b,i}\in\mathbb{R}^{d_{\rm model}}.
+\]</div>
+<p>LayerNorm 对这个向量的最后一维单独计算均值和方差：</p>
+<div class="arithmatex">\[
+\mu_{b,i}
+=
+{1\over d_{\rm model}}
+\sum_{j=1}^{d_{\rm model}}x_{b,i,j},
+\]</div>
+<div class="arithmatex">\[
+\sigma_{b,i}^2
+=
+{1\over d_{\rm model}}
+\sum_{j=1}^{d_{\rm model}}
+(x_{b,i,j}-\mu_{b,i})^2.
+\]</div>
+<p>然后归一化：</p>
+<div class="arithmatex">\[
+\hat x_{b,i,j}
+=
+{x_{b,i,j}-\mu_{b,i}
+\over
+\sqrt{\sigma_{b,i}^2+\epsilon}}.
+\]</div>
+<p>最后再加上可学习的缩放和平移：</p>
+<div class="arithmatex">\[
+\mathrm{LN}(x_{b,i,j})
+=
+\gamma_j\hat x_{b,i,j}+\beta_j,
+\qquad
+\gamma,\beta\in\mathbb{R}^{d_{\rm model}}.
+\]</div>
+<p>所以 LayerNorm 不改变 shape：</p>
+<div class="arithmatex">\[
+\mathrm{LN}:
+\mathbb{R}^{B\times N\times d_{\rm model}}
+\rightarrow
+\mathbb{R}^{B\times N\times d_{\rm model}}.
+\]</div>
+<p>直观上，它是在每一层计算前先把每个 token 的特征向量整理到比较稳定的数值范围里。这样经过很多层 decoder block 后，hidden state 不容易因为尺度漂移而让训练变得不稳定。</p>
+<h2 id="residual-connection">Residual Connection<a class="headerlink" href="#residual-connection" title="Permanent link">¶</a></h2>
+<p>Residual connection 就是把子层输出作为“修正量”加回原输入。Pre-LN decoder block 中，attention 子层写成：</p>
+<div class="arithmatex">\[
+Y=X+\mathrm{MHA}(\mathrm{LN}(X)),
+\]</div>
+<p>MLP 子层写成：</p>
+<div class="arithmatex">\[
+Z=Y+\mathrm{MLP}(\mathrm{LN}(Y)).
+\]</div>
+<p>也就是说，attention 和 MLP 不需要完全重写当前表示，而是学习：</p>
+<div class="arithmatex">\[
+\Delta X_{\rm attn}=\mathrm{MHA}(\mathrm{LN}(X)),
+\qquad
+\Delta Y_{\rm mlp}=\mathrm{MLP}(\mathrm{LN}(Y)).
+\]</div>
+<p>于是 block 更像是在不断做：</p>
+<div class="arithmatex">\[
+\text{当前表示}
+\leftarrow
+\text{当前表示}+\text{一点修正}.
+\]</div>
+<p>Residual 重要的地方有两点。第一，原始信息不会被每一层完全覆盖；第二，反向传播时：</p>
+<div class="arithmatex">\[
+{ \partial (X+f(X)) \over \partial X}
+=
+I+{\partial f\over\partial X}.
+\]</div>
+<p>这里的恒等项 <span class="arithmatex">\(I\)</span> 让梯度可以沿着 residual path 更直接地往前传。因此深层 Transformer 不是让每一层都从头变换表示，而是让很多层在同一个主干表示上逐步修正。</p>
 <h2 id="masked-self-attention">Masked Self-Attention<a class="headerlink" href="#masked-self-attention" title="Permanent link">¶</a></h2>
 <p>Decoder 的 self-attention 与普通 self-attention 的差别在 mask。第 <span class="arithmatex">\(i\)</span> 个位置只能读取 <span class="arithmatex">\(j\le i\)</span> 的 token：</p>
 <div class="arithmatex">\[
@@ -1176,7 +1354,7 @@ H_a\in\mathbb{R}^{B\times N\times d_h}.
 H=\mathrm{Concat}(H_1,\ldots,H_h)
 \in\mathbb{R}^{B\times N\times d_{\rm model}}.
 \]</div>
-<p>再经过输出投影：</p>
+<p>拼接只是把不同 head 的结果并排放在一起。真正把这些 head 融合回统一表示的是输出投影 <span class="arithmatex">\(W^O\)</span>：</p>
 <div class="arithmatex">\[
 \mathrm{MHA}(X)=HW^O,
 \qquad
@@ -1186,6 +1364,12 @@ W^O\in\mathbb{R}^{d_{\rm model}\times d_{\rm model}}.
 <div class="arithmatex">\[
 \mathrm{MHA}(X)\in\mathbb{R}^{B\times N\times d_{\rm model}}.
 \]</div>
+<p>如果把不同 head 看成不同“专家”，concat 只是把专家意见摆在一排，<span class="arithmatex">\(W^O\)</span> 则负责做线性汇总。它有三个作用：</p>
+<ul>
+<li>融合不同 head 学到的关系，例如局部依赖、长距离依赖、语法关系或格式信息。</li>
+<li>保证 attention 子层输出回到 <span class="arithmatex">\(d_{\rm model}\)</span>，从而可以和 residual 中的 <span class="arithmatex">\(X\)</span> 相加。</li>
+<li>允许模型学习不同 head 输出之间的线性组合，而不是让每个 head 永远只占据自己的维度区间。</li>
+</ul>
 <h2 id="ffn">FFN 的角色<a class="headerlink" href="#ffn" title="Permanent link">¶</a></h2>
 <p>Attention 负责让不同位置交换信息。FFN 对每个位置独立做非线性变换：</p>
 <div class="arithmatex">\[
@@ -1204,27 +1388,58 @@ W_2\in\mathbb{R}^{d_{\rm ff}\times d_{\rm model}}.
 d_{\rm ff}\approx 4d_{\rm model}.
 \]</div>
 <p>FFN 不混合不同 token 位置；它只把每个位置已经聚合到的上下文信息再加工一次。</p>
-<h2 id="logits">输出 Logits<a class="headerlink" href="#logits" title="Permanent link">¶</a></h2>
+<h2 id="lm-head-logits">LM Head 与输出 Logits<a class="headerlink" href="#lm-head-logits" title="Permanent link">¶</a></h2>
 <p>堆叠 <span class="arithmatex">\(L\)</span> 个 decoder block 后得到：</p>
 <div class="arithmatex">\[
-Z_L\in\mathbb{R}^{B\times N\times d_{\rm model}}.
+X_L\in\mathbb{R}^{B\times N\times d_{\rm model}}.
 \]</div>
-<p>输出层把每个位置映射到词表：</p>
+<p>许多 decoder-only 模型会先过 final LayerNorm：</p>
 <div class="arithmatex">\[
-\mathrm{logits}=Z_LW_{\rm vocab}+b_{\rm vocab},
+H=\mathrm{LN}(X_L).
 \]</div>
-<p>其中：</p>
+<p>LM head 再把每个位置的 hidden state 映射到词表大小：</p>
 <div class="arithmatex">\[
-W_{\rm vocab}\in\mathbb{R}^{d_{\rm model}\times V}.
+\mathrm{logits}=HW_{\rm lm}+b_{\rm lm},
+\qquad
+W_{\rm lm}\in\mathbb{R}^{d_{\rm model}\times V}.
 \]</div>
 <p>于是：</p>
 <div class="arithmatex">\[
 \mathrm{logits}\in\mathbb{R}^{B\times N\times V}.
 \]</div>
-<p>第 <span class="arithmatex">\(i\)</span> 个位置的 logits 用来预测下一个 token。训练时常写成：</p>
+<p>这里 <span class="arithmatex">\(V=|\mathcal{V}|\)</span> 是词表大小。第 <span class="arithmatex">\(i\)</span> 个位置会输出 <span class="arithmatex">\(V\)</span> 个 raw scores：</p>
+<div class="arithmatex">\[
+\mathrm{logits}_{b,i}
+=
+[\ell_1,\ell_2,\ldots,\ell_V].
+\]</div>
+<p>这些 logits 还不是概率。沿词表维度做 softmax 后才得到 next-token probability：</p>
+<div class="arithmatex">\[
+P(t_{i+1}=v\mid t_{\le i})
+=
+{e^{\ell_v}\over\sum_{u\in\mathcal{V}}e^{\ell_u}}.
+\]</div>
+<p>也就是说：</p>
+<div class="arithmatex">\[
+h_i
+\rightarrow
+\mathrm{logits}_i
+\rightarrow
+P(t_{i+1}\mid t_{\le i}).
+\]</div>
+<p>训练时常写成：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>输入: [BOS, t0, t1, ..., t_{N-2}]
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>目标: [t0,  t1, t2, ..., t_{N-1}]
 </code></pre></div>
+<p>很多 decoder-only 模型还会使用 weight tying。输入侧 token embedding 为：</p>
+<div class="arithmatex">\[
+W_{\rm TE}\in\mathbb{R}^{V\times d_{\rm model}},
+\]</div>
+<p>输出侧 LM head 可以共享同一个矩阵：</p>
+<div class="arithmatex">\[
+W_{\rm lm}=W_{\rm TE}^{\mathsf T}.
+\]</div>
+<p>直观上，输入时每个 token 有一个 embedding；输出时，模型拿当前位置的 hidden state 去和每个 token embedding 做相似度比较，越匹配的 token logit 越高。</p>
 <h2 id="_3">训练：并行但不能看未来<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
 <p>训练时可以把整段序列一次送入模型。虽然每个位置通过 causal mask 看不到未来，所有位置的矩阵乘法仍然可以并行计算。</p>
 <p>这就是 decoder-only Transformer 的一个妙处：</p>

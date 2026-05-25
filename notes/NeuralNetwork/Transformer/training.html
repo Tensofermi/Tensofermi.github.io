@@ -15,7 +15,7 @@
         
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../logo/main.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
@@ -93,8 +93,7 @@
   <nav class="md-header__inner md-grid" aria-label="页眉">
     <a href="../index.html" title="Neural Network Notes" class="md-header__button md-logo" aria-label="Neural Network Notes" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+  <img src="../logo/neural_network.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -177,8 +176,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../index.html" title="Neural Network Notes" class="md-nav__button md-logo" aria-label="Neural Network Notes" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+  <img src="../logo/neural_network.png" alt="logo">
 
     </a>
     Neural Network Notes
@@ -809,6 +807,8 @@
       
         
       
+        
+      
     
     
     
@@ -864,6 +864,34 @@
     
   
     代码导读
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../numerical_precision.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数值精度
   
 
     
@@ -1093,6 +1121,7 @@ L
 =-\sum_i \log P_\theta(t_{i+1}\mid t_{\le i}).
 \]</div>
 <p>这时所有位置的 logits 可以一次算出来。causal mask 约束的是“每个位置能看见哪些 token”，并不妨碍 GPU 用矩阵乘法并行计算整段序列。</p>
+<p>实际训练时，logits、softmax、loss 和梯度还会受到数值精度影响。FP32、BF16、FP16、loss scaling 和量化的背景见 <a href="../numerical_precision.html">数值精度</a>。</p>
 <h2 id="masked-language-modeling">Masked Language Modeling<a class="headerlink" href="#masked-language-modeling" title="Permanent link">¶</a></h2>
 <p>Encoder-only 模型常用 masked language modeling。训练时随机遮住部分 token：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>原序列:  A B C D E

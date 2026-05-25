@@ -1,0 +1,1138 @@
+<!DOCTYPE html><html lang="zh" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="lattice_vibration_thermal.html">
+      
+      
+        <link rel="next" href="metal_electron_theory.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="logo/main.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>第四章 量子能带论 - Solid State Physics Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="index.html" title="Solid State Physics Notes" class="md-header__button md-logo" aria-label="Solid State Physics Notes" data-md-component="logo">
+      
+  <img src="logo/solid_state.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Solid State Physics Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第四章 量子能带论
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至深色模式" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换至深色模式" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至浅色模式" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至浅色模式" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Solid State Physics Notes" class="md-nav__button md-logo" aria-label="Solid State Physics Notes" data-md-component="logo">
+      
+  <img src="logo/solid_state.svg" alt="logo">
+
+    </a>
+    Solid State Physics Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="crystal_structure.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第一章 晶体结构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="crystal_binding.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第二章 晶体结合
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="lattice_vibration_thermal.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三章 晶格振动与晶体热性质
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第四章 量子能带论
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="band_theory.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第四章 量子能带论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本假设
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        求解概述
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        求解方法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="求解方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.近自由电子近似
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2tba" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.紧束缚近似(TBA)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.其他近似方法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        布洛赫电子的准经典运动
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="布洛赫电子的准经典运动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.有效质量与布洛赫电子速度
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.在恒定电场下的运动
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.在恒定磁场下的运动
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        固体导电性的能带解释
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="metal_electron_theory.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第五章 金属电子论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="appendix.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    补充内容
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本假设
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        求解概述
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        求解方法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="求解方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.近自由电子近似
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2tba" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.紧束缚近似(TBA)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.其他近似方法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        布洛赫电子的准经典运动
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="布洛赫电子的准经典运动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.有效质量与布洛赫电子速度
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.在恒定电场下的运动
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.在恒定磁场下的运动
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        固体导电性的能带解释
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="_1">第四章 量子能带论<a class="headerlink" href="#_1" title="Permanent link">¶</a></h1>
+<h2 id="_2">基本假设<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<p>考虑<span class="arithmatex">\(N\)</span>个带正电荷<span class="arithmatex">\(Ze\)</span>的<em>离子实</em>，相应地有<span class="arithmatex">\(NZ\)</span>个<em>价电子</em>，该系统的哈密顿量可写为：</p>
+<div class="arithmatex">\[
+\hat{H}=-\sum_{i=1}^{NZ}\frac{\hbar^2}{2m_e}\nabla^2_i+\frac{1}{2}\sum_{i,j}^{}{}' \frac{1}{4\pi\varepsilon_0}\frac{e^2}{|\vec{r}_i-\vec{r}_j|}-\sum_{n=1}^N\frac{\hbar^2}{2M}\nabla^2_n
+\]</div>
+<div class="arithmatex">\[
++\frac{1}{2}\sum_{m,n}^{}{}'\frac{1}{4\pi\varepsilon_0}\frac{Z^2e^2}{|\vec{R}_n-\vec{R}_m|}-\sum_{i=1}^{NZ}\sum_{n=1}^N\frac{1}{4\pi\varepsilon_0}\frac{Ze^2}{|\vec{r}_i-\vec{R}_n|}
+\]</div>
+<div class="arithmatex">\[
+=\hat{T}_e+\hat{U}_{ee}(\vec{r}_i,\vec{r}_j)+\hat{T}_n+\hat{U}_{nm}(\vec{R}_n,\vec{R}_m)+\hat{U}_{en}(\vec{r}_i,\vec{R}_n)
+\]</div>
+<p>哈密顿量由五部分组成：<em>电子动能</em>和<em>电子间相互作用能</em>、<em>离子实动能</em>和<em>离子间相互作用能</em>、<em>电子与离子实之间的相互作用能</em>。这是一个复杂的多体问题，必须简化，抓住主要矛盾才能进行求解：<strong>多粒子问题<span class="arithmatex">\(\rightarrow\)</span>多电子问题<span class="arithmatex">\(\rightarrow\)</span>单电子问题</strong></p>
+<p>这种简化的精神，概括为能带理论的基本假设：</p>
+<p><strong>(1)绝热近似：</strong>考虑到离子实的质量远大于电子的质量，电子运动速度极快，可以忽略离子实的动能<span class="arithmatex">\(\hat{T}_n\)</span>，并适当选择势能零点，使得<span class="arithmatex">\(\hat{U}_{nm}=0\)</span>，即将离子实与价电子分开考虑，从而将多粒子问题转化为多电子问题。</p>
+<p><strong>(2)平均场近似：</strong>将电子与电子之间的相互作用(包括交换作用)<span class="arithmatex">\(\hat{U}_{ee}\)</span>利用一个平均场代替，再加上每个电子受到的周期性库仑作用<span class="arithmatex">\(\hat{U}_{en}\)</span>，从而得到平均等效的周期场<span class="arithmatex">\(\hat{U}(\vec{r})\)</span>，由此将多电子问题转化为单电子问题，因而也叫单电子近似。</p>
+<p><strong>(3)周期场近似：</strong>即利用晶体的周期性对势场进行周期近似：</p>
+<div class="arithmatex">\[
+\hat{U}(\vec{r})=\hat{U}(\vec{r}+\vec{R}_l)
+\]</div>
+<p>这是一个严格的实空间周期的势场，对于有限大小的晶体，还应使用玻恩-卡门边界条件进行周期的扩充，从而满足严格的周期条件。</p>
+<p><strong>(4)忽略相对论效应：</strong>求解单电子的薛定谔方程</p>
+<div class="arithmatex">\[
+\boxed{\left[\frac{\hat{p}^2}{2m_e}+\hat{U}(\vec{r})\right]\psi(\vec{r})=E\psi(\vec{r})}
+\]</div>
+<p>其中<span class="arithmatex">\(\hat{U}(\vec{r})\)</span>即为平均场。当需要考虑相对论效应时，需要改写为狄拉克方程。</p>
+<p>这种建立在单电子近似基础上的固体电子理论称为<em>能带理论。</em></p>
+<h2 id="_3">求解概述<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<p><strong>布洛赫定理</strong>：在求解方程之前，需要深刻挖掘周期性势场<span class="arithmatex">\(\hat{U}(\vec{r})=\hat{U}(\vec{r}+\vec{R}_l)\)</span>的数学特性，通过引入平移算符<span class="arithmatex">\(\hat{T}(\vec{R}_l)\)</span>，根据对易关系和波函数归一化的特性，得到平移算符<span class="arithmatex">\(\hat{T}(\vec{R}_l)\)</span>的本征值为<span class="arithmatex">\(e^{i\vec{k}\cdot\vec{R}_l}\)</span>.</p>
+<p>因而波函数满足：</p>
+<div class="arithmatex">\[
+\boxed{\psi^n_{\vec{k}}(\vec{r}+\vec{R}_l)=e^{i\vec{k}\cdot\vec{R}_l}\psi^n_{\vec{k}}(\vec{r})}
+\]</div>
+<p>前面的<span class="arithmatex">\(e^{i\vec{k}\cdot\vec{R}_l}\)</span>带来不同原胞间波函数的相位差。引入<span class="arithmatex">\(u^n_{\vec{k}}(\vec{r})=e^{-i\vec{k}\cdot\vec{r}}\psi^n_{\vec{k}}(\vec{r})\)</span>,使得<span class="arithmatex">\(u^n_{\vec{k}}(\vec{r})=u^n_{\vec{k}}(\vec{r}+\vec{R}_l)\)</span>，具有与晶格相同的周期性，故也可将布洛赫定理写为:</p>
+<div class="arithmatex">\[
+\boxed{\psi^n_{\vec{k}}(\vec{r})=e^{i\vec{k}\cdot\vec{r}}u^n_{\vec{k}}(\vec{r})}
+\]</div>
+<p>可见在周期场中，电子的波函数兼具自由运动的平面波<span class="arithmatex">\(e^{i\vec{k}\cdot\vec{r}}\)</span>和局域化的特性<span class="arithmatex">\(u^n_{\vec{k}}(\vec{r})\)</span>，称为调幅平面波，也叫<em>布洛赫波</em>。</p>
+<p>对于有限晶体，需要利用玻恩-卡门边界条件：设三个方向上原胞数为<span class="arithmatex">\(N_1,N_2,N_3\)</span>，根据<span class="arithmatex">\(\psi(\vec{r})=\psi(\vec{r}+\vec{R}_{N_1N_2N_3})\)</span>得到<span class="arithmatex">\(\vec{k}\)</span>的量子化形式：</p>
+<div class="arithmatex">\[
+\boxed{\vec{k}=\frac{h_1}{N_1}\vec{b}_1+\frac{h_2}{N_2}\vec{b}_2+\frac{h_3}{N_3}\vec{b}_3\qquad h_i\in[-\frac{N_i}{2},\frac{N_i}{2})}
+\]</div>
+<p>其中<span class="arithmatex">\(\frac{h_i}{N_i}\)</span>作为平移算符本征值对应的量子数，通过<span class="arithmatex">\(\vec{k}\)</span>表示电子的不同运动状态。<span class="arithmatex">\(\vec{k}\)</span>被限制在简约区，故<span class="arithmatex">\(\vec{k}\rightarrow\vec{k}+\vec{G_l}\)</span>并不改变电子的运动状态。<em>此外，类似于上一章的晶格振动，可以定义波矢密度<span class="arithmatex">\(\rho=\frac{V}{(2\pi)^3}\)</span>，但考虑到电子波矢<span class="arithmatex">\(\vec{k}\)</span>可以对应两个不同的自旋，因而分析电子态密度时，需要再乘以2！</em></p>
+<p><em>对于自由电子满足<span class="arithmatex">\(\vec{p}=\hbar\vec{k}\)</span>，然而对于周期场当中的布洛赫电子的波函数，由于需要满足布洛赫定理，从而不是动量算符的本征函数，故<span class="arithmatex">\(\hbar\vec{k}\)</span>被称作“准动量”或晶格动量，而非真实的动量。</em></p>
+<p><strong>能带</strong>：对势场和波函数进行傅里叶展开，以不同倒格矢作为矩阵的基底，得到无穷维矩阵形成的齐次线性方程组，进而得到无穷多个能量<span class="arithmatex">\(E\)</span>与波矢<span class="arithmatex">\(\vec{k}\)</span>的函数，即色散关系，这便是<em>能带</em>。最简单的例子是Kronig-Penney模型，即一维狄拉克梳势场。通常可以作为熟悉能带理论的toy model,下面进行简单的过程展示：</p>
+<p>傅里叶展开的关键在于准确找到有周期的函数结构，然后再用其周期的“频域”进行展开，例如具有实空间周期<span class="arithmatex">\(\vec{R}_n\)</span>的函数，就得用<span class="arithmatex">\(\vec{G_h}\)</span>展开。这里将具有晶格周期性的势能<span class="arithmatex">\(U(x)\)</span>按倒格矢<span class="arithmatex">\(G\)</span>展开，波函数<span class="arithmatex">\(\psi(x)\)</span>当中具有晶格周期的函数<span class="arithmatex">\(u(x)\)</span>也按倒格矢<span class="arithmatex">\(G\)</span>展开，考虑到布洛赫定理，可将波函数<span class="arithmatex">\(\psi(x)\)</span>按照相差倒格矢的波矢<span class="arithmatex">\(k\)</span>展开：</p>
+<div class="arithmatex">\[
+U(x)=\sum_G U_G e^{iGx}\qquad \psi(x)=e^{ikx}\sum_G C_G e^{iGx}=\sum_k C_k e^{ikx}
+\]</div>
+<p>代入方程：</p>
+<div class="arithmatex">\[
+\left[\frac{\hat{p}^2}{2m_e}+{U}(x)\right]\psi(x)=E\psi(x)
+\]</div>
+<p>提出<span class="arithmatex">\(e^{ikx}\)</span>,得到共同的傅里叶分量满足：</p>
+<div class="arithmatex">\[
+\sum_k\left[\left(\frac{\hbar^2k^2}{2m}-E\right)C_k+\sum_GU_GC_{k-G}\right]e^{ikx}=0
+\]</div>
+<p>将所有<span class="arithmatex">\(C_k\)</span>看做一个列向量<span class="arithmatex">\(\vec{C}\)</span>，由此可将上式这个齐次线性方程组，写为矩阵形式<span class="arithmatex">\(H_{k,G}\vec{C}=0\)</span>,若设<span class="arithmatex">\(U_0=0\)</span>，不难看出矩阵<span class="arithmatex">\(H_{k,G}\)</span>的主对角线为<span class="arithmatex">\(\frac{\hbar^2k^2}{2m}-E\)</span>,其余矩阵元均为<span class="arithmatex">\(U_G\)</span>.对于Kronig-Penney模型，利用泊松求和公式将势能展开为：</p>
+<div class="arithmatex">\[
+U(x)=-\sum_n\delta(x-na)=-\sum_G\frac{1}{a}e^{iGx}\quad \Rightarrow\quad U_G=-\frac{1}{a}
+\]</div>
+<p>其中<span class="arithmatex">\(a\)</span>为晶格常数。从而矩阵<span class="arithmatex">\(H_{k,G}\)</span>除了主对角元，其余元素均为<span class="arithmatex">\(-\frac{1}{a}\)</span>,根据齐次方程组的解法，令矩阵的行列式为0，从而解出无穷多个<span class="arithmatex">\(E(k)\)</span>关系式出来，即能带！</p>
+<p>通常将能带写为<span class="arithmatex">\(E_n(\vec{k})\)</span>，用<span class="arithmatex">\(n\)</span>标定不同的能带；对于某条能带而言，其最大值与最小值之差称为<em>能带宽度</em>，简称带宽；其与邻近能带的间隙大小，称为<em>能带间隙</em>或<em>禁带宽度</em>，简称能隙。</p>
+<p><strong>能带与布洛赫波的性质</strong>：将布洛赫波函数<span class="arithmatex">\(\psi^n_{\vec{k}}(\vec{r})\)</span>代入薛定谔方程，整理得到：</p>
+<div class="arithmatex">\[
+\left[\frac{\hbar^2}{2m_e}\left(\frac{\nabla}{i}+\vec{k}\right)^2+\hat{U}(\vec{r})\right]u^n_{\vec{k}}(\vec{r})=E_n(\vec{k})u^n_{\vec{k}}(\vec{r})
+\]</div>
+<p>从而可以推出以下结论，具体推导细节这里从略。</p>
+<p>I.能带的性质：</p>
+<p>(i)具有倒空间的周期平移性：</p>
+<div class="arithmatex">\[
+\boxed{E_n(\vec{k})=E_n(\vec{k}+\vec{G})}
+\]</div>
+<p>(ii)如果考虑电子的自旋，则要区分时间反演和空间反演不变，分别对应：</p>
+<div class="arithmatex">\[
+E_{n,\uparrow}(\vec{k})=E_{n,\downarrow}(-\vec{k})\qquad E_{n,\uparrow}(\vec{k})=E_{n,\uparrow}(-\vec{k})
+\]</div>
+<p>如果时间反演不变和空间反演不变同时满足，则有：</p>
+<div class="arithmatex">\[
+E_{n,\uparrow}(\vec{k})=E_{n,\downarrow}(\vec{k})\quad\Rightarrow\quad
+\boxed{E_{n}(\vec{k})=E_{n}(-\vec{k})}
+\]</div>
+<p>相当于电子自旋不影响最后的结果。通常铁磁材料的时间反演对称性被破坏，铁电材料的空间反演对称性被破坏。</p>
+<p>事实上，对于晶体所属点群操作<span class="arithmatex">\(\alpha\)</span>，都满足：</p>
+<div class="arithmatex">\[
+\boxed{E_n(\vec{k})=E_n(\alpha\vec{k})}
+\]</div>
+<p>(iii)综合考虑(i)和(ii)的性质，有：</p>
+<div class="arithmatex">\[
+\frac{d}{d\vec{k}}E(\vec{k}+\vec{G})=-\frac{d}{d\vec{k}}E(-\vec{k})
+\]</div>
+<p>取布里渊区边界<span class="arithmatex">\(\vec{k}=-\frac{\vec{G}}{2}\)</span>,从而得到：</p>
+<div class="arithmatex">\[
+\frac{d}{d\vec{k}}E(\frac{\vec{G}}{2})=-\frac{d}{d\vec{k}}E(\frac{\vec{G}}{2})\quad\Rightarrow \quad\boxed{\frac{d}{d\vec{k}}E(\frac{\vec{G}}{2})=0}
+\]</div>
+<p>也就是说，等能面垂直于布里渊区的边界。<em>这使得能带在快被占满时，等能面发生变形，进而导致能态密度变小，产生许多效应，而这些效应正是周期场对电子影响的体现！</em></p>
+<p>II.波函数的性质：</p>
+<div class="arithmatex">\[
+\boxed{\psi^{*}_{n,\vec{k}}(\vec{r})=\psi_{n,-\vec{k}}(\vec{r})}\qquad\qquad
+\boxed{\psi_{n,\vec{k}+\vec{G}}(\vec{r})\sim \psi_{n,\vec{k}}(\vec{r})}
+\]</div>
+<p>这里第二式的<span class="arithmatex">\(\sim\)</span>表示<span class="arithmatex">\(\vec{k}\)</span>与<span class="arithmatex">\(\vec{k}+\vec{G}\)</span>描述同一个约化波矢下的物理态，但周期部分<span class="arithmatex">\(u_{n,\vec{k}}\)</span>会相应改变，并不要求二者作为普通函数逐点完全相等。<em>注意波函数的周期性不等于晶格的周期性，即 <span class="arithmatex">\(\psi_k(\vec{r})\neq\psi_k(\vec{r}+\vec{R}_n)\)</span>。所有的性质都是对 <span class="arithmatex">\(\vec{k}\)</span> 的操作！</em></p>
+<p><em>此外，原子能级展宽成能带的物理原因是固体中大量原子轨道发生相互作用；但严格意义上的 <span class="arithmatex">\(E_n(\vec{k})\)</span>、布里渊区和布洛赫波描述依赖平移对称性。非晶或无序体系也可出现展宽的能量范围，但不能简单套用晶体中的 <span class="arithmatex">\(\vec{k}\)</span> 空间能带图像。</em></p>
+<blockquote>
+<p><strong>提示：</strong> 声子谱和电子谱的异同:</p>
+</blockquote>
+<p>(1)都是调幅平面波，但声子色散关系的数量是有限的，而电子是无限的。</p>
+<p>(2)声子的位置只取格矢<span class="arithmatex">\(\vec{R}_n\)</span>的位置，从而与实际位置无关；而电子可以连续取值，因而与位置有关</p>
+<p>(3)在三维空间中，声子波函数为矢量，描述实际振动；而电子波函数为标量，即概率的波动。</p>
+<h2 id="_4">求解方法<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
+<p><strong>0.平面波法</strong>——见4.2的“能带”部分</p>
+<h3 id="1">1.近自由电子近似<a class="headerlink" href="#1" title="Permanent link">¶</a></h3>
+<p>核心思想：<em>把自由电子看成是它的零级近似，将周期场的影响看成小的微扰：</em></p>
+<div class="arithmatex">\[
+\boxed{\hat{H}=\hat{H}_0+\hat{H}'\qquad\hat{H}_0=\frac{\hat{p}^2}{2m_e}+\overline{U}\qquad
+    \hat{H}'=\hat{U}(\vec{r})-\overline{U}}
+\]</div>
+<p>为了简便，这里以一维情况进行讨论。
+首先分析零级近似的情况，设晶体总长<span class="arithmatex">\(L\)</span>，不难得到零级波函数和能量：</p>
+<div class="arithmatex">\[
+\psi_{k}^0(x)=\frac{1}{\sqrt{L}}e^{ikx}\qquad E_k^0=\frac{\hbar^2k^2}{2m_e}+\overline{U}
+\]</div>
+<p>(1)非简并情况</p>
+<p>一阶微扰下，<em>能量</em><span class="arithmatex">\(E_k^{(1)}=\langle k|H'|k\rangle=0\)</span>,因而需要考虑二阶微扰：</p>
+<div class="arithmatex">\[
+E_k^{(2)}=\sum_{k'\ne k}\frac{|\langle k'|H'|k\rangle|^2}{E_k^0-E_{k'}^0}=\sum_{n\ne0}\frac{|V_n|^2}{\frac{\hbar^2}{2m_e}[k^2-\left(k+\frac{2\pi n}{a}\right)^2]}
+\]</div>
+<p>由此得到非简并微扰后的能量为：</p>
+<div class="arithmatex">\[
+E_k=\frac{\hbar^2k^2}{2m_e}+\overline{U}+\sum_{n\ne0}\frac{|V_n|^2}{\frac{\hbar^2}{2m_e}[k^2-\left(k+\frac{2\pi n}{a}\right)^2]}
+\]</div>
+<p>其中<span class="arithmatex">\(V_n\)</span>相当于傅里叶展开的系数：</p>
+<div class="arithmatex">\[
+\boxed{V_n=\frac{1}{L}\int_0^L U(x)e^{-i\frac{2\pi n}{a}x}dx}
+\]</div>
+<p>对于<em>波函数</em>通常仅进行一阶微扰：</p>
+<div class="arithmatex">\[
+\psi_k^{(1)}=\sum_{k'\ne k}\frac{\langle k'|H'|k\rangle}{E_k^0-E_{k'}^0}\psi_{k'}^0=\frac{1}{\sqrt{L}}e^{ikx}\sum_{n\ne0}\frac{V_n}{\frac{\hbar^2}{2m_e}[k^2-\left(k+\frac{2\pi n}{a}\right)^2]}e^{i\frac{2\pi n}{a}x}
+\]</div>
+<p>由此可将总波函数写出：</p>
+<div class="arithmatex">\[
+\psi_k^n(x)=\frac{1}{\sqrt{L}}e^{ikx}\left(1+\sum_{n\ne0}\frac{V_n}{\frac{\hbar^2}{2m_e}[k^2-\left(k+\frac{2\pi n}{a}\right)^2]}e^{i\frac{2\pi n}{a}x}\right)=e^{ikx}u^n_k(x)
+\]</div>
+<p>不难证明<span class="arithmatex">\(u_k^n(x+a)=u_k^n(x)\)</span>,从而满足布洛赫波的数学形式。</p>
+<p>此外当<span class="arithmatex">\(k^2=(k+\frac{2\pi n}{a})^2\)</span>满足时，<span class="arithmatex">\(k=-\frac{\pi n}{a}\)</span>,此时，出现发散，必须用简并微扰的方法进行讨论。</p>
+<p>(2)简并情况</p>
+<p>分析可知，当<span class="arithmatex">\(k\)</span>取<span class="arithmatex">\(\frac{\pi}{a}\)</span>的整数倍时(即<span class="arithmatex">\(k\)</span>处于布里渊区的边界),微扰项使得原本简并的能级发生分裂，从而打开一个能隙。</p>
+<p>具体做法是，考虑两个相邻的布里渊边界态<span class="arithmatex">\(k=-\frac{n\pi}{a}(1-\varepsilon),k'=\frac{n\pi}{a}(1+\varepsilon)\)</span>,其中<span class="arithmatex">\(\varepsilon\)</span>是小量，将零级近似线性组合作为波函数：</p>
+<div class="arithmatex">\[
+\psi(x)=a\psi_k^0+b\psi_{k'}^0
+\]</div>
+<p>代入薛定谔方程</p>
+<div class="arithmatex">\[
+\hat{H}_0\lvert\psi\rangle+\hat{H}'\lvert\psi\rangle=E\lvert\psi\rangle
+\]</div>
+<p>并利用零级近似下的本征方程</p>
+<div class="arithmatex">\[
+\hat{H}_0\lvert\psi_k^0\rangle=E_k^0\lvert\psi_k^0\rangle,\qquad
+\hat{H}_0\lvert\psi_{k'}^0\rangle=E_{k'}^0\lvert\psi_{k'}^0\rangle
+\]</div>
+<p>有：</p>
+<div class="arithmatex">\[
+a(E_k^0-E+\hat{U}(\vec{r})-\overline{U})\lvert\psi_{k}^0\rangle
++b(E_{k'}^0-E+\hat{U}(\vec{r})-\overline{U})\lvert\psi_{k'}^0\rangle=0
+\]</div>
+<p>分别给两边左乘<span class="arithmatex">\(\langle\psi_{k}^0|\)</span>和<span class="arithmatex">\(\langle\psi_{k'}^0|\)</span>，得到齐次二阶线性方程组：</p>
+<div class="arithmatex">\[
+(E_k^0-E)a+V_n^*b=0\qquad V_na+(E_{k'}^0-E)b=0
+\]</div>
+<p>利用非零解的条件，得到能量为：</p>
+<div class="arithmatex">\[
+{E_{\pm}=\frac{1}{2}\left(E_k^0+E_{k'}^0\pm\sqrt{(E^0_k-E^0_{k'})^2+4|V_n|^2}\right)}
+\]</div>
+<p>在布里渊区边界有<span class="arithmatex">\(E_k^0=E_{k'}^0\)</span>从而：</p>
+<div class="arithmatex">\[
+E_\pm=E_k^0\pm|V_n|
+\]</div>
+<p>从而得到能隙的宽度(禁带宽度)<span class="arithmatex">\(E_g\)</span>：</p>
+<div class="arithmatex">\[
+\boxed{E_g=E_+-E_-=2|V_n|}
+\]</div>
+<p><em>近自由电子近似主要用于计算金属价电子，对内层电子不适用。</em></p>
+<h3 id="2tba">2.紧束缚近似(TBA)<a class="headerlink" href="#2tba" title="Permanent link">¶</a></h3>
+<p>核心思想：<em>将孤立原子看作零级近似，而将其他原子势场的影响看作小微扰：</em></p>
+<div class="arithmatex">\[
+\boxed{\hat{H}=\hat{H}_0+\hat{H}'\qquad\hat{H}_0=\frac{\hat{p}^2}{2m_e}+\hat{U}_a(\vec{r}-\vec{R}_l)\qquad
+    \hat{H}'=\hat{V}(\vec{r})-\hat{U}_a(\vec{r}-\vec{R}_l)}
+\]</div>
+<p><em>之前对波函数的展开，都是因为布洛赫函数当中具有实空间周期函数<span class="arithmatex">\(u(\vec{r})\)</span>,所以利用倒格矢展开；然而也可以利用布洛赫波函数倒空间的周期性<span class="arithmatex">\(\psi_{n,\vec{k}}(\vec{r})=\psi_{n,\vec{k}+\vec{G}}(\vec{r})\)</span>，用正格矢展开，展开系数的函数称为Wannier函数。此外，Wannier函数是以<span class="arithmatex">\(\vec{R}_l\)</span>为中心的波包，因而具有定域特性；且不同能带不同格点的Wannier函数是正交的。</em></p>
+<p>紧束缚当中的原子轨道线性组合法(<em><span class="arithmatex">\(LCAO\)</span></em>)，就是Wannier函数思想的一个应用。在这里，孤立原子轨道波函数<span class="arithmatex">\(\phi_j(\vec{r}-\vec{R}_l)\)</span>对应于上述的Wannier函数，从而波函数展开为:</p>
+<div class="arithmatex">\[
+\psi_k=\frac{1}{\sqrt{N}}\sum_le^{i\vec{k}\cdot\vec{R}_l}\phi_j(\vec{r}-\vec{R}_l)
+\]</div>
+<p>将波函数代入薛定谔方程，利用原子轨道波函数的正交性，再定义交叠积分：</p>
+<div class="arithmatex">\[
+-J=\int\phi_j^*(\vec{r}-\vec{R}_l')[V(\vec{r})-U(\vec{r}-\vec{R}_l)]\phi_j(\vec{r}-\vec{R}_l)d\vec{r}
+\]</div>
+<p>这里<span class="arithmatex">\(J\)</span>取负号的原因是<span class="arithmatex">\(V-U\)</span>本身就是负的，因而为了<span class="arithmatex">\(J\)</span>取正值，故采用了这样的定义。从而解得能带为：</p>
+<div class="arithmatex">\[
+E(\vec{k})=\varepsilon_j-\sum_{s}J\cdot e^{i\vec{k}\cdot\vec{R_s}}
+\]</div>
+<p>通常<span class="arithmatex">\(s\)</span>仅取最近邻的原子轨道波函数，并且当<span class="arithmatex">\(\vec{R}_l'=\vec{R}_l\)</span>时，称为晶场劈裂<span class="arithmatex">\(J(0)\)</span>,从而能带公式通常写为：</p>
+<div class="arithmatex">\[
+\boxed{E(\vec{k})=\varepsilon_j-J(0)-\sum_{s\neq0}^{near}J\cdot e^{i\vec{k}\cdot\vec{R_s}}}
+\]</div>
+<p><em>注意，紧束缚的求和因子为<span class="arithmatex">\(e^{i\vec{k}\cdot\vec{R_s}}\)</span>,而之前消光的求和因子为<span class="arithmatex">\(e^{i\vec{G}\cdot\vec{r}}\)</span>.</em>此外，由于<span class="arithmatex">\(s\)</span>轨道的各向同性，交叠积分为一个常数，且只有一条能带<span class="arithmatex">\(E^s(\vec{k})\)</span>；而当考虑<span class="arithmatex">\(p\)</span>轨道时，要分为<span class="arithmatex">\(p_x,p_y,p_z\)</span>分别考虑，并且要顾及“头碰头”，“肩并肩”两种轨道重叠方式，因而有两种交叠积分，且最终有三条能带：<span class="arithmatex">\(E^{p_x}(\vec{k}),E^{p_y}(\vec{k}),E^{p_z}(\vec{k})\)</span>。</p>
+<p><em>紧束缚近似主要用于计算内层电子，还可以近似描述<span class="arithmatex">\(d\)</span>电子等，是计算绝缘体、化合物和半导体的有效工具。此外，利用二次量子化的方法，可以将紧束缚应用于更多的凝聚态问题当中。</em></p>
+<h3 id="3">3.其他近似方法<a class="headerlink" href="#3" title="Permanent link">¶</a></h3>
+<p>(1)正交化平面波法(OPW)：价电子在离子实附近做紧束缚近似，在远离处做平面波展开，组合起来得到：</p>
+<div class="arithmatex">\[
+\psi_k=\sum_kC_ke^{ikx}+\sum_cC_c\psi_c
+\]</div>
+<p>其中第一项为平面波求和；对于第二项，<span class="arithmatex">\(\psi_c=\frac{1}{\sqrt{N}}\sum_le^{i\vec{k}\cdot\vec{R}_l}\phi_c(\vec{r}-\vec{R}_l)\)</span>，并且规定波函数<span class="arithmatex">\(\psi_c\)</span>与<span class="arithmatex">\(\psi_k\)</span>正交，从而描述芯电子产生的斥力，进而改进计算能带的算法。</p>
+<p>(2)赝势法:借鉴OPW的方法，通过构造一个赝势和赝波函数的薛定谔方程，得到真实的能量。是OPW的一种推广，利用平滑的势能代替真实的势能。</p>
+<p>(3)糕模势和缀加平面波法:即设置一个临界半径<span class="arithmatex">\(r_c\)</span>作为分界，用分段函数描述势能以及波函数，这便是此方法的核心思想。</p>
+<p><strong>能态密度</strong>：与模式密度类似，不过由于电子自旋的缘故，需要额外乘以2这个因子.对于<span class="arithmatex">\(s\)</span>维空间，能态密度为：</p>
+<div class="arithmatex">\[
+\boxed{g(E)=\frac{2V_s}{(2\pi)^s}\oint\frac{ dS}{|\nabla_{\vec{k}}E(\vec{k})|}}
+\]</div>
+<p>注意能态密度的波矢密度为<span class="arithmatex">\(\frac{2V_s}{(2\pi)^s}\)</span>.相关的性质和计算与模式密度完全一致，故从略。特别地，对于<span class="arithmatex">\(s\)</span>维的自由电子气，其能态密度:</p>
+<div class="arithmatex">\[
+g(E)\propto E^{\frac{s-2}{2}}
+\]</div>
+<p><em>对于一条能带而言，由于使用了玻恩-卡门边界条件，在第一布里渊区，将波矢的状态限制为原胞的总数N,又由于电子自旋的自由度是2，进而一条能带上可以占据2N个电子。总的来说，由于对称性，只要分析第一布里渊区的能带就能完全描述所有的能带，而第一布里渊区所蕴含的态就是2N个。</em></p>
+<p><em>考虑一维体系，每个原子核外仅有一个电子，并且晶体结构的基元也仅仅是一个原子，那么显然能带半满；当这种体系发生某种相变，使得基元变为两个原子，由于体系总的核外电子数不变，但由于缩并导致原胞数量N减半，进而一条能带上能够占据的电子数变为N，故此时能带为满带，这种相变称为派尔斯相变。</em></p>
+<p><strong>费米能量与费米面</strong>：在<span class="arithmatex">\(k\)</span>空间，根据泡利不相容原理，电子会从最低能量基态开始逐渐向上填充，在0K下，填充完成之后的最高能量，称为<em>费米能量</em><span class="arithmatex">\(E_F\)</span>。而能量为费米能<span class="arithmatex">\(E_F\)</span>的等能面称为<em>费米面</em>。</p>
+<p>此外，注意区分等能面<span class="arithmatex">\(E(\vec{k})=Const.\)</span>和色散关系<span class="arithmatex">\(E(\vec{k})\)</span>的图像：若体系是<span class="arithmatex">\(s\)</span>维的，等能面就是<span class="arithmatex">\(s\)</span>维的<span class="arithmatex">\(k\)</span>空间当中自由度为<span class="arithmatex">\(s-1\)</span>的曲面；色散关系则是<span class="arithmatex">\(k\)</span>空间本身作为定义域，能量作为值域的映射关系，因而在<span class="arithmatex">\(s+1\)</span>维空间才能完全绘出。比如自由电子气，一维色散关系是抛物线，二维是抛物面，三维得在四维空间绘制，故难以有对应的形象化图像；而等能面则分别是对称点<span class="arithmatex">\(S^0\)</span>，圆<span class="arithmatex">\(S^1\)</span>，球<span class="arithmatex">\(S^2\)</span>.</p>
+<h2 id="_5">布洛赫电子的准经典运动<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
+<p>通常来说，研究电子受晶格周期场作用时，采用上述的量子能带论的方法；而研究电子受外加场影响时，采用准经典的方法进行。这是因为，通常外加场能够满足<span class="arithmatex">\(\lambda\gg a\)</span>和<span class="arithmatex">\(\hbar\omega\ll E_g\)</span>,即外场缓变，并且频率远小于禁带宽度，从而不发生跃迁。</p>
+<h3 id="0">0.有效质量与布洛赫电子速度<a class="headerlink" href="#0" title="Permanent link">¶</a></h3>
+<p>这里对电子的位置<span class="arithmatex">\(\vec{r}\)</span>描述为波包中心位置，因而电子速度就是波包的群速度<span class="arithmatex">\(v_g=\frac{d\omega}{dk}\)</span>,并考虑<span class="arithmatex">\(E=\hbar\omega\)</span>;再根据<span class="arithmatex">\(\vec{p}=\hbar\vec{k}\)</span>的关系，定义出准动量<span class="arithmatex">\(\hbar\vec{k}\)</span>,综上得到：</p>
+<div class="arithmatex">\[
+\boxed{\vec{v}_g=\frac{\nabla_{\vec{k}} E(\vec{k})}{\hbar}\qquad \vec{F}=\frac{d\vec{p}}{dt}=\hbar\frac{d\vec{k}}{dt}=m^*\frac{d\vec{v}_g}{dt}}
+\]</div>
+<p>根据以上两式的关系，可导出有效质量的表达式：</p>
+<div class="arithmatex">\[
+\boxed{\left(m^{*-1}\right)_{ij}=\frac{1}{\hbar^2}\frac{\partial^2E(\vec{k})}{\partial k_i\partial k_j}}
+\]</div>
+<p>在一维或沿主轴方向讨论时，才可简写为<span class="arithmatex">\(m^*=\hbar^2/\frac{d^2E}{dk^2}\)</span>。</p>
+<p>由以上各式可知，分析布洛赫电子的运动，完全可以在倒空间内讨论。此外，
+布洛赫电子速度<span class="arithmatex">\(\vec{v}_g\)</span>是由能带的梯度得到的，因而<em>速度方向垂直于倒空间的等能面</em>，故<span class="arithmatex">\(\vec{k}\)</span>与<span class="arithmatex">\(\vec{v}_g\)</span>可以不共线！并且，由于有效质量可以为各向异性的，且会随着<span class="arithmatex">\(E(\vec{k})\)</span>而不断变化，因而外场也可以不与加速度共线。</p>
+<p><em>利用<span class="arithmatex">\(E(\vec{k}),\vec{v}_g(\vec{k}),m^*(\vec{k})\)</span>的一维图像能够更加形象化理解这些概念，详见“补充材料”。此外，通常而言，波函数交叠越小，电子局域化程度增强，能带更窄，进而有效质量大，对于d轨道、f轨道尤为明显，其实f轨道对应的电子，称为“重费米”体系。</em></p>
+<h3 id="1_1">1.在恒定电场下的运动<a class="headerlink" href="#1_1" title="Permanent link">¶</a></h3>
+<p><strong>布洛赫振荡</strong>：考虑电子在倒空间的运动，将<span class="arithmatex">\(\vec{F}=-e\vec{E}\)</span>代入之前的式子，得到<span class="arithmatex">\(\vec{k}\)</span>的速度恒定，当运动到布里渊区的边界时，受周期场散射作用，使得电子的运动呈周期性振荡(也可由<span class="arithmatex">\(v_g(\vec{k})\)</span>的图像看出)，其周期可由之前式子得到：</p>
+<div class="arithmatex">\[
+\boxed{T_B=\frac{2\pi/a}{eE/\hbar}=\frac{2\pi\hbar}{eEa}}
+\]</div>
+<p>实验上为了观察到布洛赫振荡，需要使得周期<span class="arithmatex">\(T\)</span>变小，使之能与电子的弛豫时间<span class="arithmatex">\(\tau\)</span>近乎相等。由此可以增大电场<span class="arithmatex">\(E\)</span>或增大晶格常数<span class="arithmatex">\(a\)</span>(通常用超晶格实现)。</p>
+<h3 id="2">2.在恒定磁场下的运动<a class="headerlink" href="#2" title="Permanent link">¶</a></h3>
+<p><strong>回旋共振</strong>：由于磁场的洛伦兹力与速度方向垂直而不做功，故在倒空间中，电子被限制在一个等能面上运动，其运动轨迹为垂直于磁场平面与等能面的交线。和布洛赫振荡类似，运动也具有周期，将<span class="arithmatex">\(\vec{F}=-e\vec{v}\times\vec{B}\)</span>代入之前的式子得到：</p>
+<div class="arithmatex">\[
+T=\oint \frac{d\vec{k}}{|\dot{\vec{k}}|}=\frac{\hbar}{|eB|}\oint\frac{d\vec{k}}{|v_{\perp }(\vec{k})|}=\frac{\hbar^2}{|eB|}\oint\frac{d\vec{k}}{|\nabla_kE_{\perp }(\vec{k})|}
+\]</div>
+<p>从量子的朗道能级求出的回旋共振频率和经典情况是一致的，为了统一表达布洛赫电子，引入回旋共振的有效质量<span class="arithmatex">\(m^*\)</span>,从而:</p>
+<div class="arithmatex">\[
+\boxed{\omega_c=\frac{eB}{m^*}}
+\]</div>
+<p>由此可看出，恒定磁场下，在垂直于磁场的方向施加交变电场，当电场频率达到<span class="arithmatex">\(\omega_c\)</span>时，载流子吸收电场达到极大，由此可以测量材料的有效质量<span class="arithmatex">\(m^*\)</span>，并且通过出射电场偏振确定载流子是电子还是空穴。此外，还可以通过改变磁场方向测得不同方向的极值轨道的截面来确定费米面的形状。</p>
+<p>为了便于观察到回旋共振效应，需要满足<span class="arithmatex">\(\omega_c\tau\gg1\)</span>，即在低温下弛豫时间<span class="arithmatex">\(\tau\)</span>大，并且强磁场时共振频率<span class="arithmatex">\(\omega_c\)</span>大，从而电子旋转很多圈之后才会经历一次碰撞，并且交变电场的频率接近微波，实验上更容易实现。</p>
+<p>考虑到趋肤效应，电磁场仅在金属表面存在，难以进入到金属当中。为此，<span class="arithmatex">\(Azbel\)</span>和<span class="arithmatex">\(Kaner\)</span>提出将电场和磁场施加在平行于金属表面的方向，进而电子每旋进一次，都会回到金属表面吸收电场的能量，从而产生回旋共振吸收。</p>
+<p><strong>德哈斯-范阿尔芬效应</strong>：由量子的观点，晶体在<span class="arithmatex">\(z\)</span>方向施加磁场之后，由于朗道能级而发生态的简并，<span class="arithmatex">\(k\)</span>空间的态由之前的均匀分布，在<span class="arithmatex">\(k_xk_y\)</span>平面形成一系列圆环，而在<span class="arithmatex">\(k_z\)</span>方向上均匀，因而形成类似于圆柱的结构。具体而言，就是<span class="arithmatex">\(k_xk_y\)</span>平面上，连续的能量量子化后，产生了简并现象：</p>
+<div class="arithmatex">\[
+\frac{\hbar^2}{2m}(k_x^2+k_y^2)+\frac{\hbar^2}{2m}k_z^2\quad\rightarrow\quad \left(n+\frac{1}{2}\right)\hbar\omega_c+\frac{\hbar^2}{2m}k_z^2
+\]</div>
+<p>对于简并度<span class="arithmatex">\(D\)</span>可以利用圆环面积和波矢密度进行估算：</p>
+<div class="arithmatex">\[
+D=\pi(k_{x2}^2+k_{y2}^2-k_{x1}^2-k_{y1}^2)\frac{2L_xL_y}{(2\pi)^2}=\frac{eB}{\pi\hbar}L_xL_y
+\]</div>
+<p>上式利用到了回旋频率<span class="arithmatex">\(\omega_c=\frac{eB}{m}\)</span>.可见磁场越大，简并度越大。既然电子数不变，而磁场若不断增大的话，简并度的增加会使电子的占据朗道能级的状态呈现周期性变化。设费米面的极值截面积为<span class="arithmatex">\(S_F\)</span>,进而有：</p>
+<div class="arithmatex">\[
+\boxed{\frac{1}{B_1}-\frac{1}{B_2}=\frac{2\pi e}{\hbar S_F}}
+\]</div>
+<p>考虑到磁化率<span class="arithmatex">\(\chi=\frac{\mu_0 M}{B}\)</span>,进而测出磁化率的振荡周期即可得到<span class="arithmatex">\(S_F\)</span>,进而可以测量费米面的形貌。</p>
+<p><strong>霍尔效应</strong>：霍尔效应背后的坑特别的深，这里仅仅介绍测量迁移率<span class="arithmatex">\(\mu\)</span>的一种方法。考虑薄膜样品，其宽度为<span class="arithmatex">\(W\)</span>,长度为<span class="arithmatex">\(L\)</span>.在<span class="arithmatex">\(x\)</span>方向加电压，测<span class="arithmatex">\(x\)</span>方向的电阻为<span class="arithmatex">\(R_x\)</span>;再在<span class="arithmatex">\(z\)</span>方向加磁场<span class="arithmatex">\(B\)</span>，测量霍尔电阻<span class="arithmatex">\(R_{Hall}\)</span>,根据迁移率的定义，不难得到：</p>
+<div class="arithmatex">\[
+\boxed{\mu=\frac{R_{Hall}L}{BWR_x}}
+\]</div>
+<h2 id="_6">固体导电性的能带解释<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
+<p>布洛赫振荡也能够解释满带不导电、半满带导电的原理：在不加电场时，<span class="arithmatex">\(E(\vec{k})=E(-\vec{k}),\vec{v}_g(\vec{k})=-\vec{v}_g(-\vec{k})\)</span>，这个结果可以理解为“偶函数的导数为奇函数”。加电场之后，满带由于没有空余的态，因而速度分布对称而抵消；对于半满带，电子在倒空间朝一个方向运动，由于空余态的存在，使得速度分布不均匀，电子在外场下进行布洛赫振荡，从而产生宏观电流。这一点也可以从玻尔兹曼方程出发推导。</p>
+<p>当费米面落在能带(允带)中时，由于前述的半满导电机制而在外场下产生宏观电流，称之为<strong>金属</strong>。当费米面落在禁带中时，相邻的两个能带中，较低的称为<em>价带</em>，且是满带，而较高的称为<em>导带</em>，且为空带；当禁带宽度大于<span class="arithmatex">\(2eV\)</span>左右时称为<strong>绝缘体</strong>，小于时称为<strong>半导体</strong>。<em>由于金属和绝缘体电子占据方式的差异，导致金属的能态密度会骤然下降，而绝缘体的能态密度会缓慢下降。具体来说，是因为金属电子在半满的情况下电子就不再占据，此时能态密度正处于高峰，因而迅速下降极为明显；绝缘体的满带相当于能态密度要经历整个能带而变化，根据<span class="arithmatex">\(g(E)=\frac{dn}{dE}\)</span>以及接近布里渊区边界的等能面劈裂，故会缓慢下降。</em></p>
+<p>关于金属和半导体导电机制的区别：导电通常取决于迁移率和载流子数量，金属主要靠载流子(电子)数量进行导电，迁移率不高，且随着温度升高，原子热振动加剧，电子受声子散射加大，平均自由程减少，进而电导下降。对于半导体，由于热激发或掺杂，使得价带和导带都为半满，进而载流子为电子和空穴，迁移率高，并且随着温度升高，电子跃迁概率指数上升，因而随温度上升电导增大。</p>
+<p><strong>能带理论局限性</strong>：根据能带理论的假设不难想见，当假设条件被破坏时，必然存在很多局限性。一方面是周期性的破坏，例如对于非均匀结构、表面处的电子行为，关于体性质的能带论是失效的；或是对纳米尺度的材料，非晶等，需要利用其他非周期性的方法来进行研究。另一方面，由于单电子近似，因而忽略了电子与其他粒子的相互作用，对过渡金属的电子行为和一些金属-绝缘体相变无法解释。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚">
+        
+          
+          <a href="lattice_vibration_thermal.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: 第三章 晶格振动与晶体热性质">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                第三章 晶格振动与晶体热性质
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="metal_electron_theory.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 第五章 金属电子论">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                第五章 金属电子论
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="http://tensofermi.github.io/" target="_blank" rel="noopener" title="tensofermi.github.io" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.97 2.59a1.5 1.5 0 0 0-1.94 0l-7.5 6.363A1.5 1.5 0 0 0 3 10.097V19.5A1.5 1.5 0 0 0 4.5 21h4.75a.75.75 0 0 0 .75-.75V14h4v6.25c0 .414.336.75.75.75h4.75a1.5 1.5 0 0 0 1.5-1.5v-9.403a1.5 1.5 0 0 0-.53-1.144z"></path></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="javascripts/mathjax.js"></script>
+      
+        <script src="javascripts/mathjax/es5/tex-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": false, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "none"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

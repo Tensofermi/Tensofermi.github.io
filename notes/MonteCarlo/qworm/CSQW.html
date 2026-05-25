@@ -224,6 +224,8 @@
       
         
       
+        
+      
     
     
     
@@ -320,6 +322,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basic/rl_mc.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    强化学习中的蒙卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -335,6 +365,14 @@
   
     
     
+      
+        
+      
+        
+      
+        
+      
+        
       
         
       
@@ -358,7 +396,7 @@
   <span class="md-ellipsis">
     
   
-    重整化群与有限尺寸标度
+    相变理论基础
   
 
     
@@ -374,11 +412,39 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    重整化群与有限尺寸标度
+    相变理论基础
   
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rg-fss/phase_overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    相变理论概览
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -423,6 +489,90 @@
     
   
     有限尺寸标度
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rg-fss/mermin_wagner.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mermin-Wagner 定理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rg-fss/bkt.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BKT 相变
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rg-fss/lr_universality.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    长程相互作用与普适类
   
 
     
@@ -1368,21 +1518,41 @@ W(\lbrace \alpha^{(i)} \rbrace) \approx \sum_{\lbrace \alpha^{(i)} \rbrace} \pro
 <h2 id="mathcalg">格林函数空间 <span class="arithmatex">\(\mathcal{G}\)</span><a class="headerlink" href="#mathcalg" title="Permanent link">¶</a></h2>
 <p>类似地，为了进行 Worm 的更新我们这里可以引入产生湮灭的场算符，定义松原格林函数：</p>
 <div class="arithmatex">\[
-G(I,M,\tau_I,\tau_M) = \left \langle \hat{b}_I(\tau_I) \hat{b}^\dagger_M(\tau_M) \right \rangle = \frac{g(I,M,\tau_I,\tau_M)}{\mathcal{Z}}
+G(I,M,\tau_I,\tau_M)
+=
+\left\langle
+\hat{b}_I(\tau_I)\hat{b}^\dagger_M(\tau_M)
+\right\rangle
+=
+\frac{g(I,M,\tau_I,\tau_M)}{\mathcal{Z}}.
 \]</div>
-<p>其中
-$
-g(I,M,\tau_I,\tau_M) = <br>
-{\rm Tr}[\mathcal{T} \hat{b}_I(\tau_I)\hat{b}^\dagger_M(\tau_M)  e^{-\beta\hat{H}}]
-$. 同样地，我们也可以定义格林函数空间的配分函数 <span class="arithmatex">\(\mathcal{G}\)</span>, 从而更新构型的算法可以在其中抽样：</p>
+<p>其中</p>
+<div class="arithmatex">\[
+g(I,M,\tau_I,\tau_M)
+=
+{\rm Tr}\left[
+\mathcal{T}
+\hat{b}_I(\tau_I)
+\hat{b}^\dagger_M(\tau_M)
+e^{-\beta\hat{H}}
+\right].
+\]</div>
+<p>这里 <span class="arithmatex">\(I,M\)</span> 表示 worm 两端所在的空间位置或粒子坐标，<span class="arithmatex">\(\tau_I,\tau_M\)</span> 表示两端所在的虚时。格林函数空间的配分函数就是对两端所有可能时空位置求和：</p>
+<div class="arithmatex">\[
+\mathcal{G}
+=
+\int d\vec r_I d\vec r_M
+\int_0^\beta d\tau_I
+\int_0^\beta d\tau_M\,
+g(I,M,\tau_I,\tau_M)
+=
+\sum_{\mathcal C\in\mathcal G}W_{\mathcal G}(\mathcal C).
+\]</div>
+<p>因此 Worm 算法实际抽样的是扩展空间</p>
 <div class="arithmatex">\[
 \mathcal{Z}_w = \mathcal{Z} + \omega_G \mathcal{G}
 \]</div>
-<p>&lt;!--</p>
-<div class="arithmatex">\[
-\mathcal{G} = \sum_{p_I,p_M = 0}^{N-1} \sum_{I,M=0}^{N_s-1} g(I,M,p_I\tau,p_M\tau) \tau^2 = \sum_{p_I,p_M = 0}^{N-1} \sum_{I,M=0}^{N_s-1} W_{\mathcal{G}}
-\]</div>
-<p>--&gt;</p>
+<p>其中 <span class="arithmatex">\(\omega_G\)</span> 用来调节配分函数空间和格林函数空间的相对访问频率。</p>
 <p>注意，由于连续空间当中，粒子严格处于同一个位置的概率几乎为零，因此同一个位置的粒子数最大到是 1，进而因为算符作用产生额外的系数项 <span class="arithmatex">\(\sqrt{n_I(n_M+1)} = 1\)</span>，与硬核玻色子类似，故可以不用考虑。 </p>
 <p>因此权重 <span class="arithmatex">\(W_{\mathcal{G}}\)</span> 与 <span class="arithmatex">\(W\)</span> 的差别仅仅是多了求和变量 <span class="arithmatex">\(\tau^2 d\vec{r}_I d\vec{r}_M\)</span>，以及要扣除被湮灭掉的或加上被产生出的自由粒子的传播子 <span class="arithmatex">\(\rho_0(\vec{r}_j^{(i)},\vec{r}_j^{(i+1)},\tau)\)</span> 所占的权重。</p>
 <blockquote>

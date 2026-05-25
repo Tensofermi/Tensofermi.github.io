@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Thermodynamics logo">
+  <rect width="128" height="128" rx="24" fill="#1f2937"/>
+  <path d="M26 92h78" stroke="#e5e7eb" stroke-width="6" stroke-linecap="round"/>
+  <path d="M34 96V26" stroke="#e5e7eb" stroke-width="6" stroke-linecap="round"/>
+  <path d="M36 84c18-2 24-26 38-30 10-3 16 4 24-18" fill="none" stroke="#f59e0b" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="46" cy="78" r="5" fill="#38bdf8"/>
+  <circle cx="73" cy="55" r="5" fill="#38bdf8"/>
+  <circle cx="96" cy="36" r="5" fill="#38bdf8"/>
+  <path d="M91 78c0 9-7 16-16 16s-16-7-16-16c0-8 16-28 16-28s16 20 16 28z" fill="#ef4444" opacity=".9"/>
+</svg>

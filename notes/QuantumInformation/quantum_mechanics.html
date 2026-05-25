@@ -1,0 +1,1463 @@
+<!DOCTYPE html><html lang="zh" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="classical_computation.html">
+      
+      
+        <link rel="next" href="quantum_circuits.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="logo/main.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>第二章 量子力学基础知识 - Quantum Information Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="index.html" title="Quantum Information Notes" class="md-header__button md-logo" aria-label="Quantum Information Notes" data-md-component="logo">
+      
+  <img src="logo/qubit.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Quantum Information Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第二章 量子力学基础知识
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至深色模式" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换至深色模式" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至浅色模式" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至浅色模式" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Quantum Information Notes" class="md-nav__button md-logo" aria-label="Quantum Information Notes" data-md-component="logo">
+      
+  <img src="logo/qubit.svg" alt="logo">
+
+    </a>
+    Quantum Information Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classical_computation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第一章 经典计算
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第二章 量子力学基础知识
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="quantum_mechanics.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第二章 量子力学基础知识
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、与量子力学有关的线性代数
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、泡利矩阵:三个重要的二维矩阵
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、量子力学基本假设、量子测量
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#density-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、密度矩阵(Density Matrix)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、密度矩阵(Density Matrix)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1、纯态与混合态
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2、密度矩阵的定义
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3、密度矩阵的性质
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4bloch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4、Bloch 矢量及其密度矩阵
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5、密度矩阵的演化
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6、复合系统的密度矩阵
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7schmidt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7、Schmidt 分解
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-purification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8、纯化 (Purification)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#epr-bell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、量子测量的挑战: EPR 佯谬、Bell 不等式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、量子测量的挑战: EPR 佯谬、Bell 不等式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1epr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1、EPR 佯谬
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2local-hidden-variable-lhv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2、局域隐变量模型(Local Hidden Variable, LHV)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3chsh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3、CHSH 游戏
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_circuits.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三章 量子线路
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_fourier_transform.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第四章 量子 Fourier 变换
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_search.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第五章 量子搜索算法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_communication.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第六章 量子通信
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="noise_and_operations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第七章 量子噪声和量子操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_error_correction.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第八章 量子纠错
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、与量子力学有关的线性代数
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、泡利矩阵:三个重要的二维矩阵
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、量子力学基本假设、量子测量
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#density-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、密度矩阵(Density Matrix)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、密度矩阵(Density Matrix)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1、纯态与混合态
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2、密度矩阵的定义
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3、密度矩阵的性质
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4bloch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4、Bloch 矢量及其密度矩阵
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5、密度矩阵的演化
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6、复合系统的密度矩阵
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7schmidt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7、Schmidt 分解
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-purification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8、纯化 (Purification)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#epr-bell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、量子测量的挑战: EPR 佯谬、Bell 不等式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、量子测量的挑战: EPR 佯谬、Bell 不等式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1epr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1、EPR 佯谬
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2local-hidden-variable-lhv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2、局域隐变量模型(Local Hidden Variable, LHV)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3chsh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3、CHSH 游戏
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="_1">第二章 量子力学基础知识<a class="headerlink" href="#_1" title="Permanent link">¶</a></h1>
+<p>由于不是专门的线性代数和量子力学课程,本课程需要对这些基础知识进行较为详细的讨论。但是,不宜用本课程的资料初学线性代数或量子力学,否则缺少细节的训练与接触,熟练度无法达到本课程的要求。</p>
+<h2 id="_2">一、与量子力学有关的线性代数<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<p>1、在量子力学中,给定哈密顿量,系统的状态须满足薛定谔方程。通过分离变量求解薛定谔方程,将得到一组本征态,物理上习惯用 Dirac 符号表示:</p>
+<div class="arithmatex">\[|v_1\rangle,...,|v_n\rangle\]</div>
+<p>这些状态在坐标表象下是波函数,但它们拥有和矢量一样的线性无关、正交等性质,因此量子力学中习惯将它们看成抽象的矢量。</p>
+<p>2、n 个线性无关的矢量 <span class="arithmatex">\(|v_1\rangle\)</span> ,..., <span class="arithmatex">\(|v_n\rangle\)</span> 张成一个n 维矢量空间,该空间中的任何矢量都可以用它们线性表示。</p>
+<div class="arithmatex">\[|v\rangle = \sum_{i} a_{i} |v_{i}\rangle\]</div>
+<p>矢量 <span class="arithmatex">\(|v_1\rangle\)</span> ,..., <span class="arithmatex">\(|v_n\rangle\)</span> 称为该空间的一组基(Basis),组合系数 <span class="arithmatex">\(a_1\)</span> ,..., <span class="arithmatex">\(a_n\)</span> (一般是复</p>
+<p>数)称为矢量 <span class="arithmatex">\(|v\rangle\)</span> 在这组基下的坐标。可以将坐标组合成列矢量 <span class="arithmatex">\(\begin{pmatrix} a_1 \\ ... \\ a_n \end{pmatrix}\)</span> 与矢量 <span class="arithmatex">\(|v\rangle\)</span> 一</p>
+<p>一对应,有时就写成 <span class="arithmatex">\(|v\rangle=\begin{pmatrix}a_1\\\dots\\a_n\end{pmatrix}\)</span> 。实际上 <span class="arithmatex">\(|v\rangle\)</span> 只表示一个抽象的状态,不能与一组</p>
+<p>数完全等同,但运算时几乎都是在数组的表示下进行的,因此这样写无伤大雅。 3、符号 <span class="arithmatex">\(|v\rangle\)</span> 称为右矢(Ket),与列矢量等价;其厄米共轭是行矢量,称为左矢(Bra),记为 <span class="arithmatex">\(\langle v|\)</span> 。有 <span class="arithmatex">\(\langle v|=|v\rangle^+=(a_1^*,...,a_n^*)\)</span> ,这里+表示共轭转置(厄米共轭,Hermitian Conjugate)。</p>
+<p>4、从  <span class="arithmatex">\(n_1\)</span>  维矢量空间 V 到  <span class="arithmatex">\(n_2\)</span>  维矢量空间 W,可以定义线性变换。线性变换可以用线性算符  <span class="arithmatex">\(\hat{A}\)</span>  来表示:</p>
+<div class="arithmatex">\[\hat{A}|v\rangle = |w\rangle\]</div>
+<p>线性空间的基可以表示其中的所有矢量,因此它们是线性空间的代表元素。 对空间中任一矢量进行的变换都可以等价地看成对基进行的变换,也就是从V的基到W的基的映射:</p>
+<div class="arithmatex">\[\hat{A} | v_j \rangle = \sum_i A_{ij} | w_i \rangle\]</div>
+<p>因此,抽象的线性变换 <span class="arithmatex">\(\hat{A}\)</span> 可以用 <span class="arithmatex">\(n_2 \times n_1\)</span> 矩阵来表示,物理中同样可以看成是一种相等的关系:</p>
+<div class="arithmatex">\[\hat{A} = \begin{pmatrix} A_{11} &amp; \dots &amp; A_{1n_1} \\ \dots &amp; &amp; &amp; \\ A_{n,1} &amp; \dots &amp; A_{n,n_1} \end{pmatrix}\]</div>
+<ul>
+<li>5、内积:在矢量空间中常常涉及投影、取模操作,因此需要引入内积。</li>
+<li>(1) 内积的定义不固定,但必须满足三个性质:线性、共轭对称性、正定性(详见线性代数教材或讲义)。在复矢量空间中,满足这三个性质的内积的标准定义是左矢与右矢的系数乘积求和。</li>
+</ul>
+<div class="arithmatex">\[|x\rangle = \begin{pmatrix} x_1 \\ \dots \\ x_n \end{pmatrix}, |y\rangle = \begin{pmatrix} y_1 \\ \dots \\ y_n \end{pmatrix}\]</div>
+<div class="arithmatex">\[\langle x|y\rangle = \langle x||y\rangle = (x_1^*, \dots, x_n^*) \begin{pmatrix} y_1 \\ \dots \\ y_n \end{pmatrix} = \sum_i x_i^* y_i\]</div>
+<ul>
+<li>(2) 若两个矢量的内积为 0,则称它们正交(Orthogonal)。正交的矢量必然线性无关(不讨论零矢量);若一组基两两正交,则称它们是一组正交基。</li>
+<li>(3)模/长度/范数(Norm):可以理解为距离,抽象情况下定义为矢量和自身内积的平方根。满足正定性。</li>
+</ul>
+<div class="arithmatex">\[\|v\| = \sqrt{\langle v | v \rangle} = \sqrt{|v_1|^2 + \dots + |v_n|^2}\]</div>
+<p>若矢量的模为 1, 称它是归一的(Normalized)。</p>
+<p>若一组基 <span class="arithmatex">\(|1\rangle\)</span> , <span class="arithmatex">\(|2\rangle\)</span> ,...两两正交且全部是归一的,则称它们是一组正交归一基 (Orthonormal Basis)。正交归一关系可以记为</p>
+<div class="arithmatex">\[\langle i | j \rangle = \delta_{ij}\]</div>
+<p>(4) Schmidt 正交化: 任意一组线性无关的矢量 <span class="arithmatex">\(|w_1\rangle,...,|w_n\rangle\)</span> 可以通过如下的程序变成一组正交归一矢量 <span class="arithmatex">\(|v_1\rangle,...,|v_n\rangle\)</span> 。</p>
+<div class="arithmatex">\[\begin{aligned}
+|v_1\rangle &amp;= \frac{|w_1\rangle}{\|w_1\|}, \\
+|u_k\rangle &amp;= |w_k\rangle - \sum_{j&lt;k} |v_j\rangle\langle v_j|w_k\rangle, \\
+|v_k\rangle &amp;= \frac{|u_k\rangle}{\|u_k\|}.
+\end{aligned}\]</div>
+<p>含义:对于第k个矢量 <span class="arithmatex">\(|w_k\rangle\)</span> ,剔除其中与 <span class="arithmatex">\(|v_1\rangle\)</span> ,..., <span class="arithmatex">\(|v_{k-1}\rangle\)</span> 共线的部分,就可以保</p>
+<p>证它与 <span class="arithmatex">\(|v_1\rangle\)</span> ,..., <span class="arithmatex">\(|v_{k-1}\rangle\)</span> 全都正交,然后归一化即可。由于每一步都是这样操作,所以最终生成的 <span class="arithmatex">\(|v_1\rangle\)</span> ,..., <span class="arithmatex">\(|v_n\rangle\)</span> 应当两两正交。</p>
+<ul>
+<li>(5) Cauchy-Schwarz 不等式:  <span class="arithmatex">\(|\langle v|w\rangle|^2 \le \langle v|v\rangle\langle w|w\rangle = ||v||^2 ||w||^2\)</span> 。</li>
+<li>6、外积:某些教材中将矢量的叉乘称为外积,但量子力学中一般不是。</li>
+<li>(1) 外积的定义: 右矢乘左矢,得到一个矩阵。</li>
+</ul>
+<div class="arithmatex">\[|x\rangle\langle y| = \begin{pmatrix} x_1 \\ \dots \\ x_n \end{pmatrix} (y_1^*, \dots, y_n^*) = \begin{pmatrix} x_1 y_1^* &amp; \dots &amp; x_1 y_n^* \\ \dots &amp; &amp; &amp; \\ x_n y_1^* &amp; \dots &amp; x_n y_n^* \end{pmatrix}\]</div>
+<p>这里的矩阵就是按照线性代数中矩阵的乘法法则得到的。</p>
+<p>(2) <u>完备性</u>(Completeness):一组正交归一基是完备的,说明它们可以用来表示相应矢量空间内全部的矢量。从外积的层面来看,这是因为它们的外积之和等于单位阵:</p>
+<div class="arithmatex">\[\sum_{i} |v_{i}\rangle\langle v_{i}| = \hat{I}_{n} = \begin{pmatrix} 1 &amp; 0 &amp; \dots &amp; 0 \\ 0 &amp; 1 &amp; \dots &amp; 0 \\ \dots &amp; &amp; \dots &amp; \\ 0 &amp; 0 &amp; \dots &amp; 1 \end{pmatrix}\]</div>
+<p>这是显然的。如果在n维空间中取n个正交归一的矢量 <span class="arithmatex">\(|v_1\rangle,...,|v_n\rangle\)</span> ,则用它们表示自己,可以得到</p>
+<div class="arithmatex">\[|v_1\rangle = \begin{pmatrix} 1 \\ 0 \\ \dots \\ 0 \end{pmatrix}, \quad |v_2\rangle = \begin{pmatrix} 0 \\ 1 \\ \dots \\ 0 \end{pmatrix}, \dots, \quad |v_n\rangle = \begin{pmatrix} 0 \\ \dots \\ 0 \\ 1 \end{pmatrix}\]</div>
+<p>干是容易得到</p>
+<div class="arithmatex">\[|v_1\rangle\langle v_1| = \begin{pmatrix} 1 &amp; 0 &amp; \dots &amp; 0 \\ 0 &amp; 0 &amp; \dots &amp; 0 \\ \dots &amp; &amp; \dots &amp; \\ 0 &amp; 0 &amp; \dots &amp; 0 \end{pmatrix}, \quad |v_2\rangle\langle v_2| = \begin{pmatrix} 0 &amp; 0 &amp; \dots &amp; 0 \\ 0 &amp; 1 &amp; \dots &amp; 0 \\ \dots &amp; &amp; \dots &amp; \\ 0 &amp; 0 &amp; \dots &amp; 0 \end{pmatrix}, \dots, |v_n\rangle\langle v_n| = \begin{pmatrix} 0 &amp; 0 &amp; \dots &amp; 0 \\ 0 &amp; 0 &amp; \dots &amp; 0 \\ \dots &amp; &amp; \dots &amp; \\ 0 &amp; 0 &amp; \dots &amp; 1 \end{pmatrix}\]</div>
+<p>全部相加则有 <span class="arithmatex">\(\sum_{i} |v_i\rangle\langle v_i| = \hat{I}_n\)</span> , 因此这组基是完备的。</p>
+<p>(3)矩阵的外积分解:很显然, <span class="arithmatex">\(|v_i\rangle\langle v_j|\)</span> 这个矩阵只有第i行第j列的一个元素是 1,其他矩阵元都是 0。因此,任何n阶方阵都可以分解成外积的线性组合:</p>
+<div class="arithmatex">\[\hat{A} = \begin{pmatrix} A_{11} &amp; \dots &amp; A_{1n} \\ \dots &amp; &amp; \\ A_{n1} &amp; \dots &amp; A_{nn} \end{pmatrix} = \sum_{ij} A_{ij} |i\rangle\langle j|\]</div>
+<p>这一写法将矩阵也写成了矢量的乘积,更加有利于计算。对外积分解的另一种理解是:</p>
+<div class="arithmatex">\[\hat{A} = \hat{I}\hat{A}\hat{I} = \sum_{ij} |i\rangle\langle i|\hat{A}|j\rangle\langle j|\]</div>
+<p>对比两种形式, 可以看到</p>
+<div class="arithmatex">\[A_{ij} = \left\langle i \left| \hat{A} \right| j \right\rangle\]</div>
+<ul>
+<li>7、本征值(Eigen Value)与本征态:  <span class="arithmatex">\(\hat{A}|v\rangle = \lambda|v\rangle\)</span> 。</li>
+<li>(1) 特征函数:  <span class="arithmatex">\(c(\lambda) = \det(\hat{A} - \lambda \hat{I})\)</span> 。该函数的根即为本征值。</li>
+<li>(2) 同一个本征值对应的本征态不唯一,并且在加法和数乘下满足封闭性,因此可以形成一个小的矢量空间,称为本征空间(Eigenspace)。若本征空间的维数大于 1,即同一本征值有不止一个线性无关本征态,那么称该本征值是<u>简并</u>的(Degenerate)。</li>
+<li>8、幺正算符(酉算符,Unitary Operator):  <span class="arithmatex">\(\hat{U}^+ = \hat{U}^{-1}\)</span> 的算符。有如下性质。</li>
+<li>(1) 保持内积不变:  <span class="arithmatex">\(\langle Uv|Uw\rangle = (U|v\rangle)^+U|w\rangle = \langle v|U^+U|w\rangle = \langle v|w\rangle\)</span> 。</li>
+<li>(2) 保持模长不变: ||U|v|| = ||v||。</li>
+<li>(3) 将矢量空间的一组正交归一基变换为另一组正交归一基。</li>
+<li>9、厄米算符(Hermitian Operator):  <span class="arithmatex">\(\hat{A}^+ = \hat{A}\)</span> 的算符,也叫自伴算符(Self Adjoint Operator)。有如下性质。</li>
+<li>(1) 本征值都为实数。</li>
+<li>(2) 不同本征值对应的本征态正交。</li>
+<li>(3) 可以在正交归一基(幺正变换)下对角化。</li>
+</ul>
+<div class="arithmatex">\[\hat{U}\hat{A}\hat{U}^{+} = \text{diag}(\lambda_{1},...,\lambda_{n})\]</div>
+<ul>
+<li>10、正规算符(Normal Operator):满足 <span class="arithmatex">\(\hat{A}\hat{A}^{+} = \hat{A}^{+}\hat{A}\)</span> 的算符。</li>
+<li>(1) 正规算符在幺正变换下可对角化,但其本征值不一定是实数。</li>
+<li>(2) 任何算符可以分解为厄米的"实部"和"虚部":</li>
+</ul>
+<div class="arithmatex">\[\hat{A} = \hat{B} + i\hat{C}, \ \hat{B}^+ = \hat{B}, \ \hat{C}^+ = \hat{C}\]</div>
+<p>算符 <span class="arithmatex">\(\hat{A}\)</span> 是正规算符,当且仅当 <span class="arithmatex">\(\hat{B}\hat{C} = \hat{C}\hat{B}\)</span> 。</p>
+<ul>
+<li>11、投影算符(Projector)</li>
+<li>(1) 在量子测量中,有时需要从一个叠加态中提取某些部分,例如从 <span class="arithmatex">\(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\)</span> 中</li>
+</ul>
+<p>提取出 <span class="arithmatex">\(\frac{|0\rangle}{\sqrt{2}}\)</span> (或者说将前者变成后者)。如果 <span class="arithmatex">\(|0\rangle\)</span> 和 <span class="arithmatex">\(|1\rangle\)</span> 正交,那么一个比较直接的选择就是 <span class="arithmatex">\(\hat{P}_0 = |0\rangle\langle 0|\)</span> ,它对 <span class="arithmatex">\(|1\rangle\)</span> 没有作用,而作用在 <span class="arithmatex">\(|0\rangle\)</span> 上则依然得到 <span class="arithmatex">\(|0\rangle\)</span> 。因此,这个算符可以认为是投影出了其中 <span class="arithmatex">\(|0\rangle\)</span> 的成分;此外,如果将投影后的状态再作用一次这个算符,结果将不会改变,即 <span class="arithmatex">\(\hat{P}_0^2 = \hat{P}_0\)</span> ,这也是这种算符的重要性质。</p>
+<ul>
+<li>(2)数学中的定义是从性质出发的,即定义一切满足  <span class="arithmatex">\(\hat{p}^2 = \hat{p}\)</span>  的 <u>厄米</u>算符  <span class="arithmatex">\(\hat{p}\)</span>  为投影算符。在这一定义下,投影算符有如下性质:</li>
+<li>①本征值为0或1。</li>
+<li>②可以由一组正交归一矢量展开:  <span class="arithmatex">\(\hat{P} = \sum_{j} |v_{j}\rangle\langle v_{j}|\)</span> 。</li>
+<li>③单位矩阵是一个特殊的投影算符。</li>
+<li>④正交互补关系:  <span class="arithmatex">\(\hat{P}(\hat{I} - \hat{P}) = 0\)</span> 。</li>
+<li>12、正定、半正定算符</li>
+<li>(1) 一般只考虑厄米算符的正定、半正定性,其他情况不做讨论。</li>
+<li>(2) 半正定算符(Positive Operator) <span class="arithmatex">\(\hat{A}\)</span> : 对任意矢量 <span class="arithmatex">\(|v\rangle\)</span> ,  <span class="arithmatex">\(\langle v|\hat{A}|v\rangle \geq 0\)</span> 。</li>
+</ul>
+<p>正定算符(Positive-definite Operator)  <span class="arithmatex">\(\hat{A}\)</span> : 对任意矢量 <span class="arithmatex">\(|v\rangle\)</span> ,  <span class="arithmatex">\(\langle v|\hat{A}|v\rangle \ge 0\)</span> , 并且只有 <span class="arithmatex">\(|v\rangle = 0\)</span> 时才取等号。(也就是对 <span class="arithmatex">\(|v\rangle \ne 0\)</span> 都有 <span class="arithmatex">\(\langle v|\hat{A}|v\rangle &gt; 0\)</span> )</p>
+<ul>
+<li>(3) 半正定算符的性质</li>
+<li>①必定是厄米算符。</li>
+<li>②本征值均为非负实数。(正定算符:本征值均为正实数)</li>
+<li>③对任意算符 <span class="arithmatex">\(\hat{M}\)</span> ,  <span class="arithmatex">\(\hat{M}\hat{M}^+\)</span> 与 <span class="arithmatex">\(\hat{M}^+\hat{M}\)</span> 都必然是半正定的。</li>
+<li>④投影算符都是半正定算符。</li>
+<li>⑤存在唯一的平方根。平方根是指满足 <span class="arithmatex">\(\hat{M}^+\hat{M} = \hat{A}\)</span> 的<u>半正定</u>算符 <span class="arithmatex">\(\hat{M}\)</span> 。具体的构造方式如下:</li>
+<li>(法一)直接解矩阵方程 <span class="arithmatex">\(\hat{M}^+\hat{M} = \hat{A}\)</span> ,解出所有可能的矩阵 <span class="arithmatex">\(\hat{M}\)</span> ,然后取其中半正定的解。</li>
+<li>(法二)由于半正定算符 à 是厄米算符,首先通过幺正变换将其对角化:</li>
+</ul>
+<div class="arithmatex">\[\hat{U}\hat{A}\hat{U}^{+} = \Lambda = \operatorname{diag}(\lambda_{1},...,\lambda_{n})\]</div>
+<p>其中本征值 <span class="arithmatex">\(\lambda,...,\lambda\)</span> ,均是非负实数。在这一对角化的表象下,将有</p>
+<div class="arithmatex">\[\hat{U}\hat{M}\hat{U}^{+} = \sqrt{\Lambda} = \operatorname{diag}(\sqrt{\lambda_{1}},...,\sqrt{\lambda_{n}})\]</div>
+<p>因此有</p>
+<div class="arithmatex">\[\hat{M} = \hat{U}^{+} \sqrt{\Lambda} \hat{U}\]</div>
+<p>这样就得到了满足要求的 <span class="arithmatex">\(\hat{M}\)</span> ,记为 <span class="arithmatex">\(\hat{M} = \sqrt{\hat{A}}\)</span> 。(事实上,在对 <span class="arithmatex">\(\Lambda\)</span> 开平方时,各个对角元可以取正也可以取负,不同的组合可以给出所有满足 <span class="arithmatex">\(\hat{M}^+\hat{M} = \hat{A}\)</span> 的算符,但半正定的只会有一个。)</p>
+<ul>
+<li>13、★矩阵的直积(张量积,Kronecker 积,Tensor Product)</li>
+<li>(1) 直积的定义:  <span class="arithmatex">\(m \times n\)</span>  矩阵  <span class="arithmatex">\(\hat{A}\)</span>  与  <span class="arithmatex">\(p \times q\)</span>  矩阵  <span class="arithmatex">\(\hat{B}\)</span>  的直积记为  <span class="arithmatex">\(\hat{A} \otimes \hat{B}\)</span> ,是一个  <span class="arithmatex">\(mp \times nq\)</span>  矩阵,其矩阵元为  <span class="arithmatex">\((\hat{A} \otimes \hat{B})_{ij,mn} = a_{im}b_{jn}\)</span>  。 也就是说,将  <span class="arithmatex">\(\hat{A}\)</span>  的矩阵元与  <span class="arithmatex">\(\hat{B}\)</span>  的矩阵元任意组合,每种组合就是  <span class="arithmatex">\(\hat{A} \otimes \hat{B}\)</span>  的一个矩阵元。因此,矩阵  <span class="arithmatex">\(\hat{A} \otimes \hat{B}\)</span>  有 mp 行、 nq 列,其中行列的序号与相乘的两个数的行号、列号都有关,只要按一定顺序排列清楚即可。 <span class="arithmatex">\(k\)</span> 个 <span class="arithmatex">\(\hat{A}\)</span> 的直积可以用幂次形式记为  <span class="arithmatex">\(\hat{A}^{\otimes k}\)</span> 。</li>
+<li>(2) 直积的形象表示:可以认为是矩阵 <span class="arithmatex">\(\hat{a}\)</span> 乘到了 <span class="arithmatex">\(\hat{a}\)</span> 的每个矩阵元上,形成分块矩阵。例如,对于二阶矩阵,有</li>
+</ul>
+<div class="arithmatex">\[\begin{pmatrix} a_{11} &amp; a_{12} \\ a_{21} &amp; a_{22} \end{pmatrix} \otimes \begin{pmatrix} b_{11} &amp; b_{12} \\ b_{21} &amp; b_{22} \end{pmatrix} = \begin{pmatrix} a_{11}b_{11} &amp; a_{11}b_{12} &amp; a_{12}b_{11} &amp; a_{12}b_{12} \\ a_{11}b_{21} &amp; a_{11}b_{22} &amp; a_{12}b_{21} &amp; a_{12}b_{22} \\ a_{21}b_{11} &amp; a_{21}b_{12} &amp; a_{22}b_{11} &amp; a_{22}b_{12} \\ a_{21}b_{21} &amp; a_{21}b_{22} &amp; a_{22}b_{21} &amp; a_{22}b_{22} \end{pmatrix} = \begin{pmatrix} a_{11}\hat{B} &amp; a_{12}\hat{B} \\ a_{21}\hat{B} &amp; a_{22}\hat{B} \end{pmatrix}\]</div>
+<p>容易验证直积<u>不满足交换律</u>,即 <span class="arithmatex">\(\hat{A}\otimes\hat{B}\neq\hat{B}\otimes\hat{A}\)</span> 。交换后,直积出的矩阵可能连行列数都不一样。</p>
+<p>(3)矢量的直积:矢量原则上是特殊的矩阵,因此直积的规则并无区别,但是在概念上可以有更好的理解。</p>
+<p>例如,考虑两个独立的系统 V 和 W,分别有基矢 <span class="arithmatex">\(|0\rangle_{V}\)</span> 、 <span class="arithmatex">\(|1\rangle_{V}\)</span> 与 <span class="arithmatex">\(|0\rangle_{W}\)</span> 、 <span class="arithmatex">\(|1\rangle_{W}\)</span> 。 如果要表示两个系统总体的状态,显然应该由 V 和 W 的状态组合而成。对 V 和 W 各自而言,两个线性空间都是二维的:</p>
+<div class="arithmatex">\[|0\rangle_{V} = \begin{pmatrix} 1\\0 \end{pmatrix}, |1\rangle_{V} = \begin{pmatrix} 0\\1 \end{pmatrix}; |0\rangle_{W} = \begin{pmatrix} 1\\0 \end{pmatrix}, |1\rangle_{W} = \begin{pmatrix} 0\\1 \end{pmatrix}\]</div>
+<p>而联合的状态空间(复合系统,Composite System)则是四维的:</p>
+<div class="arithmatex">\[|0\rangle_{\nu}|0\rangle_{w} = \begin{pmatrix} 1\\0\\0\\0 \end{pmatrix}, \quad |0\rangle_{\nu}|1\rangle_{w} = \begin{pmatrix} 0\\1\\0\\0 \end{pmatrix}, \quad |1\rangle_{\nu}|0\rangle_{w} = \begin{pmatrix} 0\\0\\1\\0 \end{pmatrix}, \quad |1\rangle_{\nu}|1\rangle_{w} = \begin{pmatrix} 0\\0\\0\\1 \end{pmatrix}\]</div>
+<p>两个二维空间联合成一个四维空间,其中进行的数学操作就是直积。事实上:</p>
+<div class="arithmatex">\[\begin{aligned}
+|0\rangle_V\otimes|0\rangle_W
+&amp;= \begin{pmatrix}1\\0\end{pmatrix}\otimes\begin{pmatrix}1\\0\end{pmatrix}
+= \begin{pmatrix}1\\0\\0\\0\end{pmatrix}, \\
+|0\rangle_V\otimes|1\rangle_W
+&amp;= \begin{pmatrix}1\\0\end{pmatrix}\otimes\begin{pmatrix}0\\1\end{pmatrix}
+= \begin{pmatrix}0\\1\\0\\0\end{pmatrix}.
+\end{aligned}\]</div>
+<p>因此,尽管直积运算看起来抽象而复杂,但这种运算内在的排列组合操作实际上非常适合用来表示两个系统的联合态(后者也涉及排列组合)。量子力学中,态矢的直积中可以省去直积符号,一般有如下记号:</p>
+<div class="arithmatex">\[|v\rangle\otimes|w\rangle=|v\rangle|w\rangle=|v,w\rangle=|vw\rangle\]</div>
+<p>态矢空间的基。</p>
+<p>这些直积态就是联合态矢空间的基。</p>
+<ul>
+<li>(4) 直积的性质</li>
+<li>①与矩阵乘法可交换顺序:  <span class="arithmatex">\((\hat{A} \otimes \hat{B})(\hat{A}' \otimes \hat{B}') = (\hat{A}\hat{A}') \otimes (\hat{B}\hat{B}')\)</span> 。</li>
+</ul>
+<p>对态矢而言,有 <span class="arithmatex">\((\hat{A} \otimes \hat{B})(|v\rangle \otimes |w\rangle) = (\hat{A}|v\rangle) \otimes (\hat{B}|w\rangle)\)</span> ,这说明如果要构造一个对 V、W 独立作用的算符,只需要将每个空间各自的算符进行直积即可,这也是矩阵直积的物理意义。</p>
+<div class="arithmatex">\[(\hat{A} \otimes \hat{B})^{-1} = \hat{A}^{-1} \otimes \hat{B}^{-1}, \qquad (\hat{A} \otimes \hat{B})^{+} = \hat{A}^{+} \otimes \hat{B}^{+}.\]</div>
+<p>14、矩阵的迹(Trace)</p>
+<ul>
+<li>(1) 定义: 所有对角元的和。 trace  <span class="arithmatex">\(\hat{A} = \operatorname{tr} \hat{A} = \sum_{i} A_{ii}\)</span> 。</li>
+<li>(2) 迹的性质</li>
+<li>①轮换对称性:  <span class="arithmatex">\(\operatorname{tr}(\hat{A}\hat{B}) = \operatorname{tr}(\hat{B}\hat{A})\)</span> 。对多个矩阵乘积,则有  <span class="arithmatex">\(\operatorname{tr}(\hat{A}_1\hat{A}_2...\hat{A}_n) = \operatorname{tr}(\hat{A}_2...\hat{A}_n\hat{A}_1) = ... = \operatorname{tr}(\hat{A}_n\hat{A}_1\hat{A}_2...\hat{A}_{n-1})\)</span></li>
+<li>②在相似变换下不变:  <span class="arithmatex">\(\operatorname{tr}(\hat{U}\hat{A}\hat{U}^{-1}) = \operatorname{tr}(\hat{U}^{-1}\hat{U}\hat{A}) = \operatorname{tr}\hat{A}\)</span> 。</li>
+<li>③直积的迹:  <span class="arithmatex">\(\operatorname{tr}(\hat{A} \otimes \hat{B}) = \operatorname{tr} \hat{A} \operatorname{tr} \hat{B}\)</span>  。</li>
+<li>④<strong>重要性质</strong>:对任意态矢 <span class="arithmatex">\(|\psi\rangle\)</span> ,有</li>
+</ul>
+<div class="arithmatex">\[\operatorname{tr}(\hat{A}|\psi\rangle\langle\psi|) = \langle\psi|\hat{A}|\psi\rangle\]</div>
+<p>这一公式使得量子力学中的密度矩阵有非常重要的价值。</p>
+<p>(3) Hilbert-Schmidt 内积:对 <em>V→V</em> 的算符,可以定义</p>
+<div class="arithmatex">\[(\hat{A}, \hat{B}) = \operatorname{tr}(\hat{A}^{+}\hat{B})\]</div>
+<p>它满足内积的基本条件,可以认为是算符空间上的内积。</p>
+<ul>
+<li>15、对易和反对易关系</li>
+<li>(1) 对易(Commute)即可交换。定义两算符的对易子(Commutator)</li>
+</ul>
+<div class="arithmatex">\[[\hat{A}, \hat{B}] = \hat{A}\hat{B} - \hat{B}\hat{A}\]</div>
+<p>若对易子为0,则称两算符对易。</p>
+<p>(2) 定义两算符的反对易子(Anticommutator)</p>
+<div class="arithmatex">\[\{\hat{A}, \hat{B}\} = \hat{A}\hat{B} + \hat{B}\hat{A}\]</div>
+<p>若反对易子为0,则称两算符反对易,即二者交换会产生一个负号。</p>
+<ul>
+<li>(3)两厄米算符可同时对角化,等价于它们对易。(同时对角化:在同一组基/同一个幺正变换下对角化)</li>
+<li>16、矩阵的分解</li>
+<li>(1) 极分解 (Polar Decomposition)</li>
+</ul>
+<p>任意线性算符 <span class="arithmatex">\(\hat{A}\)</span> 可以分解为如下算符的乘积:</p>
+<div class="arithmatex">\[\hat{A} = \hat{U}\hat{J} = \hat{K}\hat{U}\]</div>
+<p>其中 <span class="arithmatex">\(\hat{J} = \sqrt{\hat{A}^{+}\hat{A}}\)</span> ,  <span class="arithmatex">\(\hat{K} = \sqrt{\hat{A}\hat{A}^{+}}\)</span> , 而 <span class="arithmatex">\(\hat{U}\)</span>  为幺正矩阵。 <span class="arithmatex">\(\hat{A} = \hat{U}\hat{J}\)</span>  称为左极式分解, <span class="arithmatex">\(\hat{A} = \hat{K}\hat{U}\)</span>  称为右极式分解。</p>
+<p>(2) 奇异值分解(SVD 分解,Singular Value Decomposition) 任意方阵  <span class="arithmatex">\(\hat{A}\)</span>  可做如下分解:</p>
+<div class="arithmatex">\[\hat{A} = \hat{U}\hat{D}\hat{V}\]</div>
+<p>其中 <span class="arithmatex">\(\hat{U}\)</span> 和 <span class="arithmatex">\(\hat{V}\)</span> 为幺正矩阵, <span class="arithmatex">\(\hat{D}\)</span> 为对角矩阵(不一定是方阵)且对角元素非负。矩阵 <span class="arithmatex">\(\hat{D}\)</span> 的对角元 <span class="arithmatex">\(D_{ii}\)</span> 称为矩阵 <span class="arithmatex">\(\hat{A}\)</span> 的奇异值。在左极式分解中将 <span class="arithmatex">\(\hat{J}\)</span> 对角化即得结果。①矩阵 <span class="arithmatex">\(\hat{A}\)</span> 与 <span class="arithmatex">\(\hat{A}\)</span> +有相同的非零奇异值。</p>
+<ul>
+<li>②  <span class="arithmatex">\(\hat{A}\)</span>  奇异值的平方是  <span class="arithmatex">\(\hat{A}\hat{A}^+\)</span>  与  <span class="arithmatex">\(\hat{A}^+\hat{A}\)</span>  的本征值。(即使不做 SVD 分解也能求奇异值)</li>
+<li>(3) 谱分解 (Spectral Decomposition)</li>
+</ul>
+<p>若n阶方阵 <span class="arithmatex">\(\hat{A}\)</span> 可对角化,则 <span class="arithmatex">\(\hat{A}\)</span> 必然有n个线性无关的本征矢量。将它们正交归一化,得到一组矢量 <span class="arithmatex">\(|1\rangle,|2\rangle,...,|n\rangle\)</span> 。若它们对应的本征值分别为 <span class="arithmatex">\(\lambda_1,...,\lambda_n\)</span> ,则有</p>
+<div class="arithmatex">\[\hat{A} = \sum_{i} \lambda_{i} |i\rangle\langle i|\]</div>
+<p>17、算符函数</p>
+<p>在物理中,常常会需要将算符放在指数、分母等位置。在这些情况下,需要 定义算符的函数。</p>
+<p>(1) 最严格的定义: 泰勒级数。例如:</p>
+<div class="arithmatex">\[e^{\hat{A}} = \sum_{n=0}^{\infty} \frac{\hat{A}^n}{n!}\]</div>
+<p>,  <span class="arithmatex">\(\sin \hat{A} = \sum_{n=0}^{\infty} (-1)^{n+1} \frac{\hat{A}^{2n+1}}{(2n+1)!}\)</span> ,...</p>
+<p>该级数是否收敛,取决于算符介本征值的范围。</p>
+<p>(2) 对于对角矩阵, 其幂次可以直接作用在对角元上, 因此对这类矩阵总是有</p>
+<div class="arithmatex">\[\hat{A} = \text{diag}(A_{11},...,A_{nn}) \Rightarrow f(\hat{A}) = \text{diag}(f(A_{11}),...,f(A_{nn}))\]</div>
+<p>对于非对角矩阵, 利用谱分解也可以做到类似的效果。</p>
+<div class="arithmatex">\[\hat{A} = \sum_{a} a |a\rangle\langle a| \Rightarrow f(\hat{A}) = \sum_{a} f(a)|a\rangle\langle a|\]</div>
+<h2 id="_3">二、泡利矩阵:三个重要的二维矩阵<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<p>在量子力学的自旋理论中用到了三个泡利矩阵,但它们其实在二维矢量空间 的代数中始终有非常重要的地位。量子信息中用到泡利矩阵,也不只是因为它与 自旋的相关性。</p>
+<ul>
+<li>1、具体形式:  <span class="arithmatex">\(\hat{X} = \begin{pmatrix} 0 &amp; 1 \\ 1 &amp; 0 \end{pmatrix}\)</span> ,  <span class="arithmatex">\(\hat{Y} = \begin{pmatrix} 0 &amp; -i \\ i &amp; 0 \end{pmatrix}\)</span> ,  <span class="arithmatex">\(\hat{Z} = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; -1 \end{pmatrix}\)</span> 。也可以记为 <span class="arithmatex">\(\hat{\sigma}_x\)</span> 、 <span class="arithmatex">\(\hat{\sigma}_y\)</span> 、 <span class="arithmatex">\(\hat{\sigma}_z\)</span> ,或者 <span class="arithmatex">\(\hat{\sigma}_1\)</span> 、 <span class="arithmatex">\(\hat{\sigma}_2\)</span> 、 <span class="arithmatex">\(\hat{\sigma}_3\)</span> 。</li>
+<li>2、三个泡利矩阵都是厄米矩阵,都是幺正矩阵,也都是自反矩阵( <span class="arithmatex">\(\hat{\sigma}_{i}^{2} = \hat{I}\)</span> )。</li>
+<li>3、三个泡利矩阵的本征值都是±1,本征态分别为:</li>
+</ul>
+<div class="arithmatex">\[|\uparrow\rangle_x = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 \\ 1 \end{pmatrix}, \ |\downarrow \rangle_x = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 \\ -1 \end{pmatrix}, \ |\uparrow \rangle_y = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 \\ -i \end{pmatrix}, \ |\downarrow \rangle_y = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 \\ i \end{pmatrix}, \ |\uparrow \rangle_z = \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \ |\downarrow \rangle_z = \begin{pmatrix} 0 \\ 1 \end{pmatrix}\]</div>
+<p>量子信息中,为了与二进制一致,一般记  <span class="arithmatex">\(|\uparrow \rangle_z = |0 \rangle, \ |\downarrow \rangle_z = |1 \rangle\)</span> 。</p>
+<ul>
+<li>4、三个泡利矩阵的迹都是0。</li>
+<li>5、对易与反对易关系:  <span class="arithmatex">\([\hat{\sigma}_i, \hat{\sigma}_j] = 2i\sum_k \varepsilon_{ijk} \hat{\sigma}_k\)</span> ,  <span class="arithmatex">\(\{\hat{\sigma}_i, \hat{\sigma}_j\} = 2\hat{I}\delta_{ij}\)</span> .</li>
+<li>6、在很多式子中,泡利矩阵会依次出现。为了将式子写得更紧致,常常定义矩阵矢量 <span class="arithmatex">\(\hat{\sigma} = (\hat{\sigma}_x, \hat{\sigma}_y, \hat{\sigma}_z)\)</span> ,在形式上可以看成是三维的矢量。例如:</li>
+</ul>
+<div class="arithmatex">\[\vec{n} = (n_1, n_2, n_3) \Rightarrow n_1 \hat{\sigma}_x + n_2 \hat{\sigma}_y + n_3 \hat{\sigma}_z = \vec{n} \cdot \hat{\vec{\sigma}}\]</div>
+<p>这个点乘只是利用了 <span class="arithmatex">\(\sum_i a_i b_i\)</span> 的形式,实际的乘法与求和还是与矩阵的相关法则一致。</p>
+<p>7、任何一个二维的幺正厄米阵( <span class="arithmatex">\(\hat{U}^+ = \hat{U}^{-1} = \hat{U}\)</span> ),如果不是正比于单位阵,总是可以写成 <span class="arithmatex">\(\vec{n} \cdot \hat{\sigma}\)</span> 的形式,其中 <span class="arithmatex">\(\vec{n}\)</span>  是单位矢量。</p>
+<h2 id="_4">三、量子力学基本假设、量子测量<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
+<ul>
+<li>1、量子力学中,系统的状态可以用 Hilbert 空间中的态矢来表示。在量子信息中,</li>
+<li>一个二进制的比特可以看成二维的自旋空间,有|0&gt;和|1&gt;两个正交归一的定态;</li>
+<li>一般的态则是二者的线性叠加,即 <span class="arithmatex">\(|\psi\rangle=a|0\rangle+b|1\rangle\)</span> ,其中 <span class="arithmatex">\(|a|^2+|b|^2=1\)</span> 。叠加态是经典力学中没有的概念,也是经典比特无法呈现的状态,这将是量子计算的优势所在。</li>
+<li>2、给定系统的哈密顿量,系统的演化由薛定谔方程描述:</li>
+</ul>
+<div class="arithmatex">\[i\hbar \frac{\partial}{\partial t} |\psi\rangle = \hat{H} |\psi\rangle\]</div>
+<p>这种演化可以看成态矢在复空间的旋转,转动过程由幺正矩阵描述:</p>
+<div class="arithmatex">\[|\psi(t)\rangle = \hat{U}|\psi(0)\rangle, \quad \hat{U} = \exp\left(-\frac{i\hat{H}t}{\hbar}\right)\]</div>
+<p>这里的幺正算符 <span class="arithmatex">\(\hat{U}\)</span> 被称为时间演化算符。因此,在量子信息中,逻辑门都用幺正矩阵表示,它们将改变量子比特的状态。</p>
+<p><strong>3、量子测量的定义</strong></p>
+<p>量子力学中,对物理量进行测量的可能结果是该物理量的本征值。测量情况由一组测量算符 <span class="arithmatex">\(\{\hat{M}_{m}\}\)</span> 描述,这组算符给出了得到每个结果的概率:</p>
+<div class="arithmatex">\[p(m) = \left\langle \psi \left| \hat{M}_{m}^{+} \hat{M}_{m} \right| \psi \right\rangle\]</div>
+<p>由于总概率为 1,所以  <span class="arithmatex">\(\sum_{m}\hat{M}_{m}^{+}\hat{M}_{m}=\hat{I}\)</span> ; 并且,测量完后,系统将坍缩到对应</p>
+<p>的状态,即</p>
+<div class="arithmatex">\[|\psi'\rangle = \frac{\hat{M}_m |\psi\rangle}{\sqrt{p(m)}}\]</div>
+<ul>
+<li>(1)注意,一般测量算符 <span class="arithmatex">\(\hat{M}_m\)</span> 同时描述“得到结果 m 的概率”和“得到该结果后的状态更新”。如果只关心测量结果的概率分布,对应的是 POVM 元 <span class="arithmatex">\(\hat{E}_m=\hat{M}_m^\dagger\hat{M}_m\)</span> ;如果要把测量和某个可观测量联系起来,还需要指定本征值如何对应到这些结果。</li>
+<li>(2) 在量子力学的一般理论中,为了更好地普适化、抽象化,往往不指明测量 什么物理量,只是根据算符的性质将它们定义成一组测量,称为一般测量。</li>
+<li>(3) 在二进制计算中,最基本的测量算符是 <span class="arithmatex">\(\hat{M}_0 = |0\rangle\langle 0|\)</span>  和 <span class="arithmatex">\(\hat{M}_1 = |1\rangle\langle 1|\)</span> 。对于这种测量算符,有</li>
+</ul>
+<div class="arithmatex">\[p_0 = \langle \psi | 0 \rangle \langle 0 | \psi \rangle = |\langle 0 | \psi \rangle|^2\]</div>
+<p>,  <span class="arithmatex">\(p_1 = \langle \psi | 1 \rangle \langle 1 | \psi \rangle = |\langle 1 | \psi \rangle|^2\)</span> </p>
+<p>这就是量子力学中所说,"叠加态取得某个本征态的概率等于组合系数的模平方"。</p>
+<ul>
+<li>4、投影测量(Projective Measurement)</li>
+<li>(1)满足以下性质的一组算符 <span class="arithmatex">\(\{\hat{P}_m\}\)</span> 被称为投影测量:</li>
+<li>① <span class="arithmatex">\(\{\hat{P}_m\}\)</span> 均为厄米算符。</li>
+<li>②完备性:  <span class="arithmatex">\(\sum_{m} \hat{P}_{m} = \hat{I}_{o}\)</span></li>
+<li>③正交性:  <span class="arithmatex">\(\hat{P}_m \hat{P}_{m'} = \hat{P}_m \delta_{mm'}\)</span> 。</li>
+</ul>
+<p>在一般情况下,对于测量算符 <span class="arithmatex">\(\{\hat{M}_m\}\)</span> ,如果令 <span class="arithmatex">\(\hat{M}_m^+\hat{M}_m=\hat{P}_m\)</span> ,并且 <span class="arithmatex">\(\{\hat{P}_m\}\)</span> 满足正交性,那么 <span class="arithmatex">\(\{\hat{P}_m\}\)</span> 就是一组投影测量。例如,当 <span class="arithmatex">\(\hat{M}_0=|0\rangle\langle 0|\)</span> 、 <span class="arithmatex">\(\hat{M}_1=|1\rangle\langle 1|\)</span> 时,可以计算得到 <span class="arithmatex">\(\hat{P}_0=|0\rangle\langle 0|\)</span> 和 <span class="arithmatex">\(\hat{P}_1=|1\rangle\langle 1|\)</span> ,这便是一组投影测量。测量得到m的概率为</p>
+<div class="arithmatex">\[p(m) = \left\langle \psi \left| \hat{P}_m \right| \psi \right\rangle\]</div>
+<p>并且测量后系统将坍缩到 <span class="arithmatex">\(|\psi'\rangle = \frac{\hat{P}_m|\psi\rangle}{\sqrt{p(m)}}\)</span> 。</p>
+<p>(2) 任何可观测量都可以分解为投影测量算符的谱展开:</p>
+<div class="arithmatex">\[\hat{O} = \sum_{m} m \hat{P}_{m}\]</div>
+<p>其中m是该量的本征值。</p>
+<p>(3) 数学期望:</p>
+<div class="arithmatex">\[\langle \hat{O} \rangle = \sum_{m} mp(m) = \sum_{m} m \langle \psi | \hat{P}_{m} | \psi \rangle = \langle \psi | \hat{O} | \psi \rangle\]</div>
+<p>方差:</p>
+<div class="arithmatex">\[(\Delta \hat{O})^{2} = \langle \hat{O}^{2} \rangle - \langle \hat{O} \rangle^{2} = \langle \psi | \hat{O}^{2} | \psi \rangle - (\langle \psi | \hat{O} | \psi \rangle)^{2}\]</div>
+<p>与量子力学课程的结论完全一致。</p>
+<ul>
+<li>5、POVM(正算符取值测量)</li>
+<li>(1)满足以下性质的一组算符 <span class="arithmatex">\(\{\hat{E}_{m}\}\)</span> 被称为一组 POVM:</li>
+<li>① <span class="arithmatex">\(\{\hat{E}_m\}\)</span> 中的算符均为半正定算符。</li>
+<li>②完备性:  <span class="arithmatex">\(\sum_{m} \hat{E}_{m} = \hat{I}_{o}\)</span></li>
+</ul>
+<p>这组算符被称为 POVM 元。</p>
+<p>这里不要求正交性,因此 POVM 与投影测量并不相同。</p>
+<ul>
+<li>(2)对于某个一般测量  <span class="arithmatex">\(\{\hat{M}_m\}\)</span>  ,只要  <span class="arithmatex">\(\hat{M}_m^+\hat{M}_m\)</span>  都是半正定算符,那么就可以从中构造一组 POVM 元,也就是  <span class="arithmatex">\(\hat{E}_m = \hat{M}_m^+\hat{M}_m\)</span>  。可以证明,如果某个一般测量的 POVM 元就是测量算符本身,即  <span class="arithmatex">\(\hat{E}_m = \hat{M}_m^+\hat{M}_m = \hat{M}_m\)</span>  ,那么该测量必为投影测量。</li>
+<li>6、用投影测量可以实现一般测量。</li>
+</ul>
+<p>对一个量子比特 <span class="arithmatex">\(|\psi\rangle\)</span> ,有一个一般测量需要进行,对应算符 <span class="arithmatex">\(\{\hat{M}_m\}\)</span> 。此时,可以增加一个辅助比特(Ancilla Bit) <span class="arithmatex">\(|0\rangle\)</span> ,从而将一般测量转化为投影测量。第 1 步:做幺正变换 <span class="arithmatex">\(\hat{U}\)</span> ,使得原始的直积态 <span class="arithmatex">\(|\psi\rangle|0\rangle\)</span> 变成各种测量后状态的叠加:</p>
+<div class="arithmatex">\[\hat{U}|\psi\rangle|0\rangle = \sum \hat{M}_{m}|\psi\rangle|m\rangle\]</div>
+<p>也就是说,辅助比特需要有足够多的本征态,能够和测量算符一一对应。 第 2 步:对辅助比特进行投影测量,而不直接测量原始比特,即施加</p>
+<div class="arithmatex">\[\hat{P}_m = \hat{I} \otimes |m\rangle\langle m|\]</div>
+<p>这一步操作过后,原始比特看似没有受到影响,其实已经变成了 <span class="arithmatex">\(\hat{M}_m\)</span> 测量后的状态,因为 <span class="arithmatex">\(\hat{P}_m\)</span> 相当于从 <span class="arithmatex">\(\hat{U}|\psi\rangle|0\rangle = \sum_m \hat{M}_m |\psi\rangle|m\rangle\)</span> 中投影出了这个状态。考虑</p>
+<div class="arithmatex">\[p(m) = \left(\sum_{i} \hat{M}_{i} |\psi\rangle|i\rangle\right)^{+} \hat{P}_{m} \sum_{j} \hat{M}_{j} |\psi\rangle|j\rangle = \sum_{ij} \langle i|\langle\psi|\hat{M}_{i}^{+}|m\rangle\langle m|\hat{M}_{j}|\psi\rangle|j\rangle\]</div>
+<p>注意辅助比特的态与原始比特的态要分开计算:</p>
+<div class="arithmatex">\[p(m) = \sum_{ij} \langle i | m \rangle \langle m | j \rangle \langle \psi | \hat{M}_{i}^{\dagger} \hat{M}_{j} | \psi \rangle = \langle \psi | \hat{M}_{m}^{\dagger} \hat{M}_{m} | \psi \rangle\]</div>
+<p>因此测到辅助比特为 <span class="arithmatex">\(|m\rangle\)</span> 的概率实际上就是测量原始比特得到m的概率;同时还可以验证,原始比特恰好坍缩到了 <span class="arithmatex">\(\hat{M}_m\)</span> 作用后的状态。因此,可以通过投影测量实现对原始比特的一般测量。</p>
+<p><strong>7、不确定关系</strong></p>
+<ul>
+<li>(1) Kennard 不等式:  <span class="arithmatex">\(\Delta x \Delta p \ge \frac{\hbar}{2}\)</span> .</li>
+<li>(2) Robertson 不等式:  <span class="arithmatex">\((\Delta \hat{A})(\Delta \hat{B}) \ge \frac{1}{2} |\langle \psi | [\hat{A}, \hat{B}] | \psi \rangle|\)</span> .</li>
+<li>(3) 熵的不确定关系: Maassen-Uffink 不等式</li>
+</ul>
+<p>设算符 <span class="arithmatex">\(\hat{A}\)</span> 的本征基矢为 <span class="arithmatex">\(|j\rangle\)</span> ,算符 <span class="arithmatex">\(\hat{B}\)</span> 的本征基矢为 <span class="arithmatex">\(|k\rangle\)</span> ,则 Shannon 熵满足</p>
+<div class="arithmatex">\[H(\hat{A}) + H(\hat{B}) \ge -\log c\]</div>
+<p>,  <span class="arithmatex">\(c = \max_{j,k} \left| \langle j | k \rangle \right|^2\)</span> </p>
+<ul>
+<li>8、量子纠缠:有些复合系统的状态不能表示成子系统状态的直积,这种状态称为纠缠态(Entangled State)。在纠缠态下,两个系统的测量结果可以表现出不能由独立局域状态解释的强关联。测量其中一个系统后,另一个系统的条件状态会随测量结果更新,但这不能用来超光速传递可控信息。</li>
+<li>(1) 判断是否为纠缠态的方法: 以两系统的复合为例。</li>
+</ul>
+<div class="arithmatex">\[|\psi\rangle = \sum_{ij} a_{ij} |i,j\rangle\]</div>
+<p>只要验证它是否可以写成如下形式:</p>
+<div class="arithmatex">\[|\psi\rangle = (\alpha_1|i_1\rangle + ... + \alpha_m|i_m\rangle) \otimes (\beta_1|j_1\rangle + ... + \beta_n|j_n\rangle)\]</div>
+<p>即组合系数 <span class="arithmatex">\(\alpha_1,...,\beta_1,...\)</span> 是否存在。如果不存在,就是纠缠态。</p>
+<p>(2) Bell 态: 四个常用的纠缠态。</p>
+<div class="arithmatex">\[\left|\Phi_{\pm}\right\rangle = \frac{\left|00\right\rangle \pm \left|11\right\rangle}{\sqrt{2}}, \quad \left|\Psi_{\pm}\right\rangle = \frac{\left|01\right\rangle \pm \left|10\right\rangle}{\sqrt{2}}\]</div>
+<h2 id="density-matrix">四、密度矩阵(Density Matrix)<a class="headerlink" href="#density-matrix" title="Permanent link">¶</a></h2>
+<h3 id="1">1、纯态与混合态<a class="headerlink" href="#1" title="Permanent link">¶</a></h3>
+<ul>
+<li>(1) 纯态: 系统可以由一个归一化态矢 <span class="arithmatex">\(|\psi\rangle\)</span> 完整描述。这个态矢可以是某组基下的叠加态,其不同分量之间保留相干相位,因此可以发生干涉。</li>
+<li>(2)混合态: 系统不能由单个态矢完整描述,而是由“以经典概率制备不同纯态”的系综来描述。这里的概率是经典不确定性,不同纯态之间没有固定相干相位,不能简单写成归一化叠加态。例如,一个量子系统处于混合态,有 1/2 的概率取到  <span class="arithmatex">\(|\psi_1\rangle=|0\rangle\)</span> , 又有 1/2 的概率</li>
+</ul>
+<p>取得</p>
+<div class="arithmatex">\[|\psi_2\rangle = \frac{|0\rangle + |1\rangle}{\sqrt{2}}\]</div>
+<p>,这并不意味着系统的状态是归一化的 <span class="arithmatex">\(\frac{|\psi_1\rangle + |\psi_2\rangle}{\sqrt{2}}\)</span> ,否则密度</p>
+<p>矩阵中将出现干涉的 <span class="arithmatex">\(|\psi_1\rangle\langle\psi_2|\)</span> 项。</p>
+<h3 id="2">2、密度矩阵的定义<a class="headerlink" href="#2" title="Permanent link">¶</a></h3>
+<ul>
+<li>(1) 纯态的密度矩阵:  <span class="arithmatex">\(\hat{\rho} = |\psi\rangle\langle\psi|\)</span> 。</li>
+<li>(2) 混合态的密度矩阵: 如果系统有经典概率  <span class="arithmatex">\(p_i\)</span> 取到纯态  <span class="arithmatex">\(|\psi_i\rangle\)</span> , 则</li>
+</ul>
+<div class="arithmatex">\[\hat{\rho} = \sum_{i} p_{i} |\psi_{i}\rangle\langle\psi_{i}|\]</div>
+<p>(3)判断一个态是否为纯态,最基本的方法就是看密度矩阵能否写成单个态矢对自身的外积。(后面还会介绍其他方法)</p>
+<h3 id="3">3、密度矩阵的性质<a class="headerlink" href="#3" title="Permanent link">¶</a></h3>
+<ul>
+<li>(1) 密度矩阵都是厄米矩阵。</li>
+<li>(2) 密度矩阵都是半正定矩阵。</li>
+<li>(3) 密度矩阵的迹必为 1:  <span class="arithmatex">\(tr(\hat{\rho}) = 1\)</span> 。</li>
+<li>(4) 纯态  <span class="arithmatex">\(\hat{\rho} = |\psi\rangle\langle\psi|\)</span> ,故  <span class="arithmatex">\(\hat{\rho}^2 = \hat{\rho}\)</span> ,  <span class="arithmatex">\(\operatorname{tr}(\hat{\rho}^2) = 1\)</span> ;非纯的混合态满足  <span class="arithmatex">\(\operatorname{tr}(\hat{\rho}^2) &lt; 1\)</span> 。 因此,判断一个态是否为纯态的另一种方法就是计算  <span class="arithmatex">\(\operatorname{tr}(\hat{\rho}^2)\)</span>  的值。物理上将  <span class="arithmatex">\(\operatorname{tr}(\hat{\rho}^2)\)</span>  称为态的<strong>纯度</strong>(Purity)。</li>
+</ul>
+<h3 id="4bloch">4、Bloch 矢量及其密度矩阵<a class="headerlink" href="#4bloch" title="Permanent link">¶</a></h3>
+<p>(1) 二维复空间的任意矢量有 4 个自由度; 作为态矢,整体相位不起作用,因此相当于至多只有 3 个自由度(可以将其中一个坐标的相位设定为 0)。对于纯</p>
+<p>态,归一化条件使得只有两个自由度,从而可以写成</p>
+<div class="arithmatex">\[|\psi(\vec{r})\rangle = \begin{pmatrix} \cos\frac{\theta}{2} \\ \sin\frac{\theta}{2}e^{\mathrm{i}\varphi} \end{pmatrix}\]</div>
+<p>。该态矢</p>
+<p>与三维矢量 <span class="arithmatex">\(\vec{r} = (\sin\theta\cos\varphi, \sin\theta\sin\varphi, \cos\theta)\)</span>  ——对应,因此可将该态矢看成单位球面上的点;对于混合态,其模长小于 1(因为缺少干涉),对应的是单位球体内的点 <span class="arithmatex">\(\vec{r} = (r\sin\theta\cos\varphi, r\sin\theta\sin\varphi, r\cos\theta)\)</span> ,其中 r &lt; 1。这个球被称为 Bloch 球。</p>
+<p>(2) Bloch 矢量的密度矩阵:</p>
+<div class="arithmatex">\[\hat{\rho}(\vec{r}) = \frac{\hat{I} + \vec{r} \cdot \hat{\sigma}}{2} = \frac{\hat{I} + x\hat{\sigma}_x + y\hat{\sigma}_y + z\hat{\sigma}_z}{2}\]</div>
+<p>其中(x,y,z)就是 Bloch 矢量的直角坐标。容易看到,纬度角 <span class="arithmatex">\(\theta\)</span> 反映了系统偏向 0 还是 1,而经度角 <span class="arithmatex">\(\phi\)</span> 则反映了二者之间的相对相位。这种表示非常成功地将二维 复矢量表示成了三维实矢量,从群论角度说就是实现了 SU(2)和 SO(3)的同态。</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_19_Picture_2.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_19_Picture_2.jpeg"></a></p>
+<p>此密度矩阵的本征值与本征矢量为:</p>
+<div class="arithmatex">\[\lambda_{\pm} = \frac{1 \pm r}{2}, \ |+\rangle = \begin{pmatrix} \cos \frac{\theta}{2} \\ \sin \frac{\theta}{2} e^{i\varphi} \end{pmatrix}, \ |-\rangle = \begin{pmatrix} \sin \frac{\theta}{2} \\ -\cos \frac{\theta}{2} e^{i\varphi} \end{pmatrix}\]</div>
+<h3 id="5">5、密度矩阵的演化<a class="headerlink" href="#5" title="Permanent link">¶</a></h3>
+<p>和态矢一起发生幺正演化。</p>
+<div class="arithmatex">\[|\psi_{i}\rangle \rightarrow \hat{U}|\psi_{i}\rangle, \quad \hat{\rho} = \sum_{i} p_{i}|\psi_{i}\rangle\langle\psi_{i}| \rightarrow \hat{U}\hat{\rho}\hat{U}^{+}\]</div>
+<p>例如,在测量得到m后,系统的密度矩阵就坍缩为 <span class="arithmatex">\(\frac{\hat{M}_{m}\hat{\rho}\hat{M}_{m}^{+}}{p(m)}\)</span> 。</p>
+<h3 id="6">6、复合系统的密度矩阵<a class="headerlink" href="#6" title="Permanent link">¶</a></h3>
+<p>(1)前面已经说到,复合系统的状态不一定能表示成子系统状态的直积,但是如果已经确定制备好了每个子系统的状态,那么复合系统的状态就确实是直积态 (此时没有互相的关联)。对应地,密度矩阵也是直积:</p>
+<div class="arithmatex">\[\hat{\rho} = \hat{\rho}_1 \otimes ... \otimes \hat{\rho}_n\]</div>
+<p>(2) 约化密度矩阵: 从复合系统的密度矩阵可以得到子系统的密度矩阵, 具体的方法是求偏迹。</p>
+<div class="arithmatex">\[\hat{\rho}_A = \operatorname{tr}_B \hat{\rho}_{AB}, \quad \hat{\rho}_B = \operatorname{tr}_A \hat{\rho}_{AB}\]</div>
+<p>偏迹(Partial Trace)就是把其中属于某个子系统的部分通过求迹来消去。严格的写法:</p>
+<div class="arithmatex">\[\hat{\rho}_{A} = \sum_{b} (\hat{I} \otimes \langle b |) \hat{\rho}_{AB} (\hat{I} \otimes | b \rangle)\]</div>
+<div class="arithmatex">\[\hat{\rho}_{B} = \sum_{a} (\langle a | \otimes \hat{I}) \hat{\rho}_{AB} (|a \rangle \otimes \hat{I})\]</div>
+<p>这些公式较为抽象,可以具体来看。</p>
+<p>① 杰矢写法: 若用杰矢表示密度矩阵, 即</p>
+<div class="arithmatex">\[\hat{\rho}_{AB} = \sum_{i_1 i_2, j_1 j_2} \rho_{i_1 i_2, j_1 j_2} \left| i_1 i_2 \right\rangle \left\langle j_1 j_2 \right| = \sum_{i_1 i_2, j_1 j_2} \rho_{i_1 i_2, j_1 j_2} \left| i_1 \right\rangle \left\langle j_1 \right| \otimes \left| i_2 \right\rangle \left\langle j_2 \right|\]</div>
+<p>则</p>
+<div class="arithmatex">\[\hat{\rho}_{A} = \operatorname{tr}_{B} \hat{\rho}_{AB} = \sum_{i_{1}i_{2},j_{1}} \rho_{i_{1}i_{2},j_{1}i_{2}} |i_{1}\rangle\langle j_{1}| \operatorname{tr}(|i_{2}\rangle\langle i_{2}|) = \sum_{i_{1}j_{1}} \sum_{i_{2}} \rho_{i_{1}i_{2},j_{1}i_{2}} |i_{1}\rangle\langle j_{1}|\]</div>
+<p>也就是说,对 B 求偏迹时,只要看到右矢和左矢中 B 的状态是一致的项就保留,并将其中 B 的指标省去,变成 A 的态矢构成的矩阵;如果右矢和左矢中 B 的状态不一致,则不属于偏迹的项,应直接舍去。例如:</p>
+<div class="arithmatex">\[\hat{\rho}_{AB} = \frac{1}{2} ( |00\rangle\langle00| + |00\rangle\langle11| + |11\rangle\langle00| + |11\rangle\langle11|)\]</div>
+<p>则</p>
+<div class="arithmatex">\[\hat{\rho}_A = \frac{1}{2}(|0\rangle\langle 0| + |1\rangle\langle 1|), \quad \hat{\rho}_B = \frac{1}{2}(|0\rangle\langle 0| + |1\rangle\langle 1|)\]</div>
+<p>②矩阵写法:可以通过分块矩阵来处理。例如,把  <span class="arithmatex">\(4\times4\)</span>  的复合密度矩阵  <span class="arithmatex">\(\hat{\rho}_{AB}\)</span>  约化成  <span class="arithmatex">\(2\times2\)</span>  的矩阵  <span class="arithmatex">\(\hat{\rho}_{A}\)</span> ,就是将它分成四块,然后每块求迹:</p>
+<div class="arithmatex">\[\hat{\rho}_{AB} = \begin{pmatrix} \hat{\rho}_{11} &amp; \hat{\rho}_{12} \\ \hat{\rho}_{21} &amp; \hat{\rho}_{22} \end{pmatrix} \Rightarrow \hat{\rho}_{A} = \operatorname{tr}_{B} \hat{\rho}_{AB} = \begin{pmatrix} \operatorname{tr} \hat{\rho}_{11} &amp; \operatorname{tr} \hat{\rho}_{12} \\ \operatorname{tr} \hat{\rho}_{21} &amp; \operatorname{tr} \hat{\rho}_{22} \end{pmatrix}\]</div>
+<p>若要约化到矩阵  <span class="arithmatex">\(\hat{\rho}_B\)</span> ,需重新组织矩阵的元,使得 B 的地位与上面情况的 A 相同。(否则无法写出简洁的公式)</p>
+<ul>
+<li>(3)两个子系统组成的复合纯态处于纠缠态,当且仅当两个子系统的约化密度矩阵均是混合态,即  <span class="arithmatex">\(\operatorname{tr}(\hat{\rho}_{A}^2) &lt; 1\)</span> ,  <span class="arithmatex">\(\operatorname{tr}(\hat{\rho}_{B}^2) &lt; 1\)</span>  。</li>
+<li>(4) 复合密度矩阵的 Bloch 矢量写法: 如果系统 A、B 的 Bloch 矢量分别为 <span class="arithmatex">\(\vec{a}\)</span>  和  <span class="arithmatex">\(\vec{b}\)</span>  ,则有</li>
+</ul>
+<div class="arithmatex">\[\hat{\rho}_{AB} = \frac{1}{4} (\hat{I} \otimes \hat{I} + \vec{a} \cdot \hat{\vec{\sigma}} \otimes \hat{I} + \hat{I} \otimes \vec{b} \cdot \hat{\vec{\sigma}} + \sum_{jk} T_{jk} \hat{\sigma}_{j} \otimes \hat{\sigma}_{k})\]</div>
+<p>其中 <span class="arithmatex">\(T_{ik}\)</span> 对应一个三维矩阵 <span class="arithmatex">\(\hat{T}\)</span> ,称为关联矩阵。具体计算方法为</p>
+<div class="arithmatex">\[T_{ik} = \text{tr}[\hat{\rho}_{AB}(\hat{\sigma}_i \otimes \hat{\sigma}_k)]\]</div>
+<p>类似地,还有 <span class="arithmatex">\(\vec{a} = \text{tr}[\hat{\rho}_{AB}(\hat{\vec{\sigma}} \otimes \hat{I})]\)</span> , <span class="arithmatex">\(\vec{b} = \text{tr}[\hat{\rho}_{AB}(\hat{I} \otimes \hat{\vec{\sigma}})]\)</span> 。从统计的角度不难发现,Bloch 矢量 <span class="arithmatex">\(\vec{a}\)</span>  和 <span class="arithmatex">\(\vec{b}\)</span>  其实是两个粒子自旋的均值,而 <span class="arithmatex">\(T_{jk} = \langle \hat{\sigma}_j \otimes \hat{\sigma}_k \rangle\)</span> 则是它们的关联函数,这也是为什么 <span class="arithmatex">\(\hat{T}\)</span>  被称为关联矩阵。</p>
+<h3 id="7schmidt">7、Schmidt 分解<a class="headerlink" href="#7schmidt" title="Permanent link">¶</a></h3>
+<p>(1) 双系统构成的复合系统总是可以分解为</p>
+<div class="arithmatex">\[|\psi\rangle = \sum_{i} s_{i} |i_{A}\rangle |i_{B}\rangle\]</div>
+<p>其中  <span class="arithmatex">\(s_i\)</span>  为非负数,且满足  <span class="arithmatex">\(\sum_i s_i^2 = 1\)</span> ,被称为 Schmidt 系数。非零 Schmidt 系数的个数被称为 Schmidt 数。</p>
+<p>(2) Schmidt 分解的具体做法: 先将状态写为</p>
+<div class="arithmatex">\[|\psi\rangle = \sum_{ik} A_{jk} |j\rangle |k\rangle\]</div>
+<p>这里 <span class="arithmatex">\(\hat{A}\)</span> 是一个矩阵,其行序号代表第一个系统的状态,列序号代表第二个系统的状态。将矩阵 <span class="arithmatex">\(\hat{A}\)</span> 进行 SVD 分解,可得:</p>
+<div class="arithmatex">\[\hat{A} = \hat{U}\hat{D}\hat{V} \Longrightarrow \left|\psi\right\rangle = \sum_{iik} U_{ji} D_{ii} V_{ik} \left|j\right\rangle \left|k\right\rangle\]</div>
+<p>取奇异值 <span class="arithmatex">\(D_{ii} = s_i\)</span> ,则</p>
+<div class="arithmatex">\[|\psi\rangle = \sum_{i} s_{i} |i_{A}\rangle |i_{B}\rangle\]</div>
+<p>,  <span class="arithmatex">\(|i_{A}\rangle = \sum_{j} U_{ji} |j\rangle\)</span> ,  <span class="arithmatex">\(|i_{B}\rangle = \sum_{j} V_{ik} |k\rangle\)</span> </p>
+<p>(3) 在 Schmidt 分解下,很容易写出系统的约化密度矩阵:</p>
+<div class="arithmatex">\[\hat{\rho}_A = \sum_i s_i^2 |i_A\rangle\langle i_A|, \ \hat{\rho}_B = \sum_i s_i^2 |i_B\rangle\langle i_B|\]</div>
+<p>(4) 纠缠熵: 
+$<span class="arithmatex">\(E(|\psi\rangle) = -\sum_{i} s_i^2 \log_2 s_i^2\)</span>$</p>
+<p>。</p>
+<h3 id="8-purification">8、纯化 (Purification)<a class="headerlink" href="#8-purification" title="Permanent link">¶</a></h3>
+<p>任何一个系统的混合态都可以与一个辅助系统复合成纯态。具体过程如下: 先将混合态密度矩阵谱展开,即 <span class="arithmatex">\(\hat{\rho} = \sum_i p_i |\psi_i\rangle\langle\psi_i|\)</span> ,然后定义复合态</p>
+<div class="arithmatex">\[|\Psi\rangle = \sum_{i} \sqrt{p_{i}} |\psi_{i}\rangle |i\rangle\]</div>
+<p>其中 <span class="arithmatex">\(|i\rangle\)</span> 是辅助系统的量子态。可以说明,此状态是纯态,并且其密度矩阵对辅助系统求偏迹后将回到原系统的密度矩阵。</p>
+<h2 id="epr-bell">五、量子测量的挑战: EPR 佯谬、Bell 不等式<a class="headerlink" href="#epr-bell" title="Permanent link">¶</a></h2>
+<p>在量子力学中,测量不是平庸的物理过程,它会改变我们对系统状态的描述,并且在投影测量中会把态更新到相应的测量子空间。这一点与经典物理直觉不同。EPR 佯谬和 Bell 不等式讨论的核心,不是简单地问“测量有没有影响”,而是问自然界的关联能否由局域隐变量模型解释。</p>
+<h3 id="1epr">1、EPR 佯谬<a class="headerlink" href="#1epr" title="Permanent link">¶</a></h3>
+<p>设两个粒子处于纠缠态 <span class="arithmatex">\(|\Psi_{-}\rangle = \frac{|01\rangle - |10\rangle}{\sqrt{2}}\)</span> 。如果将这个空间看成自旋空间,那么沿同一方向测量时,两粒子的结果总是反关联。于是,当 Alice 测量自己的粒子并得到一个结果后,她可以立刻更新对 Bob 粒子的条件状态描述。这个“条件状态更新”与空间距离无关,但 Bob 在本地看到的约化密度矩阵并不会因为 Alice 选择测量或不测量而发生可观测变化,所以它不能传递超光速信号。EPR 佯谬真正尖锐之处在于:如果坚持局域性和测量前已有确定值,这些强关联能否被解释? Bell 不等式给出了可实验检验的回答。</p>
+<h3 id="2local-hidden-variable-lhv">2、局域隐变量模型(Local Hidden Variable, LHV)<a class="headerlink" href="#2local-hidden-variable-lhv" title="Permanent link">¶</a></h3>
+<p>(1) 在解释 EPR 佯谬时,有人提出另一种说法:测量只是人认识系统状态的过程,系统的状态其实早在测量之前就已经由某些隐含的变量λ确定了,因此根本不存在坍缩。注意,这一说法本质上仍是反对量子力学,是为了与光速不变原理相融洽才提出的。隐变量模型认为,实际得到的可观测量的概率分布已经在隐变量的自由度上进行了一次平均,即</p>
+<div class="arithmatex">\[P(x) = \int P(x, \lambda) d\lambda\]</div>
+<ul>
+<li>(2) 在 EPR 佯谬中,假设对第一个粒子测量 <span class="arithmatex">\(\vec{a}\cdot\hat{\sigma}\)</span> ,对第二个粒子测量 <span class="arithmatex">\(\vec{b}\cdot\hat{\sigma}\)</span> ,并记二者之积的平均测量值为 <span class="arithmatex">\(P(\vec{a},\vec{b}) = \left\langle (\vec{a}\cdot\hat{\sigma})\otimes(\vec{b}\cdot\hat{\sigma}) \right\rangle\)</span> 。如果隐变量的假设成立,可以证明 <span class="arithmatex">\(\left| P(\vec{a},\vec{b}) P(\vec{a},\vec{c}) \right| \le 1 + P(\vec{b},\vec{c})\)</span> (在此从略),这是 Bell 不等式的一种。</li>
+<li>(3) Bell 不等式是局域隐变量模型必须满足的约束,而量子力学预言某些测量设置会违反它。如果用量子力学来计算,则</li>
+</ul>
+<div class="arithmatex">\[P(\vec{a}, \vec{b}) = \text{tr}[(\vec{a} \cdot \hat{\vec{\sigma}}) \otimes (\vec{b} \cdot \hat{\vec{\sigma}}) | \Psi_{-} \rangle \langle \Psi_{-} |] = -\vec{a} \cdot \vec{b}\]</div>
+<p>取一些特殊的轴,就会发现量子预言违反 Bell 不等式。实验结果支持量子力学的预言,并排除了广泛类别的局域隐变量解释。更准确地说,问题不在于 Bell 不等式的数学推导,而在于自然界不满足局域隐变量模型的前提。</p>
+<h3 id="3chsh">3、CHSH 游戏<a class="headerlink" href="#3chsh" title="Permanent link">¶</a></h3>
+<p>(1) 游戏规则: Alice 与 Bob 在游戏之前可以商定策略,但游戏开始后不能分享任何信息。游戏开始时,裁判将给两人各一个随机二进制位 x 和 y (均取 0 或 1),随后两人又需要各自还给裁判一个二进制数 a 和 b (均取 0 或 1)。如果满足</p>
+<p><span class="arithmatex">\(a \oplus b = xy\)</span> , 则判两人赢, 否则两人输。</p>
+<p>(2) 经典信息下的策略: 胜利概率是四个条件概率的和。</p>
+<div class="arithmatex">\[P_W = \frac{1}{4}\left[P(a = b \mid 0,0) + P(a = b \mid 1,0) + P(a = b \mid 0,1) + P(a \neq b \mid 1,1)\right]\]</div>
+<p>每个括号最后的数字是 x 和 y 的值。等式右边的四个概率可以和关联函数联系起来——考虑已知 x 和 y 时  <span class="arithmatex">\((-1)^{a+b}\)</span>  的期望值:</p>
+<div class="arithmatex">\[E_{xy} = \sum_{a,b} (-1)^{a+b} P(a,b \mid x,y) = P(a=b \mid x,y) - P(a \neq b \mid x,y) = 2P(a=b \mid x,y) - 1\]</div>
+<p>于是可以得到</p>
+<div class="arithmatex">\[P_W = \frac{1}{8}(4 + E_{00} + E_{01} + E_{10} - E_{11})\]</div>
+<p>经典情境下,可以用隐变量来研究它的范围。假设关联函数关于隐变量的概率分布为</p>
+<div class="arithmatex">\[P(a \mid x, \lambda) = \delta(a, a_{x\lambda}) = \begin{cases} 1, &amp; a = a_{x\lambda} \\ 0, &amp; a \neq a_{x\lambda} \end{cases} \qquad P(b \mid y, \lambda) = \delta(b, b_{y\lambda}) = \begin{cases} 1, &amp; b = b_{y\lambda} \\ 0, &amp; b \neq b_{y\lambda} \end{cases}\]</div>
+<p>其中  <span class="arithmatex">\(a_{x\lambda}\)</span>  和  <span class="arithmatex">\(b_{y\lambda}\)</span>  是由  <span class="arithmatex">\(x, y, \lambda\)</span> 决定的 a、b 的值,取值为 0 或 1。因此:</p>
+<div class="arithmatex">\[E_{xy} = \sum_{a,b} (-1)^{a+b} P(a,b \mid x,y) = \int \sum_{a,b} (-1)^{a+b} P(a \mid x,\lambda) P(b \mid y,\lambda) d\lambda\]</div>
+<div class="arithmatex">\[= \int \sum_{a,b} (-1)^{a+b} \delta(a,a_{x\lambda}) \delta(b,b_{y\lambda}) d\lambda = \int (-1)^{a_{x\lambda} + b_{y\lambda}} d\lambda\]</div>
+<p>从而</p>
+<div class="arithmatex">\[\begin{split}
+E_{00} + E_{01} + E_{10} - E_{11}
+&amp;= \int \left[(-1)^{a_{0\lambda} + b_{0\lambda}} + (-1)^{a_{0\lambda} + b_{1\lambda}} + (-1)^{a_{1\lambda} + b_{0\lambda}} - (-1)^{a_{1\lambda} + b_{1\lambda}}\right] d\lambda \\
+&amp;= \int \left\{(-1)^{a_{0\lambda}}\left[(-1)^{b_{0\lambda}} + (-1)^{b_{1\lambda}}\right] + (-1)^{a_{1\lambda}}\left[(-1)^{b_{0\lambda}} - (-1)^{b_{1\lambda}}\right]\right\} d\lambda .
+\end{split}\]</div>
+<p>对每个固定的 <span class="arithmatex">\(\lambda\)</span> ,方括号中的和与差必有一个为 0,另一个为 <span class="arithmatex">\(\pm2\)</span> ,所以被积函数满足</p>
+<div class="arithmatex">\[(-1)^{a_{0\lambda}}\left[(-1)^{b_{0\lambda}} + (-1)^{b_{1\lambda}}\right] + (-1)^{a_{1\lambda}}\left[(-1)^{b_{0\lambda}} - (-1)^{b_{1\lambda}}\right] \le 2.\]</div>
+<div class="arithmatex">\[\Rightarrow E_{00} + E_{01} + E_{10} - E_{11} \le \int 2 d\lambda = \langle 2 \rangle = 2\]</div>
+<p>这是 Bell 不等式的另一种形式。由此可以得到经典情况下的最大获胜概率:</p>
+<div class="arithmatex">\[P_W = \frac{1}{8} (4 + E_{00} + E_{01} + E_{10} - E_{11}) \le \frac{3}{4}\]</div>
+<p>(3) 量子信息下的策略:可以通过对叠加态的测量来实现。</p>
+<p>Alice 和 Bob 可以在游戏前制备一个量子态,如 Bell 态 <span class="arithmatex">\(|\Psi_{-}\rangle = \frac{|01\rangle - |10\rangle}{\sqrt{2}}\)</span> 。并在游戏过程中独立地测量各自比特的自旋投影 <span class="arithmatex">\(\hat{\sigma}_{n} = \hat{n} \cdot \hat{\sigma}\)</span> 。二人事先不决定做什么测量,而是在拿到x和y之后再做选择。也就是说,测量的轴由x、y 决定:</p>
+<div class="arithmatex">\[\hat{A}_{x} = \vec{u}_{x} \cdot \hat{\vec{\sigma}}, \quad \hat{B}_{y} = \vec{v}_{y} \cdot \hat{\vec{\sigma}}\]</div>
+<p>测量得到的结果就作为二人的 a 和 b 值, 相应的概率也由测量算符描述:</p>
+<div class="arithmatex">\[P(a,b \mid x,y) = \operatorname{tr}[\hat{\rho}(\hat{A}_{xa} \otimes \hat{B}_{yb})]\]</div>
+<p>于是 a 和 b 的关联函数为</p>
+<div class="arithmatex">\[E_{xy} = \operatorname{tr}[\hat{\rho}(\vec{u}_x \cdot \hat{\vec{\sigma}} \otimes \vec{v}_y \cdot \hat{\vec{\sigma}})] = -\vec{u}_x \cdot \vec{v}_y\]</div>
+<p>从而</p>
+<div class="arithmatex">\[E_{00} + E_{01} + E_{10} - E_{11} = -\vec{u}_0 \cdot \vec{v}_0 - \vec{u}_0 \cdot \vec{v}_1 - \vec{u}_1 \cdot \vec{v}_0 + \vec{u}_1 \cdot \vec{v}_1\]</div>
+<p>利用 Tsirelson 不等式(后面讲到),可以证明</p>
+<div class="arithmatex">\[E_{00} + E_{01} + E_{10} - E_{11} \le 2\sqrt{2}\]</div>
+<p>因此可求得量子情形下的最大获胜概率:</p>
+<div class="arithmatex">\[P_W = \frac{1}{8} (4 + E_{00} + E_{01} + E_{10} - E_{11}) \le \frac{2 + \sqrt{2}}{4} \approx 0.85\]</div>
+<p>故量子方法的胜率高于经典方法。</p>
+<p>(4) Tsirelson 不等式: 量子最大胜率的证明。设</p>
+<div class="arithmatex">\[\hat{R} = \sum_{xy} (-1)^{xy} \hat{A}_x \otimes \hat{B}_y = \hat{A}_0 \otimes \hat{B}_0 + \hat{A}_0 \otimes \hat{B}_1 + \hat{A}_1 \otimes \hat{B}_0 - \hat{A}_1 \otimes \hat{B}_1\]</div>
+<p>则其平方为</p>
+<div class="arithmatex">\[\hat{R}^2 = 4\hat{I} - [\hat{A}_0, \hat{A}_1] \otimes [\hat{B}_0, \hat{B}_1]\]</div>
+<p>由于</p>
+<div class="arithmatex">\[[\hat{A}_{0}, \hat{A}_{1}] = \sum_{ij} u_{0i} u_{1j} [\hat{\sigma}_{i}, \hat{\sigma}_{j}] = 2i\sum_{ijk} \varepsilon_{ijk} u_{0i} u_{1j} \hat{\sigma}_{k} = 2i(\vec{u}_{0}\times\vec{u}_{1}) \cdot \hat{\vec{\sigma}}\]</div>
+<div class="arithmatex">\[[\hat{B}_{0}, \hat{B}_{1}] = 2i(\vec{v}_{0}\times\vec{v}_{1}) \cdot \hat{\vec{\sigma}}\]</div>
+<p>由于 <span class="arithmatex">\(|\vec{u}_{0}\times\vec{u}_{1}|\le 1\)</span> 、 <span class="arithmatex">\(|\vec{v}_{0}\times\vec{v}_{1}|\le 1\)</span> ,可以得到 <span class="arithmatex">\(\|\hat{R}^2\|\le 8\)</span> ,于是 <span class="arithmatex">\(\|\hat{R}\|\le 2\sqrt{2}\)</span> 。因此对任意态 <span class="arithmatex">\(\hat{\rho}\)</span> 都有</p>
+<div class="arithmatex">\[\left|E_{00} + E_{01} + E_{10} - E_{11}\right| = |\operatorname{tr}(\hat{\rho}\hat{R})| \le 2\sqrt{2}\]</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚">
+        
+          
+          <a href="classical_computation.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: 第一章 经典计算">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                第一章 经典计算
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="quantum_circuits.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 第三章 量子线路">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                第三章 量子线路
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="http://tensofermi.github.io/" target="_blank" rel="noopener" title="tensofermi.github.io" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.97 2.59a1.5 1.5 0 0 0-1.94 0l-7.5 6.363A1.5 1.5 0 0 0 3 10.097V19.5A1.5 1.5 0 0 0 4.5 21h4.75a.75.75 0 0 0 .75-.75V14h4v6.25c0 .414.336.75.75.75h4.75a1.5 1.5 0 0 0 1.5-1.5v-9.403a1.5 1.5 0 0 0-.53-1.144z"></path></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="javascripts/mathjax.js"></script>
+      
+        <script src="javascripts/mathjax/es5/tex-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": false, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "none"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

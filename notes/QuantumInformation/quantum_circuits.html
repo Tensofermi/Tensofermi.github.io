@@ -1,0 +1,908 @@
+<!DOCTYPE html><html lang="zh" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="quantum_mechanics.html">
+      
+      
+        <link rel="next" href="quantum_fourier_transform.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="logo/main.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>第三章 量子线路 - Quantum Information Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="index.html" title="Quantum Information Notes" class="md-header__button md-logo" aria-label="Quantum Information Notes" data-md-component="logo">
+      
+  <img src="logo/qubit.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Quantum Information Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第三章 量子线路
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至深色模式" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换至深色模式" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至浅色模式" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至浅色模式" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Quantum Information Notes" class="md-nav__button md-logo" aria-label="Quantum Information Notes" data-md-component="logo">
+      
+  <img src="logo/qubit.svg" alt="logo">
+
+    </a>
+    Quantum Information Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classical_computation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第一章 经典计算
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_mechanics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第二章 量子力学基础知识
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三章 量子线路
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="quantum_circuits.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三章 量子线路
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、单比特量子逻辑门
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、双比特门
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、多比特控制门
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、量子线路中的测量
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、通用量子门
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、幺正算符的逼近与误差
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_fourier_transform.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第四章 量子 Fourier 变换
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_search.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第五章 量子搜索算法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_communication.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第六章 量子通信
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="noise_and_operations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第七章 量子噪声和量子操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_error_correction.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第八章 量子纠错
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、单比特量子逻辑门
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、双比特门
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、多比特控制门
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、量子线路中的测量
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、通用量子门
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、幺正算符的逼近与误差
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="_1">第三章 量子线路<a class="headerlink" href="#_1" title="Permanent link">¶</a></h1>
+<h2 id="_2">一、单比特量子逻辑门<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<ul>
+<li>1、在量子力学中,比特的状态是态矢,因此对比特进行的逻辑门操作应是幺正变换,可以用矩阵来表示。单比特的操作对应二维幺正矩阵。</li>
+<li>2、常见的单比特逻辑门</li>
+<li>(1) 恒等门: 单位矩阵。</li>
+<li>(2) 泡利矩阵:  <span class="arithmatex">\(\hat{X}\)</span> 、 <span class="arithmatex">\(\hat{Y}\)</span> 、 <span class="arithmatex">\(\hat{Z}\)</span> 。其中,由于 <span class="arithmatex">\(\hat{X}|0\rangle = |1\rangle\)</span> , <span class="arithmatex">\(\hat{X}|1\rangle = |0\rangle\)</span> ,所以 <span class="arithmatex">\(\hat{X}\)</span> 就是单比特的<strong>非门</strong>。</li>
+<li>(3) Hadamard 门:  <span class="arithmatex">\(\hat{H} = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; -1 \end{pmatrix}\)</span> 。不难发现:</li>
+</ul>
+<div class="arithmatex">\[\hat{H}|0\rangle = \frac{|0\rangle + |1\rangle}{\sqrt{2}} = |\uparrow\rangle_x, \quad \hat{H}|1\rangle = \frac{|0\rangle - |1\rangle}{\sqrt{2}} = |\downarrow\rangle_x\]</div>
+<p>因此 Hadamard 门可以看成是一个旋转操作,它将 <span class="arithmatex">\(\hat{Z}\)</span> 本征态变为 <span class="arithmatex">\(\hat{X}\)</span> 本征态。</p>
+<p>(4) 相位门(Phase Gate):  <span class="arithmatex">\(\hat{S} = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; i \end{pmatrix}\)</span> 。可以对两个本征态的相对相位进行改变,没有经典操作与之对应。</p>
+<p>(5) <span class="arithmatex">\(\pi/8\)</span> 门(T 门):</p>
+<div class="arithmatex">\[\hat{T} = e^{i\frac{\pi}{8}} \begin{pmatrix} e^{-i\frac{\pi}{8}} &amp; 0 \\ 0 &amp; e^{i\frac{\pi}{8}} \end{pmatrix} = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; e^{i\frac{\pi}{4}} \end{pmatrix}.\]</div>
+<ul>
+<li>3、单比特逻辑门的关系</li>
+<li>(1) 泡利矩阵恒等式:  <span class="arithmatex">\(\hat{Y}\hat{X}\hat{Y} = \hat{Z}\hat{X}\hat{Z} = -\hat{X}\)</span> ,  <span class="arithmatex">\(\hat{X}\hat{Y}\hat{X} = \hat{Z}\hat{Y}\hat{Z} = -\hat{Y}\)</span> ,  <span class="arithmatex">\(\hat{X}\hat{Z}\hat{X} = \hat{Y}\hat{Z}\hat{Y} = -\hat{Z}\)</span> 。</li>
+<li>(2) Hadamard 门与泡利矩阵:  <span class="arithmatex">\(\hat{H}\hat{X}\hat{H} = \hat{Z}\)</span> ,  <span class="arithmatex">\(\hat{H}\hat{Z}\hat{H} = \hat{X}\)</span> ,  <span class="arithmatex">\(\hat{H}\hat{Y}\hat{H} = -\hat{Y}\)</span>  。</li>
+</ul>
+<p>此外,有</p>
+<div class="arithmatex">\[\hat{H} = \frac{1}{\sqrt{2}} \begin{pmatrix} 0 &amp; 1 \\ 1 &amp; 0 \end{pmatrix} + \frac{1}{\sqrt{2}} \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; -1 \end{pmatrix} = \frac{\hat{X} + \hat{Z}}{\sqrt{2}}\]</div>
+<p>。</p>
+<p>(3) 几个相位操作的关系:  <span class="arithmatex">\(\hat{Z} = \hat{S}^2 = \hat{T}^4\)</span> 。</p>
+<p><strong>4、二维复空间的旋转操作</strong></p>
+<p>(1) 一个恒等式: 若  <span class="arithmatex">\(\hat{A}^2 = \hat{I}\)</span>  , 则</p>
+<div class="arithmatex">\[\exp(ik\hat{A}) = \sum_{n=0}^{\infty} \frac{(ik\hat{A})^n}{n!} = \sum_{n=0}^{\infty} \frac{(-1)^n k^{2n}}{(2n)!} \hat{A}^{2n} + \sum_{n=0}^{\infty} \frac{(-1)^n ik^{2n+1}}{(2n+1)!} \hat{A}^{2n+1}\]</div>
+<div class="arithmatex">\[= \sum_{n=0}^{\infty} \frac{(-1)^n k^{2n}}{(2n)!} \hat{I} + \sum_{n=0}^{\infty} \frac{(-1)^n ik^{2n+1}}{(2n+1)!} \hat{A} = (\cos k)\hat{I} + i(\sin k)\hat{A}\]</div>
+<p>(2) 对于二维复空间中的矢量,可以施加如下的旋转操作:</p>
+<div class="arithmatex">\[\hat{R}_{\hat{n}}(\theta) = \exp\left(-\frac{1}{2}i\theta\hat{n}\cdot\hat{\vec{\sigma}}\right) = \cos\frac{\theta}{2}\hat{I} - i\sin\frac{\theta}{2}\hat{n}\cdot\hat{\vec{\sigma}}\]</div>
+<p>其中 <span class="arithmatex">\(\hat{n}\)</span> 为单位矢量。此算符的作用是让系统的 Bloch 矢量绕 <span class="arithmatex">\(\hat{n}\)</span>  轴转 <span class="arithmatex">\(\theta\)</span> 角(绕转 方向满足右手法则)。可能会在态矢前乘上一个整体相位,但是这一整体相位对 态本身没有影响。</p>
+<ul>
+<li>(3)性质:  <span class="arithmatex">\(\hat{R}_{\hat{n}}^+(\theta) = \hat{R}_{\hat{n}}(-\theta)\)</span> ,  <span class="arithmatex">\(\hat{R}_{\hat{n}}(\alpha)\hat{R}_{\hat{n}}(\beta) = \hat{R}_{\hat{n}}(\alpha+\beta)\)</span> ,  <span class="arithmatex">\(\hat{R}_{\hat{n}}(\theta')\hat{R}_{\hat{n}}(\theta)\hat{R}_{\hat{n}}^+(\theta') = \hat{R}_{\hat{n}'}(\theta)\)</span> ,  <span class="arithmatex">\(\hat{X}\hat{R}_{v}(\theta)\hat{X} = \hat{R}_{v}(-\theta)\)</span> ,  <span class="arithmatex">\(\hat{X}\hat{R}_{z}(\theta)\hat{X} = \hat{R}_{z}(-\theta)\)</span> .</li>
+<li>(4) 任意一个二维幺正矩阵总是可以写成如下形式:</li>
+</ul>
+<div class="arithmatex">\[\hat{U} = e^{i\alpha} \begin{pmatrix} e^{-i\frac{\beta+\delta}{2}} \cos\frac{\gamma}{2} &amp; -e^{i\frac{-\beta+\delta}{2}} \sin\frac{\gamma}{2} \\ e^{i\frac{\beta-\delta}{2}} \sin\frac{\gamma}{2} &amp; e^{i\frac{\beta+\delta}{2}} \cos\frac{\gamma}{2} \end{pmatrix}\]</div>
+<div class="arithmatex">\[\hat{n} = \frac{1}{\sqrt{\sin^2 \frac{\gamma}{2} + \cos^2 \frac{\gamma}{2} \sin^2 \frac{\beta + \delta}{2}}} \begin{pmatrix} \sin \frac{\gamma}{2} \cos \frac{\beta - \delta}{2} \\ -\sin \frac{\gamma}{2} \sin \frac{\beta - \delta}{2} \\ \cos \frac{\gamma}{2} \sin \frac{\beta + \delta}{2} \end{pmatrix}\]</div>
+<p>则有 <span class="arithmatex">\(\hat{U} = e^{i\alpha} \hat{R}_{\hat{n}}(\theta)\)</span> 。这直接说明二维幺正矩阵对应二维复空间的旋转操作。</p>
+<ul>
+<li>(5) 二维幺正矩阵的其他写法</li>
+<li>①Z-Y 分解:  <span class="arithmatex">\(\hat{U} = e^{i\alpha} \hat{R}_{z}(\beta) \hat{R}_{y}(\gamma) \hat{R}_{z}(\delta)\)</span> 。</li>
+<li>②任意两正交转轴分解: 也可以选取两条互相垂直的转轴 <span class="arithmatex">\(\hat{n}\)</span> 与 <span class="arithmatex">\(\hat{m}\)</span> ,将任意单比特幺正门写成三次旋转的乘积,例如  <span class="arithmatex">\(\hat{U} = e^{i\alpha} \hat{R}_{\hat{n}}(\beta) \hat{R}_{\hat{m}}(\gamma) \hat{R}_{\hat{n}}(\delta)\)</span> 。Z-Y 分解就是取 <span class="arithmatex">\(\hat{n}=\hat{z}\)</span> 、 <span class="arithmatex">\(\hat{m}=\hat{y}\)</span> 的特例。</li>
+</ul>
+<p>③推论: 令 
+$<span class="arithmatex">\(\hat{A} = \hat{R}_z(\beta)\hat{R}_y\left(\frac{\gamma}{2}\right)\)</span>$</p>
+<p>,  <span class="arithmatex">\(\hat{B} = \hat{R}_y\left(-\frac{\gamma}{2}\right)\hat{R}_z\left(-\frac{\delta+\beta}{2}\right)\)</span> ,  <span class="arithmatex">\(\hat{C} = \hat{R}_z\left(\frac{\delta-\beta}{2}\right)\)</span> , 则可以得到  <span class="arithmatex">\(\hat{U} = e^{i\alpha}\hat{A}\hat{X}\hat{B}\hat{X}\hat{C}\)</span> 。并且,有  <span class="arithmatex">\(\hat{A}\hat{B}\hat{C} = \hat{I}\)</span> 。</p>
+<p>5、单比特逻辑门在线路中通常画成标有门名的方框。例如,标记为 H 的方框表示 Hadamard 门。</p>
+<p>6、如果对同一个比特进行多次操作,那么相应的矩阵就是各个变换矩阵的乘积。 注意,先进行的操作在右,后进行的操作在左。</p>
+<h2 id="_3">二、双比特门<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<p>1、大部分双比特的操作就是单比特操作的直积,也就是对两个比特各做一个幺正变换,且两个操作彼此独立。例如,对第一个比特执行 <span class="arithmatex">\(\hat{U}_1\)</span> ,对第二个比特执行 <span class="arithmatex">\(\hat{U}_2\)</span> ,则相应的双比特操作为 <span class="arithmatex">\(\hat{U}_1\otimes\hat{U}_2\)</span> 。在线路图中,只需用两根导线表示两个比特,各自施加相应的操作即可。例如 <span class="arithmatex">\(\hat{H}\otimes\hat{I}\)</span> 表示只在第一个比特上施加 Hadamard 门。一般而言,上方的导线表示第一个比特,下方的导线表示第二个。</p>
+<p><strong>2、受控门</strong></p>
+<p>双比特的受控门一般是由上方比特控制,作用在下方比特。</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_25_Picture_9.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_25_Picture_9.jpeg"></a></p>
+<p>上图即为比特 1 控制比特 2 的受控 U 门,记为  <span class="arithmatex">\(C_{12}(U)\)</span> 。由于两个比特互相影响,因此这一操作不能直接表示成单比特操作的直积,而是如下的分块矩阵,或者说两个直积的和:</p>
+<div class="arithmatex">\[C_{12}(U) = |0\rangle\langle 0| \otimes \hat{I} + |1\rangle\langle 1| \otimes \hat{U} = \begin{pmatrix} \hat{I} &amp; 0 \\ 0 &amp; \hat{U} \end{pmatrix}\]</div>
+<p>意义非常明确:上方比特为0时执行 <span class="arithmatex">\(\hat{I}\)</span> ,上方比特为1时执行 <span class="arithmatex">\(\hat{U}\)</span> 。例如,经典计算中重要的CNOT门,在量子计算中就可表示为</p>
+<p>CNOT = 
+$<span class="arithmatex">\(C_{12}(X) = \begin{pmatrix} \hat{I} &amp; 0 \\ 0 &amp; \hat{X} \end{pmatrix} = \begin{pmatrix} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 1 &amp; 0 \end{pmatrix}\)</span>$</p>
+<p>其线路符号与经典计算一致。</p>
+<p><strong>3、关于 CNOT 门的恒等式</strong></p>
+<p>以下公式中,下标 1、2 表示对哪个比特进行的操作。例如, <span class="arithmatex">\(\hat{X}_1 = \hat{X} \otimes \hat{I}\)</span> ,而  <span class="arithmatex">\(\hat{X}_2 = \hat{I} \otimes \hat{X}\)</span> 。 <span class="arithmatex">\(\hat{C}\)</span>  表示 CNOT。</p>
+<ul>
+<li><span class="arithmatex">\((1) \ \hat{C}\hat{X}_{1}\hat{C} = \hat{X}_{1}\hat{X}_{2}, \ \hat{C}\hat{Y}_{1}\hat{C} = \hat{Y}_{1}\hat{X}_{2}, \ \hat{C}\hat{Z}_{1}\hat{C} = \hat{Z}_{1} \ .\)</span></li>
+<li>(2)  <span class="arithmatex">\(\hat{C}\hat{X}_2\hat{C} = \hat{X}_2\)</span> ,  <span class="arithmatex">\(\hat{C}\hat{Y}_2\hat{C} = \hat{Z}_1\hat{Y}_2\)</span> ,  <span class="arithmatex">\(\hat{C}\hat{Z}_2\hat{C} = \hat{Z}_1\hat{Z}_2\)</span> .</li>
+<li>(3)  <span class="arithmatex">\(\hat{R}_{z,1}(\theta)\hat{C} = \hat{C}\hat{R}_{z,1}(\theta), \hat{R}_{x,2}(\theta)\hat{C} = \hat{C}\hat{R}_{x,2}(\theta)\)</span> .</li>
+<li>(4) 如果要将 1 控制 2 的 CNOT 变换为 2 控制 1 的 CNOT, 有两种方法:</li>
+</ul>
+<div class="arithmatex">\[C_{21}(X) = (\hat{H} \otimes \hat{H}) \begin{pmatrix} \hat{I} &amp; 0 \\ 0 &amp; \hat{X} \end{pmatrix} (\hat{H} \otimes \hat{H}) = \hat{I} \otimes |0\rangle \langle 0| + \hat{X} \otimes |1\rangle \langle 1| = \begin{pmatrix} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \end{pmatrix}\]</div>
+<p>其线路图如下:</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_26_Figure_3.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_26_Figure_3.jpeg"></a></p>
+<p>4、根据 <span class="arithmatex">\(\hat{U} = e^{i\alpha} \hat{A} \hat{X} \hat{B} \hat{X} \hat{C}\)</span> , 一般的控制门可以分解为单比特门和 CNOT 门:</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_26_Figure_5.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_26_Figure_5.jpeg"></a></p>
+<p>原理:上比特为 0,则 CNOT 门不起作用,系统受到  <span class="arithmatex">\(\hat{A}\hat{B}\hat{C}=\hat{I}\)</span>  操作,不发生改变;上比特为 1,则 CNOT 门起作用,系统受到的操作为  <span class="arithmatex">\(e^{i\alpha}\hat{A}\hat{X}\hat{B}\hat{X}\hat{C}=\hat{U}\)</span> 。相位  <span class="arithmatex">\(e^{i\alpha}\)</span>  可看成对上比特的作用,并且只在上比特为 1 时有作用,即最后的矩阵。5、另一种控制门:当控制比特为 0(而不是 1)时才进行 U 操作。以 CNOT 为例,其线路可以这样表示:</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_26_Figure_7.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_26_Figure_7.jpeg"></a></p>
+<p>也就是让控制比特先反转再控制传统的 CNOT 门。</p>
+<p>6、交换门: 在经典计算中已经将 SWAP 转换为三个 CNOT。</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_26_Figure_10.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_26_Figure_10.jpeg"></a></p>
+<p>因此, 在量子计算中可以表示为</p>
+<div class="arithmatex">\[SWAP = \begin{pmatrix} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 1 &amp; 0 \end{pmatrix} \begin{pmatrix} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \end{pmatrix} \begin{pmatrix} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 1 &amp; 0 \end{pmatrix} = \begin{pmatrix} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{pmatrix}\]</div>
+<h2 id="_4">三、多比特控制门<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
+<p>1、如果在三个比特中,有两个比特控制另一比特上的 U 操作,则称为"控制-控制 U 门",记作  <span class="arithmatex">\(C^2(U)\)</span> 。  <span class="arithmatex">\(C^2(U)\)</span> 可以用双比特的受控门来实现,如下图,其</p>
+<p>中 <span class="arithmatex">\(\hat{V}\)</span> 是幺正算符,满足 <span class="arithmatex">\(\hat{V}^2 = \hat{U}\)</span> 。</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_27_Picture_2.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_27_Picture_2.jpeg"></a></p>
+<p>2、如果只用 Hadamard 门、相位门、 <span class="arithmatex">\(\pi/8\)</span>  门和 CNOT 实现 CCNOT 门(即 Toffoli 门),则有如下线路图:</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_27_Figure_4.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_27_Figure_4.jpeg"></a></p>
+<h2 id="_5">四、量子线路中的测量<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
+<p>1、量子线路中,有时需要测量一个比特,并将测量后的状态用于后续线路。对单比特的测量可以用一个仪表来表示,并且一般是指投影测量。</p>
+<p>$<span class="arithmatex">\(|\psi\rangle\)</span>$
+ —</p>
+<p>2、推迟测量原理: 若某段线路中无其他逻辑门(控制比特不算),那么在这段线路中间测量该比特,就等价于在线路最后测量该比特。数学形式:</p>
+<div class="arithmatex">\[\hat{M}_{i} = |j\rangle\langle j| \otimes \hat{I} \Rightarrow \hat{M}_{i}C(U) = C(U)\hat{M}_{i}\]</div>
+<p>此原理对控制门有较大意义。对于受计算基控制的门,控制比特如果处于叠加态,整体演化仍然是相干的受控幺正演化,不是在节点处“随机选择”某一个分支。推迟测量原理说的是: 如果后续操作只把该比特当作计算基控制位使用,那么把计算基测量提前或推迟,对最终可观测的概率分布没有影响。换句话说,这类被测量的控制比特可以等效地看成经典比特来控制后面的逻辑门(图中双线)。</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_27_Figure_11.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_27_Figure_11.jpeg"></a></p>
+<p>3、隐含测量原理:如果某些输出量子比特后续不再参与任何操作,而且我们只关心其余比特的测量统计,那么可以把这些未终结的量子连线看成被丢弃或被测量后忘记结果。数学上这对应对这些子系统求偏迹;它不会改变其他子系统的约化密度矩阵。</p>
+<h2 id="_6">五、通用量子门<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
+<ul>
+<li>1、二维空间所有幺正变换可以实现通用的量子计算(精确)。(二级矩阵分解)</li>
+<li>2、单比特门和 CNOT 能实现通用的量子计算(精确)。(Gray 码方法) 使用这一方法所需的资源量为  <span class="arithmatex">\(O(n^24^n)\)</span> 。</li>
+<li>3、Hadamard 门、相位门、CNOT 门和 T 门能实现通用的量子计算(有误差)。 这种方法主要是相位操作,但实际操作中无法做到完全精确。</li>
+</ul>
+<h2 id="_7">六、幺正算符的逼近与误差<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
+<p>1、正如前面所说,理想状态下的幺正算符 <span class="arithmatex">\(\hat{U}\)</span> 可以连续取值,但实际情况所能制造的量子门 <span class="arithmatex">\(\hat{V}\)</span> 必然是分立取值的。为此,需要估计近似操作产生的误差。</p>
+<p><strong>2、范数</strong></p>
+<ul>
+<li>(1) 矢量的范数就是长度,即 <span class="arithmatex">\(\|v\| = \sqrt{\langle v|v\rangle}\)</span> 。</li>
+<li>(2) 算符(矩阵)自由度高,因此范数有多种定义。设算符 <span class="arithmatex">\(\hat{A}\)</span> 的奇异值为 <span class="arithmatex">\(\{s_i\}\)</span> 。</li>
+</ul>
+<p>①</p>
+<div class="arithmatex">\[p\]</div>
+<p>-范数:  <span class="arithmatex">\(\|\hat{A}\|_{p} = \left(\sum_{j} s_{j}^{p}\right)^{1/p}\)</span> 。(和其他学科的定义可能不同,本课程以这里为准)</p>
+<p>②1-范数: 
+$<span class="arithmatex">\(\|\hat{A}\|_{1} = \sum_{j} s_{j} = \operatorname{tr} \sqrt{\hat{A}^{+} \hat{A}}\)</span>$</p>
+<p>。</p>
+<p>③2 范数:即 Hilbert-Schmidt 范数,是 Hilbert-Schmidt 内积的特殊情况。</p>
+<div class="arithmatex">\[\left\|\hat{A}\right\|_{2} = \sqrt{\sum_{j} s_{j}^{2}} = \sqrt{\operatorname{tr}(\hat{A}^{+}\hat{A})}\]</div>
+<p>④无穷范数:</p>
+<div class="arithmatex">\[\left\|\hat{A}\right\|_{\infty} = \lim_{p \to +\infty} \left\|\hat{A}\right\|_{p} = \lim_{p \to +\infty} \left(\sum_{j} s_{j}^{p}\right)^{1/p} = \max\{s_{j}\}\]</div>
+<p>在量子信息中,无穷范数使用较多,因此省去下标记为 <span class="arithmatex">\(|\hat{A}|\)</span> ,也称为"算符范数"(Operator Norm)。</p>
+<p>(3) 对于厄米算符,有</p>
+<div class="arithmatex">\[s_j = \left| \lambda_j \right|\]</div>
+<p>,故 <span class="arithmatex">\(\left\| \hat{A} \right\| = \max(\left| \lambda_j \right|)\)</span> ,  <span class="arithmatex">\(\left\| \hat{A} \right\|_2 = \sqrt{\sum_j \lambda_j^2}\)</span> 。</p>
+<p><strong>3、算符误差</strong></p>
+<ul>
+<li>(1) 定义:  <span class="arithmatex">\(E(\hat{U},\hat{V}) = \max_{|\psi\rangle} \left\| (\hat{U} - \hat{V}) |\psi\rangle \right\|\)</span> , 其中 <span class="arithmatex">\(\hat{U},\hat{V}\)</span> 是幺正算符。</li>
+<li>(2) 一些性质</li>
+</ul>
+<div class="arithmatex">\[(1) E(\hat{U}_{m} \hat{U}_{m-1} ... \hat{U}_{1}, \hat{V}_{m} \hat{V}_{m-1} ... \hat{V}_{1}) \leq \sum_{j=1}^{m} E(\hat{U}_{j}, \hat{V}_{j}) _{\circ}\]</div>
+<p>②对于幺正算符 <span class="arithmatex">\(\hat{U},\hat{V},\hat{W_1},\hat{W_2}\)</span> ,有 <span class="arithmatex">\(E(\hat{W_1}\hat{U}\hat{W_2},\hat{W_1}\hat{V}\hat{W_2}) = E(\hat{U},\hat{V})\)</span> 。</p>
+<p>③ 
+$<span class="arithmatex">\(E[\hat{R}_{\hat{n}}(\alpha), \hat{R}_{\hat{n}}(\alpha + \beta)] = \left|1 - \exp\left(\frac{i\beta}{2}\right)\right| = 2\left|\sin\frac{\beta}{4}\right|\)</span>$</p>
+<p>。(可用上一条性质证明)</p>
+<p>④测量误差: 记 <span class="arithmatex">\(P_U = \langle \psi | \hat{U}^+ \hat{M} \hat{U} | \psi \rangle\)</span> ,  <span class="arithmatex">\(P_V = \langle \psi | \hat{V}^+ \hat{M} \hat{V} | \psi \rangle\)</span> , 其中 <span class="arithmatex">\(\hat{M}\)</span>  为投影测量对应的效应算符,则常用估计为  <span class="arithmatex">\(|P_U - P_V| \leq 2E(\hat{U}, \hat{V})\)</span> 。</p>
+<p>这个界足以说明: 如果每个门的算符误差很小,最终测量概率的误差也可以被控制。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚">
+        
+          
+          <a href="quantum_mechanics.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: 第二章 量子力学基础知识">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                第二章 量子力学基础知识
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="quantum_fourier_transform.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 第四章 量子 Fourier 变换">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                第四章 量子 Fourier 变换
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="http://tensofermi.github.io/" target="_blank" rel="noopener" title="tensofermi.github.io" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.97 2.59a1.5 1.5 0 0 0-1.94 0l-7.5 6.363A1.5 1.5 0 0 0 3 10.097V19.5A1.5 1.5 0 0 0 4.5 21h4.75a.75.75 0 0 0 .75-.75V14h4v6.25c0 .414.336.75.75.75h4.75a1.5 1.5 0 0 0 1.5-1.5v-9.403a1.5 1.5 0 0 0-.53-1.144z"></path></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="javascripts/mathjax.js"></script>
+      
+        <script src="javascripts/mathjax/es5/tex-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": false, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "none"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

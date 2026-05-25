@@ -1,0 +1,925 @@
+<!DOCTYPE html><html lang="zh" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="quantum_communication.html">
+      
+      
+        <link rel="next" href="quantum_error_correction.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="logo/main.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>第七章 量子噪声和量子操作 - Quantum Information Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="index.html" title="Quantum Information Notes" class="md-header__button md-logo" aria-label="Quantum Information Notes" data-md-component="logo">
+      
+  <img src="logo/qubit.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Quantum Information Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第七章 量子噪声和量子操作
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至深色模式" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换至深色模式" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至浅色模式" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至浅色模式" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Quantum Information Notes" class="md-nav__button md-logo" aria-label="Quantum Information Notes" data-md-component="logo">
+      
+  <img src="logo/qubit.svg" alt="logo">
+
+    </a>
+    Quantum Information Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classical_computation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第一章 经典计算
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_mechanics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第二章 量子力学基础知识
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_circuits.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三章 量子线路
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_fourier_transform.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第四章 量子 Fourier 变换
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_search.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第五章 量子搜索算法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_communication.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第六章 量子通信
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第七章 量子噪声和量子操作
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="noise_and_operations.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第七章 量子噪声和量子操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、噪声及其抽象模型
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kraus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、量子操作的"算符和"表示: Kraus 算符
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、单比特量子操作
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、两状态相近程度的衡量: 迹距离与保真度
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_error_correction.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第八章 量子纠错
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、噪声及其抽象模型
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kraus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、量子操作的"算符和"表示: Kraus 算符
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、单比特量子操作
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、两状态相近程度的衡量: 迹距离与保真度
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="_1">第七章 量子噪声和量子操作<a class="headerlink" href="#_1" title="Permanent link">¶</a></h1>
+<h2 id="_2">一、噪声及其抽象模型<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<ul>
+<li>1、任何计算系统都是在有限温度下运行,环境的热噪声难免对系统造成影响, 不论是量子的还是经典的。</li>
+<li>2、经典比特的噪声:有一定概率从0翻转至1,或从1翻转至0。</li>
+</ul>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_47_Figure_1.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_47_Figure_1.jpeg"></a></p>
+<p>在物理上,一般把经典热噪音描述为马尔科夫过程(Markov Process),也就是每个时刻的随机演化都与之前的演化统计独立。</p>
+<p>3、量子计算的热噪音则是环境对系统的量子操作(Quantum Operation)。</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_47_Picture_4.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_47_Picture_4.jpeg"></a></p>
+<p>由于涉及叠加态,量子比特的热涨落不能简单地用翻转概率来描述,而是要用算符来描述。如上图,在经过了环境的作用之后,系统的密度算符表示为</p>
+<div class="arithmatex">\[\varepsilon(\hat{\rho}) = \operatorname{tr}_{\text{env}}[\hat{U}(\hat{\rho} \otimes \hat{\rho}_{\text{env}})\hat{U}^{+}]\]</div>
+<p>有时会用辅助比特来代替环境 env, 以模拟量子操作的效果, 如下图。</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_47_Picture_8.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_47_Picture_8.jpeg"></a></p>
+<h2 id="kraus">二、量子操作的"算符和"表示: Kraus 算符<a class="headerlink" href="#kraus" title="Permanent link">¶</a></h2>
+<ul>
+<li>1、设环境的基矢量为 <span class="arithmatex">\(|e_k\rangle\)</span> ,初始时处在 <span class="arithmatex">\(|e_0\rangle\)</span> 。系统和环境先共同经历一个幺正演化,随后只保留系统、对环境求偏迹,系统的状态为</li>
+</ul>
+<div class="arithmatex">\[\varepsilon(\hat{\rho}) = \operatorname{tr}_{\text{env}}[\hat{U}(\hat{\rho} \otimes |e_0\rangle\langle e_0|)\hat{U}^+] = \sum_{k} \langle e_k | \hat{U}(\hat{\rho} \otimes |e_0\rangle\langle e_0|)\hat{U}^+ |e_k\rangle\]</div>
+<p>定义 Kraus 算符:</p>
+<div class="arithmatex">\[\hat{E}_{k} = \langle e_{k} | \hat{U} | e_{0} \rangle\]</div>
+<p>这里 <span class="arithmatex">\(\hat{U}\)</span> 同时作用在系统和环境,将其中属于环境的部分取 <span class="arithmatex">\(\langle e_k | \cdot | e_0 \rangle\)</span> 矩阵元,剩余的就是对系统作用的算符 <span class="arithmatex">\(\hat{E}_k\)</span> 。最终可以得到</p>
+<div class="arithmatex">\[\varepsilon(\hat{\rho}) = \sum_{k} \hat{E}_{k} \hat{\rho} \hat{E}_{k}^{+}\]</div>
+<p>可以认为这个结果是对环境不同不可见结果求和后的有效描述。交叉项在对环境求偏迹后不再出现在系统的约化态中,所以系统可能从纯态变成混合态。注意,“可能变混合”不是“必然变混合”: 如果只有一个 Kraus 算符且演化等价于系统上的幺正门,纯态仍会保持纯态。由于这个密度算符是一系列算符的和,所以称为算符和表示(Operator-sum Representation)。</p>
+<p><strong>2、量子操作的性质</strong></p>
+<p>(1) 完备性: 
+$<span class="arithmatex">\(\sum_{k} \hat{E}_{k}^{+} \hat{E}_{k} = \sum_{k} \langle e_{0} | \hat{U} | e_{k} \rangle \langle e_{k} | \hat{U} | e_{0} \rangle = \hat{I}\)</span>$</p>
+<p>(2) 保迹性(Trace-preserving, TP):</p>
+<div class="arithmatex">\[\operatorname{tr}[\varepsilon(\hat{\rho})] = \operatorname{tr}\left(\sum_{k} \hat{E}_{k} \hat{\rho} \hat{E}_{k}^{+}\right) = \operatorname{tr}\left(\hat{\rho} \sum_{k} \hat{E}_{k}^{+} \hat{E}_{k}\right) = \operatorname{tr}\hat{\rho}\]</div>
+<p>(3) 凸线性(Convex Linear): 对任意  <span class="arithmatex">\(0 \le p_1, p_2 \le 1\)</span> 且 <span class="arithmatex">\(p_1+p_2=1\)</span> ,有</p>
+<div class="arithmatex">\[\varepsilon(p_1\hat{\rho}_1 + p_2\hat{\rho}_2) = p_1\varepsilon(\hat{\rho}_1) + p_2\varepsilon(\hat{\rho}_2)\]</div>
+<ul>
+<li>(4) 正定性:  <span class="arithmatex">\(\varepsilon(\hat{\rho}) \geq 0\)</span> 。</li>
+<li>(5) 完全正定性(Completely Positive, CP):  <span class="arithmatex">\((I \otimes \varepsilon)(\hat{\rho}') \ge 0\)</span> 。</li>
+</ul>
+<p>完全正定的意思是指,即使该系统作为子系统存在于更大的系统中,该量子 操作得到的结果依然是正定的。这是一个比普通的正定性更强的性质。例如,对 正定矩阵进行转置后仍得到正定矩阵,说明转置操作是正定操作(这里不涉及其 他系统);但是,如果将这一矩阵与其他矩阵进行直积、使之成为子系统,那么 在大矩阵中对这个子系统进行的部分转置(后面会提到)不能保证大矩阵正定, 说明对该系统的转置操作不是完全正定操作。</p>
+<ul>
+<li>(6) 如果一个量子操作能够满足 <span class="arithmatex">\(\varepsilon(\hat{I}) = \hat{I}\)</span> ,则称该操作是单位的(Unital)。</li>
+<li>3、部分转置(Partial Transpose)</li>
+<li>(1)转置(Transpose):将一个矩阵的行列交换。有两种表达形式:</li>
+</ul>
+<div class="arithmatex">\[\hat{M} = \sum_{jk} M_{jk} |j\rangle\langle k| \Rightarrow \hat{M}^{\mathrm{T}} = \sum_{jk} M_{kj} |j\rangle\langle k| = \sum_{jk} M_{jk} |k\rangle\langle j|\]</div>
+<p>两种写法是一样的,可以认为是对行号、列号的交换,也可以认为是行列号 不动、对元素的值进行交换(萝卜的移动/坑的移动)。</p>
+<p>不难看出,算符 <span class="arithmatex">\(\hat{M}\)</span> 与 <span class="arithmatex">\(\hat{M}\)</span> T的正定性一致、本征值一致、奇异值一致。</p>
+<p>(2) 部分转置:对于直积形成的矩阵,将直积的一方进行转置。</p>
+<p>也可以这样写: 
+$<span class="arithmatex">\(\hat{M} = \hat{M}_A \otimes \hat{M}_B \Rightarrow \begin{cases} \hat{M}^{T_A} = \sum_{jk} M_{kj,il} |ij\rangle\langle kl| = \sum_{jk} M_{ij,kl} |kj\rangle\langle il| \\ \hat{M}^{T_B} = \sum_{jk} M_{il,kj} |ij\rangle\langle kl| = \sum_{jk} M_{ij,kl} |il\rangle\langle kj| \end{cases}\)</span>$</p>
+<p>也可以这样写: 
+$<span class="arithmatex">\(\hat{M} = \hat{M}_A \otimes \hat{M}_B \Rightarrow \begin{cases} \hat{M}^{T_A} = \hat{M}_A^T \otimes \hat{M}_B \\ \hat{M}^{T_B} = \hat{M}_A \otimes \hat{M}_B^T \end{cases}\)</span>$</p>
+<p>正如前面所说,部分转置可以看成是对其中一个子系统的量子操作。它不同 干对整个大矩阵的转置:</p>
+<div class="arithmatex">\[\hat{M}^{\mathrm{T}} = \sum_{jk} M_{kl,ij} |ij\rangle\langle kl| = \sum_{jk} M_{ij,kl} |kl\rangle\langle ij| = \hat{M}_{A}^{\mathrm{T}} \otimes \hat{M}_{B}^{\mathrm{T}}\]</div>
+<p>此外,从这些式子中容易看出:  <span class="arithmatex">\(\hat{M}^{T_B} = (\hat{M}^{T_A})^T\)</span> 。</p>
+<ul>
+<li>4、量子纠缠与分离</li>
+<li>(1) 可分离(Separable):对于两个系统的量子态,如果其密度算符可以表示 成一系列直积算符的凸线性组合,则它是可分离的。</li>
+</ul>
+<div class="arithmatex">\[\hat{\rho} = \sum_{i} p_{i} \hat{\rho}_{i}^{A} \otimes \hat{\rho}_{i}^{B}, \ 0 \leq p_{i} \leq 1\]</div>
+<p>(2) 若两个系统的密度算符不是可分离的,则它们是纠缠的。</p>
+<p>注意,纠缠态与混合态是没有必然联系的,前者主要是看两个系统之间是否 有互相关联,后者是看系统的状态能否由 Hilbert 空间的一个态矢表示。</p>
+<ul>
+<li>(3) 纠缠、分离态的判断准则: PPT 准则</li>
+<li>①若两个系统的密度算符可分离,则它是部分转置正定的(Positive Partial</li>
+</ul>
+<p>Transpose, PPT), 即 <span class="arithmatex">\(\hat{\rho}^{T_A} \geq 0\)</span> 且等价地 <span class="arithmatex">\(\hat{\rho}^{T_B} \geq 0\)</span> .</p>
+<ul>
+<li>②若两个系统的密度算符不是 PPT 的,则它是纠缠的。</li>
+<li>③若 <span class="arithmatex">\(\hat{\rho}\)</span> 的维度小于等于 6,则反过来也成立:若两个系统的密度算符是 PPT 的,则它是可分离的。</li>
+</ul>
+<h2 id="_3">三、单比特量子操作<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<p>1、对于单个量子比特,其状态等价于 Bloch 矢量,因此量子操作可以从 Bloch 矢量的变化来理解。任意单比特 CPTP 映射都会把 Bloch 球仿射地映到球内,形式上包括旋转、压缩和可能的平移。</p>
+<div class="arithmatex">\[\vec{r}' = \hat{M}\vec{r} + \vec{c}\]</div>
+<p>如果不指定具体的 Bloch 矢量,而是看量子操作对任意态矢的作用,那么可以认为是对整个 Bloch 球进行了压缩和平移。</p>
+<p>2、几种典型的量子操作(初始 Bloch 矢量 <span class="arithmatex">\(\vec{r} = (x, y, z)^{T}\)</span> )</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>实际意义</th>
+<th>Kraus 算符</th>
+<th><span class="arithmatex">\(\vec{r}' = \hat{M}\vec{r} + \vec{c}\)</span></th>
+<th>对 Bloch 球的操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bit flip</td>
+<td>量子比特以概率 p 在 0 和 1 之间翻转</td>
+<td><span class="arithmatex">\(\hat{E}_0 = \sqrt{1-p}\hat{I}\)</span>, <span class="arithmatex">\(\hat{E}_1 = \sqrt{p}\hat{X}\)</span></td>
+<td><span class="arithmatex">\(\begin{pmatrix} x \\ (1-2p)y \\ (1-2p)z \end{pmatrix}\)</span></td>
+<td>在 y 和 z 方向压缩</td>
+</tr>
+<tr>
+<td>Phase flip</td>
+<td>0 和 1 的相对相位以概率 p 反号</td>
+<td><span class="arithmatex">\(\hat{E}_0 = \sqrt{1-p}\hat{I}\)</span>, <span class="arithmatex">\(\hat{E}_1 = \sqrt{p}\hat{Z}\)</span></td>
+<td><span class="arithmatex">\(\begin{pmatrix} (1-2p)x \\ (1-2p)y \\ z \end{pmatrix}\)</span></td>
+<td>在 x 和 y 方向压缩</td>
+</tr>
+<tr>
+<td>Bit-phase flip</td>
+<td>比特翻转与相位翻转的组合</td>
+<td><span class="arithmatex">\(\hat{E}_0 = \sqrt{1-p}\hat{I}\)</span>, <span class="arithmatex">\(\hat{E}_1 = \sqrt{p}\hat{Y}\)</span></td>
+<td><span class="arithmatex">\(\begin{pmatrix} (1-2p)x \\ y \\ (1-2p)z \end{pmatrix}\)</span></td>
+<td>在 x 和 z 方向压缩</td>
+</tr>
+<tr>
+<td>Depolarization</td>
+<td><span class="arithmatex">\(\varepsilon(\hat{\rho}) = (1-p)\hat{\rho} + \frac{p}{2}\hat{I}\)</span></td>
+<td><span class="arithmatex">\(\hat{E}_0 = \sqrt{1-\frac{3p}{4}}\hat{I}\)</span>, <span class="arithmatex">\(\hat{E}_{1,2,3} = \frac{\sqrt{p}}{2}(\hat{X},\hat{Y},\hat{Z})\)</span></td>
+<td><span class="arithmatex">\((1-p)\begin{pmatrix} x \\ y \\ z \end{pmatrix}\)</span></td>
+<td>球半径缩为 <span class="arithmatex">\(1-p\)</span> 倍</td>
+</tr>
+<tr>
+<td>Amplitude damping</td>
+<td>描述从 <span class="arithmatex">\(\lvert1\rangle\)</span> 向 <span class="arithmatex">\(\lvert0\rangle\)</span> 的能量耗散</td>
+<td><span class="arithmatex">\(\hat{E}_0 = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; \sqrt{1-\gamma} \end{pmatrix}\)</span>, <span class="arithmatex">\(\hat{E}_1 = \begin{pmatrix} 0 &amp; \sqrt{\gamma} \\ 0 &amp; 0 \end{pmatrix}\)</span></td>
+<td><span class="arithmatex">\(\begin{pmatrix} \sqrt{1-\gamma}x\\ \sqrt{1-\gamma}y\\ \gamma+(1-\gamma)z \end{pmatrix}\)</span></td>
+<td>三个方向压缩,z 方向平移</td>
+</tr>
+<tr>
+<td>Phase damping</td>
+<td>描述相位信息损失,不改变布居</td>
+<td><span class="arithmatex">\(\hat{E}_0 = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; \sqrt{1-\lambda} \end{pmatrix}\)</span>, <span class="arithmatex">\(\hat{E}_1 = \begin{pmatrix} 0 &amp; 0 \\ 0 &amp; \sqrt{\lambda} \end{pmatrix}\)</span></td>
+<td><span class="arithmatex">\(\begin{pmatrix} \sqrt{1-\lambda}x \\ \sqrt{1-\lambda}y \\ z \end{pmatrix}\)</span></td>
+<td>等价于 phase flip <span class="arithmatex">\(p = \frac{1-\sqrt{1-\lambda}}{2}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>可以根据 Bloch 矢量的具体形式进行画图,从而明确 <span class="arithmatex">\(\theta\)</span> 和 <span class="arithmatex">\(\varphi\)</span> 的变化,理解这些操作的形象含义。</p>
+<p><strong>3、量子操作的线路</strong></p>
+<p>(1) Bit flip、phase flip 和 bit-phase flip 可以统一在一个线路中。</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_50_Picture_5.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_50_Picture_5.jpeg"></a></p>
+<p>这里用两个辅助比特 <span class="arithmatex">\(|\psi\rangle\)</span> 来控制各个量子门。不难发现,当 <span class="arithmatex">\(|\psi\rangle\)</span> = <span class="arithmatex">\(|00\rangle\)</span> 时只执行 <span class="arithmatex">\(\hat{X}\)</span> , <span class="arithmatex">\(|\psi\rangle\)</span> = <span class="arithmatex">\(|01\rangle\)</span> 时只执行 <span class="arithmatex">\(\hat{Y}\)</span> , <span class="arithmatex">\(|\psi\rangle\)</span> = <span class="arithmatex">\(|10\rangle\)</span> 时只执行 <span class="arithmatex">\(\hat{Z}\)</span> , <span class="arithmatex">\(|\psi\rangle\)</span> = <span class="arithmatex">\(|11\rangle\)</span> 时不执行任何操作(也就是执行 <span class="arithmatex">\(\hat{I}\)</span> )。如果希望有一定概率执行各个量子门,只要将辅助系统制备成相应的叠加态并在最后忽略辅助系统即可。例如,在这张线路的约定下,设 <span class="arithmatex">\(|\psi\rangle = \sqrt{p}|00\rangle + \sqrt{1-p}|11\rangle\)</span> ,则有p的概率执行 <span class="arithmatex">\(\hat{X}\)</span> 、有1-p的概率执行 <span class="arithmatex">\(\hat{I}\)</span> ,从而实现 bit flip 通道。</p>
+<p>(2) Depolarization: 通过 CSWAP 门(即 Fredkin 门)来实现。</p>
+<div class="arithmatex">\[I/2 \xrightarrow{\rho}\]</div>
+<div class="arithmatex">\[(1-p)|0\rangle\langle 0| + p|1\rangle\langle 1|\]</div>
+<p>(3) Amplitude damping: 如下图。</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_50_Picture_10.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_50_Picture_10.jpeg"></a></p>
+<p>原理:</p>
+<div class="arithmatex">\[|0\rangle - R_y(\theta)\]</div>
+<div class="arithmatex">\[\hat{R}_y(\theta) = \cos\frac{\theta}{2}\hat{I} - i\sin\frac{\theta}{2}\hat{Y} = \begin{bmatrix} \cos\frac{\theta}{2} &amp; -\sin\frac{\theta}{2} \\ \sin\frac{\theta}{2} &amp; \cos\frac{\theta}{2} \end{bmatrix}\]</div>
+<div class="arithmatex">\[\hat{U} = (\hat{I} \otimes |0\rangle\langle 0| + \hat{X} \otimes |1\rangle\langle 1|)\left[|0\rangle\langle 0| \otimes \hat{I} + |1\rangle\langle 1| \otimes \hat{R}_{y}(\theta)\right]\]</div>
+<div class="arithmatex">\[\begin{split} \hat{E}_0 &amp;= \langle 0|\hat{U}|0\rangle = |0\rangle\langle 0| + |1\rangle\langle 1|\langle 0|\hat{R}_y(\theta)|0\rangle = |0\rangle\langle 0| + \cos\frac{\theta}{2}|1\rangle\langle 1| = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; \cos\frac{\theta}{2} \end{pmatrix} \\ \hat{E}_1 &amp;= \langle 1|\hat{U}|0\rangle = \hat{X}|1\rangle\langle 1|\langle 1|\hat{R}_y(\theta)|0\rangle = \sin\frac{\theta}{2}|0\rangle\langle 1| = \begin{pmatrix} 0 &amp; \sin\frac{\theta}{2} \\ 0 &amp; 0 \end{pmatrix} \end{split}\]</div>
+<p>其中 <span class="arithmatex">\(0 \le \theta \le \pi\)</span> 。 令 <span class="arithmatex">\(\sin \frac{\theta}{2} = \sqrt{\gamma}\)</span> ,即可得到标准形式的 Kraus 算符。</p>
+<p>(4) Phase damping: 如下图。</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_51_Figure_2.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_51_Figure_2.jpeg"></a></p>
+<h2 id="_4">四、两状态相近程度的衡量: 迹距离与保真度<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
+<p>1、两个矢量的距离可以用勾股定理计算,本质上是范数。两个密度矩阵的相近程度(也是一种距离)同样可以用范数表示,也就是迹距离(Trace Distance):</p>
+<div class="arithmatex">\[D(\hat{\rho}, \hat{\tau}) = \frac{1}{2} \|\hat{\rho} - \hat{\tau}\|_{1} = \frac{1}{2} \operatorname{tr} |\hat{\rho} - \hat{\tau}|\]</div>
+<p>其中  <span class="arithmatex">\(|\hat{A}| = \sqrt{\hat{A}^{+}\hat{A}}\)</span> ,而 <span class="arithmatex">\(\operatorname{tr}|\hat{A}|\)</span> 表示迹范数。迹距离反映了两个量子态的相近程度。</p>
+<ul>
+<li>(1) 完全正且保迹的量子操作(CPTP map)使得迹距离不增:  <span class="arithmatex">\(D[\varepsilon(\hat{\rho}), \varepsilon(\hat{\tau})] \leq D(\hat{\rho}, \hat{\tau})\)</span> 。</li>
+<li>(2) 对于单比特状态,如果将密度矩阵写成 Bloch 矢量的形式,那么迹距离就可以表示成 Bloch 矢量间的距离,更加体现出"相近程度"的意义。</li>
+</ul>
+<div class="arithmatex">\[\begin{aligned}
+\hat{\rho} &amp;= \frac{\hat{I} + \vec{r} \cdot \hat{\sigma}}{2}, \\
+\hat{\tau} &amp;= \frac{\hat{I} + \vec{s} \cdot \hat{\sigma}}{2}
+\end{aligned}
+\quad \Rightarrow \quad
+|\hat{\rho} - \hat{\tau}| = \frac{1}{2} |\vec{r} - \vec{s}| \hat{I}
+\quad \Rightarrow \quad
+D(\hat{\rho}, \hat{\tau}) = \frac{1}{2} |\vec{r} - \vec{s}|.\]</div>
+<p>(3) 迹距离体现相近程度,从而可以衡量区分两个状态的难度——如果两个量子态 <span class="arithmatex">\(\hat{\rho}\)</span> 和 <span class="arithmatex">\(\hat{\tau}\)</span> 各以 1/2 的经典概率出现,那么通过测量区分两个状态的最大概率为</p>
+<div class="arithmatex">\[p_{\text{max}} = \frac{1 + D(\hat{\rho}, \hat{\tau})}{2}\]</div>
+<ul>
+<li>2、保真度(Fidelity):体现两个状态的重叠程度。一般其中一个态为纯态,并且以之为基准,考察另一个状态的偏差程度。</li>
+<li>(1) 纯态的保真度:</li>
+</ul>
+<div class="arithmatex">\[\begin{aligned}
+\hat{\rho} &amp;= |\psi\rangle\langle\psi|, \\
+\hat{\tau} &amp;= |\varphi\rangle\langle\varphi| \\
+\Rightarrow F(\hat{\rho}, \hat{\tau}) &amp;= |\langle\psi|\varphi\rangle|^{2}.
+\end{aligned}\]</div>
+<p>(2) 混合态的保真度(也可以用于纯态):</p>
+<p>若 <span class="arithmatex">\(\hat{\rho}\)</span> 为混合态,而 <span class="arithmatex">\(\hat{\tau} = |\varphi\rangle\langle\varphi|\)</span> 为纯态,则</p>
+<div class="arithmatex">\[F(\hat{\rho}, \hat{\tau}) = \langle\varphi|\hat{\rho}|\varphi\rangle = \operatorname{tr}(\hat{\rho}|\varphi\rangle\langle\varphi|) = \operatorname{tr}(\hat{\rho}\hat{\tau}).\]</div>
+<ul>
+<li>(3) 失真度(Infidelity):  <span class="arithmatex">\(\varepsilon(\hat{\rho},\hat{\tau})=1-F(\hat{\rho},\hat{\tau})\)</span> 。</li>
+<li>(4) 保真度的意义:可以理解为将测量算符 <span class="arithmatex">\(\hat{M}_1 = |\varphi\rangle\langle\varphi|\)</span> 、 <span class="arithmatex">\(\hat{M}_2 = \hat{I} - |\varphi\rangle\langle\varphi|\)</span> 作用到 <span class="arithmatex">\(\hat{\rho}\)</span> 上,得到第一种结果的概率。 <span class="arithmatex">\(\hat{\rho}\)</span> 与 <span class="arithmatex">\(\hat{\tau}\)</span> 越相近,该测量得到 <span class="arithmatex">\(\hat{\tau}\)</span> 的概率显然越大。</li>
+<li>(5) 用 Bloch 矢量表示单比特的保真度。若 <span class="arithmatex">\(\hat{\tau}\)</span> 为纯态,则:</li>
+</ul>
+<div class="arithmatex">\[\begin{aligned}
+\hat{\rho} &amp;= \frac{\hat{I} + \vec{r} \cdot \hat{\vec{\sigma}}}{2}, \\
+\hat{\tau} &amp;= \frac{\hat{I} + \vec{s} \cdot \hat{\vec{\sigma}}}{2}
+\end{aligned}
+\quad \Rightarrow \quad
+F(\hat{\rho}, \hat{\tau}) = \operatorname{tr}(\hat{\rho}\hat{\tau}) = \frac{1}{2}(1 + \vec{r} \cdot \vec{s}).\]</div>
+<p>(6) 保真度的更一般表示: 两个状态都可以是混合态。</p>
+<div class="arithmatex">\[F(\hat{\rho}, \hat{\tau}) = \left[ \text{tr} \sqrt{\hat{\rho}^{1/2} \hat{\tau} \hat{\rho}^{1/2}} \right]^2 = \left[ \text{tr} \sqrt{\hat{\tau}^{1/2} \hat{\rho} \hat{\tau}^{1/2}} \right]^2 = \left\| \sqrt{\hat{\rho}} \sqrt{\hat{\tau}} \right\|_1^2\]</div>
+<p>(7) 完全正且保迹的量子操作(CPTP map)使得保真度不减:  <span class="arithmatex">\(F[\varepsilon(\hat{\rho}), \varepsilon(\hat{\tau})] \geq F(\hat{\rho}, \hat{\tau})\)</span> 。直观上,噪声会让状态更难区分,所以重叠程度不会降低。</p>
+<p>(8) 保真度与迹距离的关系</p>
+<div class="arithmatex">\[1-\sqrt{F(\hat{\rho},\hat{\tau})} \leq D(\hat{\rho},\hat{\tau}) \leq \sqrt{1-F(\hat{\rho},\hat{\tau})}\]</div>
+<p>对于两个纯态,容易验证  <span class="arithmatex">\(D(\hat{\rho},\hat{\tau}) = \sqrt{1-F(\hat{\rho},\hat{\tau})}\)</span> 。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚">
+        
+          
+          <a href="quantum_communication.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: 第六章 量子通信">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                第六章 量子通信
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="quantum_error_correction.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 第八章 量子纠错">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                第八章 量子纠错
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="http://tensofermi.github.io/" target="_blank" rel="noopener" title="tensofermi.github.io" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.97 2.59a1.5 1.5 0 0 0-1.94 0l-7.5 6.363A1.5 1.5 0 0 0 3 10.097V19.5A1.5 1.5 0 0 0 4.5 21h4.75a.75.75 0 0 0 .75-.75V14h4v6.25c0 .414.336.75.75.75h4.75a1.5 1.5 0 0 0 1.5-1.5v-9.403a1.5 1.5 0 0 0-.53-1.144z"></path></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="javascripts/mathjax.js"></script>
+      
+        <script src="javascripts/mathjax/es5/tex-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": false, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "none"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

@@ -1,0 +1,908 @@
+<!DOCTYPE html><html lang="zh" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="quantum_circuits.html">
+      
+      
+        <link rel="next" href="quantum_search.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="logo/main.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>第四章 量子 Fourier 变换 - Quantum Information Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#fourier" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="index.html" title="Quantum Information Notes" class="md-header__button md-logo" aria-label="Quantum Information Notes" data-md-component="logo">
+      
+  <img src="logo/qubit.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Quantum Information Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第四章 量子 Fourier 变换
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至深色模式" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换至深色模式" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至浅色模式" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至浅色模式" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Quantum Information Notes" class="md-nav__button md-logo" aria-label="Quantum Information Notes" data-md-component="logo">
+      
+  <img src="logo/qubit.svg" alt="logo">
+
+    </a>
+    Quantum Information Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classical_computation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第一章 经典计算
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_mechanics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第二章 量子力学基础知识
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_circuits.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三章 量子线路
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第四章 量子 Fourier 变换
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="quantum_fourier_transform.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第四章 量子 Fourier 变换
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#fourier_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、量子 Fourier 变换及其线路
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、量子相位估计
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、求阶问题
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、整数分解
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_search.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第五章 量子搜索算法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_communication.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第六章 量子通信
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="noise_and_operations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第七章 量子噪声和量子操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_error_correction.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第八章 量子纠错
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#fourier_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、量子 Fourier 变换及其线路
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、量子相位估计
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、求阶问题
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、整数分解
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="fourier">第四章 量子 Fourier 变换<a class="headerlink" href="#fourier" title="Permanent link">¶</a></h1>
+<h2 id="fourier_1">一、量子 Fourier 变换及其线路<a class="headerlink" href="#fourier_1" title="Permanent link">¶</a></h2>
+<p>1、数学上较为基本的是对一个连续函数做 Fourier 变换。但是,实际计算机能处理的函数只可能定义在有限分立点上,因此需要变为离散 Fourier 变换(Discrete Fourier Transform,DFT)。其具体形式为:</p>
+<div class="arithmatex">\[\{x_0,...,x_{N-1}\} \Longrightarrow \{y_0,...,y_{N-1}\}\]</div>
+<div class="arithmatex">\[F(x_k) = y_k = \frac{1}{\sqrt{N}} \sum_{i} x_i \exp\left(\frac{2ijk\pi}{N}\right), \quad F^{-1}(y_i) = x_i = \frac{1}{\sqrt{N}} \sum_{k} y_k \exp\left(-\frac{2ijk\pi}{N}\right)\]</div>
+<p>2、量子 Fourier 变换(QFT)就是从 DFT 发展而来。如果将 DFT 中的  <span class="arithmatex">\(x_i\)</span>  和  <span class="arithmatex">\(y_k\)</span>  都 看成态矢,则 QFT 可以写成态叠加的形式:</p>
+<div class="arithmatex">\[F(|k\rangle) = \frac{1}{\sqrt{N}} \sum_{j} \exp\left(\frac{2ijk\pi}{N}\right) |j\rangle\]</div>
+<div class="arithmatex">\[F^{-1}(|j\rangle) = \frac{1}{\sqrt{N}} \sum_{k} \exp\left(-\frac{2ijk\pi}{N}\right) |k\rangle\]</div>
+<div class="arithmatex">\[F\sum_{k} x_{k} |k\rangle = \frac{1}{\sqrt{N}} \sum_{jk} x_{k} \exp\left(\frac{2ijk\pi}{N}\right) |j\rangle = \sum_{j} y_{j} |j\rangle\]</div>
+<p><strong>3、乘积表示</strong></p>
+<p>如果  <span class="arithmatex">\(N=2^n\)</span> ,则可以用 n 位二进制数表示每个态:</p>
+<div class="arithmatex">\[j = (j_1 j_2 ... j_n) = 2^{n-1} j_1 + 2^{n-2} j_2 + ... + 2^0 j_n\]</div>
+<p>其中  <span class="arithmatex">\(j_1, j_2, ..., j_n = 0,1\)</span> 。于是每个二进制位都可以对应于一个量子比特:</p>
+<div class="arithmatex">\[\sqrt{N} |j\rangle = 2^{n/2} |j_1 ... j_n\rangle = (|0\rangle + e^{2\pi i 0.j_n} |1\rangle)(|0\rangle + e^{2\pi i 0.j_{n-1} j_n} |1\rangle)...(|0\rangle + e^{2\pi i 0.j_{1} j_2 ... j_n} |1\rangle)\]</div>
+<p>其中二进制小数的定义为</p>
+<div class="arithmatex">\[0.j_l j_{l+1}...j_m = \frac{j_l}{2} + \frac{j_{l+1}}{2^2} + ... + \frac{j_m}{2^{m-l+1}}\]</div>
+<p>于是态矢 <span class="arithmatex">\(|j\rangle\)</span> 可以用n个二进制量子比特来表示、处理。</p>
+<p><strong>4、QFT 线路</strong></p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_29_Figure_12.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_29_Figure_12.jpeg"></a></p>
+<p>其中</p>
+<div class="arithmatex">\[\hat{R}_k = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; e^{2i\pi/2^k} \end{pmatrix}\]</div>
+<p>。 <span class="arithmatex">\(n\)</span> 个比特需要的逻辑门数量为 <span class="arithmatex">\(\frac{n(n+1)}{2} = \Theta(n^2)\)</span> 。此外,</p>
+<p>可以看到上述线路最后输出的比特是顺序颠倒的,因此还需要用 SWAP 门将它们调整成正确的顺序(图中略去)。</p>
+<p>★逆变换: 数学上是对整个算符进行厄米共轭,物理上则是将上图所有量子门取 厄米共轭,再将顺序全部颠倒。</p>
+<ul>
+<li>5、QFT 的理论非常完善,但需要注意它和经典 DFT 的用途不同。</li>
+<li>(1) QFT 可以用 <span class="arithmatex">\(O(n^2)\)</span> 个基本量子门作用在 <span class="arithmatex">\(n\)</span> 个量子比特上,本身是高效的。</li>
+<li>(2) 但是测量只能给出一个输出样本,不能一次性读出所有几率幅,所以 QFT 不能直接当作“快速输出整张 DFT 表”的算法。</li>
+<li>(3) QFT 的优势通常体现在相位估计、周期寻找、求阶等任务中,也就是后续步骤只需要提取某些全局相位或周期信息。</li>
+<li>(4) 因此,不要简单地说“QFT 加速了傅里叶变换”;更准确地说,它在合适的问题结构下让某些量子算法可以高效提取周期信息。</li>
+</ul>
+<h2 id="_1">二、量子相位估计<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
+<p>1、相位估计的问题描述</p>
+<p>数学理论指出,任意幺正变换 <span class="arithmatex">\(\hat{U}\)</span> 的本征值均是模为1的复数,可以写成</p>
+<div class="arithmatex">\[\hat{U}|u\rangle = u|u\rangle, \quad u = \exp(2\pi i\varphi)\]</div>
+<p>通过 QFT,可以在一定精度下估计相位 <span class="arithmatex">\(\varphi\)</span> 的值。这一问题看起来没有实际意义,但其实有很多计算问题都可以归结到相位估计。</p>
+<p>2、量子相位估计的实现:利用黑盒子(Black box, Oracle)。</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_30_Figure_4.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_30_Figure_4.jpeg"></a></p>
+<p>(图中斜杠表明有不止一个比特, 受控 Ui表示黑盒子)</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_30_Figure_6.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_30_Figure_6.jpeg"></a></p>
+<ul>
+<li>(1) 基本的线路如以上两图。有如下组成部分:</li>
+<li>①下面部分(第二寄存器)是制备好的 <span class="arithmatex">\(\hat{U}\)</span> 本征态 <span class="arithmatex">\(|u\rangle\)</span> ,它在线路中将会依次经过各个受控的 <span class="arithmatex">\(\hat{U}^{2^j}\)</span> 门,其中 <span class="arithmatex">\(j=0,1,\dots,t-1\)</span> 。这里不讨论如何实现受控 <span class="arithmatex">\(\hat{U}^{2^j}\)</span> 门,只是将它们当成黑盒子,假设已经可以实现。</li>
+<li>②上面部分(第一寄存器)是 t 个辅助比特,它们将用于控制下方的 <span class="arithmatex">\(\hat{U}^{2^j}\)</span> 门。这一过程会使得相位 <span class="arithmatex">\(\varphi\)</span> 被附着在这些比特上,最终通过对它们的测量即可得出 <span class="arithmatex">\(\varphi\)</span> 的估计值。</li>
+<li>(2)关于黑盒子的作用原理,可以先看第一寄存器的最下面一个比特,考察它与第二寄存器的变化过程。</li>
+<li>①经过 Hadamard 门:  <span class="arithmatex">\(|0\rangle|u\rangle \rightarrow \frac{1}{\sqrt{2}}(|0\rangle+|1\rangle)|u\rangle\)</span> 。</li>
+<li>②经过受控 <span class="arithmatex">\(\hat{U}^{2^0} = \hat{U}\)</span> 门:  <span class="arithmatex">\(\frac{1}{\sqrt{2}}(|0\rangle|u\rangle + |1\rangle|u\rangle) \Rightarrow \frac{1}{\sqrt{2}}(|0\rangle|u\rangle + e^{2\pi i 2^0 \varphi}|1\rangle|u\rangle)\)</span> 。</li>
+</ul>
+<p>这里的相位 <span class="arithmatex">\(e^{2\pi i 2^0 \varphi}\)</span> 原本是在 <span class="arithmatex">\(|u\rangle\)</span> 上产生的,但由于变换后的状态仍是直积态,这个相位在直积中只能给第一寄存器: <span class="arithmatex">\(\frac{1}{\sqrt{2}}(|0\rangle + e^{2\pi i 2^0 \varphi}|1\rangle)|u\rangle\)</span> 。因此,可以认为受控门等效地改变了第一寄存器的状态。</p>
+<p>同理,控制 <span class="arithmatex">\(\hat{U}^{2^{i}}\)</span> 门的辅助比特在最后将变成 <span class="arithmatex">\(\frac{1}{\sqrt{2}}(|0\rangle + e^{2\pi i 2^{i} \varphi}|1\rangle)\)</span> 。因此,若要写出所有比特在最后的状态,应该是</p>
+<div class="arithmatex">\[\frac{1}{\sqrt{2^{t}}}(\left|0\right\rangle+e^{2\pi i2^{0}\varphi}\left|1\right\rangle)\otimes...\otimes(\left|0\right\rangle+e^{2\pi i2^{t-1}\varphi}\left|1\right\rangle)\otimes\left|u\right\rangle\]</div>
+<p>如果将第一寄存器的 t 个比特组成一个二进制数,则上述态矢可以写成</p>
+<div class="arithmatex">\[\frac{1}{\sqrt{2^t}} \sum_{k=0}^{2^t-1} e^{2\pi i k \varphi} |k\rangle |u\rangle\]</div>
+<p>第一寄存器的直积组合成了从 0 到 <span class="arithmatex">\(2^t-1\)</span> 的所有整数,并都带有特定的相位,从而携带了 <span class="arithmatex">\(\varphi\)</span> 的信息。</p>
+<p>(3) 完成黑盒子操作之后,对第一寄存器进行量子傅里叶逆变换,即第一幅图的  <span class="arithmatex">\(FT^+\)</span> 。根据相关公式,系统的状态将有如下改变:</p>
+<div class="arithmatex">\[\begin{split} \left|k\right\rangle &amp; \to \frac{1}{\sqrt{2^t}} \sum_{j=0}^{2^t-1} \exp\left(-\frac{2\pi i j k}{2^t}\right) \left|j\right\rangle \\ &amp; \frac{1}{\sqrt{2^t}} \sum_{k=0}^{2^t-1} e^{2\pi i k \varphi} \left|k\right\rangle \left|u\right\rangle \to \left|\widetilde{\varphi}\right\rangle = \frac{1}{2^t} \sum_{j=0}^{2^t-1} \sum_{k=0}^{2^t-1} e^{2\pi i k \varphi} \exp\left(-\frac{2\pi i j k}{2^t}\right) \left|j\right\rangle \left|u\right\rangle = \frac{1}{2^t} \sum_{j=0}^{2^t-1} \sum_{k=0}^{2^t-1} \exp\left[2\pi i k \left(\varphi - \frac{j}{2^t}\right)\right] \left|j\right\rangle \left|u\right\rangle \end{split}\]</div>
+<p>3、量子相位估计的性能</p>
+<p>测量第一寄存器,可以得到φ的估计值。第一寄存器目前的状态是:</p>
+<div class="arithmatex">\[\left|\widetilde{\varphi}\right\rangle = \frac{1}{2^t} \sum_{j=0}^{2^t - 1} \sum_{k=0}^{2^t - 1} \exp\left[2\pi i k \left(\varphi - \frac{j}{2^t}\right)\right] |j\rangle |u\rangle\]</div>
+<p>它是 <span class="arithmatex">\(|0\rangle\sim |2^t-1\rangle\)</span> 的线性叠加,其中测量得到 <span class="arithmatex">\(|j\rangle\)</span> 的概率为</p>
+<div class="arithmatex">\[p(j) = \frac{1}{4^t} \left| \sum_{k=0}^{2^t - 1} e^{2\pi i k \delta(j)} \right|^2, \quad \delta(j) = \varphi - \frac{j}{2^t}\]</div>
+<p>这一求和式的结果是:</p>
+<div class="arithmatex">\[p(j) = \begin{cases} 1, &amp; \delta(j) = 0, \\ \frac{1}{4^{t}} \left| \frac{1 - \exp[2\pi i 2^{t} \delta(j)]}{1 - \exp[2\pi i \delta(j)]} \right|^2, &amp; \delta(j) \neq 0. \end{cases}\]</div>
+<p><span class="arithmatex">\(\frac{j}{2^t}\)</span> 越靠近 <span class="arithmatex">\(\varphi\)</span> ,则 <span class="arithmatex">\(\delta(j)\)</span> 越小,该式的值通常越大,从而测得 j 的几率越大。反过来,相位差越大,指数项振荡越剧烈,求和越容易互相抵消。对 j 的测量就是对 <span class="arithmatex">\(\varphi\)</span> 的估计。同时可以发现,这种方法就是以二进制小数来逼近 <span class="arithmatex">\(\varphi\)</span> 。如果 <span class="arithmatex">\(\varphi\)</span> 可以被写成二进制的有限小数(例如 1/4、3/8 等),那么只要 t 足够,这种估计可以完全精确,测量时会以 100% 的概率得到精确的 <span class="arithmatex">\(\varphi\)</span> ,统计结果的直方图将全部集中在这一正确结果。否则,无论 t 多大,都不能完全精准地得到 <span class="arithmatex">\(\varphi\)</span> ,而是最多精确到  <span class="arithmatex">\(2^{-t}\)</span> ,从而会有小的概率得到相邻估计值,具体体现为直方图有一定展宽。如下图。</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_31_Figure_17.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_31_Figure_17.jpeg"></a></p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_31_Figure_18.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_31_Figure_18.jpeg"></a></p>
+<p>尽管展宽有可能存在,但理论上可以证明这一展宽不会过宽,即测得正确结果的概率不会太低,以致于被淹没。设最靠近 <span class="arithmatex">\(\varphi\)</span> 的估计值为b,则有</p>
+<div class="arithmatex">\[p(j=b) \ge \frac{4}{\pi^2} = 0.405\]</div>
+<p><span class="arithmatex">\(p(|j-b| &gt; k) \le \frac{1}{2(k-1)}\)</span> </p>
+<p>因此基本上不用担心丢失 b 的信息。此外,对于 b 本身而言,需要让它尽量靠近 <span class="arithmatex">\(\varphi\)</span> ,也就是估计的精度要提高,这时主要是增加第一寄存器的比特数目 t。可以证明,如果需要 b 的精度达到  <span class="arithmatex">\(2^{-n}\)</span> ,并且有不低于  <span class="arithmatex">\(1-\varepsilon\)</span>  的概率测得 b,则至少需要的比特数为</p>
+<div class="arithmatex">\[t = n + \left\lceil \log \left( 2 + \frac{1}{2\varepsilon} \right) \right\rceil\]</div>
+<p>其中 <span class="arithmatex">\(\lceil \cdot \rceil\)</span> 表示上取整。</p>
+<p>4、叠加态下的相位估计</p>
+<p>第二寄存器可能无法制备成单个本征态,而是成为叠加形式:</p>
+<div class="arithmatex">\[|\psi\rangle = \sum_{u} c_{u} |u\rangle, \quad \hat{U}|u\rangle = e^{2\pi i \varphi_{u}} |u\rangle\]</div>
+<p>经过前述线路后,也变成叠加态:</p>
+<div class="arithmatex">\[\sum_{u} c_{u} |0\rangle |u\rangle \Rightarrow \sum_{u} c_{u} |\widetilde{\varphi}_{u}\rangle |u\rangle = \frac{1}{2^{t}} \sum_{u} \sum_{j=0}^{2^{t}-1} \sum_{k=0}^{2^{t}-1} c_{u} \exp \left[ 2\pi i k \left( \varphi_{u} - \frac{j}{2^{t}} \right) \right] |j\rangle |u\rangle\]</div>
+<p>这里的 <span class="arithmatex">\(|0\rangle\)</span> 表示第一寄存器所有比特全为 0。类似地,测量得到 j 的概率为</p>
+<div class="arithmatex">\[p(j) = \frac{1}{4^t} \sum_{u} |c_u|^2 \left| \sum_{k=0}^{2^t - 1} e^{2\pi i k \delta(u,j)} \right|^2, \quad \delta(u,j) = \varphi_u - \frac{j}{2^t}\]</div>
+<p>也就是说,叠加输入会给出不同本征相位对应结果的概率混合: 测量会以权重 <span class="arithmatex">\(|c_u|^2\)</span> 偏向相应的 <span class="arithmatex">\(\varphi_u\)</span> ,而不是直接输出这些相位的算术平均。</p>
+<h2 id="_2">三、求阶问题<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<ul>
+<li>1、几个重要的数论概念</li>
+<li>(1) 整除: 若整数 p 除以 q 的商是整数 (p 是 q 的整数倍),则称 "q 整除 p",记为  <span class="arithmatex">\(q \mid p\)</span> 。</li>
+<li>(2) 同余: 若整数  <span class="arithmatex">\(x\)</span>  与  <span class="arithmatex">\(y\)</span>  除以整数 N 的余数相同,即 <span class="arithmatex">\(N\mid(x-y)\)</span> ,则称 x 与 y 模 N 同余,记为  <span class="arithmatex">\(x \equiv y \pmod{N}\)</span> 。</li>
+</ul>
+<p>同余有这样一些性质:</p>
+<div class="arithmatex">\[\begin{aligned}
+a &amp;\equiv b \pmod{N}, \\
+c &amp;\equiv d \pmod{N}
+\end{aligned}
+\quad \Rightarrow \quad
+a+c \equiv b+d \pmod{N}, \qquad ac \equiv bd \pmod{N}.\]</div>
+<ul>
+<li>(3) 阶: 对于正整数 x 和 N,若 <span class="arithmatex">\(\gcd(x,N)=1\)</span> 且 x &lt; N,满足  <span class="arithmatex">\(x^r \equiv 1 \pmod{N}\)</span>  的最小正整数 r 称为 x 模 N 的阶(Order)。如果 x 与 N 不互质,这个阶不一定存在;在 Shor 算法中,这种情况反而可以直接通过 <span class="arithmatex">\(\gcd(x,N)\)</span> 找到非平凡因子。</li>
+<li>①可以证明:  <span class="arithmatex">\(r \leq N\)</span> 。</li>
+<li>②阶的定义看起来比较平淡,实际上并不一般: 如果  <span class="arithmatex">\(x^r \equiv 1 \pmod{N}\)</span> ,那么显然可得  <span class="arithmatex">\(x^{r+1} \equiv x \pmod{N}\)</span> ,  <span class="arithmatex">\(x^{r+2} \equiv x^2 \pmod{N}\)</span>  … 因此,阶实际上就是 x 的幂次模 N 的周期,求阶问题本质上就是寻找周期的问题。既然是周期问题,那么傅里叶变换自然就会起到很大的作用。</li>
+<li>③求阶问题在经典算法下通常较困难,目前没有已知的关于输入位数 <span class="arithmatex">\(L=\lceil\log_2 N\rceil\)</span> 的经典多项式时间算法可以解决一般求阶问题。</li>
+</ul>
+<p>量子方法中利用相位估计和模乘算符的周期结构,可以把求阶转化为可高效处理的量子任务。这里的关键不是“同时算出所有值并逐个读出”,而是让周期信息进入可测的相位分布。</p>
+<p>2、将求阶问题转化为相位估计问题</p>
+<p>设 <span class="arithmatex">\(L = \lceil \log_2 N \rceil\)</span> ,即 <span class="arithmatex">\(2^{L-1} &lt; N \le 2^L\)</span> 。在 <span class="arithmatex">\(\gcd(x,N)=1\)</span> 时,模乘映射 <span class="arithmatex">\(y\mapsto xy\bmod N\)</span> 是 <span class="arithmatex">\(0,\dots,N-1\)</span> 上的置换,因此可以扩展成一个幺正算符。考虑如下的幺正算符,它作用在L个量子比特上:</p>
+<div class="arithmatex">\[\hat{U}|y\rangle = \begin{cases} |xy \bmod N\rangle, &amp; 0 \le y \le N - 1\\ |y\rangle, &amp; N \le y \le 2^L - 1 \end{cases}\]</div>
+<p>这里 y 是一个 L 位的二进制数。可以证明,形如下面表达式的状态</p>
+<div class="arithmatex">\[|u_s\rangle = \frac{1}{\sqrt{r}} \sum_{k=0}^{r-1} \exp\left(-\frac{2\pi i s k}{r}\right) |x^k \mod N\rangle\]</div>
+<p>是 <span class="arithmatex">\(\hat{U}\)</span> 的本征态,本征值为 <span class="arithmatex">\(\exp\left(\frac{2\pi i s}{r}\right)\)</span> 。(直接验证 <span class="arithmatex">\(\hat{U}|u_s\rangle = \exp\left(\frac{2\pi i s}{r}\right)|u_s\rangle\)</span> 即可)</p>
+<p>可以看到这里有一个相位, <span class="arithmatex">\(\varphi = \frac{s}{r}\)</span> 。因此,理论上只要制备一个 <span class="arithmatex">\(|u_s\rangle\)</span> ,然后利用黑盒子实现 <span class="arithmatex">\(\hat{U}\)</span> ,就可以估计出 <span class="arithmatex">\(\varphi\)</span> 的值,进而根据 <span class="arithmatex">\(\varphi\)</span> 是有理数来估计r的值。</p>
+<p>3、求阶问题的量子线路</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_33_Figure_10.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_33_Figure_10.jpeg"></a></p>
+<p>(1) 在 L 比特的第二寄存器中,很难像前面一样制备本征态 <span class="arithmatex">\(|u_s\rangle\)</span> ,因为现在还不知道 r 的值。但是,根据 <span class="arithmatex">\(|u_s\rangle\)</span> 的定义,可以证明</p>
+<div class="arithmatex">\[\frac{1}{\sqrt{r}} \sum_{s=0}^{r-1} |u_s\rangle = |1\rangle\]</div>
+<p>因此可以直接将第二寄存器制备为 <span class="arithmatex">\(|1\rangle\)</span> ,这比直接制备未知的本征态容易很多。</p>
+<p>(2) 图中的 <span class="arithmatex">\(x^{j} \mod N\)</span>  就是执行 <span class="arithmatex">\(\hat{U}\)</span>  的黑盒子,它同样由第一寄存器控制。 该线路中量子态的变化过程和相位估计线路是一致的:</p>
+<div class="arithmatex">\[\begin{split} &amp;|0\rangle\!|1\rangle = \frac{1}{\sqrt{r}}\sum_{s=0}^{r-1}|0\rangle\!|u_{s}\rangle \xrightarrow{\hat{H}} \frac{1}{\sqrt{r2^{t}}}\sum_{s=0}^{r-1}\sum_{k=0}^{2^{t}-1}|k\rangle\!|u_{s}\rangle \xrightarrow{\hat{U}^{k}} \frac{1}{\sqrt{r2^{t}}}\sum_{s=0}^{r-1}\sum_{k=0}^{2^{t}-1}\exp\left(\frac{2\pi\mathrm{i}sk}{r}\right)\!|k\rangle\!|u_{s}\rangle \\ &amp;\xrightarrow{FT^{+}} \frac{1}{2^{t}}\sqrt{r}\sum_{j=0}^{2^{t}-1}\sum_{s=0}^{r-1}\sum_{k=0}^{2^{t}-1}\exp\left(\frac{2\pi\mathrm{i}sk}{r}\right)\!\exp\!\left(-\frac{2\pi\mathrm{i}jk}{2^{t}}\right)\!|j\rangle\!|u_{s}\rangle \\ &amp;= \frac{1}{2^{t}}\sqrt{r}\sum_{j=0}^{2^{t}-1}\sum_{s=0}^{r-1}\sum_{k=0}^{2^{t}-1}\exp\!\left[2\pi\mathrm{i}k\!\left(\frac{s}{r}-\frac{j}{2^{t}}\right)\right]\!|j\rangle\!|u_{s}\rangle \end{split}\]</div>
+<p>这个表达式有些复杂,但实际上只要将相位估计中的相位换成 <span class="arithmatex">\(s/r\)</span> ,再把第二寄存器的输入看成各个本征态 <span class="arithmatex">\(|u_s\rangle\)</span> 的等权叠加即可。类似地,测量得到 j 的概率为</p>
+<div class="arithmatex">\[p(j) = \frac{1}{4^{t} r} \sum_{s=0}^{r-1} \left| \frac{1 - \exp[2\pi i 2^{t} \delta(s, j)]}{1 - \exp[2\pi i \delta(s, j)]} \right|^{2}, \quad \delta(s, j) = \frac{s}{r} - \frac{j}{2^{t}}\]</div>
+<p>4、优化方法、连分数</p>
+<p>在求阶问题中,被估计的相位 <span class="arithmatex">\(\varphi\)</span> 是有理数。与前面一样,如果它可以写成二进制的有限小数(也就是 <span class="arithmatex">\(r\mid 2^t\)</span> ),那么其值可以精确估计。但是,存在一些问题:</p>
+<ul>
+<li>①求阶问题最终需要的是r而不是 <span class="arithmatex">\(\varphi\)</span> ,但s和r可能不是互质的,这种情况下从 <span class="arithmatex">\(\varphi\)</span> 得到的估计值(Estimator) <span class="arithmatex">\(\hat{r}\)</span> 可能不是r,而是r的一个因子。</li>
+<li>②如果 <span class="arithmatex">\(\varphi\)</span> 不能精确估计,那么很可能得到的 <span class="arithmatex">\(\hat{r}\)</span> 会与r 相差甚远,因为两个很接近 的有理数可能会被写成很不一样的整数相除。</li>
+</ul>
+<p>因此,需要采取一些措施来增加成功几率。</p>
+<p>(1) 重复测量:若一次测量的成功概率为p,则k次测量后的成功概率为</p>
+<div class="arithmatex">\[p_k = 1 - (1 - p)^k\]</div>
+<p>(2) 连分数方法: 当r不能整除  <span class="arithmatex">\(2^t\)</span> 时,无法对 <span class="arithmatex">\(\varphi\)</span> 进行完全准确的估计; 测量所得 到的估计值  <span class="arithmatex">\(\frac{j}{2^t}\)</span>  可能只和 <span class="arithmatex">\(\varphi\)</span> 相差一点,但具有很大的分母,无法直接用来估计 r。</p>
+<p>此时,会考虑写出 <span class="arithmatex">\(\frac{j}{2^t}\)</span> 的连分数,从中选择合理的估测值 <span class="arithmatex">\(\hat{r}\)</span> 。</p>
+<p>①连分数 (Continued Fraction) 的定义:</p>
+<div class="arithmatex">\[[a_0,...,a_M] = a_0 + \frac{1}{a_1 + \frac{1}{... + \frac{1}{a_M}}}\]</div>
+<p>任何分数都可以被写成连分数,具体方法是"拆分+倒转"。例如:</p>
+<div class="arithmatex">\[\frac{12}{7} = 1 + \frac{5}{7} = 1 + \frac{1}{\frac{7}{5}} = 1 + \frac{1}{1 + \frac{2}{5}} = 1 + \frac{1}{1 + \frac{1}{\frac{5}{2}}} = 1 + \frac{1}{1 + \frac{1}{2 + \frac{1}{2}}} = [1,1,2,2]\]</div>
+<p>②连分数的渐近分数 (Convergent)</p>
+<p>对于连分数[ <span class="arithmatex">\(a_0,...,a_M\)</span> ], 若有 <span class="arithmatex">\(0 \le n \le M\)</span> , 则取连分数中  <span class="arithmatex">\(a_0\)</span> 至  <span class="arithmatex">\(a_n\)</span> 所构成的连分 数 <span class="arithmatex">\([a_0,...,a_n]\)</span> 称为连分数 <span class="arithmatex">\([a_0,...,a_M]\)</span> 的第n个渐近分数 (n-th Convergent)。注意 a的指标从0开始,因此不是取前n项,而是取前n+1项。</p>
+<p>③可以证明,越往后的渐近分数越靠近原始的连分数,即</p>
+<div class="arithmatex">\[0 \le m &lt; n \le M \Rightarrow |[a_0, ..., a_n] - [a_0, ..., a_M]| &lt; |[a_0, ..., a_m] - [a_0, ..., a_M]|\]</div>
+<p>④可以证明,如果分数 <span class="arithmatex">\(\frac{p}{q}\)</span> 满足 <span class="arithmatex">\(\left|\frac{p}{q}-\varphi\right| \le \frac{1}{2q^2}\)</span> ,那么 <span class="arithmatex">\(\frac{p}{q}\)</span> 一定是 <span class="arithmatex">\(\varphi\)</span> 的某个渐近分数。 这一点指明了量子计算的方向——只要第一寄存器有足够多的比特,对于那些候 选的j(也就是被测到概率很大的j),总可以使 <span class="arithmatex">\(\frac{s}{r}\)</span> 与相位估计值 <span class="arithmatex">\(\frac{j}{2^t}\)</span> 非常接近,</p>
+<p>满足  <span class="arithmatex">\(\left| \frac{s}{r} - \frac{j}{2^t} \right| \le \frac{1}{2r^2}\)</span> 。然后,写出  <span class="arithmatex">\(\frac{j}{2^t}\)</span>  的所有渐近分数,那么  <span class="arithmatex">\(\frac{s}{r}\)</span>  应该就在其中;将这 些渐近分数都写成最简分数,分母就作为阶的估计值 <span class="arithmatex">\(\hat{r}\)</span> 。</p>
+<ul>
+<li>一般而言,不同渐近分数化简后的分母不同,也就会得到不同的 <span class="arithmatex">\(\hat{r}\)</span> ;这里选 取<strong>小于等于</strong>N<strong>且最大</strong>的那个分母作为阶的估计值 <span class="arithmatex">\(\hat{r}\)</span> ,这不是最优的方案,但是和 最优方案相比在效率上没有特别大的差别,本课程中默认使用此方法。</li>
+<li>(3) 连分数方法的进一步优化:根据上面的方案,每个候选的 i 都会给出一串 渐近分数,从而给出一个估计值 <span class="arithmatex">\(\hat{r}\)</span> 。但是,如果这一串渐近分数被约分过多,比 如s和r不互质,最终得到的 <span class="arithmatex">\(\hat{r}\)</span> 可能是r的因子。这时可以考虑适当优化:如果</li>
+</ul>
+<p>发现有两个估计值  <span class="arithmatex">\(\hat{r}_1, \hat{r}_2\)</span>  都不等于 r,那么就考虑取它们的最小公倍数(LCM)作为新的估计值:</p>
+<div class="arithmatex">\[\hat{r} = LCM(\hat{r}_1, \hat{r}_2)\]</div>
+<p>这个做法可以在一定程度上提升成功几率,后面将会讨论。</p>
+<ul>
+<li>(4) 性能:成功求出阶数的两个条件是,成功估测相位,并且s与r互质。</li>
+<li>①首先,若需要以不低于  <span class="arithmatex">\(p_{QPE} = 1-\varepsilon\)</span>  的几率成功估测相位,则至少需要的辅助比特数量为</li>
+</ul>
+<div class="arithmatex">\[t = 2L + 1 + \left\lceil \log \left( 2 + \frac{1}{2\varepsilon} \right) \right\rceil\]</div>
+<p>其次,s与r互质的概率  <span class="arithmatex">\(p_{CP} \ge \frac{1}{\ln r} \ge \frac{1}{\ln N}\)</span> 。两个概率相乘给出单次求阶的成功概率下界,它会随 <span class="arithmatex">\(\log N\)</span>  变大而缓慢下降,但可以通过重复采样与连分数筛选放大成功率。</p>
+<p>②精确计算s与r互质的概率:</p>
+<div class="arithmatex">\[r = p_1^{\alpha_1} \dots p_m^{\alpha_m} \Rightarrow p_{CP} = \prod_{k=1}^m \left(1 - \frac{1}{p_k}\right)\]</div>
+<p>③在前述取 LCM 的算法中,先有 <span class="arithmatex">\(\frac{s_1}{r} = \frac{s_1'}{\hat{r}_1}\)</span> 、 <span class="arithmatex">\(\frac{s_2}{r} = \frac{s_2'}{\hat{r}_2}\)</span> ,才有了 <span class="arithmatex">\(\hat{r} = \text{LCM}(\hat{r}_1, \hat{r}_2)\)</span> 这一</p>
+<p>步操作。可以证明, <span class="arithmatex">\(\hat{r} = LCM(\hat{r}_1, \hat{r}_2) = r\)</span> 等价于  <span class="arithmatex">\(s_1\)</span> 、 <span class="arithmatex">\(s_2\)</span> 、r 的最大公约数为 1,记为  <span class="arithmatex">\(gcd(s_1, s_2, r) = 1\)</span> 。一般地,如果取 g 个独立的、均匀随机分布在 0 至 r-1 的整数  <span class="arithmatex">\(s_1, s_2, ..., s_g\)</span> ,则有</p>
+<div class="arithmatex">\[p[\gcd(r, s_1, ..., s_g) = 1] = \prod_{k=1}^{m} \left(1 - \frac{1}{p_k^g}\right)\]</div>
+<p>对于g=2,可以进一步估算:</p>
+<div class="arithmatex">\[p^{-1} = \prod_{k=1}^{m} \left( 1 - \frac{1}{p_k^2} \right)^{-1} \le \prod_{k=1}^{\infty} \left( 1 - \frac{1}{p_k^2} \right)^{-1} = \prod_{k=1}^{\infty} \left( 1 + \frac{1}{p_k^2} + \frac{1}{p_k^4} + \dots \right) = \sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}\]</div>
+<p>即  <span class="arithmatex">\(p \ge \frac{6}{\pi^2} = 0.608\)</span> 。 取越多的 s,它们最大公约数为 1 的几率就越大,从而 LCM 方法的成功率越高,因此效率有所提升。</p>
+<h2 id="_3">四、整数分解<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<ul>
+<li>1、整数分解是非常著名的计算问题之一。对于 <span class="arithmatex">\(L\)</span> 比特整数,目前已知最快的通用经典算法是数域筛一类的亚指数算法,复杂度通常写作 <span class="arithmatex">\(\exp\!\left(O(L^{1/3}(\log L)^{2/3})\right)\)</span> 。Shor 算法则给出关于 <span class="arithmatex">\(L\)</span> 的多项式时间量子算法;具体门复杂度取决于模乘和算术线路实现,常见估计在 <span class="arithmatex">\(O(L^2\log L\log\log L)\)</span> 到 <span class="arithmatex">\(O(L^3)\)</span> 量级。</li>
+<li>2、将整数分解问题转化成求阶问题</li>
+<li>(1) 若  <span class="arithmatex">\(y^2 \equiv 1 \pmod{N}\)</span>  且  <span class="arithmatex">\(y \not\equiv \pm 1 \pmod{N}\)</span> , 则称 y 是该同余方程的非平凡解。</li>
+<li>(2) 可以证明:对于 L 比特的合数 N,若存在  <span class="arithmatex">\(y\)</span> 满足  <span class="arithmatex">\(y^2 \equiv 1 \pmod{N}\)</span>  且  <span class="arithmatex">\(y \not\equiv \pm 1 \pmod{N}\)</span> ,则 <span class="arithmatex">\(\gcd(y-1,N)\)</span> 和 <span class="arithmatex">\(\gcd(y+1,N)\)</span> 会给出 N 的非平凡因子。这里使用的是同余,不是普通等式。<span class="arithmatex">\(\gcd\)</span> 可以用欧几里得算法高效计算。</li>
+<li>(3) 进一步转化成求阶: 如果 x 模 N 的阶数 r 是偶数,并且  <span class="arithmatex">\(x^{r/2} \not\equiv -1 \pmod{N}\)</span> ,那么  <span class="arithmatex">\(x^{r/2}\)</span>  就是要找的非平凡平方根。若在  <span class="arithmatex">\(1 \leq x \leq N-1\)</span>  中随机选择与 N 互质的 x,在 N 不是素数幂且满足 Shor 算法通常预处理条件时,得到可用 r 的概率有常数级下界:</li>
+</ul>
+<div class="arithmatex">\[N = p_1^{\alpha_1} ... p_m^{\alpha_m} \Rightarrow p \ge 1 - \frac{1}{2^{m-1}}\]</div>
+<p>因此,若通过求解获取 <span class="arithmatex">\(x^{r/2}\)</span> ,将有很大概率获得N的因子。</p>
+<ul>
+<li>3、整数分解的量子算法:整体步骤</li>
+<li>(1) 若 N 为偶数,将其中的因子 2 全部挑出,留下奇数部分。</li>
+<li>(2) 若存在整数  <span class="arithmatex">\(a,b \ge 2\)</span>  使得  <span class="arithmatex">\(N = a^b\)</span> , 直接输出 a, 分解完成。</li>
+<li>(3) 在 2 到 N-1 之间随机选取整数 x。若 gcd(x,N) &gt; 1,则直接输出 gcd(x,N),也就找到了一种分解。</li>
+<li>(4) 利用求阶算法求出x模N的阶r。</li>
+<li>(5) 若 r 为偶数且  <span class="arithmatex">\(x^{r/2} \not\equiv -1 \pmod{N}\)</span> ,则输出  <span class="arithmatex">\(\gcd(x^{r/2} - 1, N)\)</span>  和  <span class="arithmatex">\(\gcd(x^{r/2} + 1, N)\)</span> ,它们都是 N 的因子。</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚">
+        
+          
+          <a href="quantum_circuits.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: 第三章 量子线路">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                第三章 量子线路
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="quantum_search.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 第五章 量子搜索算法">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                第五章 量子搜索算法
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="http://tensofermi.github.io/" target="_blank" rel="noopener" title="tensofermi.github.io" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.97 2.59a1.5 1.5 0 0 0-1.94 0l-7.5 6.363A1.5 1.5 0 0 0 3 10.097V19.5A1.5 1.5 0 0 0 4.5 21h4.75a.75.75 0 0 0 .75-.75V14h4v6.25c0 .414.336.75.75.75h4.75a1.5 1.5 0 0 0 1.5-1.5v-9.403a1.5 1.5 0 0 0-.53-1.144z"></path></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="javascripts/mathjax.js"></script>
+      
+        <script src="javascripts/mathjax/es5/tex-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": false, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "none"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

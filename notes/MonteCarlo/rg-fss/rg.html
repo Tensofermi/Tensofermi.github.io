@@ -6,7 +6,7 @@
       
       
       
-        <link rel="prev" href="../basic/data_process.html">
+        <link rel="prev" href="phase_overview.html">
       
       
         <link rel="next" href="fss.html">
@@ -224,6 +224,8 @@
       
         
       
+        
+      
     
     
     
@@ -320,6 +322,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basic/rl_mc.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    强化学习中的蒙卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -337,6 +367,14 @@
   
     
     
+      
+        
+      
+        
+      
+        
+      
+        
       
         
       
@@ -360,7 +398,7 @@
   <span class="md-ellipsis">
     
   
-    重整化群与有限尺寸标度
+    相变理论基础
   
 
     
@@ -376,11 +414,39 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    重整化群与有限尺寸标度
+    相变理论基础
   
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="phase_overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    相变理论概览
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -721,6 +787,90 @@
     
   
     有限尺寸标度
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mermin_wagner.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mermin-Wagner 定理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bkt.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BKT 相变
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="lr_universality.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    长程相互作用与普适类
   
 
     
@@ -1760,6 +1910,140 @@ L^d h m
 f_s(t,h)=b^{-d}f_s(tb^{y_t},hb^{y_h}).
 \]</div>
 <p>这里 <span class="arithmatex">\(b&gt;1\)</span> 表示把长度尺度放大的因子。这个式子是临界指数之间建立联系的核心。</p>
+<p>先解释一下这个式子里最容易让人困惑的因子 <span class="arithmatex">\(b^{-d}\)</span>。RG 变换可以理解为两步：先把短距离自由度粗粒化掉，再把长度单位重新放大。若系统线性尺寸为 <span class="arithmatex">\(L\)</span>，一次尺度因子为 <span class="arithmatex">\(b\)</span> 的 RG 之后，</p>
+<div class="arithmatex">\[
+L\to L'=\frac{L}{b}.
+\]</div>
+<p>因此格点数或体积尺度从</p>
+<div class="arithmatex">\[
+L^d
+\]</div>
+<p>变为</p>
+<div class="arithmatex">\[
+\left(\frac{L}{b}\right)^d.
+\]</div>
+<p>也就是说，一个新的粗粒化格点代表原来的</p>
+<div class="arithmatex">\[
+b^d
+\]</div>
+<p>个微观格点。二维系统中，若原来是 <span class="arithmatex">\(8\times 8\)</span> 的格子，取 <span class="arithmatex">\(b=2\)</span> 后就变成 <span class="arithmatex">\(4\times 4\)</span> 的粗粒化格子，自由度数减少</p>
+<div class="arithmatex">\[
+\frac{8^2}{4^2}=4=2^2=b^d.
+\]</div>
+<p>自由能密度定义为</p>
+<div class="arithmatex">\[
+f=\frac{F}{V}.
+\]</div>
+<p>由于它是每单位体积的自由能，粗粒化之后一个新单位体积对应原来的 <span class="arithmatex">\(b^d\)</span> 个微观体积单位。若仍用原来的微观体积单位来表示密度，就会出现</p>
+<div class="arithmatex">\[
+f_s\to b^{-d}f_s.
+\]</div>
+<p>这正是标度公式前面 <span class="arithmatex">\(b^{-d}\)</span> 的来源。它并不表示物理自由能凭空消失，而是表示描述单位变粗后，单位体积的计数方式发生了变化。</p>
+<p>这里也要分清主动和被动两种视角。主动地说，block spin 把 <span class="arithmatex">\(b^d\)</span> 个微观格点合成一个粗格点，格点间距从</p>
+<div class="arithmatex">\[
+a\to a'=ba.
+\]</div>
+<p>被动地说，我们换用粗粒化后的坐标系，把原来长度为 <span class="arithmatex">\(b\)</span> 的距离记成新坐标里的 <span class="arithmatex">\(1\)</span>，也就是</p>
+<div class="arithmatex">\[
+x\to x'=\frac{x}{b},
+\qquad
+x=bx'.
+\]</div>
+<p>这两种写法并不矛盾。<span class="arithmatex">\(a'=ba\)</span> 强调观察尺度变粗；<span class="arithmatex">\(x'=x/b\)</span> 强调坐标数值按新单位重新计量。连续积分测度也随之变为</p>
+<div class="arithmatex">\[
+d^dx'=b^{-d}d^dx.
+\]</div>
+<p>因此在自由能密度的标度关系中，<span class="arithmatex">\(b^{-d}\)</span> 可以看作体积单位重新计量带来的因子。</p>
+<p>耦合参数同时发生流动：</p>
+<div class="arithmatex">\[
+t\to t'=tb^{y_t},
+\qquad
+h\to h'=hb^{y_h}.
+\]</div>
+<p>若 <span class="arithmatex">\(y_t&gt;0\)</span>，温度偏离量是 relevant 方向；只要 <span class="arithmatex">\(t\ne0\)</span>，粗粒化后它会越来越明显。若 <span class="arithmatex">\(y_h&gt;0\)</span>，外场也是 relevant 方向。临界点满足</p>
+<div class="arithmatex">\[
+t=0,\qquad h=0,
+\]</div>
+<p>在 RG 后仍然是</p>
+<div class="arithmatex">\[
+t'=0,\qquad h'=0,
+\]</div>
+<p>因此它对应一个固定点。</p>
+<p>参数变换与空间变换是同一套 RG 逻辑的两面。空间坐标重新定义为</p>
+<div class="arithmatex">\[
+x'=\frac{x}{b},
+\]</div>
+<p>所有带尺度量纲的对象都要跟着重新定义。场本身有 scaling dimension：</p>
+<div class="arithmatex">\[
+\phi'(x')=b^{x_\phi}\phi(bx').
+\]</div>
+<p>温度偏离量 <span class="arithmatex">\(t\)</span> 在 RG 语言中表示某个算符前面的 coupling。以 LGW 泛函为例：</p>
+<div class="arithmatex">\[
+\mathcal H[\phi]
+=
+\int d^dx
+\left[
+\frac12(\nabla\phi)^2
++\frac{t}{2}\phi^2
++\frac{u}{4!}\phi^4
+-h\phi
+\right].
+\]</div>
+<p>这里 <span class="arithmatex">\(t\)</span> 乘在 <span class="arithmatex">\(\phi^2\)</span> 前面，<span class="arithmatex">\(h\)</span> 乘在 <span class="arithmatex">\(\phi\)</span> 前面。更一般地，如果某个扰动写成</p>
+<div class="arithmatex">\[
+\delta\mathcal H
+=
+g\int d^dx\,\mathcal O(x),
+\]</div>
+<p>而算符 <span class="arithmatex">\(\mathcal O\)</span> 的 scaling dimension 为 <span class="arithmatex">\(\Delta_{\mathcal O}\)</span>，即</p>
+<div class="arithmatex">\[
+\mathcal O(x)=b^{-\Delta_{\mathcal O}}\mathcal O'(x'),
+\]</div>
+<p>同时</p>
+<div class="arithmatex">\[
+d^dx=b^d d^dx',
+\]</div>
+<p>那么这个 coupling 在 RG 后变为</p>
+<div class="arithmatex">\[
+g'=g b^{d-\Delta_{\mathcal O}}.
+\]</div>
+<p>因此</p>
+<div class="arithmatex">\[
+\boxed{y_g=d-\Delta_{\mathcal O}}.
+\]</div>
+<p>对温度场和磁场分别有</p>
+<div class="arithmatex">\[
+y_t=d-\Delta_{\phi^2},
+\qquad
+y_h=d-\Delta_\phi.
+\]</div>
+<p>临界现象中常写</p>
+<div class="arithmatex">\[
+\Delta_\phi=\frac{d-2+\eta}{2},
+\]</div>
+<p>于是</p>
+<div class="arithmatex">\[
+\boxed{
+y_h=d-\Delta_\phi
+=\frac{d+2-\eta}{2}
+}.
+\]</div>
+<p>这说明 <span class="arithmatex">\(t\to tb^{y_t}\)</span> 和 <span class="arithmatex">\(h\to hb^{y_h}\)</span> 来自空间缩放与算符缩放共同诱导出的 coupling 变换。</p>
+<p>还可以从相关体积理解 <span class="arithmatex">\(f_s\)</span> 的大小。临界附近的奇异自由能密度有估计</p>
+<div class="arithmatex">\[
+f_s\sim \xi^{-d}.
+\]</div>
+<p>一个相关体积 <span class="arithmatex">\(\xi^d\)</span> 大约贡献一个独立的临界自由能量级，所以单位体积中的独立临界涨落数目约为 <span class="arithmatex">\(1/\xi^d\)</span>。当接近临界点时 <span class="arithmatex">\(\xi\to\infty\)</span>，于是 <span class="arithmatex">\(f_s\)</span> 本身可以趋向于零；真正发散的通常是它的导数，例如比热和磁化率：</p>
+<div class="arithmatex">\[
+C\sim \frac{\partial^2 f_s}{\partial t^2},
+\qquad
+\chi\sim \frac{\partial^2 f_s}{\partial h^2}.
+\]</div>
+<p>完整自由能可分成解析部分与奇异部分：</p>
+<div class="arithmatex">\[
+f(t,h)=f_{\rm regular}(t,h)+f_s(t,h).
+\]</div>
+<p>RG 标度主要描述的是其中负责临界奇异性的 <span class="arithmatex">\(f_s\)</span>。</p>
 <h3 id="nu">相关长度指数 <span class="arithmatex">\(\nu\)</span><a class="headerlink" href="#nu" title="Permanent link">¶</a></h3>
 <p>相关长度满足</p>
 <div class="arithmatex">\[
@@ -2334,6 +2618,19 @@ k'=bk,\qquad x'=x/b,
 <div class="arithmatex">\[
 \phi'(x')=b^{x_\phi}\phi(x).
 \]</div>
+<p>这里采用的是被动坐标写法：短波快模已经被积分掉，剩下的慢模满足 <span class="arithmatex">\(|k|&lt;\Lambda/b\)</span>。为了把截止重新放回 <span class="arithmatex">\(\Lambda\)</span>，动量要放大</p>
+<div class="arithmatex">\[
+k'=bk.
+\]</div>
+<p>动量和长度互为倒数，所以坐标同时写成</p>
+<div class="arithmatex">\[
+x'=\frac{x}{b}.
+\]</div>
+<p>若把 <span class="arithmatex">\(x=bx'\)</span> 代回场，就得到更完整的写法：</p>
+<div class="arithmatex">\[
+\phi'(x')=b^{x_\phi}\phi(bx').
+\]</div>
+<p>其中 <span class="arithmatex">\(x_\phi\)</span> 是场的 scaling dimension。空间坐标重新计量之后，场也要重新缩放，才能让梯度项、二点函数或传播子的规范化保持在约定形式下。</p>
 <p>完成这些步骤后，耦合常数会发生流动：</p>
 <div class="arithmatex">\[
 t\to t',\qquad h\to h',\qquad u\to u'.
@@ -2454,7 +2751,7 @@ y_h=\frac{d+2-\eta}{2}\approx 2.482.
       <nav class="md-footer__inner md-grid" aria-label="页脚">
         
           
-          <a href="../basic/data_process.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: 数据处理与误差估计">
+          <a href="phase_overview.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: 相变理论概览">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
@@ -2464,7 +2761,7 @@ y_h=\frac{d+2-\eta}{2}\approx 2.482.
                 上一页
               </span>
               <div class="md-ellipsis">
-                数据处理与误差估计
+                相变理论概览
               </div>
             </div>
           </a>

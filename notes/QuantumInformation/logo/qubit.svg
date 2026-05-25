@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Quantum information logo">
+  <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="256" cy="256" r="158" stroke-width="28" />
+    <ellipse cx="256" cy="256" rx="158" ry="70" stroke-width="22" transform="rotate(-28 256 256)" />
+    <ellipse cx="256" cy="256" rx="70" ry="158" stroke-width="22" transform="rotate(28 256 256)" />
+    <path d="M256 98V414" stroke-width="22" />
+    <path d="M256 256 354 160" stroke-width="28" />
+  </g>
+  <circle cx="354" cy="160" r="34" fill="currentColor" />
+</svg>

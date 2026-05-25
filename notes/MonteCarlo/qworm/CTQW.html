@@ -224,6 +224,8 @@
       
         
       
+        
+      
     
     
     
@@ -320,6 +322,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basic/rl_mc.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    强化学习中的蒙卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -335,6 +365,14 @@
   
     
     
+      
+        
+      
+        
+      
+        
+      
+        
       
         
       
@@ -358,7 +396,7 @@
   <span class="md-ellipsis">
     
   
-    重整化群与有限尺寸标度
+    相变理论基础
   
 
     
@@ -374,11 +412,39 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    重整化群与有限尺寸标度
+    相变理论基础
   
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rg-fss/phase_overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    相变理论概览
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -423,6 +489,90 @@
     
   
     有限尺寸标度
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rg-fss/mermin_wagner.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mermin-Wagner 定理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rg-fss/bkt.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BKT 相变
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rg-fss/lr_universality.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    长程相互作用与普适类
   
 
     
@@ -1404,8 +1554,31 @@
 \boxed{\mathcal{Z} = \sum_{\lbrace \alpha^{(i)} \rbrace} \prod_{i=0}^{N-1} \langle \alpha^{(i+1)} | e^{-\tau \hat{H}} | \alpha^{(i)} \rangle
 =\sum_{\lbrace \alpha^{(i)} \rbrace}  W(\lbrace \alpha^{(i)} \rbrace)}
 \]</div>
-<p>其中 $\alpha^{(0)} $ 与 $ \alpha^{(N)}$ 为同一世界面，即原始求迹过程中 <span class="arithmatex">\(e^{-
-\beta \hat{H}}\)</span> 两边所夹的基矢量。求和符号下标 <span class="arithmatex">\(\lbrace \alpha^{(i)} \rbrace\)</span> 表示对于基矢量的序列求和，该序列包含从 $\alpha^{(0)} $ 到 $\alpha^{(N-1)} $ 共 <span class="arithmatex">\(N\)</span> 项。而 <span class="arithmatex">\(W(\lbrace \alpha^{(i)} \rbrace)\)</span> 记为序列的权重。</p>
+<p>其中 <span class="arithmatex">\(\alpha^{(0)}\)</span> 与 <span class="arithmatex">\(\alpha^{(N)}\)</span> 表示同一世界面。它们来自原始求迹</p>
+<div class="arithmatex">\[
+{\rm Tr}\left(e^{-\beta\hat H}\right)
+=
+\sum_{\alpha}
+\langle \alpha|e^{-\beta\hat H}|\alpha\rangle
+\]</div>
+<p>中 <span class="arithmatex">\(e^{-\beta\hat H}\)</span> 左右两边所夹的同一个基矢量。求和符号下标</p>
+<div class="arithmatex">\[
+\{\alpha^{(i)}\}
+\]</div>
+<p>表示对整条基矢量序列求和，该序列包含</p>
+<div class="arithmatex">\[
+\alpha^{(0)},\alpha^{(1)},\cdots,\alpha^{(N-1)}
+\]</div>
+<p>共 <span class="arithmatex">\(N\)</span> 项。最后，</p>
+<div class="arithmatex">\[
+W(\{\alpha^{(i)}\})
+=
+\prod_{i=0}^{N-1}
+\langle \alpha^{(i+1)}|
+e^{-\tau\hat H}
+|\alpha^{(i)}\rangle
+\]</div>
+<p>记为这条序列对应的构型权重。</p>
 <p>值得注意的是，尽管这里的求和遍历了序列 <span class="arithmatex">\(\lbrace \alpha^{(i)} \rbrace\)</span> 所有的可能性，但是有些可能性会使得连乘式当中出现值为 0 的项，从而导致整个序列对配分函数的权重不做贡献。而判断是否出现值为 0 的项，则需要分析哈密顿量的具体形式，并且通常取决于 hopping 等具体形式，具体分析如下。</p>
 <h3 id="_2">构型的权重<a class="headerlink" href="#_2" title="Permanent link">¶</a></h3>
 <p>对配分函数其中的一个重复单元有:</p>

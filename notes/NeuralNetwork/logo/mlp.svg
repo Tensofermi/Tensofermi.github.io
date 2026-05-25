@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="MLP neural network logo">
+  <defs>
+    <mask id="node-cutouts">
+      <rect width="512" height="512" fill="white" />
+      <g fill="black">
+        <circle cx="101" cy="114" r="29" />
+        <circle cx="101" cy="256" r="29" />
+        <circle cx="101" cy="398" r="29" />
+
+        <circle cx="256" cy="77" r="29" />
+        <circle cx="256" cy="180" r="29" />
+        <circle cx="256" cy="284" r="29" />
+        <circle cx="256" cy="388" r="29" />
+
+        <circle cx="411" cy="180" r="29" />
+        <circle cx="411" cy="331" r="29" />
+      </g>
+    </mask>
+  </defs>
+
+  <g fill="none" stroke="#111111" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <g mask="url(#node-cutouts)">
+      <line x1="101" y1="114" x2="256" y2="77" />
+      <line x1="101" y1="114" x2="256" y2="180" />
+      <line x1="101" y1="114" x2="256" y2="284" />
+      <line x1="101" y1="114" x2="256" y2="388" />
+
+      <line x1="101" y1="256" x2="256" y2="77" />
+      <line x1="101" y1="256" x2="256" y2="180" />
+      <line x1="101" y1="256" x2="256" y2="284" />
+      <line x1="101" y1="256" x2="256" y2="388" />
+
+      <line x1="101" y1="398" x2="256" y2="77" />
+      <line x1="101" y1="398" x2="256" y2="180" />
+      <line x1="101" y1="398" x2="256" y2="284" />
+      <line x1="101" y1="398" x2="256" y2="388" />
+
+      <line x1="256" y1="77" x2="411" y2="180" />
+      <line x1="256" y1="77" x2="411" y2="331" />
+      <line x1="256" y1="180" x2="411" y2="180" />
+      <line x1="256" y1="180" x2="411" y2="331" />
+      <line x1="256" y1="284" x2="411" y2="180" />
+      <line x1="256" y1="284" x2="411" y2="331" />
+      <line x1="256" y1="388" x2="411" y2="180" />
+      <line x1="256" y1="388" x2="411" y2="331" />
+    </g>
+
+    <circle cx="101" cy="114" r="29" />
+    <circle cx="101" cy="256" r="29" />
+    <circle cx="101" cy="398" r="29" />
+
+    <circle cx="256" cy="77" r="29" />
+    <circle cx="256" cy="180" r="29" />
+    <circle cx="256" cy="284" r="29" />
+    <circle cx="256" cy="388" r="29" />
+
+    <circle cx="411" cy="180" r="29" />
+    <circle cx="411" cy="331" r="29" />
+  </g>
+</svg>

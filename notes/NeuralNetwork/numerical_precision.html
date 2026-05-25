@@ -1,0 +1,2341 @@
+<!DOCTYPE html><html lang="zh" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="code_walkthrough.html">
+      
+      
+        <link rel="next" href="formula_cheatsheet.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="logo/main.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>数值精度 - Neural Network Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#fp32fp64" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="index.html" title="Neural Network Notes" class="md-header__button md-logo" aria-label="Neural Network Notes" data-md-component="logo">
+      
+  <img src="logo/neural_network.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Neural Network Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              数值精度
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至深色模式" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换至深色模式" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至浅色模式" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至浅色模式" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Neural Network Notes" class="md-nav__button md-logo" aria-label="Neural Network Notes" data-md-component="logo">
+      
+  <img src="logo/neural_network.png" alt="logo">
+
+    </a>
+    Neural Network Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NNQS 主线
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    NNQS 主线
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="from_schrodinger_to_nnqs.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    从薛定谔方程到 NNQS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="model_architecture.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模型结构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="vmc_training.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VMC 训练
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="Transformer/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Transformer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Transformer/tokenization_embedding.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Token、Embedding 与 Shape
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Transformer/position_encoding.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    位置信息
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Transformer/attention.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Attention 机制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Transformer/encoder.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Encoder 的基本结构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Transformer/decoder.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decoder 的基本结构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Transformer/kv_cache.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KV Cache
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Transformer/training.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    训练目标与 Mask
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Transformer/transformer_nnqs.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer 与 NNQS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工程导读
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    工程导读
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="code_walkthrough.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    代码导读
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数值精度
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="numerical_precision.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数值精度
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一句话地图
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        计算机怎样表示小数
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        浮点数的结构
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见格式对比
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三个常见数值问题
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三个常见数值问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rounding-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rounding Error
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#underflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Underflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FP32：稳妥默认值
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fp64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FP64：科学计算里的高精度
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fp16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FP16：快，但范围窄
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loss-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loss Scaling 是什么
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bf16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BF16：大模型训练常用
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tf32-fp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TF32：写的是 FP32，算得更快
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        混合精度训练
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        推理时为什么可以更低精度
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#int8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        INT8 量化的基本想法
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#softmax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Softmax 为什么怕低精度
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layernorm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LayerNorm 为什么怕低精度
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log-probability-nnqs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log Probability 和 NNQS 的额外敏感点
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什么时候该用哪种精度
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pytorch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见 PyTorch 检查方式
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数值问题排查清单
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最短心智模型
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="formula_cheatsheet.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    公式速查
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="verification.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    正确性验证
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一句话地图
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        计算机怎样表示小数
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        浮点数的结构
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见格式对比
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三个常见数值问题
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三个常见数值问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rounding-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rounding Error
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#underflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Underflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FP32：稳妥默认值
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fp64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FP64：科学计算里的高精度
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fp16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FP16：快，但范围窄
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loss-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loss Scaling 是什么
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bf16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BF16：大模型训练常用
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tf32-fp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TF32：写的是 FP32，算得更快
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        混合精度训练
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        推理时为什么可以更低精度
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#int8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        INT8 量化的基本想法
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#softmax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Softmax 为什么怕低精度
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layernorm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LayerNorm 为什么怕低精度
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log-probability-nnqs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log Probability 和 NNQS 的额外敏感点
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什么时候该用哪种精度
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pytorch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见 PyTorch 检查方式
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数值问题排查清单
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最短心智模型
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="fp32fp64">数值精度：从 FP32、FP64 到混合精度<a class="headerlink" href="#fp32fp64" title="Permanent link">¶</a></h1>
+<p>训练神经网络时，经常会看到这些词：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>FP64, FP32, TF32, FP16, BF16, FP8, INT8, INT4
+</code></pre></div>
+<p>它们都在回答同一个问题：</p>
+<blockquote>
+<p>模型里的权重、激活值、梯度、logits 和中间矩阵乘法结果，到底用多少 bit 来表示？</p>
+</blockquote>
+<p>数值精度不是一个只和硬件有关的小细节。它会影响：</p>
+<ul>
+<li>显存占用。</li>
+<li>训练速度。</li>
+<li>推理速度。</li>
+<li>梯度是否稳定。</li>
+<li>softmax、LayerNorm、loss 是否容易出现 <code>nan</code> 或 <code>inf</code>。</li>
+<li>科学计算任务中能量、概率、期望值的可靠性。</li>
+</ul>
+<p>这篇从最基础的浮点数讲起，然后再回到神经网络训练和推理。</p>
+<h2 id="_1">一句话地图<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
+<p>先记住下面这张表：</p>
+<table>
+<thead>
+<tr>
+<th>精度</th>
+<th>一句话</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FP64</td>
+<td>很准但慢，科学计算常用，普通深度学习较少用。</td>
+</tr>
+<tr>
+<td>FP32</td>
+<td>稳妥默认值，经典神经网络训练常用。</td>
+</tr>
+<tr>
+<td>TF32</td>
+<td>NVIDIA GPU 上加速 FP32 矩阵乘法的内部格式。</td>
+</tr>
+<tr>
+<td>FP16</td>
+<td>快、省显存，但动态范围窄，训练要小心梯度下溢。</td>
+</tr>
+<tr>
+<td>BF16</td>
+<td>范围接近 FP32，精度较粗，大模型训练常用。</td>
+</tr>
+<tr>
+<td>FP8</td>
+<td>更激进的新低精度格式，主要用于更大规模训练或推理。</td>
+</tr>
+<tr>
+<td>INT8 / INT4</td>
+<td>整数量化，主要用于推理部署。</td>
+</tr>
+</tbody>
+</table>
+<p>如果只想先建立直觉，可以这样理解：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>FP64: 科学计算模式
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>FP32: 稳妥训练模式
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>BF16: 大模型训练常用模式
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>FP16: 快，但更挑数值稳定性
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>INT8/INT4: 推理压缩模式
+</code></pre></div>
+<h2 id="_2">计算机怎样表示小数<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<p>计算机不能无限精确地保存实数。比如数学里的：</p>
+<div class="arithmatex">\[
+{1\over 3}=0.333333333\ldots
+\]</div>
+<p>小数位无限长，不可能完整存进有限 bit 里。</p>
+<p>所以计算机只能近似表示它：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>0.33333334
+</code></pre></div>
+<p>或者：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>0.3333333333333333
+</code></pre></div>
+<p>保存得越细，需要的 bit 越多，计算和存储代价也越高。</p>
+<p>神经网络里大量数值都是小数：</p>
+<ul>
+<li>weight。</li>
+<li>bias。</li>
+<li>activation。</li>
+<li>gradient。</li>
+<li>attention score。</li>
+<li>probability。</li>
+<li>loss。</li>
+<li>optimizer state。</li>
+</ul>
+<p>因此精度选择会直接影响训练和推理。</p>
+<h2 id="_3">浮点数的结构<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<p>浮点数类似二进制科学计数法：</p>
+<div class="arithmatex">\[
+x=(-1)^s\times m\times 2^e.
+\]</div>
+<p>其中：</p>
+<ul>
+<li><span class="arithmatex">\(s\)</span>：sign bit，表示正负。</li>
+<li><span class="arithmatex">\(e\)</span>：exponent，指数，控制数值范围。</li>
+<li><span class="arithmatex">\(m\)</span>：mantissa 或 significand，尾数，控制有效数字精度。</li>
+</ul>
+<p>可以把它理解成：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>符号位: 这个数是正还是负
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>指数位: 小数点大概应该放在哪里
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>尾数位: 小数点附近的有效数字有多细
+</code></pre></div>
+<p>所以浮点数有两个核心能力：</p>
+<table>
+<thead>
+<tr>
+<th>能力</th>
+<th>主要由谁决定</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>动态范围</td>
+<td>exponent bits</td>
+<td>能表示多大或多小的数。</td>
+</tr>
+<tr>
+<td>有效精度</td>
+<td>mantissa bits</td>
+<td>相近的两个数能分得多细。</td>
+</tr>
+</tbody>
+</table>
+<p>这两个能力不一样。一个格式可以范围很大但小数粗，也可以小数较细但范围较窄。</p>
+<p><code>FP16</code> 和 <code>BF16</code> 的区别正好体现了这一点。</p>
+<h2 id="_4">常见格式对比<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>格式</th>
+<th style="text-align: right;">总 bit</th>
+<th style="text-align: right;">指数位</th>
+<th style="text-align: right;">尾数位</th>
+<th style="text-align: right;">大概有效十进制位数</th>
+<th>常见用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FP64</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">15-16</td>
+<td>高精度科学计算、数值验证。</td>
+</tr>
+<tr>
+<td>FP32</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">6-7</td>
+<td>经典训练、稳定基准。</td>
+</tr>
+<tr>
+<td>TF32</td>
+<td style="text-align: right;">约 19</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">约 3</td>
+<td>NVIDIA Tensor Core 加速矩阵乘法。</td>
+</tr>
+<tr>
+<td>FP16</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">3-4</td>
+<td>混合精度训练、推理。</td>
+</tr>
+<tr>
+<td>BF16</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2-3</td>
+<td>大模型训练、稳定低精度训练。</td>
+</tr>
+<tr>
+<td>FP8</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">4 或 5</td>
+<td style="text-align: right;">2 或 3</td>
+<td style="text-align: right;">很低</td>
+<td>新一代低精度训练/推理。</td>
+</tr>
+<tr>
+<td>INT8</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">无</td>
+<td style="text-align: right;">无</td>
+<td style="text-align: right;">量化整数</td>
+<td>推理部署。</td>
+</tr>
+<tr>
+<td>INT4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">无</td>
+<td style="text-align: right;">无</td>
+<td style="text-align: right;">更粗量化</td>
+<td>大模型权重压缩。</td>
+</tr>
+</tbody>
+</table>
+<p>表里最重要的是两列：指数位和尾数位。</p>
+<p>指数位越多，越不容易 overflow 或 underflow。尾数位越多，越能保留小差异。</p>
+<h2 id="_5">三个常见数值问题<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
+<p>低精度不是单纯“不准一点”。它可能产生三类问题。</p>
+<h3 id="rounding-error">Rounding Error<a class="headerlink" href="#rounding-error" title="Permanent link">¶</a></h3>
+<p>浮点数只能保存有限有效数字，所以很多运算结果会被舍入。</p>
+<p>例如真实结果是：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>1.23456789
+</code></pre></div>
+<p>低精度里可能只能保存成：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>1.235
+</code></pre></div>
+<p>单次误差不大，但神经网络里会做大量矩阵乘法和累加：</p>
+<div class="arithmatex">\[
+y=\sum_{i=1}^d a_i b_i.
+\]</div>
+<p>如果 <span class="arithmatex">\(d\)</span> 很大，误差会不断积累。</p>
+<h3 id="overflow">Overflow<a class="headerlink" href="#overflow" title="Permanent link">¶</a></h3>
+<p>如果数太大，超过当前格式能表示的最大值，就会变成：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>inf
+</code></pre></div>
+<p>例如 softmax 里有指数：</p>
+<div class="arithmatex">\[
+e^x.
+\]</div>
+<p>当 <span class="arithmatex">\(x\)</span> 很大时，<span class="arithmatex">\(e^x\)</span> 很容易爆掉。</p>
+<h3 id="underflow">Underflow<a class="headerlink" href="#underflow" title="Permanent link">¶</a></h3>
+<p>如果数太小，小到当前格式分辨不出来，就可能变成：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>0
+</code></pre></div>
+<p>训练中梯度经常很小。如果梯度被低精度舍入成 0，参数就无法正确更新。</p>
+<p>这就是 FP16 训练里常说的 gradient underflow。</p>
+<h2 id="fp32">FP32：稳妥默认值<a class="headerlink" href="#fp32" title="Permanent link">¶</a></h2>
+<p><code>FP32</code> 是单精度浮点数：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>1 sign bit + 8 exponent bits + 23 mantissa bits
+</code></pre></div>
+<p>它在深度学习中长期作为默认训练精度，原因很简单：够稳。</p>
+<p>FP32 的优点：</p>
+<ul>
+<li>动态范围较大。</li>
+<li>有效数字较多。</li>
+<li>大多数算子默认支持好。</li>
+<li>训练时不容易莫名其妙出现数值问题。</li>
+</ul>
+<p>如果你刚开始写一个模型，FP32 通常是最安全的基线。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+</code></pre></div>
+<p>在 PyTorch 中，<code>torch.float32</code> 就是 FP32。</p>
+<h2 id="fp64">FP64：科学计算里的高精度<a class="headerlink" href="#fp64" title="Permanent link">¶</a></h2>
+<p><code>FP64</code> 是双精度浮点数：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>1 sign bit + 11 exponent bits + 52 mantissa bits
+</code></pre></div>
+<p>它比 FP32 精确很多，但代价也明显：</p>
+<ul>
+<li>显存占用是 FP32 的 2 倍。</li>
+<li>计算通常更慢。</li>
+<li>很多消费级 GPU 的 FP64 吞吐很低。</li>
+</ul>
+<p>普通深度学习很少需要 FP64，因为神经网络本身是近似模型，训练还包含随机初始化、mini-batch 噪声和优化误差。</p>
+<p>但在科学计算中，FP64 仍然很重要。比如：</p>
+<ul>
+<li>矩阵条件数很差。</li>
+<li>求逆、对角化、积分或长时间演化。</li>
+<li>能量差很小，需要分辨细微差别。</li>
+<li>VMC / NNQS 中想验证 FP32 结果是否可靠。</li>
+</ul>
+<p>对神经网络量子态来说，可以把 FP64 看成一种“数值显微镜”：平时不一定全程使用，但在怀疑数值误差时很有用。</p>
+<h2 id="fp16">FP16：快，但范围窄<a class="headerlink" href="#fp16" title="Permanent link">¶</a></h2>
+<p><code>FP16</code> 是半精度浮点数：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>1 sign bit + 5 exponent bits + 10 mantissa bits
+</code></pre></div>
+<p>它的好处很直接：</p>
+<ul>
+<li>权重和激活占用显存更少。</li>
+<li>内存带宽压力更小。</li>
+<li>GPU Tensor Core 可以更快执行矩阵乘法。</li>
+</ul>
+<p>但 FP16 的指数位只有 5 位，动态范围比较窄。最大有限值约为：</p>
+<div class="arithmatex">\[
+65504.
+\]</div>
+<p>太大的数会变成 <code>inf</code>，太小的梯度可能变成 0。</p>
+<p>所以 FP16 训练经常需要 loss scaling。</p>
+<h2 id="loss-scaling">Loss Scaling 是什么<a class="headerlink" href="#loss-scaling" title="Permanent link">¶</a></h2>
+<p>假设原始 loss 是：</p>
+<div class="arithmatex">\[
+\mathcal L.
+\]</div>
+<p>FP16 下反向传播得到的某些梯度可能非常小：</p>
+<div class="arithmatex">\[
+10^{-8},\quad 10^{-10}.
+\]</div>
+<p>这些值可能在 FP16 中下溢为 0。</p>
+<p>Loss scaling 的想法是：先把 loss 放大：</p>
+<div class="arithmatex">\[
+\mathcal L' = S\mathcal L.
+\]</div>
+<p>这样反向传播时梯度也放大：</p>
+<div class="arithmatex">\[
+\nabla_\theta \mathcal L'
+=
+S\nabla_\theta \mathcal L.
+\]</div>
+<p>等到真正更新参数前，再把梯度除回去：</p>
+<div class="arithmatex">\[
+\nabla_\theta \mathcal L
+=
+{1\over S}\nabla_\theta \mathcal L'.
+\]</div>
+<p>这样可以避免小梯度在 FP16 中直接变成 0。</p>
+<p>PyTorch 里典型 FP16 mixed precision 写法是：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">scaler</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">amp</span><span class="o">.</span><span class="n">GradScaler</span><span class="p">()</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">loader</span><span class="p">:</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">autocast</span><span class="p">(</span><span class="n">device_type</span><span class="o">=</span><span class="s2">"cuda"</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">):</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>        <span class="n">loss</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>    <span class="n">scaler</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>    <span class="n">scaler</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">optimizer</span><span class="p">)</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>    <span class="n">scaler</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</code></pre></div>
+<p>这里 <code>GradScaler</code> 会自动调整 scaling factor，发现 <code>inf</code> 或 <code>nan</code> 时会跳过当前 step 并降低 scale。</p>
+<h2 id="bf16">BF16：大模型训练常用<a class="headerlink" href="#bf16" title="Permanent link">¶</a></h2>
+<p><code>BF16</code> 是 bfloat16：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>1 sign bit + 8 exponent bits + 7 mantissa bits
+</code></pre></div>
+<p>它和 FP16 一样只有 16 bit，但它把更多 bit 给了 exponent。</p>
+<p>这意味着：</p>
+<ul>
+<li>BF16 的动态范围接近 FP32。</li>
+<li>BF16 的尾数精度比 FP16 更粗。</li>
+</ul>
+<p>看起来很反直觉：BF16 小数更粗，为什么训练大模型反而常用它？</p>
+<p>因为神经网络训练时，很多时候更怕的是范围不够，而不是每一位小数都非常精细。</p>
+<p>FP16 容易遇到：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>数太大 -&gt; inf
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>梯度太小 -&gt; 0
+</code></pre></div>
+<p>BF16 保留了 FP32 的指数范围，所以训练通常更稳，也经常不需要 loss scaling。</p>
+<p>典型 BF16 mixed precision：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">loader</span><span class="p">:</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">autocast</span><span class="p">(</span><span class="n">device_type</span><span class="o">=</span><span class="s2">"cuda"</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bfloat16</span><span class="p">):</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>        <span class="n">loss</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</code></pre></div>
+<p>一句话：</p>
+<blockquote>
+<p>FP16 小数更细一点，但范围窄；BF16 小数粗一点，但范围大，训练更省心。</p>
+</blockquote>
+<h2 id="tf32-fp32">TF32：写的是 FP32，算得更快<a class="headerlink" href="#tf32-fp32" title="Permanent link">¶</a></h2>
+<p><code>TF32</code> 是 NVIDIA Ampere 及之后 GPU 上常见的矩阵乘法内部格式。</p>
+<p>它通常不是你显式保存的 dtype。你代码里可能写的是：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">"cuda"</span><span class="p">)</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">@</span> <span class="n">x</span>
+</code></pre></div>
+<p>但底层矩阵乘法可能用 TF32 Tensor Core 加速。</p>
+<p>TF32 大致特点是：</p>
+<ul>
+<li>指数范围接近 FP32。</li>
+<li>尾数精度比 FP32 低。</li>
+<li>矩阵乘法速度更快。</li>
+</ul>
+<p>对普通神经网络训练来说，TF32 往往是一个不错的速度和精度折中。</p>
+<p>但如果你在做非常敏感的数值实验，比如比较很小的能量差，可以考虑关掉 TF32 做对照：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">matmul</span><span class="o">.</span><span class="n">allow_tf32</span> <span class="o">=</span> <span class="kc">False</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cudnn</span><span class="o">.</span><span class="n">allow_tf32</span> <span class="o">=</span> <span class="kc">False</span>
+</code></pre></div>
+<p>也可以设置 FP32 matmul 的精度偏好：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">torch</span><span class="o">.</span><span class="n">set_float32_matmul_precision</span><span class="p">(</span><span class="s2">"highest"</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="_6">混合精度训练<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
+<p>现代训练很少简单地说“全部用 FP16”或“全部用 BF16”。更常见的是 mixed precision。</p>
+<p>一个常见组合是：</p>
+<table>
+<thead>
+<tr>
+<th>对象</th>
+<th>常见精度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>权重存储</td>
+<td>FP16 / BF16，有时保留 FP32 master weights。</td>
+</tr>
+<tr>
+<td>forward 激活</td>
+<td>FP16 / BF16。</td>
+</tr>
+<tr>
+<td>backward 梯度</td>
+<td>FP16 / BF16。</td>
+</tr>
+<tr>
+<td>矩阵乘法累加</td>
+<td>FP32。</td>
+</tr>
+<tr>
+<td>LayerNorm / softmax</td>
+<td>常用 FP32 或内部做稳定化。</td>
+</tr>
+<tr>
+<td>Adam 的一阶、二阶动量</td>
+<td>通常 FP32。</td>
+</tr>
+<tr>
+<td>loss 标量</td>
+<td>通常 FP32。</td>
+</tr>
+</tbody>
+</table>
+<p>为什么矩阵乘法累加常用 FP32？</p>
+<p>因为点积是大量乘积相加：</p>
+<div class="arithmatex">\[
+y=\sum_{i=1}^d a_i b_i.
+\]</div>
+<p>如果 <span class="arithmatex">\(a_i\)</span> 和 <span class="arithmatex">\(b_i\)</span> 用 FP16 存储，单个乘法误差也许可以接受。但上千项累加时，累加器太低精度就容易积累明显误差。</p>
+<p>所以硬件和框架经常使用：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>low precision multiply + FP32 accumulate
+</code></pre></div>
+<p>这就是混合精度的核心精神：</p>
+<blockquote>
+<p>大部分地方用低精度省显存、提速度；关键位置用高精度兜住数值稳定性。</p>
+</blockquote>
+<h2 id="_7">推理时为什么可以更低精度<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
+<p>训练比推理更难降精度。</p>
+<p>训练需要：</p>
+<ul>
+<li>保存中间激活。</li>
+<li>反向传播梯度。</li>
+<li>更新优化器状态。</li>
+<li>长时间迭代，误差会不断影响后续参数。</li>
+</ul>
+<p>推理只做 forward：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>input -&gt; model -&gt; logits/probability
+</code></pre></div>
+<p>所以推理常用更低精度：</p>
+<ul>
+<li>FP16。</li>
+<li>BF16。</li>
+<li>INT8。</li>
+<li>INT4。</li>
+</ul>
+<p>大语言模型部署时，INT8 或 INT4 权重量化很常见，因为它能显著降低显存。</p>
+<p>例如一个 70B 参数模型，如果每个参数用 FP16：</p>
+<div class="arithmatex">\[
+70\times 10^9 \times 2\ \text{bytes}
+\approx
+140\ \text{GB}.
+\]</div>
+<p>如果权重量化到 4 bit，理论权重存储约为：</p>
+<div class="arithmatex">\[
+70\times 10^9 \times 0.5\ \text{bytes}
+\approx
+35\ \text{GB}.
+\]</div>
+<p>实际还要加上 scale、zero point、KV cache 和运行时开销，但量级差异已经很明显。</p>
+<h2 id="int8">INT8 量化的基本想法<a class="headerlink" href="#int8" title="Permanent link">¶</a></h2>
+<p>INT8 不是浮点数，而是整数。它只能表示有限个离散值，例如有符号 INT8：</p>
+<div class="arithmatex">\[
+-128,\ldots,127.
+\]</div>
+<p>量化的核心是用一个 scale 把浮点数映射到整数：</p>
+<div class="arithmatex">\[
+x_{\rm fp}
+\approx
+s(q-z).
+\]</div>
+<p>其中：</p>
+<ul>
+<li><span class="arithmatex">\(q\)</span>：量化后的整数。</li>
+<li><span class="arithmatex">\(s\)</span>：scale。</li>
+<li><span class="arithmatex">\(z\)</span>：zero point。</li>
+</ul>
+<p>最简单的理解是：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>浮点数区间 -&gt; 切成 256 个格子 -&gt; 用 INT8 格子编号近似原值
+</code></pre></div>
+<p>量化有不同粒度：</p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>per-tensor</td>
+<td>整个张量共用一个 scale。</td>
+</tr>
+<tr>
+<td>per-channel</td>
+<td>每个输出通道有自己的 scale。</td>
+</tr>
+<tr>
+<td>per-group</td>
+<td>每组权重有自己的 scale，大模型权重量化常见。</td>
+</tr>
+</tbody>
+</table>
+<p>粒度越细，误差通常越小，但元数据和实现复杂度也更高。</p>
+<h2 id="softmax">Softmax 为什么怕低精度<a class="headerlink" href="#softmax" title="Permanent link">¶</a></h2>
+<p>softmax 是：</p>
+<div class="arithmatex">\[
+\mathrm{softmax}(x_i)
+=
+{e^{x_i}\over\sum_j e^{x_j}}.
+\]</div>
+<p>问题在于指数函数增长太快。若 <span class="arithmatex">\(x_i\)</span> 很大，<span class="arithmatex">\(e^{x_i}\)</span> 容易 overflow。</p>
+<p>稳定实现通常会先减去最大值：</p>
+<div class="arithmatex">\[
+\mathrm{softmax}(x_i)
+=
+{e^{x_i-\max_j x_j}
+\over
+\sum_k e^{x_k-\max_j x_j}}.
+\]</div>
+<p>这样最大输入变成 0，其它输入不大于 0，指数更安全。</p>
+<p>Transformer 里 attention 也有 softmax：</p>
+<div class="arithmatex">\[
+\mathrm{softmax}
+\left(
+{QK^{\mathsf T}\over\sqrt{d_h}} + M
+\right).
+\]</div>
+<p>如果 attention score 精度太低，可能影响 attention weight，进而影响上下文混合。</p>
+<h2 id="layernorm">LayerNorm 为什么怕低精度<a class="headerlink" href="#layernorm" title="Permanent link">¶</a></h2>
+<p>LayerNorm 要计算均值和方差：</p>
+<div class="arithmatex">\[
+\mu={1\over d}\sum_{j=1}^d x_j,
+\]</div>
+<div class="arithmatex">\[
+\sigma^2={1\over d}\sum_{j=1}^d(x_j-\mu)^2.
+\]</div>
+<p>然后：</p>
+<div class="arithmatex">\[
+\mathrm{LN}(x_j)
+=
+\gamma_j{x_j-\mu\over\sqrt{\sigma^2+\epsilon}}+\beta_j.
+\]</div>
+<p>这里有减法、平方、求和、开方、除法。低精度下，方差估计可能不稳，尤其当 <span class="arithmatex">\(x_j\)</span> 彼此很接近时，<span class="arithmatex">\(x_j-\mu\)</span> 会变成小数差。</p>
+<p>所以很多实现会让 LayerNorm 的关键统计量使用 FP32，或者使用专门优化过的 kernel。</p>
+<h2 id="log-probability-nnqs">Log Probability 和 NNQS 的额外敏感点<a class="headerlink" href="#log-probability-nnqs" title="Permanent link">¶</a></h2>
+<p>在 decoder-only 模型中，语言模型关心：</p>
+<div class="arithmatex">\[
+\log P(t_i\mid t_{&lt;i}).
+\]</div>
+<p>在 NNQS / VMC 中，还会把所有位置的 log probability 加起来：</p>
+<div class="arithmatex">\[
+\log P_\theta(x)
+=
+\sum_i\log P_\theta(t_i\mid t_{&lt;i}).
+\]</div>
+<p>振幅部分常写成：</p>
+<div class="arithmatex">\[
+\log A_\theta(x)
+=
+{1\over 2}\sum_i\log P_\theta(t_i\mid t_{&lt;i}).
+\]</div>
+<p>这类量有两个特点：</p>
+<ul>
+<li>它们经常是很多项的和。</li>
+<li>它们后面可能进入指数、复数相位或能量估计。</li>
+</ul>
+<p>因此在 NNQS 中，下面这些地方尤其值得关注精度：</p>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>风险</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>log probability 累加</td>
+<td>长序列时误差累积。</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\exp(\log A)\)</span></td>
+<td>log 值太大或太小会 overflow/underflow。</td>
+</tr>
+<tr>
+<td>local energy</td>
+<td>connected states 之间的比值可能数值跨度大。</td>
+</tr>
+<tr>
+<td>energy mean</td>
+<td>大量样本加权平均，累加误差会影响最后能量。</td>
+</tr>
+<tr>
+<td>VMC gradient proxy</td>
+<td>复数、共轭、能量差和 log wavefunction 混在一起，更容易暴露数值问题。</td>
+</tr>
+</tbody>
+</table>
+<p>这并不意味着 NNQS 必须全程 FP64。更实际的做法是：</p>
+<ul>
+<li>模型 forward 可以尝试 FP32 或 BF16。</li>
+<li>能量估计、重要统计量、对照实验可以用 FP64 或 FP32 检查。</li>
+<li>如果训练曲线异常，先用高精度小规模 case 做 sanity check。</li>
+</ul>
+<h2 id="_8">什么时候该用哪种精度<a class="headerlink" href="#_8" title="Permanent link">¶</a></h2>
+<p>可以按下面的策略选择。</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>建议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一次实现新模型</td>
+<td>先用 FP32。</td>
+</tr>
+<tr>
+<td>训练速度慢、显存紧张</td>
+<td>尝试 BF16 mixed precision。</td>
+</tr>
+<tr>
+<td>GPU 对 BF16 支持不好</td>
+<td>尝试 FP16 + loss scaling。</td>
+</tr>
+<tr>
+<td>大模型推理</td>
+<td>尝试 FP16、BF16、INT8 或 INT4。</td>
+</tr>
+<tr>
+<td>科学计算验证</td>
+<td>用 FP64 做小规模对照。</td>
+</tr>
+<tr>
+<td>经常出现 <code>nan</code> / <code>inf</code></td>
+<td>回到 FP32，关掉 TF32/低精度，逐步定位。</td>
+</tr>
+<tr>
+<td>结果和理论差一点但不确定原因</td>
+<td>比较 FP32 与 FP64 小规模结果。</td>
+</tr>
+</tbody>
+</table>
+<p>对大多数现代 GPU 训练，优先顺序可以是：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>BF16 mixed precision
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>  -&gt; FP32 baseline
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>  -&gt; FP16 + GradScaler
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>  -&gt; FP64 debug / validation
+</code></pre></div>
+<h2 id="pytorch">常见 PyTorch 检查方式<a class="headerlink" href="#pytorch" title="Permanent link">¶</a></h2>
+<p>查看张量 dtype：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+</code></pre></div>
+<p>创建不同精度张量：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="n">x32</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="n">x64</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="n">x16</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">"cuda"</span><span class="p">)</span>
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="n">xbf</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bfloat16</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">"cuda"</span><span class="p">)</span>
+</code></pre></div>
+<p>把模型转成某种 dtype：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="n">model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="n">model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">bfloat16</span><span class="p">)</span>
+</code></pre></div>
+<p>临时自动混合精度：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">autocast</span><span class="p">(</span><span class="n">device_type</span><span class="o">=</span><span class="s2">"cuda"</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bfloat16</span><span class="p">):</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>    <span class="n">out</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div>
+<p>检查是否有非有限数：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="n">torch</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</code></pre></div>
+<p>定位 <code>nan</code> 或 <code>inf</code>：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="k">if</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">loss</span><span class="p">):</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"loss is not finite"</span><span class="p">,</span> <span class="n">loss</span><span class="p">)</span>
+</code></pre></div>
+<p>开启异常检测：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">set_detect_anomaly</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<p>这个会变慢，但调试反向传播里的 <code>nan</code> 很有用。</p>
+<h2 id="_9">数值问题排查清单<a class="headerlink" href="#_9" title="Permanent link">¶</a></h2>
+<p>如果训练突然炸了，可以按这个顺序查：</p>
+<ol>
+<li>先确认 loss、logits、gradient 是否有 <code>nan</code> 或 <code>inf</code>。</li>
+<li>临时切回 FP32，看问题是否消失。</li>
+<li>如果用 FP16，检查是否启用了 GradScaler。</li>
+<li>检查 learning rate 是否过大。</li>
+<li>检查 softmax 前的 logits 或 attention score 是否特别大。</li>
+<li>检查 LayerNorm 的方差是否接近 0。</li>
+<li>检查是否有除以很小数的操作。</li>
+<li>对 NNQS，检查 <span class="arithmatex">\(\log \psi\)</span>、<span class="arithmatex">\(\psi(x')/\psi(x)\)</span>、local energy 是否有限。</li>
+<li>小规模 case 用 FP64 跑一遍，对比 FP32。</li>
+<li>如果只在 GPU 上出问题，检查 TF32、mixed precision 和相关 fused kernel。</li>
+</ol>
+<p>一个简单的训练日志应该至少关注：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>loss
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>grad_norm
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>max_abs_logit
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>learning_rate
+<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>是否出现 nan / inf
+</code></pre></div>
+<p>对 VMC / NNQS，还可以额外关注：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>energy_real
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>energy_imag
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>local_energy_real 的最大最小值
+<a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>log_amp 的最大最小值
+<a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>unique sample 数量
+</code></pre></div>
+<h2 id="_10">最短心智模型<a class="headerlink" href="#_10" title="Permanent link">¶</a></h2>
+<p>数值精度可以这样理解：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>FP64: 更像数值分析工具
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>FP32: 稳定基准
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>BF16: 训练大模型时的实用折中
+<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a>FP16: 更快更省，但需要照顾动态范围
+<a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>INT8/INT4: 推理部署时的压缩工具
+</code></pre></div>
+<p>训练时，不要只问“能不能用低精度”。更好的问题是：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>哪些部分可以低精度？
+<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>哪些部分必须高精度？
+<a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>出了 nan/inf 以后如何定位？
+<a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>当前任务更怕精度不够，还是更怕动态范围不够？
+</code></pre></div>
+<p>神经网络能用低精度，是因为它对小的数值误差有一定鲁棒性；但归一化、softmax、长序列 log probability、能量估计、梯度累加和优化器状态，仍然需要更谨慎的精度处理。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚">
+        
+          
+          <a href="code_walkthrough.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: 代码导读">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                代码导读
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="formula_cheatsheet.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 公式速查">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                公式速查
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="http://tensofermi.github.io/" target="_blank" rel="noopener" title="tensofermi.github.io" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.97 2.59a1.5 1.5 0 0 0-1.94 0l-7.5 6.363A1.5 1.5 0 0 0 3 10.097V19.5A1.5 1.5 0 0 0 4.5 21h4.75a.75.75 0 0 0 .75-.75V14h4v6.25c0 .414.336.75.75.75h4.75a1.5 1.5 0 0 0 1.5-1.5v-9.403a1.5 1.5 0 0 0-.53-1.144z"></path></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="javascripts/mathjax.js"></script>
+      
+        <script src="javascripts/mathjax/es5/tex-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": false, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "none"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

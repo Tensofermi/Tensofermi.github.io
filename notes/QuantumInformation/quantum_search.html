@@ -1,0 +1,837 @@
+<!DOCTYPE html><html lang="zh" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="quantum_fourier_transform.html">
+      
+      
+        <link rel="next" href="quantum_communication.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="logo/main.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>第五章 量子搜索算法 - Quantum Information Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="index.html" title="Quantum Information Notes" class="md-header__button md-logo" aria-label="Quantum Information Notes" data-md-component="logo">
+      
+  <img src="logo/qubit.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Quantum Information Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第五章 量子搜索算法
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至深色模式" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换至深色模式" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至浅色模式" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至浅色模式" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Quantum Information Notes" class="md-nav__button md-logo" aria-label="Quantum Information Notes" data-md-component="logo">
+      
+  <img src="logo/qubit.svg" alt="logo">
+
+    </a>
+    Quantum Information Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classical_computation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第一章 经典计算
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_mechanics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第二章 量子力学基础知识
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_circuits.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三章 量子线路
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_fourier_transform.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第四章 量子 Fourier 变换
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第五章 量子搜索算法
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="quantum_search.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第五章 量子搜索算法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、量子搜索的目标、黑盒子
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、Grover 迭代法
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、量子计数
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_communication.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第六章 量子通信
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="noise_and_operations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第七章 量子噪声和量子操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_error_correction.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第八章 量子纠错
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、量子搜索的目标、黑盒子
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、Grover 迭代法
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、量子计数
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="_1">第五章 量子搜索算法<a class="headerlink" href="#_1" title="Permanent link">¶</a></h1>
+<h2 id="_2">一、量子搜索的目标、黑盒子<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<ul>
+<li>1、量子搜索问题的基本内容: 给定 N 个对象 x = 0,1,...,N-1,在其中找出所有满足相应条件的对象。</li>
+<li>2、由于对象是分立的,不同对象是否满足条件并没有必然联系,所以在无结构黑盒模型中,经典算法通常需要 <span class="arithmatex">\(O(N/M)\)</span> 次查询才能在 <span class="arithmatex">\(N\)</span> 个对象、<span class="arithmatex">\(M\)</span> 个解中找到一个解。Grover 算法把“是否满足条件”的判断封装成 oracle 查询,再用叠加态与振幅放大把查询复杂度减小到  <span class="arithmatex">\(O(\sqrt{N/M})\)</span> 。当 <span class="arithmatex">\(M=1\)</span> 时,这就是常见的 <span class="arithmatex">\(O(\sqrt{N})\)</span> 。</li>
+<li>3、黑盒(Oracle) 理论</li>
+<li>(1) 在对象中进行搜索,等价于实现下面的函数。</li>
+</ul>
+<div class="arithmatex">\[f(x) = \begin{cases} 1, &amp; x \text{ 是待搜索的解}, \\ 0, &amp; x \text{ 不是解}. \end{cases}\]</div>
+<p>(2) 黑盒的基本思想: 在搜索对象 <span class="arithmatex">\(|x\rangle\)</span> 和辅助比特 <span class="arithmatex">\(|q\rangle\)</span> 之间实现黑盒算符 <span class="arithmatex">\(\hat{O}\)</span> :</p>
+<div class="arithmatex">\[\hat{O}|x\rangle|q\rangle = |x\rangle|q \oplus f(x)\rangle\]</div>
+<p>根据 q 初始状态的不同,该算符的作用也不同。例如,当 q 为基矢量 <span class="arithmatex">\(|0\rangle\)</span> 或 <span class="arithmatex">\(|1\rangle\)</span> 时,可以得到</p>
+<div class="arithmatex">\[\hat{O}|x\rangle|q\rangle = |x\rangle|q \oplus f(x)\rangle = \begin{cases} |x\rangle|\overline{q}\rangle, &amp; f(x)=1, \\ |x\rangle|q\rangle, &amp; f(x)=0. \end{cases}\]</div>
+<p>即 <span class="arithmatex">\(\hat{O}\)</span> 算符受f(x)的值控制,选择是否翻转比特 <span class="arithmatex">\(|q\rangle\)</span> 。</p>
+<p>当</p>
+<div class="arithmatex">\[|q\rangle = |-\rangle = \frac{|0\rangle - |1\rangle}{\sqrt{2}}\]</div>
+<p>时,有</p>
+<div class="arithmatex">\[\hat{O}|x\rangle|q\rangle = |x\rangle|q \oplus f(x)\rangle = \begin{cases} -|x\rangle|q\rangle, &amp; f(x)=1, \\ |x\rangle|q\rangle, &amp; f(x)=0. \end{cases} = (-1)^{f(x)}|x\rangle|q\rangle\]</div>
+<p>与前面章节同理,由于实际处理时 <span class="arithmatex">\(|x\rangle\)</span> 是叠加态,在直积分解时可以认为这个相位加在了 <span class="arithmatex">\(|x\rangle\)</span> 上,即 <span class="arithmatex">\(|x\rangle\)</span> — <span class="arithmatex">\(\hat{o}\)</span>   <span class="arithmatex">\(\rightarrow\)</span>   <span class="arithmatex">\((-1)^{f(x)}|x\rangle\)</span> 。(Phase Oracle)</p>
+<p>在形式理论中, 不考虑如何实现黑盒子, 只是讨论它的作用。</p>
+<h2 id="grover">二、Grover 迭代法<a class="headerlink" href="#grover" title="Permanent link">¶</a></h2>
+<ul>
+<li>1、在了解其意义之前,先展示 Grover 算法的线路图。 总线路图如下:</li>
+</ul>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_37_Figure_3.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_37_Figure_3.jpeg"></a></p>
+<p>单次 Grover 迭代 G 的内部线路如下:</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_37_Figure_5.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_37_Figure_5.jpeg"></a></p>
+<p>其中  <span class="arithmatex">\(N=2^n\)</span> 。</p>
+<ul>
+<li>2、从开始到一次迭代 G 结束,包含以下步骤。</li>
+<li>(1) 将 n 比特  <span class="arithmatex">\(|0\rangle\)</span>  经过 Hadamard 门:</li>
+</ul>
+<div class="arithmatex">\[\left|0\right\rangle^{\otimes n} \to \left|\psi\right\rangle = \frac{1}{\sqrt{2^n}} \left(\left|0\right\rangle + \left|1\right\rangle\right)^{\otimes n} = \frac{1}{\sqrt{N}} \sum_{x=0}^{N-1} \left|x\right\rangle\]</div>
+<p>于是该寄存器包含了所有搜索对象 <span class="arithmatex">\(|x\rangle\)</span> 的等权叠加。</p>
+<ul>
+<li>(2) 通过黑盒子对搜索的解进行相位处理。</li>
+<li>(3) 后续存在一个条件相位操作: 对 <span class="arithmatex">\(|0\rangle\)</span> 不做处理,但对于所有非零的 <span class="arithmatex">\(|x\rangle\)</span> 都施加 <span class="arithmatex">\(\pi\)</span> 的相位,即 <span class="arithmatex">\(|x\rangle \rightarrow -(-1)^{\delta_{x0}}|x\rangle\)</span> 。容易验证,算符 <span class="arithmatex">\(2|0\rangle\langle 0|-\hat{I}\)</span> 可以实现这一操作。再加上两侧 Hadamard 门的作用,oracle 之后的操作为</li>
+</ul>
+<div class="arithmatex">\[\hat{H}^{\otimes n}(2|0\rangle\langle 0|-\hat{I})\hat{H}^{\otimes n}=2|\psi\rangle\langle\psi|-\hat{I}\]</div>
+<p>因此,一次 Grover 迭代所对应的操作为</p>
+<div class="arithmatex">\[\hat{G} = (2|\psi\rangle\langle\psi| - \hat{I})\hat{O}\]</div>
+<ul>
+<li>3、Grover 迭代的几何意义:将态矢转向正确答案张成的子空间。</li>
+<li>(1) 设搜索问题有N个对象,其中包含M个正确解。定义非解矢量</li>
+</ul>
+<div class="arithmatex">\[|\alpha\rangle = \frac{1}{\sqrt{N-M}} \sum_{f(x)=0} |x\rangle\]</div>
+<p>以及解矢量</p>
+<div class="arithmatex">\[|\beta\rangle = \frac{1}{\sqrt{M}} \sum_{f(x)=1} |x\rangle\]</div>
+<p>在 phase oracle 下,有 <span class="arithmatex">\(\hat{O}|\alpha\rangle = |\alpha\rangle\)</span> , <span class="arithmatex">\(\hat{O}|\beta\rangle = -|\beta\rangle\)</span> 。并且, <span class="arithmatex">\(\langle\alpha|\beta\rangle = 0\)</span> 。</p>
+<p>(2) 迭代前的等权叠加态  <span class="arithmatex">\(|\psi\rangle\)</span>  是解矢量和非解矢量的叠加:</p>
+<div class="arithmatex">\[|\psi\rangle = \frac{1}{\sqrt{N}} \sum_{x=0}^{N-1} |x\rangle = \sqrt{\frac{N-M}{N}} |\alpha\rangle + \sqrt{\frac{M}{N}} |\beta\rangle\]</div>
+<p>定义</p>
+<div class="arithmatex">\[\theta = 2 \arcsin \sqrt{\frac{M}{N}}\]</div>
+<p>,则有 <span class="arithmatex">\(|\psi\rangle = \cos \frac{\theta}{2} |\alpha\rangle + \sin \frac{\theta}{2} |\beta\rangle\)</span> 。</p>
+<p>在几何上,由于 <span class="arithmatex">\(|\alpha\rangle\)</span> 和 <span class="arithmatex">\(|\beta\rangle\)</span> 正交,可以将它们看成如下图的一个二维空间的标准正交基,而系统状态 <span class="arithmatex">\(|\psi\rangle\)</span> 就是在它们之间、与 <span class="arithmatex">\(|\alpha\rangle\)</span> 夹角为 <span class="arithmatex">\(\frac{\theta}{2}\)</span> 的单位矢量。</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_38_Figure_3.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_38_Figure_3.jpeg"></a></p>
+<p>(3)单次迭代对应的几何操作:  <span class="arithmatex">\(\hat{O}\)</span> 将 <span class="arithmatex">\(|\psi\rangle\)</span> 沿 <span class="arithmatex">\(|\alpha\rangle\)</span> 翻折, <span class="arithmatex">\(2|\psi\rangle\langle\psi|\)</span> - <span class="arithmatex">\(\hat{I}\)</span> 将 <span class="arithmatex">\(\hat{O}|\psi\rangle\)</span> 沿 <span class="arithmatex">\(|\psi\rangle\)</span> 翻折。可以看到,这两步之后得到的态矢为</p>
+<div class="arithmatex">\[\hat{G}|\psi\rangle = \cos\frac{3}{2}\theta|\alpha\rangle + \sin\frac{3}{2}\theta|\beta\rangle\]</div>
+<p>即单次迭代使态矢朝 <span class="arithmatex">\(|\beta\rangle\)</span> 转动了 <span class="arithmatex">\(\theta\)</span> 角。继续迭代,会发现每次都是这样转动 <span class="arithmatex">\(\theta\)</span> ,最终态矢将非常靠近 <span class="arithmatex">\(|\beta\rangle\)</span> 。</p>
+<p>(4) 从算符角度证明上述几何操作: 以 <span class="arithmatex">\(|\alpha\rangle\)</span> 和 <span class="arithmatex">\(|\beta\rangle\)</span> 为基,考察该二维空间内的操作,则可以明确写出黑盒等算符的形式。</p>
+<div class="arithmatex">\[\hat{O}|\alpha\rangle = |\alpha\rangle, \quad \hat{O}|\beta\rangle = -|\beta\rangle \Rightarrow \hat{O} = \hat{Z} = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; -1 \end{pmatrix}\]</div>
+<div class="arithmatex">\[|\psi\rangle = \begin{pmatrix} \cos\frac{\theta}{2} \\ \sin\frac{\theta}{2} \end{pmatrix} \Rightarrow 2|\psi\rangle\langle\psi| - \hat{I} = \begin{pmatrix} \cos\theta &amp; \sin\theta \\ \sin\theta &amp; -\cos\theta \end{pmatrix}\]</div>
+<div class="arithmatex">\[\hat{G} = (2|\psi\rangle\langle\psi| - \hat{I})\hat{O} = \begin{pmatrix} \cos\theta &amp; -\sin\theta \\ \sin\theta &amp; \cos\theta \end{pmatrix} = \exp(-i\theta\hat{Y}) = \hat{R}_{y}(2\theta)\]</div>
+<p>如果在 Bloch 球上看,Grover 迭代对应绕 y 轴转动  <span class="arithmatex">\(2\theta\)</span> ;如果像上图一样在二维空间中看,Grover 迭代对应平面内逆时针旋转 <span class="arithmatex">\(\theta\)</span> 。</p>
+<p><strong>4、Grover 迭代的性能</strong></p>
+<p>(1) 经过若干次迭代,系统的态矢会靠近 <span class="arithmatex">\(|\beta\rangle\)</span> ,但由于初始时 <span class="arithmatex">\(|\psi\rangle\)</span> 与 <span class="arithmatex">\(|\beta\rangle\)</span> 之间的夹角未必是 <span class="arithmatex">\(\theta\)</span> 的整数倍,所以 <span class="arithmatex">\(\hat{G}^k|\psi\rangle\)</span> 未必能够恰好指向 <span class="arithmatex">\(|\beta\rangle\)</span> ,只能选取与 <span class="arithmatex">\(|\beta\rangle\)</span> 最近的 <span class="arithmatex">\(\hat{G}^k|\psi\rangle\)</span> 作为最终结果。因此,对应的迭代次数为</p>
+<div class="arithmatex">\[R = \text{CI}\left(\frac{\pi - \theta}{2\theta}\right) = \text{CI}\left(\frac{\pi}{2\theta} - \frac{1}{2}\right)\]</div>
+<p>其中 CI 表示最接近的整数(Closest integer)。</p>
+<p>(2) 对迭代次数的大致估计:</p>
+<div class="arithmatex">\[R = \operatorname{CI}\left(\frac{\pi}{2\theta} - \frac{1}{2}\right) &lt; \frac{\pi}{2\theta} = \frac{\pi}{4} \left(\frac{\theta}{2}\right)^{-1} \le \frac{\pi}{4} \left(\sin\frac{\theta}{2}\right)^{-1} = \frac{\pi}{4} \sqrt{\frac{N}{M}}\]</div>
+<div class="arithmatex">\[R = \operatorname{CI}\left(\frac{\pi}{2\theta} - \frac{1}{2}\right) \ge \frac{\pi}{2\theta} - 1 = \frac{\pi}{4} \left(\frac{\theta}{2}\right)^{-1} - 1 \ge \frac{\pi}{4} \left(\tan\frac{\theta}{2}\right)^{-1} - 1 = \frac{\pi}{4} \sqrt{\frac{N-M}{M}} - 1\]</div>
+<p>因此 
+$<span class="arithmatex">\(\left\lfloor \frac{\pi}{4} \sqrt{\frac{N-M}{M}} \right\rfloor \le R \le \left\lfloor \frac{\pi}{4} \sqrt{\frac{N}{M}} \right\rfloor.\)</span>$</p>
+<p>从这一估计可以看出,量子搜索算法的查询复杂度随 <span class="arithmatex">\(\sqrt{N/M}\)</span> 缩放。特别地,只有一个解时为 <span class="arithmatex">\(O(\sqrt{N})\)</span> ;若解的数量 <span class="arithmatex">\(M\)</span> 增加,所需迭代次数会相应减少。</p>
+<p><strong>5、条件相位门的线路实现</strong></p>
+<p>条件相位门 <span class="arithmatex">\(2|0\rangle\langle 0|-\hat{I}\)</span> 可以用普通的量子线路来设计。由于其操作和比特的状态有关,显然需要用受控门实现。具体线路取决于比特数。</p>
+<p><strong>(1) 双比特:</strong></p>
+<div class="arithmatex">\[\hat{I} - 2|00\rangle\langle 00| = \hat{X}^{\otimes 2}(\hat{I} - 2|11\rangle\langle 11|)\hat{X}^{\otimes 2}\]</div>
+<p>由于</p>
+<div class="arithmatex">\[\begin{split} \hat{I} - 2|11\rangle\langle11| &amp;= |00\rangle\langle00| + |01\rangle\langle01| + |10\rangle\langle10| - |11\rangle\langle11| \\ &amp;= |0\rangle\langle0|\otimes(|0\rangle\langle0| + |1\rangle\langle1|) + |1\rangle\langle1|\otimes(|0\rangle\langle0| - |1\rangle\langle1|) \\ &amp;= |0\rangle\langle0|\otimes\hat{I} + |1\rangle\langle1|\otimes\hat{Z} = C(\hat{Z}) \end{split}\]</div>
+<p>根据第三章受控门的分解,有</p>
+<div class="arithmatex">\[C(\hat{Z}) = (\hat{I} \otimes \hat{H})CNOT(\hat{I} \otimes \hat{H})\]</div>
+<p>所以 <span class="arithmatex">\(\hat{I}-2|00\rangle\langle 00|=\hat{X}^{\otimes 2}(\hat{I}\otimes\hat{H})\text{CNOT}(\hat{I}\otimes\hat{H})\hat{X}^{\otimes 2}\)</span> 。线路图如下:</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_39_Figure_12.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_39_Figure_12.jpeg"></a></p>
+<p><strong>(2) 三比特:</strong></p>
+<div class="arithmatex">\[\hat{I} - 2|000\rangle\langle 000| = \hat{X}^{\otimes 3}(\hat{I} - 2|111\rangle\langle 111|)\hat{X}^{\otimes 3}\]</div>
+<p><span class="arithmatex">\(\hat{I} - 2|111\rangle\langle111| = |000\rangle\langle000| + |001\rangle\langle001| + \dots + |110\rangle\langle110| - |111\rangle\langle111|\)</span> </p>
+<p><span class="arithmatex">\(= (\left|00\right\rangle\!\left\langle00\right| + \left|01\right\rangle\!\left\langle01\right| + \left|10\right\rangle\!\left\langle10\right|) \otimes (\left|0\right\rangle\!\left\langle0\right| + \left|1\right\rangle\!\left\langle1\right|) + \left|11\right\rangle\!\left\langle11\right| \otimes (\left|0\right\rangle\!\left\langle0\right| - \left|1\right\rangle\!\left\langle1\right|)\)</span> </p>
+<div class="arithmatex">\[= (|00\rangle\langle00| + |01\rangle\langle01| + |10\rangle\langle10|) \otimes \hat{I} + |11\rangle\langle11| \otimes \hat{Z} = CC(\hat{Z})\]</div>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_39_Figure_18.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_39_Figure_18.jpeg"></a></p>
+<p>在此图中令 <span class="arithmatex">\(\hat{U} = \hat{Z}\)</span> ,  <span class="arithmatex">\(\hat{V} = \hat{S} = \text{diag}(1,i)\)</span> 即可。</p>
+<p>因此,设计此类线路的常见方法是通过 <span class="arithmatex">\(\hat{X}\)</span> 将特殊的(不被作用的)比特转为全1的比特。用单位算符减去全1比特,这一项实际上就对应了受控Z。</p>
+<h2 id="_3">三、量子计数<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<p>1、在量子搜索中,有时并不知道正确答案的个数 M。一种比较直接的方法是尝试,也就是分别令  <span class="arithmatex">\(M = 2^{n-1}, 2^{n-2}, ..., 2^0 = 1\)</span> ,进行 Grover 迭代,看最终输出的效果。这一做法所需的迭代次数为</p>
+<div class="arithmatex">\[R \le \sum_{j=0}^{n-1} \left| \frac{\pi}{4} \sqrt{\frac{N}{2^j}} \right| \le \sum_{j=0}^{n-1} \frac{\pi}{4} \sqrt{\frac{N}{2^j}} \le \frac{2 + \sqrt{2}}{4} \pi \sqrt{N} = O(\sqrt{N})\]</div>
+<p>但是,如果M超过N/2,那么 <span class="arithmatex">\(\theta\)</span> 将会很大,从而这样的尝试效率较低。在这种情况下,会考虑加入 N 个确定不是解的辅助对象,再在扩展后的搜索空间中计数,让 <span class="arithmatex">\(\theta\)</span> 保持在更合适的范围。</p>
+<p>2、另一种尝试方法是考虑迭代次数。在某个假定的 <span class="arithmatex">\(\theta\)</span> 下,分别尝试以下次数的 Grover 迭代:</p>
+<div class="arithmatex">\[R_{\text{try}} = 0,1,2,4,...,2^{\left\lfloor \frac{n}{2} \right\rfloor}\]</div>
+<p>可以证明,在合适的随机化或分段尝试方案下,可以在不知道 <span class="arithmatex">\(M\)</span> 的情况下仍保持 <span class="arithmatex">\(O(\sqrt{N/M})\)</span> 量级的查询复杂度。这里列出的倍增尝试只是一种直观方法,严格算法通常会随机选择迭代次数以避免反复“转过头”。</p>
+<p>以上方法都不是很精确的估计,第一种方法假设了M是 2 的幂次,而第二种方法略显盲目;并且,如果搜索问题根本没有解,这些算法也无法进行较好的判断。标准的量子计数算法会对 Grover 算符做相位估计,从而估计解的个数 <span class="arithmatex">\(M\)</span> 。在使用 <span class="arithmatex">\(O(\sqrt{N})\)</span> 次 Grover 查询的典型设置下,其误差量级可以达到 <span class="arithmatex">\(O(\sqrt{M})\)</span> 。</p>
+<p>3、量子计数算法的本质就是把求M的问题转化为相位估计问题。由于Grover 迭代的算符为</p>
+<div class="arithmatex">\[\hat{G} = \begin{pmatrix} \cos \theta &amp; -\sin \theta \\ \sin \theta &amp; \cos \theta \end{pmatrix}\]</div>
+<p>容易算得其本征值为 <span class="arithmatex">\(e^{\mathrm{i}\theta}\)</span> 和 <span class="arithmatex">\(e^{\mathrm{i}(2\pi-\theta)}\)</span> 。通过相位估计算法将 <span class="arithmatex">\(\theta\)</span> 估测出来,然后根据定义即可得到 <span class="arithmatex">\(M=N\sin^2\frac{\theta}{2}\)</span> 。</p>
+<p>4、量子计数的线路图: 就是 Grover 算符相位估计的线路。</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_40_Figure_12.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_40_Figure_12.jpeg"></a></p>
+<p>(1)一次相位估计所需要的 Grover 迭代次数: 就是第二寄存器上 <span class="arithmatex">\(\hat{G}\)</span>  算符作用的次数。</p>
+<div class="arithmatex">\[1+2+2^2+...+2^{t-1}=2^t-1\approx 2^t\]</div>
+<p>(2) 测量第一寄存器,得到 i 的概率:</p>
+<div class="arithmatex">\[p(j) = \frac{1}{2 \times 4^{t}} \left| \frac{1 - \exp(i2^{t} \theta_{j}^{+})}{1 - \exp(i\theta_{j}^{+})} \right|^2 + \frac{1}{2 \times 4^{t}} \left| \frac{1 - \exp(i2^{t} \theta_{j}^{-})}{1 - \exp(i\theta_{j}^{-})} \right|^2\]</div>
+<p>其中</p>
+<div class="arithmatex">\[\theta_j^{\pm} = \pm \theta - \frac{2\pi j}{2^t}\]</div>
+<p>。</p>
+<p>5、估计的精度:利用一定量的比特可以将 <span class="arithmatex">\(\theta\)</span> 估计到m位,即</p>
+<div class="arithmatex">\[|\Delta \theta| \leq 2^{-m}\]</div>
+<p>由此可以得到M的精度。</p>
+<div class="arithmatex">\[\sin^{2} \frac{\theta}{2} = \frac{M}{N}\]</div>
+<div class="arithmatex">\[\frac{\left|\Delta M\right|}{N} = \left|\sin^{2} \frac{\theta + \Delta \theta}{2} - \sin^{2} \frac{\theta}{2}\right| = \left(\sin \frac{\theta + \Delta \theta}{2} + \sin \frac{\theta}{2}\right) \left|\sin \frac{\theta + \Delta \theta}{2} - \sin \frac{\theta}{2}\right|\]</div>
+<p>因为</p>
+<div class="arithmatex">\[\sin\frac{\theta + \Delta\theta}{2} = \sin\frac{\theta}{2}\cos\frac{\Delta\theta}{2} + \cos\frac{\theta}{2}\sin\frac{\Delta\theta}{2} \le \sin\frac{\theta}{2} + \left|\sin\frac{\Delta\theta}{2}\right| \le \sin\frac{\theta}{2} + \left|\Delta\theta\right|\]</div>
+<p>所以</p>
+<div class="arithmatex">\[\frac{\left|\Delta M\right|}{N} = \left(\sin\frac{\theta + \Delta\theta}{2} + \sin\frac{\theta}{2}\right) \left|\sin\frac{\theta + \Delta\theta}{2} - \sin\frac{\theta}{2}\right| \le \left(2\sin\frac{\theta}{2} + \frac{\left|\Delta\theta\right|}{2}\right) \frac{\left|\Delta\theta\right|}{2}\]</div>
+<p>再代入</p>
+<div class="arithmatex">\[\sin^2\frac{\theta}{2} = \frac{M}{N}\]</div>
+<p>,  <span class="arithmatex">\(|\Delta\theta| \le 2^{-m}\)</span> 和  <span class="arithmatex">\(N = 2^n\)</span> 可知</p>
+<div class="arithmatex">\[\left|\Delta M\right| \le N\left(2\sqrt{\frac{M}{N}} + \frac{2^{-m}}{2}\right)\frac{2^{-m}}{2} = 2^{-m}\sqrt{MN} + 2^{n-2m-2} = O(\sqrt{M})\]</div>
+<p>相应地,若测量成功概率不低于 <span class="arithmatex">\(1-\varepsilon\)</span> ,则第一寄存器所需要的比特数为</p>
+<div class="arithmatex">\[t = m + 3 + \left\lceil \log \left( 2 + \frac{1}{2\varepsilon} \right) \right\rceil\]</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚">
+        
+          
+          <a href="quantum_fourier_transform.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: 第四章 量子 Fourier 变换">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                第四章 量子 Fourier 变换
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="quantum_communication.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 第六章 量子通信">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                第六章 量子通信
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="http://tensofermi.github.io/" target="_blank" rel="noopener" title="tensofermi.github.io" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.97 2.59a1.5 1.5 0 0 0-1.94 0l-7.5 6.363A1.5 1.5 0 0 0 3 10.097V19.5A1.5 1.5 0 0 0 4.5 21h4.75a.75.75 0 0 0 .75-.75V14h4v6.25c0 .414.336.75.75.75h4.75a1.5 1.5 0 0 0 1.5-1.5v-9.403a1.5 1.5 0 0 0-.53-1.144z"></path></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="javascripts/mathjax.js"></script>
+      
+        <script src="javascripts/mathjax/es5/tex-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": false, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "none"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
