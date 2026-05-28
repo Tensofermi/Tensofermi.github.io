@@ -662,6 +662,60 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_simulation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第九章 量子模拟
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="physical_implementation_and_fault_tolerance.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第十章 物理实现与容错计算
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -899,6 +953,15 @@
 <p>1、在量子力学中,给定哈密顿量,系统的状态须满足薛定谔方程。通过分离变量求解薛定谔方程,将得到一组本征态,物理上习惯用 Dirac 符号表示:</p>
 <div class="arithmatex">\[|v_1\rangle,...,|v_n\rangle\]</div>
 <p>这些状态在坐标表象下是波函数,但它们拥有和矢量一样的线性无关、正交等性质,因此量子力学中习惯将它们看成抽象的矢量。</p>
+<p>需要特别区分“抽象态”和“表象下的坐标”。同一个量子态可以写成抽象的右矢 <span class="arithmatex">\(|\psi\rangle\)</span> ,也可以在坐标表象下写成波函数 <span class="arithmatex">\(\psi(x)\)</span> ,还可以在一组离散正交基 <span class="arithmatex">\(\{|i\rangle\}\)</span> 下写成一列复数系数:</p>
+<div class="arithmatex">\[
+|\psi\rangle = \sum_i c_i |i\rangle,\qquad c_i=\langle i|\psi\rangle .
+\]</div>
+<p>连续表象下也类似:</p>
+<div class="arithmatex">\[
+\psi(x)=\langle x|\psi\rangle .
+\]</div>
+<p>所以 <span class="arithmatex">\(|\psi\rangle\)</span> 不是某一串数字本身,而是量子态的抽象对象;波函数和列向量只是它在某个表象下的展开。换一组基,数字会变,但物理态没有变。</p>
 <p>2、n 个线性无关的矢量 <span class="arithmatex">\(|v_1\rangle\)</span> ,..., <span class="arithmatex">\(|v_n\rangle\)</span> 张成一个n 维矢量空间,该空间中的任何矢量都可以用它们线性表示。</p>
 <div class="arithmatex">\[|v\rangle = \sum_{i} a_{i} |v_{i}\rangle\]</div>
 <p>矢量 <span class="arithmatex">\(|v_1\rangle\)</span> ,..., <span class="arithmatex">\(|v_n\rangle\)</span> 称为该空间的一组基(Basis),组合系数 <span class="arithmatex">\(a_1\)</span> ,..., <span class="arithmatex">\(a_n\)</span> (一般是复</p>
@@ -1204,6 +1267,25 @@
 </ul>
 <div class="arithmatex">\[\hat{\rho} = \sum_{i} p_{i} |\psi_{i}\rangle\langle\psi_{i}|\]</div>
 <p>(3)判断一个态是否为纯态,最基本的方法就是看密度矩阵能否写成单个态矢对自身的外积。(后面还会介绍其他方法)</p>
+<p>密度矩阵还有一个重要动机:态矢存在整体相位冗余。也就是说,</p>
+<div class="arithmatex">\[
+|\psi\rangle
+\quad\text{和}\quad
+e^{i\phi}|\psi\rangle
+\]</div>
+<p>描述的是同一个物理态,所有可观测概率和期望值都不会因为这个整体相位改变。把纯态写成</p>
+<div class="arithmatex">\[
+\hat{\rho}=|\psi\rangle\langle\psi|
+\]</div>
+<p>之后,整体相位会自动抵消:</p>
+<div class="arithmatex">\[
+e^{i\phi}|\psi\rangle\langle\psi|e^{-i\phi}
+=|\psi\rangle\langle\psi| .
+\]</div>
+<p>从这个角度看,密度矩阵比态矢更接近“物理态本身”。它既能表示纯态,也能表示由经典不确定性产生的混合态,并且期望值可以统一写成</p>
+<div class="arithmatex">\[
+\langle \hat{A}\rangle=\operatorname{tr}(\hat{\rho}\hat{A}) .
+\]</div>
 <h3 id="3">3、密度矩阵的性质<a class="headerlink" href="#3" title="Permanent link">¶</a></h3>
 <ul>
 <li>(1) 密度矩阵都是厄米矩阵。</li>
@@ -1244,6 +1326,15 @@
 <div class="arithmatex">\[\hat{\rho}_{AB} = \frac{1}{2} ( |00\rangle\langle00| + |00\rangle\langle11| + |11\rangle\langle00| + |11\rangle\langle11|)\]</div>
 <p>则</p>
 <div class="arithmatex">\[\hat{\rho}_A = \frac{1}{2}(|0\rangle\langle 0| + |1\rangle\langle 1|), \quad \hat{\rho}_B = \frac{1}{2}(|0\rangle\langle 0| + |1\rangle\langle 1|)\]</div>
+<p>这个例子对应 Bell 态</p>
+<div class="arithmatex">\[
+|\Phi_+\rangle=\frac{|00\rangle+|11\rangle}{\sqrt{2}}.
+\]</div>
+<p>总系统 <span class="arithmatex">\(AB\)</span> 是纯态,因为 <span class="arithmatex">\(\hat{\rho}_{AB}=|\Phi_+\rangle\langle\Phi_+|\)</span> 且 <span class="arithmatex">\(\operatorname{tr}(\hat{\rho}_{AB}^{2})=1\)</span> 。但只看其中一个子系统时,</p>
+<div class="arithmatex">\[
+\hat{\rho}_A=\hat{\rho}_B=\frac{\hat{I}}{2},
+\]</div>
+<p>已经是混合态。这正是纠缠的典型特征:整体有确定的纯态描述,局部却只能看到混合的统计结果。这里的“混合”不是因为我们忘记了某个经典标签,而是因为子系统与另一个子系统存在量子关联。</p>
 <p>②矩阵写法:可以通过分块矩阵来处理。例如,把  <span class="arithmatex">\(4\times4\)</span>  的复合密度矩阵  <span class="arithmatex">\(\hat{\rho}_{AB}\)</span>  约化成  <span class="arithmatex">\(2\times2\)</span>  的矩阵  <span class="arithmatex">\(\hat{\rho}_{A}\)</span> ,就是将它分成四块,然后每块求迹:</p>
 <div class="arithmatex">\[\hat{\rho}_{AB} = \begin{pmatrix} \hat{\rho}_{11} &amp; \hat{\rho}_{12} \\ \hat{\rho}_{21} &amp; \hat{\rho}_{22} \end{pmatrix} \Rightarrow \hat{\rho}_{A} = \operatorname{tr}_{B} \hat{\rho}_{AB} = \begin{pmatrix} \operatorname{tr} \hat{\rho}_{11} &amp; \operatorname{tr} \hat{\rho}_{12} \\ \operatorname{tr} \hat{\rho}_{21} &amp; \operatorname{tr} \hat{\rho}_{22} \end{pmatrix}\]</div>
 <p>若要约化到矩阵  <span class="arithmatex">\(\hat{\rho}_B\)</span> ,需重新组织矩阵的元,使得 B 的地位与上面情况的 A 相同。(否则无法写出简洁的公式)</p>
@@ -1271,6 +1362,26 @@
 <p>(4) 纠缠熵: 
 $<span class="arithmatex">\(E(|\psi\rangle) = -\sum_{i} s_i^2 \log_2 s_i^2\)</span>$</p>
 <p>。</p>
+<p>Schmidt 分解给出了理解纠缠的最直接方式。若只有一个非零 Schmidt 系数,状态就是直积态;若有多个非零 Schmidt 系数,两个子系统之间存在纠缠。数值 <span class="arithmatex">\(\{s_i^2\}\)</span> 同时也是约化密度矩阵的本征值,因此常被称为纠缠谱。纠缠熵衡量的就是这组本征值分布有多“分散”:越集中,纠缠越弱;越平均,纠缠越强。</p>
+<p>在 DMRG 和张量网络中,这组 Schmidt 系数也非常关键。若某个一维量子态在任意切分处只有少数较大的 Schmidt 系数,就可以截断小系数,用较低维的张量网络近似表示原态。这是张量网络在许多低维基态问题中有效的核心原因之一。不过在本笔记中,DMRG 和张量网络只作为这个思想的应用背景,不展开为数值算法主线。</p>
+<div class="admonition note">
+<p class="admonition-title">进阶旁注: DMRG 和张量网络为什么反复出现密度矩阵</p>
+<p>DMRG 的核心问题是:在给定保留维数时,怎样为一个子系统选择最重要的有效基。设总系统分为左块 <span class="arithmatex">\(L\)</span> 和右块 <span class="arithmatex">\(R\)</span> ,目标态为 <span class="arithmatex">\(|\Psi\rangle\)</span> ,则左块的约化密度矩阵为</p>
+<div class="arithmatex">\[
+\hat{\rho}_{L}=\operatorname{tr}_{R}|\Psi\rangle\langle\Psi|.
+\]</div>
+<p>将它谱分解:</p>
+<div class="arithmatex">\[
+\hat{\rho}_{L}=\sum_{\alpha}w_{\alpha}|\alpha\rangle\langle\alpha|.
+\]</div>
+<p>DMRG 保留最大的一批 <span class="arithmatex">\(w_{\alpha}\)</span> 对应的本征态。若总态做 Schmidt 分解</p>
+<div class="arithmatex">\[
+|\Psi\rangle=\sum_{\alpha}\lambda_{\alpha}
+\lvert\alpha_L\rangle\lvert\alpha_R\rangle,
+\]</div>
+<p>则 <span class="arithmatex">\(w_{\alpha}=\lambda_{\alpha}^{2}\)</span> 。所以 DMRG 的截断本质上就是保留最大的 Schmidt 权重。</p>
+<p>张量网络,尤其是一维 MPS,可以看成把这种 Schmidt 分解沿链逐段组织起来。bond dimension <span class="arithmatex">\(\chi\)</span> 表示在每个切分处保留多少个重要 Schmidt 态。若约化密度矩阵谱衰减很快,小 <span class="arithmatex">\(\chi\)</span> 就足够;若态满足体积律纠缠或实时演化后纠缠迅速增长,就需要很大的 <span class="arithmatex">\(\chi\)</span> ,计算会变难。</p>
+</div>
 <h3 id="8-purification">8、纯化 (Purification)<a class="headerlink" href="#8-purification" title="Permanent link">¶</a></h3>
 <p>任何一个系统的混合态都可以与一个辅助系统复合成纯态。具体过程如下: 先将混合态密度矩阵谱展开,即 <span class="arithmatex">\(\hat{\rho} = \sum_i p_i |\psi_i\rangle\langle\psi_i|\)</span> ,然后定义复合态</p>
 <div class="arithmatex">\[|\Psi\rangle = \sum_{i} \sqrt{p_{i}} |\psi_{i}\rangle |i\rangle\]</div>

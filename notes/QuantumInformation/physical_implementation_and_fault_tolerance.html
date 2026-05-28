@@ -1,0 +1,1081 @@
+<!DOCTYPE html><html lang="zh" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="quantum_simulation.html">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="logo/main.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>第十章 物理实现与容错计算 - Quantum Information Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="index.html" title="Quantum Information Notes" class="md-header__button md-logo" aria-label="Quantum Information Notes" data-md-component="logo">
+      
+  <img src="logo/qubit.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Quantum Information Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第十章 物理实现与容错计算
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至深色模式" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换至深色模式" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至浅色模式" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至浅色模式" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Quantum Information Notes" class="md-nav__button md-logo" aria-label="Quantum Information Notes" data-md-component="logo">
+      
+  <img src="logo/qubit.svg" alt="logo">
+
+    </a>
+    Quantum Information Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classical_computation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第一章 经典计算
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_mechanics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第二章 量子力学基础知识
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_circuits.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三章 量子线路
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_fourier_transform.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第四章 量子 Fourier 变换
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_search.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第五章 量子搜索算法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_communication.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第六章 量子通信
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="noise_and_operations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第七章 量子噪声和量子操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_error_correction.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第八章 量子纠错
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_simulation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第九章 量子模拟
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第十章 物理实现与容错计算
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="physical_implementation_and_fault_tolerance.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第十章 物理实现与容错计算
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、从抽象门到物理操作
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、主要物理平台
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、超导量子比特
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、囚禁离子
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rydberg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、光量子和 Rydberg 平台
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、拓扑量子计算的定位
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、为什么容错计算需要魔法态
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        八、魔法态蒸馏与培育
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        九、把硬件、噪声和纠错连起来
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十、本章小结
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、从抽象门到物理操作
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、主要物理平台
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、超导量子比特
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、囚禁离子
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rydberg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、光量子和 Rydberg 平台
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、拓扑量子计算的定位
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、为什么容错计算需要魔法态
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        八、魔法态蒸馏与培育
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        九、把硬件、噪声和纠错连起来
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十、本章小结
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="_1">第十章 物理实现与容错计算<a class="headerlink" href="#_1" title="Permanent link">¶</a></h1>
+<p>前面几章把量子计算写成态矢、矩阵、线路和算法。本章讨论另一个问题:这些抽象门怎样落到真实物理系统中? 以及在噪声无法完全消除时,怎样继续做可靠计算?</p>
+<h2 id="_2">一、从抽象门到物理操作<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<p>一个量子计算平台至少要完成三件事:</p>
+<ol>
+<li>制备初态。</li>
+<li>对量子比特施加受控演化。</li>
+<li>测量并读出结果。</li>
+</ol>
+<p>在线路语言中,这些步骤看起来是</p>
+<div class="arithmatex">\[
+|0\rangle
+\longrightarrow
+\hat{U}_1
+\longrightarrow
+\hat{U}_2
+\longrightarrow
+\cdots
+\longrightarrow
+\text{measurement}.
+\]</div>
+<p>在实验中,它们对应的是微波脉冲、激光、磁场、电压、光学器件或其他可控物理过程。不同平台的差异,主要来自量子比特载体不同、耦合机制不同、测量方式不同。</p>
+<h2 id="_3">二、主要物理平台<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>平台</th>
+<th>量子比特载体</th>
+<th>控制方式</th>
+<th>主要优势</th>
+<th>主要挑战</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>超导量子比特</td>
+<td>超导电路中的人工原子能级</td>
+<td>微波、磁通、电容耦合</td>
+<td>门速度快,工程集成度高</td>
+<td>相干时间有限,串扰和噪声控制困难</td>
+</tr>
+<tr>
+<td>囚禁离子</td>
+<td>离子的内部能级</td>
+<td>激光或微波,共享振动模</td>
+<td>保真度高,相干时间长</td>
+<td>门速度较慢,大规模扩展复杂</td>
+</tr>
+<tr>
+<td>光量子</td>
+<td>光子偏振、路径或时间模</td>
+<td>分束器、相移器、探测器</td>
+<td>适合传输,室温下退相干弱</td>
+<td>确定性双比特门困难,损耗敏感</td>
+</tr>
+<tr>
+<td>Rydberg 原子阵列</td>
+<td>中性原子的基态与高激发态</td>
+<td>光镊阵列、激光激发</td>
+<td>几何可重构,强相互作用</td>
+<td>保真度、寻址和误差校准仍需提升</td>
+</tr>
+<tr>
+<td>自旋量子比特</td>
+<td>电子自旋、核自旋、量子点等</td>
+<td>微波、磁场、电压门控</td>
+<td>尺寸小,潜在集成度高</td>
+<td>制备、读出和均一性挑战较大</td>
+</tr>
+<tr>
+<td>拓扑量子计算</td>
+<td>非阿贝尔任意子等拓扑自由度</td>
+<td>编织或拓扑保护操作</td>
+<td>理论上天然抗局域噪声</td>
+<td>实验证据和可控操作仍很困难</td>
+</tr>
+</tbody>
+</table>
+<p>这张表不是排名。不同平台适合不同阶段和任务:有的平台更适合近期中等规模实验,有的平台更适合远期容错架构,也有的平台在量子通信或专用模拟中更自然。</p>
+<h2 id="_4">三、超导量子比特<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
+<p>超导量子比特常用约瑟夫森结构造非线性振子,从中选取两个能级作为</p>
+<div class="arithmatex">\[
+|0\rangle,\qquad |1\rangle .
+\]</div>
+<p>单比特门通常通过微波脉冲实现 Bloch 球旋转;双比特门通过可控耦合、频率调节或交叉共振等机制实现。</p>
+<p>超导平台的优势是门速度快、芯片制造路线清晰、与现有微纳加工技术兼容。挑战是相干时间有限、控制线复杂、串扰和读出误差需要精细校准。</p>
+<h2 id="_5">四、囚禁离子<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
+<p>囚禁离子平台用电磁场束缚带电离子,以内部能级作为量子比特。单比特门可由激光或微波驱动,双比特门常利用离子链的共享振动模实现,例如 Molmer-Sorensen 型相互作用。</p>
+<p>它的优势是量子比特高度一致、相干时间长、门保真度高。主要挑战是门速度较慢,并且大规模系统需要处理离子重排、寻址、串扰和模块化互连。</p>
+<h2 id="rydberg">五、光量子和 Rydberg 平台<a class="headerlink" href="#rydberg" title="Permanent link">¶</a></h2>
+<p>光量子计算以光子的偏振、路径、时间-bin 或连续变量模式编码信息。光子适合长距离传输,天然与量子通信结合紧密。但光子之间直接相互作用弱,因此确定性双比特门需要测量诱导非线性、辅助光子或集成光学结构。</p>
+<p>Rydberg 原子阵列使用光镊排列中性原子,再把原子激发到强相互作用的 Rydberg 态。它适合构造可重排几何和多体相互作用,在量子模拟和中性原子量子计算中都很重要。挑战主要在于高保真门、原子损失、寻址误差和规模化控制。</p>
+<h2 id="_6">六、拓扑量子计算的定位<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
+<p>拓扑量子计算希望把量子信息编码在非局域拓扑自由度中,使局域噪声不容易破坏逻辑信息。非阿贝尔任意子的编织可以在理论上实现某些逻辑门。</p>
+<p>需要谨慎的是,拓扑保护并不等于“自动拥有通用量子计算”。许多拓扑方案可天然实现一部分 Clifford 类操作,但非 Clifford 资源仍可能需要额外机制。同时,相关物理平台的实验实现难度很高,许多关键步骤仍处在研究阶段。</p>
+<h2 id="_7">七、为什么容错计算需要魔法态<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
+<p>稳定子纠错码与 Clifford 门之间配合得很好。Clifford 门会把 Pauli 错误映射成 Pauli 错误,因此错误仍然容易被综合征测量追踪。</p>
+<p>但只靠 Clifford 门不够通用。为了得到通用量子计算,需要加入非 Clifford 门,最常见的是 T 门:</p>
+<div class="arithmatex">\[
+\hat{T}
+=
+\begin{pmatrix}
+1&amp;0\\
+0&amp;e^{i\pi/4}
+\end{pmatrix}.
+\]</div>
+<p>在容错框架中,直接执行高保真逻辑 T 门往往代价很高。一个常见策略是先制备魔法态</p>
+<div class="arithmatex">\[
+|A\rangle
+=
+\frac{|0\rangle+e^{i\pi/4}|1\rangle}{\sqrt{2}},
+\]</div>
+<p>再用 Clifford 门和测量把这个资源态注入到线路中,间接实现非 Clifford 操作。</p>
+<h2 id="_8">八、魔法态蒸馏与培育<a class="headerlink" href="#_8" title="Permanent link">¶</a></h2>
+<p>魔法态蒸馏(Magic State Distillation)的思想是:从许多有噪声的魔法态出发,通过 Clifford 电路、测量和后选择,得到更少但更高保真的魔法态。它是容错通用量子计算中非常重要的资源准备方法,但空间-时间开销可能很大。</p>
+<p>魔法态培育(Magic State Cultivation)是近年研究中的另一类思路。它不是简单地把许多低保真资源态反复蒸馏,而是尝试在小型纠错码中逐步生成逻辑 T 态,并通过检查、扩展和解码过程降低资源成本。</p>
+<p>例如 arXiv:2503.18657 讨论了基于 <span class="arithmatex">\(\mathbb{RP}^{2}\)</span> 码和自对偶 CSS 码的魔法态培育方案。该方案的目标是在特定连接性和噪声假设下减少制备逻辑 T 态的空间-时间体积。它应理解为容错资源制备方向的一个研究进展,而不是对所有蒸馏方案的全面取代。</p>
+<p>更具体地说,这类培育方案通常包含几层结构。</p>
+<table>
+<thead>
+<tr>
+<th>结构</th>
+<th>作用</th>
+<th>教程中应抓住的重点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\mathbb{RP}^{2}\)</span> 码</td>
+<td>在特殊拓扑面上组织表面码结构</td>
+<td>通过几何和边界条件改变逻辑态制备方式</td>
+</tr>
+<tr>
+<td>SRP 码</td>
+<td>用于中间逻辑检查的自对偶 CSS 码</td>
+<td>让某些横向逻辑操作和检查更方便</td>
+</tr>
+<tr>
+<td>Morphing 电路</td>
+<td>在不同编码结构之间转换</td>
+<td>把“制备、检查、扩展”连成可执行流程</td>
+</tr>
+<tr>
+<td>逻辑双重检查</td>
+<td>过滤逻辑层错误</td>
+<td>用额外测量提高输出魔法态可信度</td>
+</tr>
+<tr>
+<td>Monte Carlo 资源估计</td>
+<td>评估噪声下的逻辑错误率和丢弃率</td>
+<td>判断方案是否真正节省空间-时间开销</td>
+</tr>
+</tbody>
+</table>
+<p>这些名词不需要在第一次学习时全部掌握。更重要的是理解研究问题本身:非 Clifford 资源很贵,所以容错架构需要不断优化魔法态制备流程。无论是蒸馏还是培育,本质上都是在用纠错码、测量和后选择换取更可靠的逻辑资源。</p>
+<p>在相关数值研究中,有时会把含 T 门的非 Clifford 电路替换成 Clifford 变体,再用稳定子模拟器和 Monte Carlo 采样估计噪声传播。这类做法的意义是降低模拟成本,帮助比较协议的逻辑错误率、样本保留率和资源开销;它不是在真实计算中取消 T 门。</p>
+<h2 id="_9">九、把硬件、噪声和纠错连起来<a class="headerlink" href="#_9" title="Permanent link">¶</a></h2>
+<p>真实量子计算不是“先有完美硬件,再跑理想算法”。更实际的关系是:</p>
+<div class="arithmatex">\[
+\text{物理平台}
+\rightarrow
+\text{噪声模型}
+\rightarrow
+\text{纠错码}
+\rightarrow
+\text{容错逻辑门}
+\rightarrow
+\text{算法资源估算}.
+\]</div>
+<p>同一个算法在不同硬件平台上的资源需求可能完全不同,因为门速度、连通性、读出误差、泄漏错误和可并行性都会改变容错开销。</p>
+<p>因此,学习物理实现时不要只记“哪个平台更好”。更有用的问题是:</p>
+<ol>
+<li>这个平台的量子比特是什么?</li>
+<li>单比特门、双比特门和测量分别怎样实现?</li>
+<li>主要噪声来自哪里?</li>
+<li>噪声是否适合某类纠错码?</li>
+<li>非 Clifford 资源怎样制备?</li>
+</ol>
+<h2 id="_10">十、本章小结<a class="headerlink" href="#_10" title="Permanent link">¶</a></h2>
+<p>抽象量子线路必须落在具体物理平台上。超导、离子、光量子、Rydberg、自旋和拓扑方案各有优势与挑战。</p>
+<p>容错计算的核心不是消灭噪声,而是在噪声存在时把错误限制在可检测、可纠正的范围内。Clifford 门和稳定子纠错天然匹配,但通用量子计算还需要非 Clifford 资源。魔法态蒸馏和培育正是围绕这一资源瓶颈发展出的关键技术路线。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚">
+        
+          
+          <a href="quantum_simulation.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: 第九章 量子模拟">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                第九章 量子模拟
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="http://tensofermi.github.io/" target="_blank" rel="noopener" title="tensofermi.github.io" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.97 2.59a1.5 1.5 0 0 0-1.94 0l-7.5 6.363A1.5 1.5 0 0 0 3 10.097V19.5A1.5 1.5 0 0 0 4.5 21h4.75a.75.75 0 0 0 .75-.75V14h4v6.25c0 .414.336.75.75.75h4.75a1.5 1.5 0 0 0 1.5-1.5v-9.403a1.5 1.5 0 0 0-.53-1.144z"></path></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="javascripts/mathjax.js"></script>
+      
+        <script src="javascripts/mathjax/es5/tex-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": false, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "none"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

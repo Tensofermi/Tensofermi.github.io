@@ -9,6 +9,8 @@
         <link rel="prev" href="noise_and_operations.html">
       
       
+        <link rel="next" href="quantum_simulation.html">
+      
       
         
       
@@ -497,10 +499,75 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、从量子纠错到容错通用计算
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_simulation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第九章 量子模拟
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="physical_implementation_and_fault_tolerance.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第十章 物理实现与容错计算
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -558,6 +625,17 @@
     <span class="md-ellipsis">
       
         三、Shor码:对任意单比特错误的纠正
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、从量子纠错到容错通用计算
       
     </span>
   </a>
@@ -740,6 +818,23 @@
 <li>(2) 一般测量可能会销毁比特的信息,但只要让测量不涉及组合系数 a、b 的具体取值,而只读取错误症状,就能保留原比特的信息。</li>
 <li>(3) 错误可以连续变化,但在单比特错误模型下,Pauli 基展开与症状测量足以给出恢复操作。这是量子纠错成立的核心机制,不是说所有实际噪声都已被这个简单码完全解决。</li>
 </ul>
+<h2 id="_3">四、从量子纠错到容错通用计算<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<p>量子纠错的目标不是只把一个静态量子态保存得更久,而是要在噪声存在时仍然能够可靠地执行计算。这就引出容错量子计算(Fault-tolerant Quantum Computation):每一步逻辑门、测量和纠错都要设计成不会把少量物理错误扩散成不可纠正的大错误。</p>
+<p>在稳定子码和表面码等体系中,很多 Clifford 操作可以比较自然地以容错方式实现。原因是 Clifford 门会把 Pauli 错误映射成 Pauli 错误,综合征测量仍然能够追踪错误类型。因此,Clifford 门与稳定子纠错之间配合得很好。</p>
+<p>但 Clifford 门本身不够通用。只由 Clifford 门、Pauli 制备和 Pauli 测量组成的线路可以被经典计算机高效模拟,所以还需要非 Clifford 资源。最常见的是 T 门:</p>
+<div class="arithmatex">\[
+\hat{T}=
+\begin{pmatrix}
+1&amp;0\\
+0&amp;e^{i\pi/4}
+\end{pmatrix}.
+\]</div>
+<p>在许多容错架构中,直接高保真地实现逻辑 T 门很困难,于是会改用魔法态注入。核心思想是先准备资源态</p>
+<div class="arithmatex">\[
+|A\rangle=\frac{|0\rangle+e^{i\pi/4}|1\rangle}{\sqrt{2}},
+\]</div>
+<p>再借助 Clifford 门和测量,把这个非 Clifford 资源注入到数据线路中,间接实现 T 门效果。这里的难点转移为:如何以足够低的逻辑错误率制备高质量魔法态。</p>
+<p>传统方案是魔法态蒸馏:用许多有噪声的魔法态和纠错检测电路,筛选出更少但更高保真的魔法态。近年的一些方案还研究魔法态培育(cultivation):在小型纠错码中逐步制备逻辑 T 态,再扩展到更大的码中。它们都可以理解为同一个目标下的不同工程路线:为容错通用量子计算提供可靠的非 Clifford 资源。</p>
 
 
 
@@ -790,6 +885,22 @@
             </div>
           </a>
         
+        
+          
+          <a href="quantum_simulation.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 第九章 量子模拟">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                第九章 量子模拟
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
         
       </nav>
     

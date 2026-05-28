@@ -226,6 +226,8 @@
       
         
       
+        
+      
     
     
     
@@ -281,6 +283,34 @@
     
   
     蒙卡原理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basic/rng.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    随机数产生器
   
 
     
@@ -637,10 +667,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#on" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        一般 \(O(N)\) 模型的经典图像
+        一般连续对称模型的经典图像
       
     </span>
   </a>
@@ -659,7 +689,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
         量子版本
@@ -670,7 +700,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         不适用和容易误解的情况
@@ -681,7 +711,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         小结
@@ -1182,10 +1212,6 @@
       
         
       
-        
-      
-        
-      
     
     
     
@@ -1204,7 +1230,7 @@
   <span class="md-ellipsis">
     
   
-    辅助场蒙卡
+    SSE 随机级数展开
   
 
     
@@ -1217,6 +1243,96 @@
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SSE 随机级数展开
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sse/basic.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSE 原理与算法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    辅助场蒙卡
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1410,10 +1526,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#on" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        一般 \(O(N)\) 模型的经典图像
+        一般连续对称模型的经典图像
       
     </span>
   </a>
@@ -1432,7 +1548,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
         量子版本
@@ -1443,7 +1559,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         不适用和容易误解的情况
@@ -1454,7 +1570,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         小结
@@ -1693,7 +1809,8 @@ e^{i[\theta(x)-\theta(0)]}
 \langle S^+\rangle\ne0.
 \]</div>
 <p>这个推导非常有启发性：先假设低温存在一个有序方向，然后研究围绕该方向的 Goldstone 涨落，最后发现低维中的长波涨落发散，导致有序本身不自洽。</p>
-<h2 id="on">一般 <span class="arithmatex">\(O(N)\)</span> 模型的经典图像<a class="headerlink" href="#on" title="Permanent link">¶</a></h2>
+<h2 id="_4">一般连续对称模型的经典图像<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
+<p>这里讨论一般 <span class="arithmatex">\(O(N)\)</span> 模型的经典图像。</p>
 <p>对 <span class="arithmatex">\(O(N)\)</span> 模型，若自发选择某个方向，可以把场写成纵向分量和横向 Goldstone 模：</p>
 <div class="arithmatex">\[
 \boldsymbol\phi(x)
@@ -1796,7 +1913,7 @@ m^2
 m=0.
 \]</div>
 <p>这个推导的关键细节是：短程相互作用使双交换子在小 <span class="arithmatex">\(k\)</span> 下最多像 <span class="arithmatex">\(k^2\)</span>；连续对称性使序参量和横向长波模耦合；低维中的 <span class="arithmatex">\(1/k^2\)</span> 积分发散。</p>
-<h2 id="_4">量子版本<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
+<h2 id="_5">量子版本<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
 <p>量子 Mermin-Wagner 定理说：对于具有连续对称性和足够短程相互作用的量子自旋或玻色体系，在 <span class="arithmatex">\(d\le2\)</span> 维、有限温度下，不能自发破缺连续对称性。</p>
 <p>量子版本和经典版本的区别在于：</p>
 <ul>
@@ -1816,7 +1933,7 @@ m^2
 m=0.
 \]</div>
 <p>这说明有限温二维量子 Heisenberg 模型不能有真正的自发磁化或 Néel 长程序。需要注意，量子系统在 <span class="arithmatex">\(T=0\)</span> 时等价于多一个虚时方向的量子临界问题，因此二维量子 Heisenberg 反铁磁体可以在零温有 Néel 序；这不违反定理，因为定理限制的是有限温。</p>
-<h2 id="_5">不适用和容易误解的情况<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
+<h2 id="_6">不适用和容易误解的情况<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
 <p>Mermin-Wagner 定理有明确适用条件，下面几类情况需要分开看。</p>
 <p>第一，离散对称性不受限制。二维 Ising 模型只有 <span class="arithmatex">\(\mathbb Z_2\)</span> 对称性，没有 Goldstone 模，因此可以在有限温发生普通二阶相变。</p>
 <p>第二，长程相互作用可能绕开定理。若相互作用衰减太慢，小 <span class="arithmatex">\(k\)</span> 下的刚度不再给出简单 <span class="arithmatex">\(k^2\)</span> 行为，红外积分结构会改变。</p>
@@ -1830,7 +1947,7 @@ m=0.
 \langle S^+\rangle\ne0,
 \]</div>
 <p>但关联函数也不是指数衰减。这正是 BKT 相变的入口。</p>
-<h2 id="_6">小结<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
+<h2 id="_7">小结<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
 <p>Mermin-Wagner 定理可以浓缩为一句话：</p>
 <blockquote>
 <p>低维短程系统中，连续对称性一旦试图自发破缺，就会产生无质量 Goldstone 模；这些长波模在 <span class="arithmatex">\(d\le2\)</span> 的热涨落红外发散，从而摧毁真正长程序。</p>

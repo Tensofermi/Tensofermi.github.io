@@ -1,0 +1,1104 @@
+<!DOCTYPE html><html lang="zh" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="quantum_error_correction.html">
+      
+      
+        <link rel="next" href="physical_implementation_and_fault_tolerance.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="logo/main.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>第九章 量子模拟 - Quantum Information Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="index.html" title="Quantum Information Notes" class="md-header__button md-logo" aria-label="Quantum Information Notes" data-md-component="logo">
+      
+  <img src="logo/qubit.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Quantum Information Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第九章 量子模拟
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至深色模式" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换至深色模式" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至浅色模式" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至浅色模式" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Quantum Information Notes" class="md-nav__button md-logo" aria-label="Quantum Information Notes" data-md-component="logo">
+      
+  <img src="logo/qubit.svg" alt="logo">
+
+    </a>
+    Quantum Information Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classical_computation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第一章 经典计算
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_mechanics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第二章 量子力学基础知识
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_circuits.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三章 量子线路
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_fourier_transform.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第四章 量子 Fourier 变换
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_search.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第五章 量子搜索算法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_communication.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第六章 量子通信
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="noise_and_operations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第七章 量子噪声和量子操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_error_correction.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第八章 量子纠错
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第九章 量子模拟
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="quantum_simulation.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第九章 量子模拟
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、为什么需要量子模拟
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、模拟型与数字型量子模拟
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、数字量子模拟的基本公式
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#heisenberg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、例子: Heisenberg 链
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monte-carlo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、数字量子模拟与量子 Monte Carlo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、从门级结构看数字量子模拟
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、相关前沿方向
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bell-qmc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        八、前沿阅读: Bell-QMC 的思想
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        九、本章小结
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="physical_implementation_and_fault_tolerance.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第十章 物理实现与容错计算
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、为什么需要量子模拟
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、模拟型与数字型量子模拟
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、数字量子模拟的基本公式
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#heisenberg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、例子: Heisenberg 链
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monte-carlo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、数字量子模拟与量子 Monte Carlo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、从门级结构看数字量子模拟
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、相关前沿方向
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bell-qmc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        八、前沿阅读: Bell-QMC 的思想
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        九、本章小结
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="_1">第九章 量子模拟<a class="headerlink" href="#_1" title="Permanent link">¶</a></h1>
+<p>前面几章主要讨论了量子线路、量子算法和量子通信。本章换一个角度:如果自然界本身就是量子的,能不能直接用一个可控的量子系统去研究另一个难以经典模拟的量子系统?</p>
+<p>这就是量子模拟(Quantum Simulation)的基本问题。它不是单个算法,而是一类方法:把目标哈密顿量、时间演化或热力学量转化为可以计算、采样或实验实现的过程。</p>
+<h2 id="_2">一、为什么需要量子模拟<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<p>经典计算机当然可以模拟量子系统,但代价通常随系统规模快速增长。一个 <span class="arithmatex">\(n\)</span> 比特量子系统的纯态一般需要</p>
+<div class="arithmatex">\[
+2^n
+\]</div>
+<p>个复振幅描述。若系统存在强纠缠,这些振幅很难被压缩成少量经典参数。</p>
+<p>量子模拟的直觉是:</p>
+<blockquote>
+<p>与其用经典比特勉强记录指数多的量子振幅,不如用另一个可控量子系统直接承载这些振幅。</p>
+</blockquote>
+<p>不过这句话不能理解成“量子计算机可以高效模拟任意量子系统”。实际效率取决于哈密顿量结构、误差容忍度、可观测量类型、初态制备难度以及硬件噪声。</p>
+<h2 id="_3">二、模拟型与数字型量子模拟<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<p>量子模拟常分为两类。</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>英文</th>
+<th>核心思想</th>
+<th>典型特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>模拟型量子模拟</td>
+<td>Analog Quantum Simulation</td>
+<td>直接构造与目标系统相近的物理哈密顿量</td>
+<td>硬件效率高,但可编程性和误差控制较难</td>
+</tr>
+<tr>
+<td>数字量子模拟</td>
+<td>Digital Quantum Simulation</td>
+<td>用离散量子门近似目标演化</td>
+<td>可编程性强,但需要门分解和误差控制</td>
+</tr>
+</tbody>
+</table>
+<p>模拟型量子模拟更像“搭一个物理模型”。例如用冷原子、离子链或 Rydberg 原子阵列直接实现某种自旋模型。</p>
+<p>数字量子模拟更像“写一个量子程序”。目标演化被拆成一串可执行的量子门,因此更接近通用量子计算的语言。</p>
+<h2 id="_4">三、数字量子模拟的基本公式<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
+<p>封闭量子系统的时间演化由哈密顿量 <span class="arithmatex">\(H\)</span> 决定:</p>
+<div class="arithmatex">\[
+U(t)=e^{-iHt}.
+\]</div>
+<p>若</p>
+<div class="arithmatex">\[
+H=\sum_{k=1}^{K}H_k,
+\]</div>
+<p>并且这些局域项通常不两两对易,则一般不能简单写成</p>
+<div class="arithmatex">\[
+e^{-iHt}=\prod_k e^{-iH_kt}.
+\]</div>
+<p>Trotter-Suzuki 分解给出了一种近似方式。一阶 Trotter 公式为</p>
+<div class="arithmatex">\[
+e^{-iHt}
+\approx
+\left(
+\prod_{k=1}^{K}e^{-iH_k\Delta t}
+\right)^N,
+\qquad
+\Delta t=\frac{t}{N}.
+\]</div>
+<p>当 <span class="arithmatex">\(N\)</span> 变大时,每一步演化更短,Trotter 误差通常会减小,但线路深度也会上升。因此数字量子模拟总是在“近似误差”和“硬件资源”之间权衡。</p>
+<h2 id="heisenberg">四、例子: Heisenberg 链<a class="headerlink" href="#heisenberg" title="Permanent link">¶</a></h2>
+<p>考虑一维自旋链:</p>
+<div class="arithmatex">\[
+H=J\sum_i
+\left(
+X_iX_{i+1}+Y_iY_{i+1}+Z_iZ_{i+1}
+\right).
+\]</div>
+<p>一种常见处理是把相邻耦合分成奇键和偶键:</p>
+<div class="arithmatex">\[
+H=H_{\mathrm{odd}}+H_{\mathrm{even}}.
+\]</div>
+<p>于是可近似写成</p>
+<div class="arithmatex">\[
+U(t)
+\approx
+\left(
+e^{-iH_{\mathrm{odd}}\Delta t}
+e^{-iH_{\mathrm{even}}\Delta t}
+\right)^N.
+\]</div>
+<p>每个局域两体项再继续分解成单比特旋转门和双比特纠缠门。这样,连续的哈密顿量演化就被转化成离散量子线路。</p>
+<p>这个例子说明了数字量子模拟的基本工作流:</p>
+<ol>
+<li>写出目标哈密顿量。</li>
+<li>将哈密顿量拆成局域项。</li>
+<li>用 Trotter-Suzuki 或其他哈密顿量模拟算法近似整体演化。</li>
+<li>将每个局域演化编译成硬件可执行的量子门。</li>
+<li>测量目标可观测量,并估计统计误差和线路误差。</li>
+</ol>
+<h2 id="monte-carlo">五、数字量子模拟与量子 Monte Carlo<a class="headerlink" href="#monte-carlo" title="Permanent link">¶</a></h2>
+<p>量子 Monte Carlo(QMC)也是研究量子多体系统的重要工具,但它通常运行在经典计算机上。它与数字量子模拟有相似的数学结构,但物理含义不同。</p>
+<table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>数字量子模拟</th>
+<th>量子 Monte Carlo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>核心对象</td>
+<td><span class="arithmatex">\(e^{-iHt}\)</span></td>
+<td><span class="arithmatex">\(e^{-\beta H}\)</span></td>
+</tr>
+<tr>
+<td>时间类型</td>
+<td>实时间演化</td>
+<td>虚时间或热平衡采样</td>
+</tr>
+<tr>
+<td>实现平台</td>
+<td>量子硬件或量子线路模拟器</td>
+<td>经典计算机</td>
+</tr>
+<tr>
+<td>主要误差</td>
+<td>门误差、Trotter 误差、采样误差</td>
+<td>统计误差、离散化误差、符号问题</td>
+</tr>
+<tr>
+<td>常见目标</td>
+<td>动力学、相干演化、时间关联</td>
+<td>基态、热力学量、虚时间关联</td>
+</tr>
+</tbody>
+</table>
+<p>这里的关键区别是:</p>
+<div class="arithmatex">\[
+e^{-iHt}
+\]</div>
+<p>是幺正演化,描述真实时间中的量子动力学;而</p>
+<div class="arithmatex">\[
+e^{-\beta H}
+\]</div>
+<p>一般是非幺正的,常用于热态、配分函数和基态投影。</p>
+<p>因此,QMC 和数字量子模拟不能简单互相替代。QMC 对许多无符号问题的体系非常强大,但会遇到符号问题;数字量子模拟原则上更接近真实量子演化,但对硬件保真度和纠错能力要求很高。</p>
+<h2 id="_5">六、从门级结构看数字量子模拟<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
+<p>数字量子模拟通常不会只用 Clifford 门。原因是 Clifford 门构成的线路可以被经典稳定子方法高效模拟,并且不能连续逼近任意幺正演化。真实哈密顿量演化中经常出现连续角度的旋转,这会自然引入非 Clifford 资源。</p>
+<p>一个典型例子是两体相互作用项</p>
+<div class="arithmatex">\[
+e^{-i\theta Z_iZ_j}.
+\]</div>
+<p>若把第 <span class="arithmatex">\(i\)</span> 个量子比特作为控制位、第 <span class="arithmatex">\(j\)</span> 个量子比特作为目标位,并采用</p>
+<div class="arithmatex">\[
+R_z(\phi)=e^{-i\phi Z/2},
+\]</div>
+<p>则有门级分解</p>
+<div class="arithmatex">\[
+e^{-i\theta Z_iZ_j}
+=
+\operatorname{CNOT}_{i\rightarrow j}
+\left(I_i\otimes R_z(2\theta)_j\right)
+\operatorname{CNOT}_{i\rightarrow j}.
+\]</div>
+<p>当角度 <span class="arithmatex">\(\theta\)</span> 不是 Clifford 角度时,中间的 <span class="arithmatex">\(R_z(2\theta)\)</span> 就是非 Clifford 操作。因此,数字量子模拟一般会呈现出这样的结构:</p>
+<div class="arithmatex">\[
+\text{Clifford 纠缠骨架}
++
+\text{非 Clifford 连续旋转}.
+\]</div>
+<p>这也是为什么容错数字量子模拟会特别关心 Clifford+T 编译、T 门数量、T 深度和魔法态消耗。</p>
+<h2 id="_6">七、相关前沿方向<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
+<p>量子模拟不是只有 Trotter 化一种路线。常见的延展方向包括:</p>
+<ol>
+<li>容错数字量子模拟:在稳定子码或表面码上执行长时间 Trotter 化或更先进的哈密顿量模拟算法,重点是控制逻辑错误和非 Clifford 资源开销。</li>
+<li>变分量子模拟:用带参数的量子线路近似时间演化或基态,再由经典优化器更新参数。VQE 和 QAOA 都属于这类混合思想的重要例子。</li>
+<li>QMC 与 DQS 的结合:用经典 QMC 或张量网络生成较好的初态、热态或参考态,再用数字量子模拟研究实时间动力学。</li>
+<li>测量与采样增强方法:把量子信息中的测量结构引入经典采样框架,试图更直接地估计纠缠、非对角关联或非稳定性等量。</li>
+</ol>
+<p>这些方向各有适用范围。教程阶段需要先抓住共同主线:目标对象是什么、演化是实时间还是虚时间、误差来自哪里、输出可观测量是什么。</p>
+<h2 id="bell-qmc">八、前沿阅读: Bell-QMC 的思想<a class="headerlink" href="#bell-qmc" title="Permanent link">¶</a></h2>
+<p>近年的 Bell-QMC 工作可以看作一个有启发性的前沿例子。它尝试把量子信息中的 Bell 基测量结构引入 QMC 采样,特别关注纠缠相关量和非对角算符的估计。</p>
+<p>Bell 基测量可由 Clifford 结构实现,例如 Hadamard 和 CNOT 组合。把这种结构放入双副本采样框架后,可以在某些 QMC 任务中更直接地提取 Renyi-2 纠缠熵等信息。</p>
+<p>需要注意两点。</p>
+<p>第一,Bell-QMC 不是通用量子计算机上的数字量子模拟。它仍然是经典 QMC 框架中的采样方法,只是引入了量子信息式的测量结构。</p>
+<p>第二,它也不能被理解为对 sign problem 的通用消除。更谨慎的说法是:它展示了量子信息语言可以为 QMC 中某些难测量的量提供新的采样组织方式。</p>
+<p>从研究展望看,这类方法可能与几个问题发生联系:</p>
+<ol>
+<li>多副本测量与纠缠量估计,例如 Renyi negativity 或其他纠缠诊断量。</li>
+<li>稳定子 Renyi 熵和 nonstabilizerness 等量子信息量。</li>
+<li>虚时间采样结果与谱函数、激发态信息之间的连接。</li>
+<li>测量诱导相变等以测量结构为核心的多体问题。</li>
+</ol>
+<p>这些内容适合作为前沿阅读,不应理解为基础 QMC 或基础 DQS 的必要前提。</p>
+<p>感兴趣可以进一步阅读:</p>
+<ul>
+<li>Bell sampling in Quantum Monte Carlo simulations, arXiv:2505.14869</li>
+<li>Bell Sampling in Quantum Monte Carlo Simulations, Physical Review Letters 135, 200403 (2025)</li>
+</ul>
+<h2 id="_7">九、本章小结<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
+<p>量子模拟的核心思想是把目标量子系统转化为可控的物理过程或量子线路。模拟型量子模拟偏硬件和物理平台,数字量子模拟偏量子门和算法结构。</p>
+<p>数字量子模拟最基础的入口是</p>
+<div class="arithmatex">\[
+e^{-iHt}
+\]</div>
+<p>以及 Trotter-Suzuki 分解。QMC 则更多处理</p>
+<div class="arithmatex">\[
+e^{-\beta H}
+\]</div>
+<p>这类虚时间或统计物理对象。两者有形式上的相似性,但目标、误差和适用范围不同。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚">
+        
+          
+          <a href="quantum_error_correction.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: 第八章 量子纠错">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                第八章 量子纠错
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="physical_implementation_and_fault_tolerance.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 第十章 物理实现与容错计算">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                第十章 物理实现与容错计算
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="http://tensofermi.github.io/" target="_blank" rel="noopener" title="tensofermi.github.io" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.97 2.59a1.5 1.5 0 0 0-1.94 0l-7.5 6.363A1.5 1.5 0 0 0 3 10.097V19.5A1.5 1.5 0 0 0 4.5 21h4.75a.75.75 0 0 0 .75-.75V14h4v6.25c0 .414.336.75.75.75h4.75a1.5 1.5 0 0 0 1.5-1.5v-9.403a1.5 1.5 0 0 0-.53-1.144z"></path></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="javascripts/mathjax.js"></script>
+      
+        <script src="javascripts/mathjax/es5/tex-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": false, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "none"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

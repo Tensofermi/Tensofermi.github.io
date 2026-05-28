@@ -226,6 +226,8 @@
       
         
       
+        
+      
     
     
     
@@ -281,6 +283,34 @@
     
   
     蒙卡原理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basic/rng.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    随机数产生器
   
 
     
@@ -704,10 +734,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#self-attention" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       
-        非局域核的一个类比：self-attention
+        非局域核的一个类比
       
     </span>
   </a>
@@ -715,7 +745,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       
         小结
@@ -1160,10 +1190,6 @@
       
         
       
-        
-      
-        
-      
     
     
     
@@ -1182,7 +1208,7 @@
   <span class="md-ellipsis">
     
   
-    辅助场蒙卡
+    SSE 随机级数展开
   
 
     
@@ -1195,6 +1221,96 @@
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SSE 随机级数展开
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sse/basic.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSE 原理与算法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    辅助场蒙卡
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1399,10 +1515,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#self-attention" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       
-        非局域核的一个类比：self-attention
+        非局域核的一个类比
       
     </span>
   </a>
@@ -1410,7 +1526,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       
         小结
@@ -1678,7 +1794,10 @@ C_1\sim L^{d_F},
 d_F=y_h.
 \]</div>
 <p>这说明几何观测量不只是可视化工具，也能作为普适类的敏感探针。对于长程模型，某些无量纲几何量如 wrapping probability、cluster 半径分布、loop 分形维度，可能比热力学指数更容易分辨 crossover。</p>
-<h2 id="self-attention">非局域核的一个类比：self-attention<a class="headerlink" href="#self-attention" title="Permanent link">¶</a></h2>
+<h2 id="_7">非局域核的一个类比<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">启发性类比：self-attention</p>
+<p>下面的 self-attention 类比只用于帮助理解“非局域核”这个结构。它不是 Monte Carlo 算法或临界理论的一部分，也不应被当作普适类判断依据。</p>
 <p>长程相互作用的共同结构是：一个位置可以直接和许多远处位置耦合。这个思想在其他领域也会出现。例如 self-attention 中，对固定位置 <span class="arithmatex">\(i\)</span>，权重为</p>
 <div class="arithmatex">\[
 A_{ij}
@@ -1702,7 +1821,8 @@ A_{ij}
 <p>这在形式上像一个条件 Boltzmann 分布。它提示我们：非局域核可以被看成一种位置依赖的有效相互作用或条件配分函数。</p>
 <p>这个类比只用于直觉。self-attention 不是平衡统计模型，权重由数据和网络参数动态生成，也没有固定的哈密顿量和热力学极限。但它说明“非局域耦合 + 归一化权重 + 有效相互作用核”是一种很普遍的数学结构。</p>
 <p>因此这段不应拿来推导 Monte Carlo 的临界指数。它更像一个提醒：长程问题的数学核心是非局域核，而非局域核也会出现在统计物理以外的模型中。真正进入本笔记主线的，仍然是固定哈密顿量、平衡权重和可定义热力学极限的长程格点系统。</p>
-<h2 id="_7">小结<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
+</div>
+<h2 id="_8">小结<a class="headerlink" href="#_8" title="Permanent link">¶</a></h2>
 <p>长程相互作用改变普适类，主要通过三件事：</p>
 <ol>
 <li>传播子从 <span class="arithmatex">\(k^2\)</span> 变成 <span class="arithmatex">\(k^\sigma\)</span>。</li>

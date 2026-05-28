@@ -505,6 +505,60 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_simulation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第九章 量子模拟
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="physical_implementation_and_fault_tolerance.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第十章 物理实现与容错计算
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -591,7 +645,7 @@
 \]</div>
 <p>其中 <span class="arithmatex">\(\alpha\)</span> 和 <span class="arithmatex">\(\beta\)</span> 是概率幅。它们不能像普通概率那样直接读取，却会在演化和测量中发生干涉。于是，一些经典计算中看起来很难的问题，例如搜索、相位估计和整数分解，可以借助叠加、干涉与纠缠获得全新的算法结构。</p>
 <p>当然，量子信息并不只有“加速”这一面。测量会扰动态，未知量子态不能随意克隆，环境噪声会破坏相干性。这些限制反过来也催生了量子密码、量子隐形传态、量子纠错等主题。某种意义上，这门课最迷人的地方就在于：它同时告诉我们自然允许什么，也告诉我们自然禁止什么。</p>
-<p>这份笔记的目标，是沿着“信息 <span class="arithmatex">\(\rightarrow\)</span> 经典计算 <span class="arithmatex">\(\rightarrow\)</span> 量子态 <span class="arithmatex">\(\rightarrow\)</span> 量子线路 <span class="arithmatex">\(\rightarrow\)</span> 算法与通信 <span class="arithmatex">\(\rightarrow\)</span> 噪声和纠错”的路线，把量子信息的基本语言串起来。</p>
+<p>这份笔记的目标，是沿着“信息 <span class="arithmatex">\(\rightarrow\)</span> 经典计算 <span class="arithmatex">\(\rightarrow\)</span> 量子态 <span class="arithmatex">\(\rightarrow\)</span> 量子线路 <span class="arithmatex">\(\rightarrow\)</span> 算法与通信 <span class="arithmatex">\(\rightarrow\)</span> 噪声和纠错 <span class="arithmatex">\(\rightarrow\)</span> 模拟与硬件”的路线，把量子信息的基本语言串起来。</p>
 <h2 id="_3">内容结构<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
 <table>
 <thead>
@@ -633,6 +687,14 @@
 <td>第八章</td>
 <td>量子纠错</td>
 </tr>
+<tr>
+<td>第九章</td>
+<td>量子模拟、Trotter 分解与 QMC 的关系</td>
+</tr>
+<tr>
+<td>第十章</td>
+<td>物理实现、容错计算与魔法态</td>
+</tr>
 </tbody>
 </table>
 <h2 id="_4">阅读建议<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
@@ -641,6 +703,8 @@
 <p>第三章是从“数学语言”走向“计算模型”的桥。单比特门、受控门、CNOT、通用门这些内容，建议和线路图一起看：不要只盯矩阵乘法，也要问自己这一步是在改变相位、制造叠加、还是让两个比特产生关联。</p>
 <p>第四章和第五章是算法主线。QFT、相位估计、Shor 算法、Grover 搜索看起来公式很密，但它们的共同目标其实很朴素：让正确答案的相位或振幅变得更容易被测出来。读这两章时，先抓“大结构”，再回头看每个求和式为什么会增强或抵消。</p>
 <p>第六章到第八章更像是把前面的工具拿去处理真实世界的问题：怎样传输未知量子态，怎样利用纠缠传更多经典信息，怎样面对噪声，怎样在不能克隆的限制下做纠错。读到这里时，可以多问一句：这一节是在利用量子规则，还是在绕开量子规则带来的麻烦？</p>
+<p>第九章和第十章是进阶拓展。它们把前面的抽象语言接到两个更接近研究和工程的问题上：怎样用可控量子系统模拟复杂量子系统，以及真实硬件怎样在噪声中走向容错通用计算。第一次阅读时可以先把它们当作“路线图”看，不必追求掌握每个平台或每篇前沿工作的细节。</p>
+<p>如果你已经学过一些凝聚态、统计物理或 Monte Carlo 方法，第九章会帮助你区分数字量子模拟、模拟型量子模拟和 QMC 的角色。如果你更关心量子计算机怎样真正造出来，第十章会把超导、离子、光量子、Rydberg、拓扑方案和魔法态资源放在同一条逻辑线上看。</p>
 <p>阅读公式时可以先抓住三类对象：态 <span class="arithmatex">\(|\psi\rangle\)</span>、算符 <span class="arithmatex">\(\hat{U}\)</span> 或 <span class="arithmatex">\(\hat{E}_k\)</span>、测量概率 <span class="arithmatex">\(p(m)\)</span>。态告诉你“系统现在是什么”，算符告诉你“对系统做了什么”，概率告诉你“测量后能看到什么”。只要这三件事没有混在一起，很多看起来吓人的表达式就会变得温顺很多。</p>
 
 

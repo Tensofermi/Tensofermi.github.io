@@ -518,6 +518,60 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_simulation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第九章 量子模拟
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="physical_implementation_and_fault_tolerance.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第十章 物理实现与容错计算
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -619,6 +673,25 @@
 <div class="arithmatex">\[\varepsilon(\hat{\rho}) = \operatorname{tr}_{\text{env}}[\hat{U}(\hat{\rho} \otimes \hat{\rho}_{\text{env}})\hat{U}^{+}]\]</div>
 <p>有时会用辅助比特来代替环境 env, 以模拟量子操作的效果, 如下图。</p>
 <p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_47_Picture_8.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_47_Picture_8.jpeg"></a></p>
+<p>这就是开放量子系统的基本图景:真实系统并不是孤立演化的,它会和周围环境发生相互作用。如果我们只记录系统本身,而不记录环境中发生了什么,就必须对环境自由度求偏迹。系统的局部状态因此可能从纯态变成混合态。</p>
+<p>一个特别常见的噪声是退相干。若</p>
+<div class="arithmatex">\[
+|\psi\rangle=\alpha|0\rangle+\beta|1\rangle,
+\]</div>
+<p>理想纯态密度矩阵含有非对角元 <span class="arithmatex">\(\alpha\beta^*\)</span> 与 <span class="arithmatex">\(\alpha^*\beta\)</span> ,它们记录了 <span class="arithmatex">\(|0\rangle\)</span> 与 <span class="arithmatex">\(|1\rangle\)</span> 之间的相干相位。退相干会压低这些非对角元:</p>
+<div class="arithmatex">\[
+\begin{pmatrix}
+|\alpha|^2 &amp; \alpha\beta^*\\
+\alpha^*\beta &amp; |\beta|^2
+\end{pmatrix}
+\longrightarrow
+\begin{pmatrix}
+|\alpha|^2 &amp; \gamma\alpha\beta^*\\
+\gamma^*\alpha^*\beta &amp; |\beta|^2
+\end{pmatrix},
+\qquad |\gamma|&lt;1 .
+\]</div>
+<p>这不是简单的“比特从 0 变 1”,而是相位关系逐渐变得不可观测。量子信道就是对这类有效演化的抽象描述。</p>
 <h2 id="kraus">二、量子操作的"算符和"表示: Kraus 算符<a class="headerlink" href="#kraus" title="Permanent link">¶</a></h2>
 <ul>
 <li>1、设环境的基矢量为 <span class="arithmatex">\(|e_k\rangle\)</span> ,初始时处在 <span class="arithmatex">\(|e_0\rangle\)</span> 。系统和环境先共同经历一个幺正演化,随后只保留系统、对环境求偏迹,系统的状态为</li>
@@ -629,6 +702,7 @@
 <p>这里 <span class="arithmatex">\(\hat{U}\)</span> 同时作用在系统和环境,将其中属于环境的部分取 <span class="arithmatex">\(\langle e_k | \cdot | e_0 \rangle\)</span> 矩阵元,剩余的就是对系统作用的算符 <span class="arithmatex">\(\hat{E}_k\)</span> 。最终可以得到</p>
 <div class="arithmatex">\[\varepsilon(\hat{\rho}) = \sum_{k} \hat{E}_{k} \hat{\rho} \hat{E}_{k}^{+}\]</div>
 <p>可以认为这个结果是对环境不同不可见结果求和后的有效描述。交叉项在对环境求偏迹后不再出现在系统的约化态中,所以系统可能从纯态变成混合态。注意,“可能变混合”不是“必然变混合”: 如果只有一个 Kraus 算符且演化等价于系统上的幺正门,纯态仍会保持纯态。由于这个密度算符是一系列算符的和,所以称为算符和表示(Operator-sum Representation)。</p>
+<p>从信息论角度看,Kraus 表示把“系统与环境整体仍按幺正规律演化”与“我们只能看见系统”这两件事连接起来。环境的不同不可见结果对应不同 Kraus 算符;把这些结果求和,就得到系统上的信道。第八章讨论量子纠错时,所谓“错误”并不只是某一个确定门,而是这类信道作用后的有效偏离。</p>
 <p><strong>2、量子操作的性质</strong></p>
 <p>(1) 完备性: 
 $<span class="arithmatex">\(\sum_{k} \hat{E}_{k}^{+} \hat{E}_{k} = \sum_{k} \langle e_{0} | \hat{U} | e_{k} \rangle \langle e_{k} | \hat{U} | e_{0} \rangle = \hat{I}\)</span>$</p>

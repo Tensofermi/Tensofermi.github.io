@@ -540,6 +540,60 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_simulation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第九章 量子模拟
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="physical_implementation_and_fault_tolerance.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第十章 物理实现与容错计算
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -663,6 +717,61 @@
 <p>(4) 相位门(Phase Gate):  <span class="arithmatex">\(\hat{S} = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; i \end{pmatrix}\)</span> 。可以对两个本征态的相对相位进行改变,没有经典操作与之对应。</p>
 <p>(5) <span class="arithmatex">\(\pi/8\)</span> 门(T 门):</p>
 <div class="arithmatex">\[\hat{T} = e^{i\frac{\pi}{8}} \begin{pmatrix} e^{-i\frac{\pi}{8}} &amp; 0 \\ 0 &amp; e^{i\frac{\pi}{8}} \end{pmatrix} = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; e^{i\frac{\pi}{4}} \end{pmatrix}.\]</div>
+<p>几个常用单比特门可以先放在同一张表中比较:</p>
+<table>
+<thead>
+<tr>
+<th>门</th>
+<th>矩阵</th>
+<th>主要作用</th>
+<th>Clifford?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\hat{I}\)</span></td>
+<td><span class="arithmatex">\(\begin{pmatrix}1&amp;0\\0&amp;1\end{pmatrix}\)</span></td>
+<td>不改变态</td>
+<td>是</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\hat{X}\)</span></td>
+<td><span class="arithmatex">\(\begin{pmatrix}0&amp;1\\1&amp;0\end{pmatrix}\)</span></td>
+<td>交换 <span class="arithmatex">\(\lvert0\rangle\)</span> 与 <span class="arithmatex">\(\lvert1\rangle\)</span></td>
+<td>是</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\hat{Y}\)</span></td>
+<td><span class="arithmatex">\(\begin{pmatrix}0&amp;-i\\i&amp;0\end{pmatrix}\)</span></td>
+<td>同时包含比特翻转和相位变化</td>
+<td>是</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\hat{Z}\)</span></td>
+<td><span class="arithmatex">\(\begin{pmatrix}1&amp;0\\0&amp;-1\end{pmatrix}\)</span></td>
+<td>改变 <span class="arithmatex">\(\lvert1\rangle\)</span> 的相位</td>
+<td>是</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\hat{H}\)</span></td>
+<td><span class="arithmatex">\(\frac{1}{\sqrt{2}}\begin{pmatrix}1&amp;1\\1&amp;-1\end{pmatrix}\)</span></td>
+<td>在 <span class="arithmatex">\(Z\)</span> 基与 <span class="arithmatex">\(X\)</span> 基之间变换</td>
+<td>是</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\hat{S}\)</span></td>
+<td><span class="arithmatex">\(\begin{pmatrix}1&amp;0\\0&amp;i\end{pmatrix}\)</span></td>
+<td>施加四分之一周期相位</td>
+<td>是</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\hat{T}\)</span></td>
+<td><span class="arithmatex">\(\begin{pmatrix}1&amp;0\\0&amp;e^{i\pi/4}\end{pmatrix}\)</span></td>
+<td>施加八分之一周期相位</td>
+<td>否</td>
+</tr>
+</tbody>
+</table>
 <ul>
 <li>3、单比特逻辑门的关系</li>
 <li>(1) 泡利矩阵恒等式:  <span class="arithmatex">\(\hat{Y}\hat{X}\hat{Y} = \hat{Z}\hat{X}\hat{Z} = -\hat{X}\)</span> ,  <span class="arithmatex">\(\hat{X}\hat{Y}\hat{X} = \hat{Z}\hat{Y}\hat{Z} = -\hat{Y}\)</span> ,  <span class="arithmatex">\(\hat{X}\hat{Z}\hat{X} = \hat{Y}\hat{Z}\hat{Y} = -\hat{Z}\)</span> 。</li>
@@ -727,6 +836,43 @@ $<span class="arithmatex">\(C_{12}(X) = \begin{pmatrix} \hat{I} &amp; 0 \\ 0 &am
 <p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_26_Figure_10.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_26_Figure_10.jpeg"></a></p>
 <p>因此, 在量子计算中可以表示为</p>
 <div class="arithmatex">\[SWAP = \begin{pmatrix} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 1 &amp; 0 \end{pmatrix} \begin{pmatrix} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \end{pmatrix} \begin{pmatrix} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 1 &amp; 0 \end{pmatrix} = \begin{pmatrix} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{pmatrix}\]</div>
+<p>常见双比特和多比特门的角色如下:</p>
+<table>
+<thead>
+<tr>
+<th>门</th>
+<th>功能</th>
+<th>Clifford?</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CNOT</td>
+<td>控制比特为 1 时翻转目标比特</td>
+<td>是</td>
+<td>量子线路中最基本的纠缠门之一</td>
+</tr>
+<tr>
+<td>CZ</td>
+<td>控制比特和目标比特都为 1 时加负相位</td>
+<td>是</td>
+<td>与 CNOT 可通过 Hadamard 互相转换</td>
+</tr>
+<tr>
+<td>SWAP</td>
+<td>交换两个量子比特</td>
+<td>是</td>
+<td>可由三个 CNOT 构造</td>
+</tr>
+<tr>
+<td>Toffoli</td>
+<td>两个控制比特都为 1 时翻转目标比特</td>
+<td>否</td>
+<td>可实现经典可逆计算,但不是 Clifford 门</td>
+</tr>
+</tbody>
+</table>
 <h2 id="_4">三、多比特控制门<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
 <p>1、如果在三个比特中,有两个比特控制另一比特上的 U 操作,则称为"控制-控制 U 门",记作  <span class="arithmatex">\(C^2(U)\)</span> 。  <span class="arithmatex">\(C^2(U)\)</span> 可以用双比特的受控门来实现,如下图,其</p>
 <p>中 <span class="arithmatex">\(\hat{V}\)</span> 是幺正算符,满足 <span class="arithmatex">\(\hat{V}^2 = \hat{U}\)</span> 。</p>
@@ -743,6 +889,12 @@ $<span class="arithmatex">\(C_{12}(X) = \begin{pmatrix} \hat{I} &amp; 0 \\ 0 &am
 <p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_27_Figure_11.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_27_Figure_11.jpeg"></a></p>
 <p>3、隐含测量原理:如果某些输出量子比特后续不再参与任何操作,而且我们只关心其余比特的测量统计,那么可以把这些未终结的量子连线看成被丢弃或被测量后忘记结果。数学上这对应对这些子系统求偏迹;它不会改变其他子系统的约化密度矩阵。</p>
 <h2 id="_6">五、通用量子门<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
+<p>理解通用量子门时,需要先区分 Clifford 门和非 Clifford 门。Clifford 门的定义是:在共轭作用下把 Pauli 算符仍然变成 Pauli 算符,即</p>
+<div class="arithmatex">\[
+\hat{U}\hat{P}\hat{U}^{+}\in \{\pm1,\pm i\}\{I,X,Y,Z\}^{\otimes n}.
+\]</div>
+<p>典型 Clifford 门包括 <span class="arithmatex">\(\hat{H}\)</span> 、 <span class="arithmatex">\(\hat{S}\)</span> 和 CNOT,并且多比特 Clifford 群可以由它们生成。Clifford 线路非常重要,因为它们在稳定子纠错、综合征测量和许多容错操作中都很自然;但只由 Clifford 门构成的线路可以被经典计算机高效模拟,这就是 Gottesman-Knill 定理的核心内容。因此,仅靠 Clifford 门不能提供通用量子计算能力。</p>
+<p>要得到通用量子计算,必须加入某种非 Clifford 资源。最常见的选择是 T 门。直观上,Clifford 门给出了稳定、可纠错、结构清楚的一大类操作,而 T 门这样的非 Clifford 门提供了离开稳定子世界的能力。后面讨论容错量子计算时,魔法态注入和魔法态蒸馏/培育正是为了解决“如何可靠地产生非 Clifford 资源”这个问题。</p>
 <ul>
 <li>1、二维空间所有幺正变换可以实现通用的量子计算(精确)。(二级矩阵分解)</li>
 <li>2、单比特门和 CNOT 能实现通用的量子计算(精确)。(Gray 码方法) 使用这一方法所需的资源量为  <span class="arithmatex">\(O(n^24^n)\)</span> 。</li>

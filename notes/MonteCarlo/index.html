@@ -274,7 +274,7 @@
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        为什么它适合复杂系统
+        从样本到物理
       
     </span>
   </a>
@@ -285,7 +285,7 @@
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        在现代问题中的位置
+        为什么它适合复杂系统
       
     </span>
   </a>
@@ -294,6 +294,17 @@
       
         <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在现代问题中的位置
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         本笔记的主线
@@ -319,6 +330,8 @@
   
     
     
+      
+        
       
         
       
@@ -381,6 +394,34 @@
     
   
     蒙卡原理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="basic/rng.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    随机数产生器
   
 
     
@@ -1112,10 +1153,6 @@
       
         
       
-        
-      
-        
-      
     
     
     
@@ -1134,7 +1171,7 @@
   <span class="md-ellipsis">
     
   
-    辅助场蒙卡
+    SSE 随机级数展开
   
 
     
@@ -1147,6 +1184,96 @@
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SSE 随机级数展开
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="sse/basic.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSE 原理与算法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    辅助场蒙卡
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1299,7 +1426,7 @@
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        为什么它适合复杂系统
+        从样本到物理
       
     </span>
   </a>
@@ -1310,7 +1437,7 @@
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        在现代问题中的位置
+        为什么它适合复杂系统
       
     </span>
   </a>
@@ -1319,6 +1446,17 @@
       
         <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在现代问题中的位置
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         本笔记的主线
@@ -1391,7 +1529,37 @@ W(s)=e^{-\mathcal H(s)}.
 \frac{W(s')}{W(s)}
 \]</div>
 <p>来决定是否接受新构型，因此归一化常数自动消掉。</p>
-<h2 id="_3">为什么它适合复杂系统<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<h2 id="_3">从样本到物理<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<p>在统计物理中，Monte Carlo 的任务可以概括为三步。</p>
+<p>第一步，先给定一个模型。这个模型通常由哈密顿量、作用量或概率权重定义，例如</p>
+<div class="arithmatex">\[
+W(s)=e^{-\beta\mathcal H(s)}.
+\]</div>
+<p>等价地说，我们给定了配分函数</p>
+<div class="arithmatex">\[
+Z=\sum_s W(s),
+\]</div>
+<p>也就给定了目标分布</p>
+<div class="arithmatex">\[
+\pi(s)=\frac{W(s)}{Z}.
+\]</div>
+<p>第二步，构造一个以 <span class="arithmatex">\(\pi(s)\)</span> 为平稳分布的随机过程。Metropolis、heat bath、cluster、worm、loop 等算法的核心差别，不在于目标分布不同，而在于它们如何更高效地在构型空间中移动。只要随机过程满足正确的平衡条件和遍历性，长时间产生的构型就可以看作来自目标分布的样本：</p>
+<div class="arithmatex">\[
+s_1,s_2,\cdots,s_N\sim \pi(s).
+\]</div>
+<p>第三步，从这些样本中提取物理量。统计物理真正关心的通常不是单个构型，而是样本平均：</p>
+<div class="arithmatex">\[
+\langle O\rangle
+\simeq
+\frac1N\sum_{i=1}^NO(s_i).
+\]</div>
+<p>这些平均值可以用来研究不同相的性质，例如序参量、能量、刚度、关联函数和结构因子；也可以用来定位临界点，分析临界指数、分形维度、普适类和有限尺寸标度。换句话说，Monte Carlo 负责产生服从正确权重的样本；相变理论和统计分析负责从样本中读出物理。</p>
+<p>量子 Monte Carlo 的思想类似，但构型空间更丰富。量子配分函数</p>
+<div class="arithmatex">\[
+Z={\rm Tr}\,e^{-\beta\hat H}
+\]</div>
+<p>通常不能直接看成普通经典构型求和，需要通过路径积分、SSE、世界线、辅助场等表示，把量子问题改写成一个扩展构型空间上的统计权重。直观地说，<span class="arithmatex">\(d\)</span> 维量子统计问题常被映射成带有虚时方向的 <span class="arithmatex">\(d+1\)</span> 维经典构型。这样不仅可以研究有限温热力学，也可以研究零温投影、虚时关联函数、谱函数、超流刚度、缠绕数、纠缠熵等更丰富的量子多体信息。</p>
+<h2 id="_4">为什么它适合复杂系统<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
 <p>Monte Carlo 特别适合下面几类问题：</p>
 <ul>
 <li><strong>状态空间巨大</strong>：自旋模型、量子多体系统、路径积分、组合优化问题都无法枚举全部构型。</li>
@@ -1400,7 +1568,7 @@ W(s)=e^{-\mathcal H(s)}.
 <li><strong>重要区域很稀疏</strong>：高维空间中大部分构型贡献很小，重要性抽样可以把计算资源集中到高权重区域。</li>
 </ul>
 <p>从这个角度看，Monte Carlo 可以作为一套处理复杂概率分布的通用语言，使用范围远远超出物理问题。</p>
-<h2 id="_4">在现代问题中的位置<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
+<h2 id="_5">在现代问题中的位置<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
 <p>在强化学习中，Monte Carlo 方法用完整 episode 的随机回报估计价值函数：</p>
 <div class="arithmatex">\[
 V^\pi(s)=\mathbb E_\pi[G_t|S_t=s].
@@ -1413,7 +1581,7 @@ p(\theta|D)\propto p(D|\theta)p(\theta)
 \]</div>
 <p>通常只知道右边的未归一化形式，但这已经足够构造采样过程。</p>
 <p>在量化交易和风险管理中，Monte Carlo 用于情景模拟、期权定价、投资组合风险、极端损失估计。价格路径、利率路径或波动率路径都可以视为随机过程的样本，复杂衍生品的价值则是路径函数的期望。</p>
-<h2 id="_5">本笔记的主线<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
+<h2 id="_6">本笔记的主线<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
 <p>这份笔记采用从简单到复杂的路线：</p>
 <ol>
 <li><strong>基础</strong>：从 Markov chain 的概率归一化与平稳分布出发，推出 detailed balance 和 Metropolis 接受率。</li>
@@ -1421,6 +1589,7 @@ p(\theta|D)\propto p(D|\theta)p(\theta)
 <li><strong>常用更新算法</strong>：概览 Metropolis、heat bath、cluster、loop、worm 和 lifted 等更新思想。</li>
 <li><strong>长程体系与 Clock 技巧</strong>：讨论长程相互作用下的周期边界、加键过程、累计概率和其他加速策略。</li>
 <li><strong>世界线更新算法</strong>：进入量子 Monte Carlo 中连续时间、连续空间和 Worm 更新的构型语言，并说明常见物理量如何从世界线几何中测量。</li>
+<li><strong>SSE 随机级数展开</strong>：把 <span class="arithmatex">\(e^{-\beta\hat H}\)</span> 展开成算符串，说明 diagonal update、loop update 和 directed-loop update 的基本结构。</li>
 <li><strong>辅助场蒙卡</strong>：从 Hubbard-Stratonovich 变换出发，说明如何把相互作用费米子问题转化为辅助场上的行列式权重，并区分零温投影算法与有限温 trace 算法。</li>
 </ol>
 <p>Monte Carlo 的本质可以压缩为一句话：构造一个正确的随机过程，让它在复杂空间中替我们按照目标权重行走。</p>

@@ -226,6 +226,8 @@
       
         
       
+        
+      
     
     
     
@@ -281,6 +283,34 @@
     
   
     蒙卡原理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basic/rng.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    随机数产生器
   
 
     
@@ -554,10 +584,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#on-phi4" class="md-nav__link">
+  <a href="#on" class="md-nav__link">
     <span class="md-ellipsis">
       
-        为什么 \(O(n)\) 常对应 \(\phi^4\)
+        为什么 O(n) 常对应四次场论
       
     </span>
   </a>
@@ -565,10 +595,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#percolation-potts-phi3" class="md-nav__link">
+  <a href="#percolation-potts" class="md-nav__link">
     <span class="md-ellipsis">
       
-        为什么 percolation 和一般 Potts 会出现 \(\phi^3\)
+        为什么 percolation 和一般 Potts 会出现三次场论
       
     </span>
   </a>
@@ -1177,10 +1207,6 @@
       
         
       
-        
-      
-        
-      
     
     
     
@@ -1199,7 +1225,7 @@
   <span class="md-ellipsis">
     
   
-    辅助场蒙卡
+    SSE 随机级数展开
   
 
     
@@ -1212,6 +1238,96 @@
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SSE 随机级数展开
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sse/basic.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSE 原理与算法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    辅助场蒙卡
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1406,10 +1522,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#on-phi4" class="md-nav__link">
+  <a href="#on" class="md-nav__link">
     <span class="md-ellipsis">
       
-        为什么 \(O(n)\) 常对应 \(\phi^4\)
+        为什么 O(n) 常对应四次场论
       
     </span>
   </a>
@@ -1417,10 +1533,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#percolation-potts-phi3" class="md-nav__link">
+  <a href="#percolation-potts" class="md-nav__link">
     <span class="md-ellipsis">
       
-        为什么 percolation 和一般 Potts 会出现 \(\phi^3\)
+        为什么 percolation 和一般 Potts 会出现三次场论
       
     </span>
   </a>
@@ -1682,7 +1798,8 @@ q\to0 &amp; \text{spanning tree/forest 极限}.
 \]</div>
 <p>需要区分 spin sector 和 cluster sector。同一个 Potts 微观模型，可以从自旋序参量的角度研究，也可以从 FK cluster 几何量的角度研究。二者在某些情况下有不同的连续场论和不同的几何指数。</p>
 <p>这句话很重要。自旋相关函数问的是“两个点的颜色或方向是否相关”；cluster 相关函数问的是“两个点是否属于同一个几何连通块”。在 FK 表象中它们常常紧密相连，但并不意味着所有几何指数都能从普通自旋场论里直接读出。数值模拟中如果测的是最大 cluster、wrapping probability 或 cluster 半径分布，就应该明确自己正在看 cluster sector。</p>
-<h3 id="on-phi4">为什么 <span class="arithmatex">\(O(n)\)</span> 常对应 <span class="arithmatex">\(\phi^4\)</span><a class="headerlink" href="#on-phi4" title="Permanent link">¶</a></h3>
+<h3 id="on">为什么 O(n) 常对应四次场论<a class="headerlink" href="#on" title="Permanent link">¶</a></h3>
+<p>这里讨论为什么 <span class="arithmatex">\(O(n)\)</span> 模型常对应 <span class="arithmatex">\(\phi^4\)</span> 理论。</p>
 <p>连续场论里常见的 <span class="arithmatex">\(O(n)\)</span> 模型写成一个 <span class="arithmatex">\(n\)</span> 分量实场</p>
 <div class="arithmatex">\[
 \boldsymbol\phi(x)
@@ -1713,7 +1830,8 @@ q\to0 &amp; \text{spanning tree/forest 极限}.
 \]</div>
 <p>任何奇数次的标量项都会在这个变换下变号，因此被对称性禁止。二次项控制是否接近临界点；四次项是稳定自由能所需的最低非线性项，也是 Gaussian 固定点附近最重要的相互作用项。因此短程 Ising、XY、Heisenberg 等普通自旋临界点常被组织到 <span class="arithmatex">\(\phi^4\)</span> 或 <span class="arithmatex">\(O(n)\)</span> Wilson-Fisher 理论中。</p>
 <p>这里的逻辑不是“显微自旋一定连续，所以写 <span class="arithmatex">\(\phi^4\)</span>”，而是“临界点附近的粗粒化序参量是一个慢变量；对称性允许的最低非高斯相互作用是四次项”。Ising 的显微变量虽然只有 <span class="arithmatex">\(\pm1\)</span>，但粗粒化磁化场可以连续变化；由于它有 <span class="arithmatex">\(\mathbb Z_2\)</span> 对称性，仍然禁止 <span class="arithmatex">\(\phi^3\)</span>，所以最低非线性项是 <span class="arithmatex">\(\phi^4\)</span>。</p>
-<h3 id="percolation-potts-phi3">为什么 percolation 和一般 Potts 会出现 <span class="arithmatex">\(\phi^3\)</span><a class="headerlink" href="#percolation-potts-phi3" title="Permanent link">¶</a></h3>
+<h3 id="percolation-potts">为什么 percolation 和一般 Potts 会出现三次场论<a class="headerlink" href="#percolation-potts" title="Permanent link">¶</a></h3>
+<p>这里讨论为什么 percolation 和一般 Potts 理论中常出现 <span class="arithmatex">\(\phi^3\)</span> 项。</p>
 <p>Potts 模型更容易让人混乱，因为它同时有自旋表象和 FK cluster 表象。对 <span class="arithmatex">\(q\)</span>-state Potts，自旋序参量不是一个普通的 <span class="arithmatex">\(q\)</span> 分量向量，而是一个受 <span class="arithmatex">\(S_q\)</span> 置换对称性约束的对象。粗略说，它有 <span class="arithmatex">\(q-1\)</span> 个独立分量，并且允许某些 <span class="arithmatex">\(S_q\)</span> 不变量。</p>
 <p>关键点是：一般 <span class="arithmatex">\(q\)</span> 的 <span class="arithmatex">\(S_q\)</span> 对称性并不等同于</p>
 <div class="arithmatex">\[
