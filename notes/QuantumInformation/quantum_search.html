@@ -688,9 +688,16 @@
 <p>在 phase oracle 下,有 <span class="arithmatex">\(\hat{O}|\alpha\rangle = |\alpha\rangle\)</span> , <span class="arithmatex">\(\hat{O}|\beta\rangle = -|\beta\rangle\)</span> 。并且, <span class="arithmatex">\(\langle\alpha|\beta\rangle = 0\)</span> 。</p>
 <p>(2) 迭代前的等权叠加态  <span class="arithmatex">\(|\psi\rangle\)</span>  是解矢量和非解矢量的叠加:</p>
 <div class="arithmatex">\[|\psi\rangle = \frac{1}{\sqrt{N}} \sum_{x=0}^{N-1} |x\rangle = \sqrt{\frac{N-M}{N}} |\alpha\rangle + \sqrt{\frac{M}{N}} |\beta\rangle\]</div>
-<p>定义</p>
-<div class="arithmatex">\[\theta = 2 \arcsin \sqrt{\frac{M}{N}}\]</div>
-<p>,则有 <span class="arithmatex">\(|\psi\rangle = \cos \frac{\theta}{2} |\alpha\rangle + \sin \frac{\theta}{2} |\beta\rangle\)</span> 。</p>
+<p>定义角度参数</p>
+<div class="arithmatex">\[
+\theta = 2 \arcsin \sqrt{\frac{M}{N}},
+\]</div>
+<p>则有</p>
+<div class="arithmatex">\[
+|\psi\rangle =
+\cos \frac{\theta}{2} |\alpha\rangle
++ \sin \frac{\theta}{2} |\beta\rangle .
+\]</div>
 <p>在几何上,由于 <span class="arithmatex">\(|\alpha\rangle\)</span> 和 <span class="arithmatex">\(|\beta\rangle\)</span> 正交,可以将它们看成如下图的一个二维空间的标准正交基,而系统状态 <span class="arithmatex">\(|\psi\rangle\)</span> 就是在它们之间、与 <span class="arithmatex">\(|\alpha\rangle\)</span> 夹角为 <span class="arithmatex">\(\frac{\theta}{2}\)</span> 的单位矢量。</p>
 <p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_38_Figure_3.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_38_Figure_3.jpeg"></a></p>
 <p>(3)单次迭代对应的几何操作:  <span class="arithmatex">\(\hat{O}\)</span> 将 <span class="arithmatex">\(|\psi\rangle\)</span> 沿 <span class="arithmatex">\(|\alpha\rangle\)</span> 翻折, <span class="arithmatex">\(2|\psi\rangle\langle\psi|\)</span> - <span class="arithmatex">\(\hat{I}\)</span> 将 <span class="arithmatex">\(\hat{O}|\psi\rangle\)</span> 沿 <span class="arithmatex">\(|\psi\rangle\)</span> 翻折。可以看到,这两步之后得到的态矢为</p>
@@ -708,8 +715,14 @@
 <p>(2) 对迭代次数的大致估计:</p>
 <div class="arithmatex">\[R = \operatorname{CI}\left(\frac{\pi}{2\theta} - \frac{1}{2}\right) &lt; \frac{\pi}{2\theta} = \frac{\pi}{4} \left(\frac{\theta}{2}\right)^{-1} \le \frac{\pi}{4} \left(\sin\frac{\theta}{2}\right)^{-1} = \frac{\pi}{4} \sqrt{\frac{N}{M}}\]</div>
 <div class="arithmatex">\[R = \operatorname{CI}\left(\frac{\pi}{2\theta} - \frac{1}{2}\right) \ge \frac{\pi}{2\theta} - 1 = \frac{\pi}{4} \left(\frac{\theta}{2}\right)^{-1} - 1 \ge \frac{\pi}{4} \left(\tan\frac{\theta}{2}\right)^{-1} - 1 = \frac{\pi}{4} \sqrt{\frac{N-M}{M}} - 1\]</div>
-<p>因此 
-$<span class="arithmatex">\(\left\lfloor \frac{\pi}{4} \sqrt{\frac{N-M}{M}} \right\rfloor \le R \le \left\lfloor \frac{\pi}{4} \sqrt{\frac{N}{M}} \right\rfloor.\)</span>$</p>
+<p>因此</p>
+<div class="arithmatex">\[
+\left\lfloor \frac{\pi}{4}\sqrt{\frac{N-M}{M}} \right\rfloor
+\le
+R
+\le
+\left\lfloor \frac{\pi}{4}\sqrt{\frac{N}{M}} \right\rfloor.
+\]</div>
 <p>从这一估计可以看出,量子搜索算法的查询复杂度随 <span class="arithmatex">\(\sqrt{N/M}\)</span> 缩放。特别地,只有一个解时为 <span class="arithmatex">\(O(\sqrt{N})\)</span> ;若解的数量 <span class="arithmatex">\(M\)</span> 增加,所需迭代次数会相应减少。</p>
 <p><strong>5、条件相位门的线路实现</strong></p>
 <p>条件相位门 <span class="arithmatex">\(2|0\rangle\langle 0|-\hat{I}\)</span> 可以用普通的量子线路来设计。由于其操作和比特的状态有关,显然需要用受控门实现。具体线路取决于比特数。</p>
@@ -746,9 +759,10 @@ $<span class="arithmatex">\(\left\lfloor \frac{\pi}{4} \sqrt{\frac{N-M}{M}} \rig
 <div class="arithmatex">\[1+2+2^2+...+2^{t-1}=2^t-1\approx 2^t\]</div>
 <p>(2) 测量第一寄存器,得到 i 的概率:</p>
 <div class="arithmatex">\[p(j) = \frac{1}{2 \times 4^{t}} \left| \frac{1 - \exp(i2^{t} \theta_{j}^{+})}{1 - \exp(i\theta_{j}^{+})} \right|^2 + \frac{1}{2 \times 4^{t}} \left| \frac{1 - \exp(i2^{t} \theta_{j}^{-})}{1 - \exp(i\theta_{j}^{-})} \right|^2\]</div>
-<p>其中</p>
-<div class="arithmatex">\[\theta_j^{\pm} = \pm \theta - \frac{2\pi j}{2^t}\]</div>
-<p>。</p>
+<p>其中相位偏差为</p>
+<div class="arithmatex">\[
+\theta_j^{\pm} = \pm \theta - \frac{2\pi j}{2^t}.
+\]</div>
 <p>5、估计的精度:利用一定量的比特可以将 <span class="arithmatex">\(\theta\)</span> 估计到m位,即</p>
 <div class="arithmatex">\[|\Delta \theta| \leq 2^{-m}\]</div>
 <p>由此可以得到M的精度。</p>
@@ -759,8 +773,12 @@ $<span class="arithmatex">\(\left\lfloor \frac{\pi}{4} \sqrt{\frac{N-M}{M}} \rig
 <p>所以</p>
 <div class="arithmatex">\[\frac{\left|\Delta M\right|}{N} = \left(\sin\frac{\theta + \Delta\theta}{2} + \sin\frac{\theta}{2}\right) \left|\sin\frac{\theta + \Delta\theta}{2} - \sin\frac{\theta}{2}\right| \le \left(2\sin\frac{\theta}{2} + \frac{\left|\Delta\theta\right|}{2}\right) \frac{\left|\Delta\theta\right|}{2}\]</div>
 <p>再代入</p>
-<div class="arithmatex">\[\sin^2\frac{\theta}{2} = \frac{M}{N}\]</div>
-<p>,  <span class="arithmatex">\(|\Delta\theta| \le 2^{-m}\)</span> 和  <span class="arithmatex">\(N = 2^n\)</span> 可知</p>
+<div class="arithmatex">\[
+\sin^2\frac{\theta}{2} = \frac{M}{N},\qquad
+|\Delta\theta| \le 2^{-m},\qquad
+N = 2^n,
+\]</div>
+<p>可知</p>
 <div class="arithmatex">\[\left|\Delta M\right| \le N\left(2\sqrt{\frac{M}{N}} + \frac{2^{-m}}{2}\right)\frac{2^{-m}}{2} = 2^{-m}\sqrt{MN} + 2^{n-2m-2} = O(\sqrt{M})\]</div>
 <p>相应地,若测量成功概率不低于 <span class="arithmatex">\(1-\varepsilon\)</span> ,则第一寄存器所需要的比特数为</p>
 <div class="arithmatex">\[t = m + 3 + \left\lceil \log \left( 2 + \frac{1}{2\varepsilon} \right) \right\rceil\]</div>

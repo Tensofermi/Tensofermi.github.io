@@ -1561,9 +1561,15 @@ s = a \oplus b, \qquad c = a \land b.
 <div class="arithmatex">\[f_i: \{0,1\}^n \to \{0,1\}, i = 1,2,...,m\]</div>
 <p>逻辑上, <span class="arithmatex">\(f_i(a) = 1\)</span> 等价于"a等于使 <span class="arithmatex">\(f_i\)</span> 为 1 的二进制数(记为  <span class="arithmatex">\(a^{(l)}\)</span> )",因此对  <span class="arithmatex">\(f_i\)</span> 取值的判断可以转化成对 a 值的判断。</p>
 <div class="arithmatex">\[f_i(a) = 1 \iff a = a^{(1)}, ..., a^{(k)}\]</div>
-<p>令小项函数 
-$<span class="arithmatex">\(f_i^{(l)}(a) = \begin{cases} 1, &amp; a = a^{(l)} \\ 0, &amp; 其他 \end{cases}\)</span>$</p>
-<p>,则显然有</p>
+<p>令小项函数为</p>
+<div class="arithmatex">\[
+f_i^{(l)}(a) =
+\begin{cases}
+1, &amp; a = a^{(l)}, \\
+0, &amp; \text{其他}.
+\end{cases}
+\]</div>
+<p>于是</p>
 <div class="arithmatex">\[f_i(a) = f_i^{(1)}(a) \lor f_i^{(2)}(a) \lor ... \lor f_i^{(k)}(a)\]</div>
 <p>而每个小项函数又可以转化成  <span class="arithmatex">\(a = a^{(l)}\)</span> 每一位的校对:</p>
 <div class="arithmatex">\[a = (a_{n-1}a_{n-2}...a_0), \ f_i^{(l,p)}(a) = \begin{cases} 1, \ a_p = a_p^{(l)} \\ 0, \ a_p \neq a_p^{(l)} \end{cases} = \begin{cases} a_p, \ a_p^{(l)} = 1 \\ \overline{a}_p, \ a_p^{(l)} = 0 \end{cases}\]</div>
@@ -1622,8 +1628,9 @@ $<span class="arithmatex">\(f_i^{(l)}(a) = \begin{cases} 1, &amp; a = a^{(l)} \\
 <h3 id="4_2">4、空间复杂类<a class="headerlink" href="#4_2" title="Permanent link">¶</a></h3>
 <p>主要指计算一个问题所需的内存空间大小。
 - (1) 利用确定性图灵机,能够在O[f(n)]空间内处理的问题记为SPACE[f(n)]。同理可定义NSPACE[f(n)]、PSPACE、NPSPACE。此外,有</p>
-<div class="arithmatex">\[L = SPACE(\log n)\]</div>
-<p>,  <span class="arithmatex">\(NL = NSPACE(\log n)\)</span> </p>
+<div class="arithmatex">\[
+L = SPACE(\log n),\qquad NL = NSPACE(\log n).
+\]</div>
 <ul>
 <li>(2) 萨维奇(Savitch)定理:  <span class="arithmatex">\(f(n) \ge \log n \Rightarrow \text{NSPACE}[f(n)] \subseteq \text{SPACE}[f^2(n)]\)</span> 。 由此可以推知 NPSPACE = PSPACE,即存储空间的 P 与 NP 是一致的。</li>
 </ul>

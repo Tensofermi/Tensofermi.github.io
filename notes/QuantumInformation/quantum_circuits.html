@@ -772,15 +772,59 @@
 </tr>
 </tbody>
 </table>
-<ul>
-<li>3、单比特逻辑门的关系</li>
-<li>(1) 泡利矩阵恒等式:  <span class="arithmatex">\(\hat{Y}\hat{X}\hat{Y} = \hat{Z}\hat{X}\hat{Z} = -\hat{X}\)</span> ,  <span class="arithmatex">\(\hat{X}\hat{Y}\hat{X} = \hat{Z}\hat{Y}\hat{Z} = -\hat{Y}\)</span> ,  <span class="arithmatex">\(\hat{X}\hat{Z}\hat{X} = \hat{Y}\hat{Z}\hat{Y} = -\hat{Z}\)</span> 。</li>
-<li>(2) Hadamard 门与泡利矩阵:  <span class="arithmatex">\(\hat{H}\hat{X}\hat{H} = \hat{Z}\)</span> ,  <span class="arithmatex">\(\hat{H}\hat{Z}\hat{H} = \hat{X}\)</span> ,  <span class="arithmatex">\(\hat{H}\hat{Y}\hat{H} = -\hat{Y}\)</span>  。</li>
-</ul>
-<p>此外,有</p>
-<div class="arithmatex">\[\hat{H} = \frac{1}{\sqrt{2}} \begin{pmatrix} 0 &amp; 1 \\ 1 &amp; 0 \end{pmatrix} + \frac{1}{\sqrt{2}} \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; -1 \end{pmatrix} = \frac{\hat{X} + \hat{Z}}{\sqrt{2}}\]</div>
-<p>。</p>
-<p>(3) 几个相位操作的关系:  <span class="arithmatex">\(\hat{Z} = \hat{S}^2 = \hat{T}^4\)</span> 。</p>
+<p>3、单比特逻辑门的关系</p>
+<p>(1) 泡利矩阵恒等式:</p>
+<div class="arithmatex">\[
+\hat{Y}\hat{X}\hat{Y}
+=
+\hat{Z}\hat{X}\hat{Z}
+=
+-\hat{X},
+\]</div>
+<div class="arithmatex">\[
+\hat{X}\hat{Y}\hat{X}
+=
+\hat{Z}\hat{Y}\hat{Z}
+=
+-\hat{Y},
+\]</div>
+<div class="arithmatex">\[
+\hat{X}\hat{Z}\hat{X}
+=
+\hat{Y}\hat{Z}\hat{Y}
+=
+-\hat{Z}.
+\]</div>
+<p>(2) Hadamard 门与泡利矩阵:</p>
+<div class="arithmatex">\[
+\hat{H}\hat{X}\hat{H}=\hat{Z},
+\qquad
+\hat{H}\hat{Z}\hat{H}=\hat{X},
+\qquad
+\hat{H}\hat{Y}\hat{H}=-\hat{Y}.
+\]</div>
+<p>也可以把 Hadamard 门写成 Pauli <span class="arithmatex">\(X\)</span> 和 <span class="arithmatex">\(Z\)</span> 的线性组合:</p>
+<div class="arithmatex">\[
+\hat{H}
+=
+\frac{1}{\sqrt{2}}
+\begin{pmatrix}
+0 &amp; 1 \\
+1 &amp; 0
+\end{pmatrix}
++
+\frac{1}{\sqrt{2}}
+\begin{pmatrix}
+1 &amp; 0 \\
+0 &amp; -1
+\end{pmatrix}
+=
+\frac{\hat{X}+\hat{Z}}{\sqrt{2}}.
+\]</div>
+<p>(3) 几个相位操作的关系:</p>
+<div class="arithmatex">\[
+\hat{Z}=\hat{S}^{2}=\hat{T}^{4}.
+\]</div>
 <p><strong>4、二维复空间的旋转操作</strong></p>
 <p>(1) 一个恒等式: 若  <span class="arithmatex">\(\hat{A}^2 = \hat{I}\)</span>  , 则</p>
 <div class="arithmatex">\[\exp(ik\hat{A}) = \sum_{n=0}^{\infty} \frac{(ik\hat{A})^n}{n!} = \sum_{n=0}^{\infty} \frac{(-1)^n k^{2n}}{(2n)!} \hat{A}^{2n} + \sum_{n=0}^{\infty} \frac{(-1)^n ik^{2n+1}}{(2n+1)!} \hat{A}^{2n+1}\]</div>
@@ -800,9 +844,30 @@
 <li>①Z-Y 分解:  <span class="arithmatex">\(\hat{U} = e^{i\alpha} \hat{R}_{z}(\beta) \hat{R}_{y}(\gamma) \hat{R}_{z}(\delta)\)</span> 。</li>
 <li>②任意两正交转轴分解: 也可以选取两条互相垂直的转轴 <span class="arithmatex">\(\hat{n}\)</span> 与 <span class="arithmatex">\(\hat{m}\)</span> ,将任意单比特幺正门写成三次旋转的乘积,例如  <span class="arithmatex">\(\hat{U} = e^{i\alpha} \hat{R}_{\hat{n}}(\beta) \hat{R}_{\hat{m}}(\gamma) \hat{R}_{\hat{n}}(\delta)\)</span> 。Z-Y 分解就是取 <span class="arithmatex">\(\hat{n}=\hat{z}\)</span> 、 <span class="arithmatex">\(\hat{m}=\hat{y}\)</span> 的特例。</li>
 </ul>
-<p>③推论: 令 
-$<span class="arithmatex">\(\hat{A} = \hat{R}_z(\beta)\hat{R}_y\left(\frac{\gamma}{2}\right)\)</span>$</p>
-<p>,  <span class="arithmatex">\(\hat{B} = \hat{R}_y\left(-\frac{\gamma}{2}\right)\hat{R}_z\left(-\frac{\delta+\beta}{2}\right)\)</span> ,  <span class="arithmatex">\(\hat{C} = \hat{R}_z\left(\frac{\delta-\beta}{2}\right)\)</span> , 则可以得到  <span class="arithmatex">\(\hat{U} = e^{i\alpha}\hat{A}\hat{X}\hat{B}\hat{X}\hat{C}\)</span> 。并且,有  <span class="arithmatex">\(\hat{A}\hat{B}\hat{C} = \hat{I}\)</span> 。</p>
+<p>③推论: 令</p>
+<div class="arithmatex">\[
+\hat{A}
+=
+\hat{R}_z(\beta)\hat{R}_y\left(\frac{\gamma}{2}\right),
+\]</div>
+<div class="arithmatex">\[
+\hat{B}
+=
+\hat{R}_y\left(-\frac{\gamma}{2}\right)
+\hat{R}_z\left(-\frac{\delta+\beta}{2}\right),
+\qquad
+\hat{C}
+=
+\hat{R}_z\left(\frac{\delta-\beta}{2}\right).
+\]</div>
+<p>则可以得到</p>
+<div class="arithmatex">\[
+\hat{U}
+=
+e^{i\alpha}\hat{A}\hat{X}\hat{B}\hat{X}\hat{C},
+\qquad
+\hat{A}\hat{B}\hat{C}=\hat{I}.
+\]</div>
 <p>5、单比特逻辑门在线路中通常画成标有门名的方框。例如,标记为 H 的方框表示 Hadamard 门。</p>
 <p>6、如果对同一个比特进行多次操作,那么相应的矩阵就是各个变换矩阵的乘积。 注意,先进行的操作在右,后进行的操作在左。</p>
 <h2 id="_3">二、双比特门<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
@@ -812,9 +877,24 @@ $<span class="arithmatex">\(\hat{A} = \hat{R}_z(\beta)\hat{R}_y\left(\frac{\gamm
 <p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_25_Picture_9.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_25_Picture_9.jpeg"></a></p>
 <p>上图即为比特 1 控制比特 2 的受控 U 门,记为  <span class="arithmatex">\(C_{12}(U)\)</span> 。由于两个比特互相影响,因此这一操作不能直接表示成单比特操作的直积,而是如下的分块矩阵,或者说两个直积的和:</p>
 <div class="arithmatex">\[C_{12}(U) = |0\rangle\langle 0| \otimes \hat{I} + |1\rangle\langle 1| \otimes \hat{U} = \begin{pmatrix} \hat{I} &amp; 0 \\ 0 &amp; \hat{U} \end{pmatrix}\]</div>
-<p>意义非常明确:上方比特为0时执行 <span class="arithmatex">\(\hat{I}\)</span> ,上方比特为1时执行 <span class="arithmatex">\(\hat{U}\)</span> 。例如,经典计算中重要的CNOT门,在量子计算中就可表示为</p>
-<p>CNOT = 
-$<span class="arithmatex">\(C_{12}(X) = \begin{pmatrix} \hat{I} &amp; 0 \\ 0 &amp; \hat{X} \end{pmatrix} = \begin{pmatrix} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 1 &amp; 0 \end{pmatrix}\)</span>$</p>
+<p>意义非常明确:上方比特为0时执行 <span class="arithmatex">\(\hat{I}\)</span> ,上方比特为1时执行 <span class="arithmatex">\(\hat{U}\)</span> 。例如,经典计算中重要的 CNOT 门,在量子计算中就可表示为</p>
+<div class="arithmatex">\[
+\mathrm{CNOT}
+=
+C_{12}(X)
+=
+\begin{pmatrix}
+\hat{I} &amp; 0 \\
+0 &amp; \hat{X}
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 \\
+0 &amp; 0 &amp; 1 &amp; 0
+\end{pmatrix}.
+\]</div>
 <p>其线路符号与经典计算一致。</p>
 <p><strong>3、关于 CNOT 门的恒等式</strong></p>
 <p>以下公式中,下标 1、2 表示对哪个比特进行的操作。例如, <span class="arithmatex">\(\hat{X}_1 = \hat{X} \otimes \hat{I}\)</span> ,而  <span class="arithmatex">\(\hat{X}_2 = \hat{I} \otimes \hat{X}\)</span> 。 <span class="arithmatex">\(\hat{C}\)</span>  表示 CNOT。</p>
@@ -881,8 +961,6 @@ $<span class="arithmatex">\(C_{12}(X) = \begin{pmatrix} \hat{I} &amp; 0 \\ 0 &am
 <p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_27_Figure_4.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_27_Figure_4.jpeg"></a></p>
 <h2 id="_5">四、量子线路中的测量<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
 <p>1、量子线路中,有时需要测量一个比特,并将测量后的状态用于后续线路。对单比特的测量可以用一个仪表来表示,并且一般是指投影测量。</p>
-<p>$<span class="arithmatex">\(|\psi\rangle\)</span>$
- —</p>
 <p>2、推迟测量原理: 若某段线路中无其他逻辑门(控制比特不算),那么在这段线路中间测量该比特,就等价于在线路最后测量该比特。数学形式:</p>
 <div class="arithmatex">\[\hat{M}_{i} = |j\rangle\langle j| \otimes \hat{I} \Rightarrow \hat{M}_{i}C(U) = C(U)\hat{M}_{i}\]</div>
 <p>此原理对控制门有较大意义。对于受计算基控制的门,控制比特如果处于叠加态,整体演化仍然是相干的受控幺正演化,不是在节点处“随机选择”某一个分支。推迟测量原理说的是: 如果后续操作只把该比特当作计算基控制位使用,那么把计算基测量提前或推迟,对最终可观测的概率分布没有影响。换句话说,这类被测量的控制比特可以等效地看成经典比特来控制后面的逻辑门(图中双线)。</p>
@@ -907,20 +985,36 @@ $<span class="arithmatex">\(C_{12}(X) = \begin{pmatrix} \hat{I} &amp; 0 \\ 0 &am
 <li>(1) 矢量的范数就是长度,即 <span class="arithmatex">\(\|v\| = \sqrt{\langle v|v\rangle}\)</span> 。</li>
 <li>(2) 算符(矩阵)自由度高,因此范数有多种定义。设算符 <span class="arithmatex">\(\hat{A}\)</span> 的奇异值为 <span class="arithmatex">\(\{s_i\}\)</span> 。</li>
 </ul>
-<p>①</p>
-<div class="arithmatex">\[p\]</div>
-<p>-范数:  <span class="arithmatex">\(\|\hat{A}\|_{p} = \left(\sum_{j} s_{j}^{p}\right)^{1/p}\)</span> 。(和其他学科的定义可能不同,本课程以这里为准)</p>
-<p>②1-范数: 
-$<span class="arithmatex">\(\|\hat{A}\|_{1} = \sum_{j} s_{j} = \operatorname{tr} \sqrt{\hat{A}^{+} \hat{A}}\)</span>$</p>
-<p>。</p>
+<p>① <span class="arithmatex">\(p\)</span>-范数:</p>
+<div class="arithmatex">\[
+\|\hat{A}\|_{p}
+=
+\left(\sum_{j} s_{j}^{p}\right)^{1/p}.
+\]</div>
+<p>这个定义和其他学科的定义可能不同,本课程以这里为准。</p>
+<p>②1-范数:</p>
+<div class="arithmatex">\[
+\|\hat{A}\|_{1}
+=
+\sum_{j} s_{j}
+=
+\operatorname{tr}\sqrt{\hat{A}^{+}\hat{A}}.
+\]</div>
 <p>③2 范数:即 Hilbert-Schmidt 范数,是 Hilbert-Schmidt 内积的特殊情况。</p>
 <div class="arithmatex">\[\left\|\hat{A}\right\|_{2} = \sqrt{\sum_{j} s_{j}^{2}} = \sqrt{\operatorname{tr}(\hat{A}^{+}\hat{A})}\]</div>
 <p>④无穷范数:</p>
 <div class="arithmatex">\[\left\|\hat{A}\right\|_{\infty} = \lim_{p \to +\infty} \left\|\hat{A}\right\|_{p} = \lim_{p \to +\infty} \left(\sum_{j} s_{j}^{p}\right)^{1/p} = \max\{s_{j}\}\]</div>
 <p>在量子信息中,无穷范数使用较多,因此省去下标记为 <span class="arithmatex">\(|\hat{A}|\)</span> ,也称为"算符范数"(Operator Norm)。</p>
 <p>(3) 对于厄米算符,有</p>
-<div class="arithmatex">\[s_j = \left| \lambda_j \right|\]</div>
-<p>,故 <span class="arithmatex">\(\left\| \hat{A} \right\| = \max(\left| \lambda_j \right|)\)</span> ,  <span class="arithmatex">\(\left\| \hat{A} \right\|_2 = \sqrt{\sum_j \lambda_j^2}\)</span> 。</p>
+<div class="arithmatex">\[
+s_j = \left| \lambda_j \right| .
+\]</div>
+<p>因此</p>
+<div class="arithmatex">\[
+\left\| \hat{A} \right\| = \max_j\left| \lambda_j \right|,
+\qquad
+\left\| \hat{A} \right\|_2 = \sqrt{\sum_j \lambda_j^2}.
+\]</div>
 <p><strong>3、算符误差</strong></p>
 <ul>
 <li>(1) 定义:  <span class="arithmatex">\(E(\hat{U},\hat{V}) = \max_{|\psi\rangle} \left\| (\hat{U} - \hat{V}) |\psi\rangle \right\|\)</span> , 其中 <span class="arithmatex">\(\hat{U},\hat{V}\)</span> 是幺正算符。</li>
@@ -928,9 +1022,14 @@ $<span class="arithmatex">\(\|\hat{A}\|_{1} = \sum_{j} s_{j} = \operatorname{tr}
 </ul>
 <div class="arithmatex">\[(1) E(\hat{U}_{m} \hat{U}_{m-1} ... \hat{U}_{1}, \hat{V}_{m} \hat{V}_{m-1} ... \hat{V}_{1}) \leq \sum_{j=1}^{m} E(\hat{U}_{j}, \hat{V}_{j}) _{\circ}\]</div>
 <p>②对于幺正算符 <span class="arithmatex">\(\hat{U},\hat{V},\hat{W_1},\hat{W_2}\)</span> ,有 <span class="arithmatex">\(E(\hat{W_1}\hat{U}\hat{W_2},\hat{W_1}\hat{V}\hat{W_2}) = E(\hat{U},\hat{V})\)</span> 。</p>
-<p>③ 
-$<span class="arithmatex">\(E[\hat{R}_{\hat{n}}(\alpha), \hat{R}_{\hat{n}}(\alpha + \beta)] = \left|1 - \exp\left(\frac{i\beta}{2}\right)\right| = 2\left|\sin\frac{\beta}{4}\right|\)</span>$</p>
-<p>。(可用上一条性质证明)</p>
+<p>③ 可用上一条性质证明:</p>
+<div class="arithmatex">\[
+E[\hat{R}_{\hat{n}}(\alpha),\hat{R}_{\hat{n}}(\alpha+\beta)]
+=
+\left|1-\exp\left(\frac{i\beta}{2}\right)\right|
+=
+2\left|\sin\frac{\beta}{4}\right|.
+\]</div>
 <p>④测量误差: 记 <span class="arithmatex">\(P_U = \langle \psi | \hat{U}^+ \hat{M} \hat{U} | \psi \rangle\)</span> ,  <span class="arithmatex">\(P_V = \langle \psi | \hat{V}^+ \hat{M} \hat{V} | \psi \rangle\)</span> , 其中 <span class="arithmatex">\(\hat{M}\)</span>  为投影测量对应的效应算符,则常用估计为  <span class="arithmatex">\(|P_U - P_V| \leq 2E(\hat{U}, \hat{V})\)</span> 。</p>
 <p>这个界足以说明: 如果每个门的算符误差很小,最终测量概率的误差也可以被控制。</p>
 

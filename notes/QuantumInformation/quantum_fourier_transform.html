@@ -679,8 +679,14 @@
 <p><strong>4、QFT 线路</strong></p>
 <p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="images/_page_29_Figure_12.jpeg" data-desc-position="bottom"><img alt="" src="images/_page_29_Figure_12.jpeg"></a></p>
 <p>其中</p>
-<div class="arithmatex">\[\hat{R}_k = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; e^{2i\pi/2^k} \end{pmatrix}\]</div>
-<p>。 <span class="arithmatex">\(n\)</span> 个比特需要的逻辑门数量为 <span class="arithmatex">\(\frac{n(n+1)}{2} = \Theta(n^2)\)</span> 。此外,</p>
+<div class="arithmatex">\[
+\hat{R}_k =
+\begin{pmatrix}
+1 &amp; 0 \\
+0 &amp; e^{2i\pi/2^k}
+\end{pmatrix}.
+\]</div>
+<p><span class="arithmatex">\(n\)</span> 个比特需要的逻辑门数量为 <span class="arithmatex">\(\frac{n(n+1)}{2} = \Theta(n^2)\)</span> 。此外,</p>
 <p>可以看到上述线路最后输出的比特是顺序颠倒的,因此还需要用 SWAP 门将它们调整成正确的顺序(图中略去)。</p>
 <p>★逆变换: 数学上是对整个算符进行厄米共轭,物理上则是将上图所有量子门取 厄米共轭,再将顺序全部颠倒。</p>
 <ul>

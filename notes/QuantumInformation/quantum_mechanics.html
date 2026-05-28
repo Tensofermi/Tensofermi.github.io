@@ -1143,8 +1143,14 @@
 <p>17、算符函数</p>
 <p>在物理中,常常会需要将算符放在指数、分母等位置。在这些情况下,需要 定义算符的函数。</p>
 <p>(1) 最严格的定义: 泰勒级数。例如:</p>
-<div class="arithmatex">\[e^{\hat{A}} = \sum_{n=0}^{\infty} \frac{\hat{A}^n}{n!}\]</div>
-<p>,  <span class="arithmatex">\(\sin \hat{A} = \sum_{n=0}^{\infty} (-1)^{n+1} \frac{\hat{A}^{2n+1}}{(2n+1)!}\)</span> ,...</p>
+<div class="arithmatex">\[
+e^{\hat{A}} = \sum_{n=0}^{\infty} \frac{\hat{A}^n}{n!},
+\qquad
+\sin \hat{A} =
+\sum_{n=0}^{\infty} (-1)^{n+1}
+\frac{\hat{A}^{2n+1}}{(2n+1)!},
+\ldots
+\]</div>
 <p>该级数是否收敛,取决于算符介本征值的范围。</p>
 <p>(2) 对于对角矩阵, 其幂次可以直接作用在对角元上, 因此对这类矩阵总是有</p>
 <div class="arithmatex">\[\hat{A} = \text{diag}(A_{11},...,A_{nn}) \Rightarrow f(\hat{A}) = \text{diag}(f(A_{11}),...,f(A_{nn}))\]</div>
@@ -1189,8 +1195,13 @@
 <li>(2) 在量子力学的一般理论中,为了更好地普适化、抽象化,往往不指明测量 什么物理量,只是根据算符的性质将它们定义成一组测量,称为一般测量。</li>
 <li>(3) 在二进制计算中,最基本的测量算符是 <span class="arithmatex">\(\hat{M}_0 = |0\rangle\langle 0|\)</span>  和 <span class="arithmatex">\(\hat{M}_1 = |1\rangle\langle 1|\)</span> 。对于这种测量算符,有</li>
 </ul>
-<div class="arithmatex">\[p_0 = \langle \psi | 0 \rangle \langle 0 | \psi \rangle = |\langle 0 | \psi \rangle|^2\]</div>
-<p>,  <span class="arithmatex">\(p_1 = \langle \psi | 1 \rangle \langle 1 | \psi \rangle = |\langle 1 | \psi \rangle|^2\)</span> </p>
+<div class="arithmatex">\[
+p_0 = \langle \psi | 0 \rangle \langle 0 | \psi \rangle
+= |\langle 0 | \psi \rangle|^2,
+\qquad
+p_1 = \langle \psi | 1 \rangle \langle 1 | \psi \rangle
+= |\langle 1 | \psi \rangle|^2 .
+\]</div>
 <p>这就是量子力学中所说,"叠加态取得某个本征态的概率等于组合系数的模平方"。</p>
 <ul>
 <li>4、投影测量(Projective Measurement)</li>
@@ -1238,8 +1249,11 @@
 <li>(3) 熵的不确定关系: Maassen-Uffink 不等式</li>
 </ul>
 <p>设算符 <span class="arithmatex">\(\hat{A}\)</span> 的本征基矢为 <span class="arithmatex">\(|j\rangle\)</span> ,算符 <span class="arithmatex">\(\hat{B}\)</span> 的本征基矢为 <span class="arithmatex">\(|k\rangle\)</span> ,则 Shannon 熵满足</p>
-<div class="arithmatex">\[H(\hat{A}) + H(\hat{B}) \ge -\log c\]</div>
-<p>,  <span class="arithmatex">\(c = \max_{j,k} \left| \langle j | k \rangle \right|^2\)</span> </p>
+<div class="arithmatex">\[
+H(\hat{A}) + H(\hat{B}) \ge -\log c,
+\qquad
+c = \max_{j,k} \left| \langle j | k \rangle \right|^2 .
+\]</div>
 <ul>
 <li>8、量子纠缠:有些复合系统的状态不能表示成子系统状态的直积,这种状态称为纠缠态(Entangled State)。在纠缠态下,两个系统的测量结果可以表现出不能由独立局域状态解释的强关联。测量其中一个系统后,另一个系统的条件状态会随测量结果更新,但这不能用来超光速传递可控信息。</li>
 <li>(1) 判断是否为纠缠态的方法: 以两系统的复合为例。</li>
@@ -1258,7 +1272,7 @@
 </ul>
 <p>取得</p>
 <div class="arithmatex">\[|\psi_2\rangle = \frac{|0\rangle + |1\rangle}{\sqrt{2}}\]</div>
-<p>,这并不意味着系统的状态是归一化的 <span class="arithmatex">\(\frac{|\psi_1\rangle + |\psi_2\rangle}{\sqrt{2}}\)</span> ,否则密度</p>
+<p>这并不意味着系统的状态是归一化的 <span class="arithmatex">\(\frac{|\psi_1\rangle + |\psi_2\rangle}{\sqrt{2}}\)</span> ,否则密度</p>
 <p>矩阵中将出现干涉的 <span class="arithmatex">\(|\psi_1\rangle\langle\psi_2|\)</span> 项。</p>
 <h3 id="2">2、密度矩阵的定义<a class="headerlink" href="#2" title="Permanent link">¶</a></h3>
 <ul>
@@ -1296,9 +1310,14 @@ e^{i\phi}|\psi\rangle\langle\psi|e^{-i\phi}
 <h3 id="4bloch">4、Bloch 矢量及其密度矩阵<a class="headerlink" href="#4bloch" title="Permanent link">¶</a></h3>
 <p>(1) 二维复空间的任意矢量有 4 个自由度; 作为态矢,整体相位不起作用,因此相当于至多只有 3 个自由度(可以将其中一个坐标的相位设定为 0)。对于纯</p>
 <p>态,归一化条件使得只有两个自由度,从而可以写成</p>
-<div class="arithmatex">\[|\psi(\vec{r})\rangle = \begin{pmatrix} \cos\frac{\theta}{2} \\ \sin\frac{\theta}{2}e^{\mathrm{i}\varphi} \end{pmatrix}\]</div>
-<p>。该态矢</p>
-<p>与三维矢量 <span class="arithmatex">\(\vec{r} = (\sin\theta\cos\varphi, \sin\theta\sin\varphi, \cos\theta)\)</span>  ——对应,因此可将该态矢看成单位球面上的点;对于混合态,其模长小于 1(因为缺少干涉),对应的是单位球体内的点 <span class="arithmatex">\(\vec{r} = (r\sin\theta\cos\varphi, r\sin\theta\sin\varphi, r\cos\theta)\)</span> ,其中 r &lt; 1。这个球被称为 Bloch 球。</p>
+<div class="arithmatex">\[
+|\psi(\vec{r})\rangle =
+\begin{pmatrix}
+\cos\frac{\theta}{2} \\
+\sin\frac{\theta}{2}e^{\mathrm{i}\varphi}
+\end{pmatrix}.
+\]</div>
+<p>该态矢与三维矢量 <span class="arithmatex">\(\vec{r} = (\sin\theta\cos\varphi, \sin\theta\sin\varphi, \cos\theta)\)</span> 一一对应,因此可将该态矢看成单位球面上的点;对于混合态,其模长小于 1(因为缺少干涉),对应的是单位球体内的点 <span class="arithmatex">\(\vec{r} = (r\sin\theta\cos\varphi, r\sin\theta\sin\varphi, r\cos\theta)\)</span> ,其中 r &lt; 1。这个球被称为 Bloch 球。</p>
 <p>(2) Bloch 矢量的密度矩阵:</p>
 <div class="arithmatex">\[\hat{\rho}(\vec{r}) = \frac{\hat{I} + \vec{r} \cdot \hat{\sigma}}{2} = \frac{\hat{I} + x\hat{\sigma}_x + y\hat{\sigma}_y + z\hat{\sigma}_z}{2}\]</div>
 <p>其中(x,y,z)就是 Bloch 矢量的直角坐标。容易看到,纬度角 <span class="arithmatex">\(\theta\)</span> 反映了系统偏向 0 还是 1,而经度角 <span class="arithmatex">\(\phi\)</span> 则反映了二者之间的相对相位。这种表示非常成功地将二维 复矢量表示成了三维实矢量,从群论角度说就是实现了 SU(2)和 SO(3)的同态。</p>
@@ -1355,13 +1374,21 @@ e^{i\phi}|\psi\rangle\langle\psi|e^{-i\phi}
 <p>这里 <span class="arithmatex">\(\hat{A}\)</span> 是一个矩阵,其行序号代表第一个系统的状态,列序号代表第二个系统的状态。将矩阵 <span class="arithmatex">\(\hat{A}\)</span> 进行 SVD 分解,可得:</p>
 <div class="arithmatex">\[\hat{A} = \hat{U}\hat{D}\hat{V} \Longrightarrow \left|\psi\right\rangle = \sum_{iik} U_{ji} D_{ii} V_{ik} \left|j\right\rangle \left|k\right\rangle\]</div>
 <p>取奇异值 <span class="arithmatex">\(D_{ii} = s_i\)</span> ,则</p>
-<div class="arithmatex">\[|\psi\rangle = \sum_{i} s_{i} |i_{A}\rangle |i_{B}\rangle\]</div>
-<p>,  <span class="arithmatex">\(|i_{A}\rangle = \sum_{j} U_{ji} |j\rangle\)</span> ,  <span class="arithmatex">\(|i_{B}\rangle = \sum_{j} V_{ik} |k\rangle\)</span> </p>
+<div class="arithmatex">\[
+|\psi\rangle = \sum_{i} s_{i} |i_{A}\rangle |i_{B}\rangle,
+\qquad
+|i_{A}\rangle = \sum_{j} U_{ji} |j\rangle,
+\qquad
+|i_{B}\rangle = \sum_{k} V_{ik} |k\rangle .
+\]</div>
 <p>(3) 在 Schmidt 分解下,很容易写出系统的约化密度矩阵:</p>
 <div class="arithmatex">\[\hat{\rho}_A = \sum_i s_i^2 |i_A\rangle\langle i_A|, \ \hat{\rho}_B = \sum_i s_i^2 |i_B\rangle\langle i_B|\]</div>
-<p>(4) 纠缠熵: 
-$<span class="arithmatex">\(E(|\psi\rangle) = -\sum_{i} s_i^2 \log_2 s_i^2\)</span>$</p>
-<p>。</p>
+<p>(4) 纠缠熵:</p>
+<div class="arithmatex">\[
+E(|\psi\rangle)
+=
+-\sum_{i}s_i^2\log_2 s_i^2.
+\]</div>
 <p>Schmidt 分解给出了理解纠缠的最直接方式。若只有一个非零 Schmidt 系数,状态就是直积态;若有多个非零 Schmidt 系数,两个子系统之间存在纠缠。数值 <span class="arithmatex">\(\{s_i^2\}\)</span> 同时也是约化密度矩阵的本征值,因此常被称为纠缠谱。纠缠熵衡量的就是这组本征值分布有多“分散”:越集中,纠缠越弱;越平均,纠缠越强。</p>
 <p>在 DMRG 和张量网络中,这组 Schmidt 系数也非常关键。若某个一维量子态在任意切分处只有少数较大的 Schmidt 系数,就可以截断小系数,用较低维的张量网络近似表示原态。这是张量网络在许多低维基态问题中有效的核心原因之一。不过在本笔记中,DMRG 和张量网络只作为这个思想的应用背景,不展开为数值算法主线。</p>
 <div class="admonition note">

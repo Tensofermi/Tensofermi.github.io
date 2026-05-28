@@ -819,8 +819,11 @@
 <li>1、密码的本质就是将原始的信息通过某种法则(协议, Protocol)对应成看起来 混乱的代码,从而对原始信息起到保护的作用。为此,对应法则一般是比较复杂、 不容易破译的。</li>
 <li>2、凯撒密码(Caeser Cypher):对一串代码进行轮换处理。</li>
 </ul>
-<div class="arithmatex">\[i \rightarrow i + j \mod k\]</div>
-<p>,  <span class="arithmatex">\(i = 0,1,2,...,k-1\)</span> </p>
+<div class="arithmatex">\[
+i \rightarrow i + j \pmod{k},
+\qquad
+i = 0,1,2,\ldots,k-1.
+\]</div>
 <p>例如,对于 26 个字母,可以规定  <span class="arithmatex">\(A \rightarrow B\)</span> ,  <span class="arithmatex">\(B \rightarrow C\)</span> ,...,  <span class="arithmatex">\(Z \rightarrow A\)</span> , 本质上就是 将它们进行重新排列。这种密码在古时难以破译, 但现在非常容易。</p>
 <ul>
 <li>3、Vernam 密码: 随机密钥。</li>

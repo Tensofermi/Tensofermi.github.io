@@ -704,8 +704,16 @@
 <p>可以认为这个结果是对环境不同不可见结果求和后的有效描述。交叉项在对环境求偏迹后不再出现在系统的约化态中,所以系统可能从纯态变成混合态。注意,“可能变混合”不是“必然变混合”: 如果只有一个 Kraus 算符且演化等价于系统上的幺正门,纯态仍会保持纯态。由于这个密度算符是一系列算符的和,所以称为算符和表示(Operator-sum Representation)。</p>
 <p>从信息论角度看,Kraus 表示把“系统与环境整体仍按幺正规律演化”与“我们只能看见系统”这两件事连接起来。环境的不同不可见结果对应不同 Kraus 算符;把这些结果求和,就得到系统上的信道。第八章讨论量子纠错时,所谓“错误”并不只是某一个确定门,而是这类信道作用后的有效偏离。</p>
 <p><strong>2、量子操作的性质</strong></p>
-<p>(1) 完备性: 
-$<span class="arithmatex">\(\sum_{k} \hat{E}_{k}^{+} \hat{E}_{k} = \sum_{k} \langle e_{0} | \hat{U} | e_{k} \rangle \langle e_{k} | \hat{U} | e_{0} \rangle = \hat{I}\)</span>$</p>
+<p>(1) 完备性:</p>
+<div class="arithmatex">\[
+\sum_{k}\hat{E}_{k}^{+}\hat{E}_{k}
+=
+\sum_{k}
+\langle e_{0}|\hat{U}|e_{k}\rangle
+\langle e_{k}|\hat{U}|e_{0}\rangle
+=
+\hat{I}.
+\]</div>
 <p>(2) 保迹性(Trace-preserving, TP):</p>
 <div class="arithmatex">\[\operatorname{tr}[\varepsilon(\hat{\rho})] = \operatorname{tr}\left(\sum_{k} \hat{E}_{k} \hat{\rho} \hat{E}_{k}^{+}\right) = \operatorname{tr}\left(\hat{\rho} \sum_{k} \hat{E}_{k}^{+} \hat{E}_{k}\right) = \operatorname{tr}\hat{\rho}\]</div>
 <p>(3) 凸线性(Convex Linear): 对任意  <span class="arithmatex">\(0 \le p_1, p_2 \le 1\)</span> 且 <span class="arithmatex">\(p_1+p_2=1\)</span> ,有</p>
@@ -724,10 +732,32 @@ $<span class="arithmatex">\(\sum_{k} \hat{E}_{k}^{+} \hat{E}_{k} = \sum_{k} \lan
 <p>两种写法是一样的,可以认为是对行号、列号的交换,也可以认为是行列号 不动、对元素的值进行交换(萝卜的移动/坑的移动)。</p>
 <p>不难看出,算符 <span class="arithmatex">\(\hat{M}\)</span> 与 <span class="arithmatex">\(\hat{M}\)</span> T的正定性一致、本征值一致、奇异值一致。</p>
 <p>(2) 部分转置:对于直积形成的矩阵,将直积的一方进行转置。</p>
-<p>也可以这样写: 
-$<span class="arithmatex">\(\hat{M} = \hat{M}_A \otimes \hat{M}_B \Rightarrow \begin{cases} \hat{M}^{T_A} = \sum_{jk} M_{kj,il} |ij\rangle\langle kl| = \sum_{jk} M_{ij,kl} |kj\rangle\langle il| \\ \hat{M}^{T_B} = \sum_{jk} M_{il,kj} |ij\rangle\langle kl| = \sum_{jk} M_{ij,kl} |il\rangle\langle kj| \end{cases}\)</span>$</p>
-<p>也可以这样写: 
-$<span class="arithmatex">\(\hat{M} = \hat{M}_A \otimes \hat{M}_B \Rightarrow \begin{cases} \hat{M}^{T_A} = \hat{M}_A^T \otimes \hat{M}_B \\ \hat{M}^{T_B} = \hat{M}_A \otimes \hat{M}_B^T \end{cases}\)</span>$</p>
+<p>也可以这样写:</p>
+<div class="arithmatex">\[
+\hat{M}=\hat{M}_A\otimes\hat{M}_B
+\Rightarrow
+\begin{cases}
+\hat{M}^{T_A}
+=
+\sum_{jk} M_{kj,il}|ij\rangle\langle kl|
+=
+\sum_{jk} M_{ij,kl}|kj\rangle\langle il|, \\
+\hat{M}^{T_B}
+=
+\sum_{jk} M_{il,kj}|ij\rangle\langle kl|
+=
+\sum_{jk} M_{ij,kl}|il\rangle\langle kj|.
+\end{cases}
+\]</div>
+<p>也可以这样写:</p>
+<div class="arithmatex">\[
+\hat{M}=\hat{M}_A\otimes\hat{M}_B
+\Rightarrow
+\begin{cases}
+\hat{M}^{T_A}=\hat{M}_A^T\otimes\hat{M}_B, \\
+\hat{M}^{T_B}=\hat{M}_A\otimes\hat{M}_B^T.
+\end{cases}
+\]</div>
 <p>正如前面所说,部分转置可以看成是对其中一个子系统的量子操作。它不同 干对整个大矩阵的转置:</p>
 <div class="arithmatex">\[\hat{M}^{\mathrm{T}} = \sum_{jk} M_{kl,ij} |ij\rangle\langle kl| = \sum_{jk} M_{ij,kl} |kl\rangle\langle ij| = \hat{M}_{A}^{\mathrm{T}} \otimes \hat{M}_{B}^{\mathrm{T}}\]</div>
 <p>此外,从这些式子中容易看出:  <span class="arithmatex">\(\hat{M}^{T_B} = (\hat{M}^{T_A})^T\)</span> 。</p>
