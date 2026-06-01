@@ -148,6 +148,48 @@
     
     
     
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
     
   </nav>
   
@@ -408,6 +450,8 @@
       
         
       
+        
+      
     
     
     
@@ -463,6 +507,34 @@
     
   
     相变理论概览
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rg-fss/correlation_paradigm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关联函数范式
   
 
     
@@ -640,6 +712,8 @@
       
         
       
+        
+      
     
     
     
@@ -679,6 +753,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="metropolis.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metropolis 更新
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -907,10 +1009,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#lattice-bond" class="md-nav__link">
+  <a href="#bond" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Lattice 和 bond 的存储
+        格点与 bond 的索引
       
     </span>
   </a>
@@ -918,7 +1020,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#bond" class="md-nav__link">
+  <a href="#bond_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Bond 构型的合法性
@@ -987,7 +1089,7 @@
   <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
       
-        实现检查清单
+        文献中的几条推广线
       
     </span>
   </a>
@@ -996,6 +1098,17 @@
       
         <li class="md-nav__item">
   <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        正确性检查清单
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
     <span class="md-ellipsis">
       
         小结
@@ -1702,10 +1815,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#lattice-bond" class="md-nav__link">
+  <a href="#bond" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Lattice 和 bond 的存储
+        格点与 bond 的索引
       
     </span>
   </a>
@@ -1713,7 +1826,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#bond" class="md-nav__link">
+  <a href="#bond_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Bond 构型的合法性
@@ -1782,7 +1895,7 @@
   <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
       
-        实现检查清单
+        文献中的几条推广线
       
     </span>
   </a>
@@ -1791,6 +1904,17 @@
       
         <li class="md-nav__item">
   <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        正确性检查清单
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
     <span class="md-ellipsis">
       
         小结
@@ -1849,7 +1973,7 @@
 </tr>
 </tbody>
 </table>
-<p>本页以 Ising 模型的 loop representation 为主线，参考 <a href="https://github.com/Tensofermi/HD_Ising_IrrWorm">Tensofermi/HD_Ising_IrrWorm</a> 的实现来说明。该仓库 README 说明它用于模拟 loop representation 中的高维 Ising 模型，C++ 版本主要实现构型更新，完整测量版本在 <code>old_version/</code> 中。</p>
+<p>以下以 Ising 模型的 loop representation 为主线，说明 ordinary worm、irregular worm、lifted worm 与 loop-cluster 表象之间的关系。</p>
 <h2 id="ising-loop">从 Ising 到 loop 表象<a class="headerlink" href="#ising-loop" title="Permanent link">¶</a></h2>
 <p>考虑无外场 ferromagnetic Ising 模型。先把后面会用到的图论符号固定下来：</p>
 <table>
@@ -1886,7 +2010,7 @@
 </tr>
 </tbody>
 </table>
-<p>这里的 <span class="arithmatex">\(A\)</span> 只表示“当前被占据的边集合”。程序里常把它存成一个 <code>Bond</code> 数组，<code>Bond[e]=1</code> 表示边 <span class="arithmatex">\(e\in A\)</span>，<code>Bond[e]=0</code> 表示边 <span class="arithmatex">\(e\notin A\)</span>。</p>
+<p>这里的 <span class="arithmatex">\(A\)</span> 只表示“当前被占据的边集合”。在算法状态中，可以把每条边记录为占据或未占据，分别对应 <span class="arithmatex">\(e\in A\)</span> 与 <span class="arithmatex">\(e\notin A\)</span>。</p>
 <p>模型配分函数为：</p>
 <div class="arithmatex">\[
 Z
@@ -2025,7 +2149,7 @@ while true:
     if Ira == Masha:
         break
 </code></pre></div>
-<p>这正对应参考代码中 <code>Worm()</code> 的结构：<code>P_w = tanh(Beta)</code>，未占据 bond 添加时以 <code>P_w</code> 接受，已占据 bond 删除时直接接受。</p>
+<p>这就是 ordinary worm 的最小结构：未占据 bond 添加时以 <span class="arithmatex">\(x=\tanh K\)</span> 接受，已占据 bond 删除时直接接受。</p>
 <h2 id="_2">为什么接受率是这样<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <p>loop 表象中构型权重为：</p>
 <div class="arithmatex">\[
@@ -2088,21 +2212,21 @@ P_{\rm add}=x=\tanh K.
 <p>当 <span class="arithmatex">\(j=m\)</span> 时，两个奇点相遇并消失，构型回到所有顶点偶度的 <span class="arithmatex">\(\mathcal Z\)</span> 空间。</p>
 <h2 id="_4">配分函数空间更新和格林函数空间更新<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
 <p>这里比较 <span class="arithmatex">\(\mathcal Z\)</span> 更新和 <span class="arithmatex">\(\mathcal G\)</span> 更新。</p>
-<p>参考代码中有两种组织方式：</p>
+<p>worm 更新有两种常见组织方式：</p>
 <table>
 <thead>
 <tr>
-<th>函数</th>
+<th>方式</th>
 <th>行为</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>Worm()</code></td>
+<td>完整 worm</td>
 <td>从 <span class="arithmatex">\(\mathcal Z\)</span> 出发，运行到端点相遇，再回到 <span class="arithmatex">\(\mathcal Z\)</span></td>
 </tr>
 <tr>
-<td><code>Worm_G()</code></td>
+<td>扩展空间单步更新</td>
 <td>在扩展空间中走一步，若端点相遇则重新随机创建端点</td>
 </tr>
 </tbody>
@@ -2133,7 +2257,7 @@ P_{\rm add}=x=\tanh K.
 <p>这也是 worm 算法非常适合测量 Green 函数或关联函数的原因。世界线 QMC 中的 worm 端点通常直接对应产生 / 湮灭算符插入；Ising loop 表象中则对应两个奇度缺陷。</p>
 <h2 id="irregular-lifted-worm">Irregular / lifted worm<a class="headerlink" href="#irregular-lifted-worm" title="Permanent link">¶</a></h2>
 <p>普通 worm 每一步随机选近邻方向，然后根据该边是否占据决定添加或删除。它的随机游走会频繁回头，尤其在高维或临界附近可能效率不够。</p>
-<p><a href="https://github.com/Tensofermi/HD_Ising_IrrWorm">HD_Ising_IrrWorm</a> 的核心是 irregular / lifted worm。它在普通 worm 的基础上引入一个额外变量：</p>
+<p>irregular / lifted worm 在普通 worm 的基础上引入一个额外变量：</p>
 <div class="arithmatex">\[
 \lambda=\pm1.
 \]</div>
@@ -2167,21 +2291,21 @@ n_i
 <div class="arithmatex">\[
 n_i.
 \]</div>
-<p>这对应参考实现中的两个函数：</p>
+<p>对应的两个基本动作是：</p>
 <table>
 <thead>
 <tr>
-<th>函数</th>
 <th>动作</th>
+<th>含义</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>increase_bond()</code></td>
+<td>添加 bond</td>
 <td>从未占据 incident bond 中抽一条，尝试添加</td>
 </tr>
 <tr>
-<td><code>decrease_bond()</code></td>
+<td>删除 bond</td>
 <td>从已占据 incident bond 中抽一条，尝试删除</td>
 </tr>
 </tbody>
@@ -2211,13 +2335,10 @@ P_{\rm dec}
 \quad\text{或}\quad
 \min(1,P_{\rm dec}).
 \]</div>
-<p>参考 C++ 代码里直接比较：</p>
-<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rn</span><span class="p">.</span><span class="n">getRandomDouble</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">AccProb</span><span class="p">)</span>
-</code></pre></div>
-<p>当 <code>AccProb &gt; 1</code> 时自然总是接受。</p>
+<p>实际接受概率使用 <span class="arithmatex">\(\min(1,P)\)</span>。当未截断的 <span class="arithmatex">\(P&gt;1\)</span> 时，该 proposal 总是被接受。</p>
 <p>这些因子的来源是 proposal 选择数的修正。例如添加前从 <span class="arithmatex">\(q-n_i\)</span> 条空边中选一条；添加后，反向删除时邻居 <span class="arithmatex">\(j\)</span> 上相应占据边数量变成 <span class="arithmatex">\(n_j+1\)</span>。因此 detailed/global balance 的权重比不只是 <span class="arithmatex">\(x\)</span>，还要乘上 proposal 比。</p>
 <h2 id="_7">端点重合时的修正<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
-<p>当 <code>Ira == Masha</code> 时，worm 位于 <span class="arithmatex">\(\mathcal Z\)</span> 空间的入口 / 出口。此时两个端点重合，选择活动端点和反向过程有额外对称性。参考代码中接受率包含两端选择贡献的和。</p>
+<p>当 <span class="arithmatex">\(\mathrm{Ira}=\mathrm{Masha}\)</span> 时，worm 位于 <span class="arithmatex">\(\mathcal Z\)</span> 空间的入口 / 出口。此时两个端点重合，选择活动端点和反向过程有额外对称性，接受率需要包含两端选择贡献的和。</p>
 <p>添加时：</p>
 <div class="arithmatex">\[
 P_a
@@ -2296,51 +2417,48 @@ while true:
     if Ira == Masha:
         break
 </code></pre></div>
-<p>其中 <code>degree(Ira)</code> 对应代码中的：</p>
-<div class="highlight"><pre><span></span><code><span class="n">get_vertex_degree</span><span class="p">(</span><span class="n">Ira</span><span class="p">)</span>
-</code></pre></div>
-<p>它逐个检查 <code>Ira</code> 的 <span class="arithmatex">\(2d\)</span> 个 incident bond，统计 <code>Bond[nn_bond] == 1</code> 的数量。</p>
-<h2 id="lattice-bond">Lattice 和 bond 的存储<a class="headerlink" href="#lattice-bond" title="Permanent link">¶</a></h2>
-<p>参考 C++ 实现使用 hypercubic lattice。关键对象是：</p>
+<p>其中 <span class="arithmatex">\(\mathrm{degree}(\mathrm{Ira})\)</span> 表示活动端点相邻的 <span class="arithmatex">\(2d\)</span> 条边中已有占据的条数。</p>
+<h2 id="bond">格点与 bond 的索引<a class="headerlink" href="#bond" title="Permanent link">¶</a></h2>
+<p>在 hypercubic lattice 上，worm 更新需要能从格点索引稳定地找到相邻格点和相邻 bond。关键量包括：</p>
 <table>
 <thead>
 <tr>
-<th>对象</th>
+<th>量</th>
 <th>含义</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>Dim</code></td>
-<td>空间维度 <span class="arithmatex">\(d\)</span></td>
+<td><span class="arithmatex">\(d\)</span></td>
+<td>空间维度</td>
 </tr>
 <tr>
-<td><code>L</code></td>
+<td><span class="arithmatex">\(L\)</span></td>
 <td>每个方向线性尺寸</td>
 </tr>
 <tr>
-<td><code>Vol</code></td>
-<td>体积 <span class="arithmatex">\(L^d\)</span></td>
+<td><span class="arithmatex">\(L^d\)</span></td>
+<td>系统体积</td>
 </tr>
 <tr>
-<td><code>NNb</code></td>
-<td>近邻方向数 <span class="arithmatex">\(2d\)</span></td>
+<td><span class="arithmatex">\(2d\)</span></td>
+<td>每个格点的近邻方向数</td>
 </tr>
 <tr>
-<td><code>Bond</code></td>
-<td>bond 占据数组</td>
+<td>bond 占据变量</td>
+<td>记录每条无向边是否属于当前图构型</td>
 </tr>
 <tr>
-<td><code>Ira, Masha</code></td>
+<td><span class="arithmatex">\(\mathrm{Ira},\mathrm{Masha}\)</span></td>
 <td>worm 两个端点</td>
 </tr>
 <tr>
-<td><code>lambda</code></td>
-<td>lifted 方向变量</td>
+<td><span class="arithmatex">\(\lambda\)</span></td>
+<td>lifted 或 irregular 更新中的方向变量</td>
 </tr>
 <tr>
-<td><code>P_w</code></td>
-<td><span class="arithmatex">\(x=\tanh K\)</span></td>
+<td><span class="arithmatex">\(x\)</span></td>
+<td><span class="arithmatex">\(\tanh K\)</span></td>
 </tr>
 </tbody>
 </table>
@@ -2348,12 +2466,9 @@ while true:
 <div class="arithmatex">\[
 |E|=dL^d.
 \]</div>
-<p>所以代码中：</p>
-<div class="highlight"><pre><span></span><code><span class="n">Bond</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">Dim</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Vol</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
-</code></pre></div>
-<p>只存每条无向边一次。虽然近邻方向有 <span class="arithmatex">\(2d\)</span> 个，但正方向和负方向指向同一条无向 bond。<code>getNNBond(site, dir)</code> 的作用就是把任意方向的相邻关系映射到唯一 bond index。</p>
+<p>因此只需要存每条无向边一次。虽然近邻方向有 <span class="arithmatex">\(2d\)</span> 个，但正方向和负方向指向同一条无向 bond。bond 索引的作用就是把任意方向的相邻关系映射到唯一的无向边。</p>
 <p>这点很重要：worm head 移动时可以沿正向或负向走，但切换的是同一条物理 bond。</p>
-<h2 id="bond">Bond 构型的合法性<a class="headerlink" href="#bond" title="Permanent link">¶</a></h2>
+<h2 id="bond_1">Bond 构型的合法性<a class="headerlink" href="#bond_1" title="Permanent link">¶</a></h2>
 <p>在 <span class="arithmatex">\(\mathcal Z\)</span> 空间中，每个顶点必须偶度：</p>
 <div class="arithmatex">\[
 n_i\equiv0\pmod2.
@@ -2366,9 +2481,9 @@ else:
     Ira 和 Masha 为奇数 degree
     其他顶点为偶数 degree
 </code></pre></div>
-<p>参考代码中的 <code>Loop_Cluster()</code> 在回溯后也会检查每个顶点度数是否为偶数。对 worm 更新来说，也应该做类似检查，尤其是在调试 <code>getNNBond</code>、周期边界和接受率时。</p>
+<p>loop-cluster 更新在回溯得到闭合路径后，也需要检查每个顶点度数是否为偶数。worm 更新同样应检查 bond 索引、周期边界和接受率是否共同保持正确的奇偶约束。</p>
 <h2 id="loop-cluster-worm">Loop-cluster 和 worm 的关系<a class="headerlink" href="#loop-cluster-worm" title="Permanent link">¶</a></h2>
-<p>参考实现中还有 <code>Loop_Cluster()</code>，它和 worm 不同，但使用同一个 bond 构型语言。</p>
+<p>loop-cluster 更新和 worm 不同，但可以使用同一个 bond 构型语言。</p>
 <p>它的流程大致是：</p>
 <ol>
 <li>对所有空 bond，以概率 <span class="arithmatex">\(x=\tanh K\)</span> 激活。</li>
@@ -2420,7 +2535,7 @@ n_e=
 0, &amp; e\notin A.
 \end{cases}
 \]</div>
-<p>这里 <span class="arithmatex">\(n_e\)</span> 是边 <span class="arithmatex">\(e\)</span> 的占据变量。旧笔记或程序注释里有时会写成 <code>#A</code>，意思是“集合 <span class="arithmatex">\(A\)</span> 的元素个数”。为了和数学记号统一，本页统一写作 <span class="arithmatex">\(\lvert A\rvert\)</span>。</p>
+<p>这里 <span class="arithmatex">\(n_e\)</span> 是边 <span class="arithmatex">\(e\)</span> 的占据变量，因此 <span class="arithmatex">\(\lvert A\rvert\)</span> 就是 occupied bonds 的总数。</p>
 <p>常见测量对象包括：</p>
 <table>
 <thead>
@@ -2467,11 +2582,11 @@ n_e=
 <li><span class="arithmatex">\(C_1,C_2,S_2,S_4,R(s,L),n(s,L)\)</span> 通常在 worm 闭合、构型回到 <span class="arithmatex">\(\mathcal Z\)</span> 空间以后测量，因为这时所有顶点重新满足偶度约束。</li>
 <li>endpoint distance 属于 <span class="arithmatex">\(\mathcal G\)</span> 空间测量，关注两个端点分离时的统计分布。</li>
 </ul>
-<p>旧版 Fortran 程序中，<code>markov.f90</code> 会多次调用 <code>lift_worm</code>，累积：</p>
+<p>lifted worm 的测量通常会在多次 worm 运动后累积：</p>
 <ul>
-<li><code>Tworm</code>：worm return time；</li>
-<li><code>Nb</code> 和 <code>Nb^2</code>：bond 数及平方；</li>
-<li><code>Ux1, Ux2, Uxw</code>：worm 走动过程中的 unwrapped distance；</li>
+<li>worm return time；</li>
+<li>bond 数及平方；</li>
+<li>worm 走动过程中的 unwrapped distance；</li>
 <li>bond number 和 worm time 的 histogram。</li>
 </ul>
 <p>这说明 worm 算法不只是更新工具，也自然给出几何和关联长度相关的信息。尤其在高维 Ising 的 loop representation 中，worm 的空间扩散性质和 loop 几何量对有限尺寸标度很敏感。</p>
@@ -2481,9 +2596,9 @@ n_e=
 <blockquote>
 <p>临界涨落如何在高维周期盒子中延展？</p>
 </blockquote>
-<p>这也是 <code>HD_Ising_IrrWorm</code> 这类程序关注 loop 表象的原因：它把高维 Ising 的有限尺寸行为变成了可测量的几何对象。</p>
+<p>这也是高维 Ising 研究常使用 loop 表象的原因：它把有限尺寸行为变成了可测量的几何对象。</p>
 <h2 id="worm_2">和世界线 worm 的关系<a class="headerlink" href="#worm_2" title="Permanent link">¶</a></h2>
-<p>本站还有 <a href="../qworm/CTQW.html">连续时间 Worm</a> 和 <a href="../qworm/CSQW.html">连续空间 Worm</a>。它们和这里的 Ising loop worm 共享同一个框架：</p>
+<p><a href="../qworm/CTQW.html">连续时间 Worm</a> 和 <a href="../qworm/CSQW.html">连续空间 Worm</a> 与这里的 Ising loop worm 共享同一个框架：</p>
 <div class="highlight"><pre><span></span><code>Z space:
     物理构型，没有开放端点
 
@@ -2566,12 +2681,44 @@ worm update:
 </table>
 <p>一个实用判断是：</p>
 <ul>
-<li>如果模型有自然的 FK 表象，cluster 更新通常很直接。</li>
+<li>如果模型有自然的 FK 表象，cluster 更新通常最自然。</li>
 <li>如果模型有守恒流、loop、worldline 或需要测关联函数，worm 往往更自然。</li>
 <li>如果普通 worm 随机游走太慢，可以考虑 directed / lifted / irregular worm。</li>
 </ul>
-<h2 id="_10">实现检查清单<a class="headerlink" href="#_10" title="Permanent link">¶</a></h2>
-<p>写 worm 程序时，最容易错的地方通常在实现细节。建议按下面顺序检查：</p>
+<h2 id="_10">文献中的几条推广线<a class="headerlink" href="#_10" title="Permanent link">¶</a></h2>
+<p><code>PhysRevE.97.042126</code> 的 lifted worm 版本说明，worm 不一定要是可逆随机游走。可以在扩展空间里再引入一个 lifting 变量，让端点在一段时间内保留运动方向或更新模式，只有在特定事件后才改变该变量。这样做的目标不是改变目标分布，而是减少端点来回撤销同一段路径的概率。检查这类算法时，重点从 ordinary detailed balance 转成全局平衡或成对的 lifted balance：扩展变量求和以后，边缘分布仍必须是原来的 loop 权重。</p>
+<p><code>arXiv:2306.12218</code> 把 <span class="arithmatex">\(O(N)\)</span> 自旋模型写成一族图表示。其要点是：不同分量可以被组织成 directed flow 子图和 undirected loop 子图；在每个格点上，前者满足流守恒，后者满足 Euler 偶度条件。这样 Ising、XY、Heisenberg 以及更高 <span class="arithmatex">\(N\)</span> 的模型可以放在同一类 worm 更新语言下。worm 的“端点违反局域约束”不是 Ising loop 的特殊技巧，而是许多图表示中都能使用的通用更新思想。</p>
+<p><code>arXiv:1909.02719v2</code> 的 Loop-Cluster 思路则把 Potts 模型的 FK bond 变量和 <span class="arithmatex">\(q\)</span>-flow loop 变量耦合起来。它强调 SW cluster、loop 表象和 worm/loop 更新之间不是互斥关系：同一个 Potts 模型可以在 spin、FK bond、flow loop 这些表象之间转换，算法效率取决于哪个表象让约束和大尺度运动最容易处理。</p>
+<p>因此可以把 Potts 和 <span class="arithmatex">\(O(N)\)</span> 中的算法关系粗略整理成：</p>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>cluster 线索</th>
+<th>worm / loop 线索</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ising</td>
+<td>FK cluster、SW、Wolff</td>
+<td>high-temperature even graph、ordinary/lifted worm</td>
+</tr>
+<tr>
+<td>q-Potts</td>
+<td>FK random-cluster、SW</td>
+<td>q-flow loop、LC joint model</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(O(N)\)</span></td>
+<td>embedded Ising / Wolff reflection</td>
+<td>flow-loop 图表示、按局域守恒约束移动端点</td>
+</tr>
+</tbody>
+</table>
+<p>这张表不表示每个模型都有同样简单的接受率。它只说明设计算法时可以先问两个问题：是否有自然的 bond cluster 条件分布？是否有自然的 loop/flow 守恒约束？前者通常导向 SW/Wolff，后者通常导向 worm。</p>
+<h2 id="_11">正确性检查清单<a class="headerlink" href="#_11" title="Permanent link">¶</a></h2>
+<p>worm 更新最容易错的地方通常在局域约束和索引一致性。可以按下面顺序检查：</p>
 <ol>
 <li><code>Bond</code> 是否每条无向边只存一次。</li>
 <li><code>getNNSite</code> 和 <code>getNNBond</code> 在周期边界下是否一致。</li>
@@ -2584,7 +2731,7 @@ worm update:
 <li><code>Tworm</code>、<span class="arithmatex">\(N_b\)</span>、端点位移等观测量是否只在合适时机测量。</li>
 <li>小系统是否能和精确枚举或普通 worm 比较。</li>
 </ol>
-<h2 id="_11">小结<a class="headerlink" href="#_11" title="Permanent link">¶</a></h2>
+<h2 id="_12">小结<a class="headerlink" href="#_12" title="Permanent link">¶</a></h2>
 <p>蠕虫算法的关键在于它改变了更新空间：</p>
 <div class="arithmatex">\[
 \mathcal Z
@@ -2708,10 +2855,14 @@ worm update:
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../search/search_index.js"></script>
+      
+        <script src="../javascripts/file-search-fallback.js"></script>
       
         <script src="../javascripts/mathjax.js"></script>
       

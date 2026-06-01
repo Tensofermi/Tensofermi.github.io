@@ -148,6 +148,48 @@
     
     
     
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
     
   </nav>
   
@@ -376,6 +418,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#seed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        从 seed 到随机数
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -390,7 +443,7 @@
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        参考实现中的做法
+        传统自定义生成器的做法
       
     </span>
   </a>
@@ -628,6 +681,8 @@
       
         
       
+        
+      
     
     
     
@@ -683,6 +738,34 @@
     
   
     相变理论概览
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rg-fss/correlation_paradigm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关联函数范式
   
 
     
@@ -858,6 +941,8 @@
       
         
       
+        
+      
     
     
     
@@ -897,6 +982,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster/metropolis.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metropolis 更新
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -1521,6 +1634,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#seed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        从 seed 到随机数
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1535,7 +1659,7 @@
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        参考实现中的做法
+        传统自定义生成器的做法
       
     </span>
   </a>
@@ -1718,6 +1842,41 @@ u_i\sim {\rm Uniform}(0,1).
 <li>对统计估计来说，序列要足够像独立随机样本。</li>
 <li>对程序调试来说，序列又必须是确定可复现的。</li>
 </ul>
+<h2 id="seed">从 seed 到随机数<a class="headerlink" href="#seed" title="Permanent link">¶</a></h2>
+<p>程序里产生一个均匀随机数通常分成三步。</p>
+<p>第一步，用 seed 初始化 RNG 的内部状态。这个状态可能是一个整数，也可能是一组很长的数组。抽象地写就是</p>
+<div class="arithmatex">\[
+{\rm seed}
+\longrightarrow
+{\rm state}_0.
+\]</div>
+<p>同一个 seed 必须给出同一个初始状态，所以同一份代码、同一组参数和同一个 seed 可以复现同一条随机序列。</p>
+<p>第二步，用确定性递推更新内部状态：</p>
+<div class="arithmatex">\[
+{\rm state}_{n+1}=F({\rm state}_n).
+\]</div>
+<p>这里的 <span class="arithmatex">\(F\)</span> 由具体 RNG 决定。线性同余、Mersenne Twister、PCG、xoshiro、lagged XOR 等方法，本质上都是不同的状态更新函数。虽然递推完全确定，但若 <span class="arithmatex">\(F\)</span> 设计得好，输出序列在统计测试中会像独立随机数。</p>
+<p>第三步，从内部状态提取整数，再映射到区间 <span class="arithmatex">\([0,1)\)</span>。例如一个 32 位无符号整数 <span class="arithmatex">\(r_n\)</span> 满足</p>
+<div class="arithmatex">\[
+0\le r_n&lt;2^{32},
+\]</div>
+<p>就可以转换成</p>
+<div class="arithmatex">\[
+u_n=\frac{r_n}{2^{32}},
+\qquad
+0\le u_n&lt;1.
+\]</div>
+<p>实际库函数会更仔细地处理整数范围、浮点精度和端点问题。对使用者来说，最重要的是理解这条链：</p>
+<div class="arithmatex">\[
+{\rm seed}
+\to
+{\rm internal\ state}
+\to
+{\rm integer\ random\ bits}
+\to
+u\in[0,1).
+\]</div>
+<p>不要在每次需要随机数时重新 seed。正确做法是在程序开始或每条独立 Markov chain 开始时初始化一次，然后连续调用 RNG，让状态自然向前推进。</p>
 <h2 id="_3">常见接口<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
 <p>一个实际模拟通常至少需要以下随机数接口：</p>
 <table>
@@ -1758,8 +1917,8 @@ u&lt;p,\qquad u\sim{\rm Uniform}(0,1).
 <div class="arithmatex">\[
 u&lt;p_{ij}.
 \]</div>
-<h2 id="_4">参考实现中的做法<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
-<p><a href="https://github.com/Tensofermi/Zoo_of_Classical_ON_Spin_Model">Zoo of Classical O(N) Spin Models</a> 的 <code>RandomNumGen</code> 类提供了几个典型接口：</p>
+<h2 id="_4">传统自定义生成器的做法<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
+<p>许多 Monte Carlo 程序会先封装一层随机数接口，例如：</p>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">getRandomNum</span><span class="p">();</span>
 <span class="kt">int</span><span class="w"> </span><span class="nf">getRandomNum</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">MaxNum</span><span class="p">);</span>
 <span class="kt">long</span><span class="w"> </span><span class="nf">getRandomNum</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="n">MaxNum</span><span class="p">);</span>
@@ -1767,7 +1926,7 @@ u&lt;p_{ij}.
 <span class="kt">double</span><span class="w"> </span><span class="nf">getRandomDouble</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
 <span class="kt">double</span><span class="w"> </span><span class="nf">getGaussian</span><span class="p">();</span>
 </code></pre></div>
-<p>它内部使用两个 lagged XOR 序列混合产生整数随机数。实现中有两组状态数组：</p>
+<p>一种传统做法是使用两个 lagged XOR 序列混合产生整数随机数。设两组状态数组参数为：</p>
 <div class="arithmatex">\[
 {\rm len}_1=9689,\qquad {\rm ifd}_1=471,
 \]</div>
@@ -1775,7 +1934,7 @@ u&lt;p_{ij}.
 <div class="arithmatex">\[
 {\rm len}_2=127,\qquad {\rm ifd}_2=30.
 \]</div>
-<p>每次刷新缓冲区时，程序大致做</p>
+<p>每次刷新缓冲区时，可按下面方式生成两个滞后异或值：</p>
 <div class="arithmatex">\[
 \ell=ir_1[i]\oplus ir_1[i+{\rm ifd}_1],
 \]</div>
@@ -1791,7 +1950,7 @@ k=ir_2[j]\oplus ir_2[j+{\rm ifd}_2],
 u={\rm rand}\times 2^{-32}+\frac12.
 \]</div>
 <p>这种写法属于传统数值模拟中常见的自定义伪随机数方案。它的优点是接口简单、可复现、速度快，也方便在旧代码中移植。缺点是需要自己负责质量验证、并行 seed 设计和长期维护。</p>
-<p>生成正态随机数时，该实现使用 Box-Muller 变换：</p>
+<p>生成正态随机数时，可以使用 Box-Muller 变换：</p>
 <div class="arithmatex">\[
 z
 =
@@ -2111,10 +2270,14 @@ C(k)
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../search/search_index.js"></script>
+      
+        <script src="../javascripts/file-search-fallback.js"></script>
       
         <script src="../javascripts/mathjax.js"></script>
       

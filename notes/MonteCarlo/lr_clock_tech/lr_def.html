@@ -148,6 +148,48 @@
     
     
     
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
     
   </nav>
   
@@ -408,6 +450,8 @@
       
         
       
+        
+      
     
     
     
@@ -463,6 +507,34 @@
     
   
     相变理论概览
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rg-fss/correlation_paradigm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关联函数范式
   
 
     
@@ -638,6 +710,8 @@
       
         
       
+        
+      
     
     
     
@@ -677,6 +751,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster/metropolis.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metropolis 更新
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -919,6 +1021,17 @@
     <span class="md-ellipsis">
       
         周期边界下的距离
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#torus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Torus 最短路径归一化定义
       
     </span>
   </a>
@@ -1460,6 +1573,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#torus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Torus 最短路径归一化定义
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1600,6 +1724,85 @@ J_{ij}^{\rm PBC}
 <p>它更接近无限周期复制体系，但计算更贵，也必须小心排除 <span class="arithmatex">\(i=j,\mathbf n=0\)</span> 的自相互作用。对衰减慢的势，直接求和收敛很差，常需要 Ewald 类分解。</p>
 <p>这两种定义在热力学极限下可能属于同一长距离类别，但有限尺寸数据可以明显不同。做有限尺寸标度时，应把距离定义视为模型规范的一部分，而不是无关实现细节。</p>
 <p>读数值结果时，一个常见问题是“为什么同样的 <span class="arithmatex">\(\sigma\)</span>，不同文章的临界点或交点漂移不太一样”。原因之一就是 PBC 定义不同。最小镜像相当于只在有限 torus 上定义 pair；镜像求和则把无限多个周期复制都算进有效耦合。二者都会保留平移对称性，但远距离壳层的权重不同，尤其在小系统和小 <span class="arithmatex">\(\sigma\)</span> 时差异更明显。</p>
+<h2 id="torus">Torus 最短路径归一化定义<a class="headerlink" href="#torus" title="Permanent link">¶</a></h2>
+<p>在我们近期使用的一类二维长程 <span class="arithmatex">\(O(n)\)</span> 模型中，采用的是更具体的 torus 最短路径定义。系统放在 <span class="arithmatex">\(L\times L\)</span> 的周期方格上，也就是二维 torus <span class="arithmatex">\(\mathbb T^2\)</span>。哈密顿量写成</p>
+<div class="arithmatex">\[
+\mathcal H
+=
+-
+\sum_{i&lt;j}
+\frac{c(\sigma,L)}{r_{ij}^{2+\sigma}}
+\mathbf S_i\cdot\mathbf S_j.
+\]</div>
+<p>这里 <span class="arithmatex">\(r_{ij}\)</span> 是 torus 表面上的最短路径距离，也就是 minimum-image convention：</p>
+<div class="arithmatex">\[
+r_{ij}
+=
+\left[
+\sum_{\mu=1}^2
+\min(|x_{i,\mu}-x_{j,\mu}|,L-|x_{i,\mu}-x_{j,\mu}|)^2
+\right]^{1/2}.
+\]</div>
+<p>求和保留所有物理格点对：</p>
+<div class="arithmatex">\[
+i&lt;j,
+\qquad
+\text{pair 数}=\frac{N(N-1)}2.
+\]</div>
+<p>没有再把无限周期镜像逐个加入。有限尺寸效应通过归一化常数</p>
+<div class="arithmatex">\[
+c(\sigma,L)
+\]</div>
+<p>来控制。二维方格最近邻配位数为 <span class="arithmatex">\(4\)</span>，因此可以选</p>
+<div class="arithmatex">\[
+\sum_{j\ne i}
+\frac{c(\sigma,L)}{r_{ij}^{2+\sigma}}
+=4.
+\]</div>
+<p>由于 torus 定义保持平移对称性，右边对任意格点 <span class="arithmatex">\(i\)</span> 都相同。更一般地，在 <span class="arithmatex">\(d\)</span> 维超立方格子上，可以把右边换成最近邻配位数</p>
+<div class="arithmatex">\[
+z=2d.
+\]</div>
+<p>这个归一化有两个实际作用。</p>
+<p>第一，它让模型在 <span class="arithmatex">\(\sigma\to\infty\)</span> 时平滑接近最近邻模型。远距离耦合消失，最近邻壳层承载主要权重。</p>
+<p>第二，它让 <span class="arithmatex">\(\sigma\)</span> 很小时逐渐接近 complete-graph 型平均场极限，但每个格点看到的总耦合仍保持 <span class="arithmatex">\(O(1)\)</span>。这样临界温度和有限尺寸数据不会因为总耦合强度随 <span class="arithmatex">\(L\)</span> 漂移而变得难比较。</p>
+<p>需要强调，这种定义不是“最小镜像距离”四个字就能完全说明。完整模型规范至少包括：</p>
+<ul>
+<li>距离采用 torus shortest path。</li>
+<li>只保留 <span class="arithmatex">\(N(N-1)/2\)</span> 个物理 pair。</li>
+<li>使用 <span class="arithmatex">\(c(\sigma,L)\)</span> 归一化总耦合。</li>
+<li>不额外加入无限周期镜像求和。</li>
+</ul>
+<p>在某些 <span class="arithmatex">\(\sigma\)</span> 区间，这种归一化定义和 Ewald 类周期求和在热力学极限中可能给出相同长距离物理；但有限尺寸交点、临界温度和修正项可以不同。因此写模拟参数时，最好把这套定义完整列出。</p>
+<p><code>arXiv:2512.04805</code> 使用的正是这类二维长程模型语境：相互作用按 <span class="arithmatex">\(1/r^{2+\sigma}\)</span> 衰减，重点不只是临界指数本身，还包括如何在有限 torus 上定义距离、归一化总耦合，并用 FK 几何量和 Binder ratio 等无量纲量比较长程到短程的 crossover。算法层面的结论是：长程算法不能脱离模型定义来讲。若 pair 列表、距离规范或归一化改变了，后面的 Clock、cluster 或 Metropolis 加速即使各自满足 detailed balance，采样的也已经是另一个有限尺寸模型。</p>
+<p>因此，长程模拟至少要区分三层对象：</p>
+<table>
+<thead>
+<tr>
+<th>层次</th>
+<th>需要固定的内容</th>
+<th>改变后的影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>模型定义</td>
+<td>距离、pair 列表、归一化、是否加镜像</td>
+<td>改变有限尺寸哈密顿量和临界点漂移</td>
+</tr>
+<tr>
+<td>更新算法</td>
+<td>Metropolis、cluster、Clock、Fukui-Todo、predecision</td>
+<td>改变 Markov chain 的动力学和计算复杂度</td>
+</tr>
+<tr>
+<td>标度分析</td>
+<td>使用 <span class="arithmatex">\(L\)</span>、<span class="arithmatex">\(R\)</span>、FK wrapping、Binder ratio 或 <span class="arithmatex">\(\eta\)</span></td>
+<td>改变 crossover 判据和外推方式</td>
+</tr>
+</tbody>
+</table>
+<p>只有第一层固定后，第二层的“算法等价性”才有明确含义。例如 Fukui-Todo 算法等价于完整长程 Swendsen-Wang 动力学，predecision 和 hierarchical adaptive 方法等价于标准 Metropolis 链，这些说法都默认哈密顿量中的 <span class="arithmatex">\(J_{ij}\)</span> 和 pair 顺序已经确定。</p>
 <h2 id="_4">奇偶边长与均匀性<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
 <p>在周期格子上，最远距离壳层可能因为 <span class="arithmatex">\(L\)</span> 的奇偶不同而有不同简并度。特别是偶数 <span class="arithmatex">\(L\)</span> 时，半盒长方向上的点与自身镜像关系更微妙。若用最小镜像规则构造所有 <span class="arithmatex">\(i&lt;j\)</span> 的 bond，需要保证：</p>
 <ul>
@@ -1652,7 +1855,7 @@ S(E)
 \]</div>
 <p>是否为凹函数。若出现非凹区间，正则系综的 Legendre 变换会跳过部分能量区间，从而产生负比热、相共存异常或系综不等价等现象。</p>
 <p>Kac 归一化可以把能量重新调成 <span class="arithmatex">\(O(N)\)</span>，但不自动保证熵函数恢复普通短程系统的凹性。因此在强长程或平均场型模型中，选择正则 Monte Carlo、微正则方法或其他采样系综时，需要先弄清楚研究的问题依赖哪个系综。</p>
-<p>这件事对教程读者的直接提醒是：不要把“正则系综模拟到的相图”自动等同于“所有热力学描述下的相图”。大多数格点 Monte Carlo 使用固定温度的正则系综，这对短程可加系统通常没有问题；但若研究引力型、完全图型或强长程不可加模型，系综选择本身就可能成为物理问题的一部分。</p>
+<p>因此，正则系综模拟得到的相图不应自动等同于所有热力学描述下的相图。大多数格点 Monte Carlo 使用固定温度的正则系综，这对短程可加系统通常没有问题；但若研究引力型、完全图型或强长程不可加模型，系综选择本身就可能成为物理问题的一部分。</p>
 <h2 id="_6">实作检查清单<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
 <p>长程模型的结果对定义很敏感。记录模拟设置时，建议至少说明：</p>
 <ul>
@@ -1775,10 +1978,14 @@ S(E)
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../search/search_index.js"></script>
+      
+        <script src="../javascripts/file-search-fallback.js"></script>
       
         <script src="../javascripts/mathjax.js"></script>
       

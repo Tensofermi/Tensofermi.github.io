@@ -148,6 +148,48 @@
     
     
     
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
     
   </nav>
   
@@ -408,6 +450,8 @@
       
         
       
+        
+      
     
     
     
@@ -463,6 +507,34 @@
     
   
     相变理论概览
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rg-fss/correlation_paradigm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关联函数范式
   
 
     
@@ -638,6 +710,8 @@
       
         
       
+        
+      
     
     
     
@@ -677,6 +751,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster/metropolis.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metropolis 更新
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -993,6 +1095,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#fukui-todo-on-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fukui-Todo 的 \(O(N)\) cluster 方法
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clock-luijten-blote-fukui-todo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clock 与 Luijten-Blote / Fukui-Todo 的关系
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#alias" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1015,10 +1139,32 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#metropolis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        预判定与层级自适应 Metropolis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cell-veto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        连续空间的 cell-veto 思想
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        随机截断
+        随机截断和随机势切换
       
     </span>
   </a>
@@ -1029,7 +1175,7 @@
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
-        如何选择
+        参考算法地图
       
     </span>
   </a>
@@ -1038,6 +1184,17 @@
       
         <li class="md-nav__item">
   <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如何选择
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         常见检查
@@ -1482,6 +1639,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#fukui-todo-on-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fukui-Todo 的 \(O(N)\) cluster 方法
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clock-luijten-blote-fukui-todo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clock 与 Luijten-Blote / Fukui-Todo 的关系
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#alias" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1504,10 +1683,32 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#metropolis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        预判定与层级自适应 Metropolis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cell-veto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        连续空间的 cell-veto 思想
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        随机截断
+        随机截断和随机势切换
       
     </span>
   </a>
@@ -1518,7 +1719,7 @@
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
-        如何选择
+        参考算法地图
       
     </span>
   </a>
@@ -1527,6 +1728,17 @@
       
         <li class="md-nav__item">
   <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如何选择
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         常见检查
@@ -1635,6 +1847,73 @@ Q(n)&lt;u\le Q(n-1)
 \]</div>
 <p>确定下一个被访问的候选位置。这样算法直接跳过一段失败事件，只在可能加键的位置访问构型。</p>
 <p>这一思想和 Clock 算法很接近：把许多小概率事件的逐个判断，改成对等待距离的抽样。</p>
+<p>Luijten-Blote 的关键是：候选距离的抽样只依赖耦合常数和温度，而不依赖当前自旋取值。以长程 ferromagnetic Ising 为例，先按</p>
+<div class="arithmatex">\[
+p_j=1-e^{-2\beta J_j}
+\]</div>
+<p>抽出候选 bond 的距离或排序位置，再检查该 pair 是否满足 Ising / Potts 的加键条件。若条件不满足，候选 bond 丢弃；若满足，就加入 cluster。这样不会改变真实加键概率，因为候选步骤和构型检查相乘后仍然等于原来的 SW 加键规则。</p>
+<p>算法骨架可以写成：</p>
+<div class="highlight"><pre><span></span><code>for each seed or active cluster site i:
+    n = 0
+    while n &lt; number_of_possible_partners:
+        draw next candidate index n from cumulative no-bond table
+        map n to partner j
+        if spin condition is satisfied:
+            activate bond (i,j)
+            add j to cluster if new
+        continue from n + 1
+</code></pre></div>
+<p>这里最容易错的是“排序位置到真实格点 <span class="arithmatex">\(j\)</span>”的映射。对平移不变格子，可以按位移壳层预先建立表；对无序图或开边界系统，则需要为每个 <span class="arithmatex">\(i\)</span> 维护不同的候选列表。只要候选列表和朴素 <span class="arithmatex">\(O(N^2)\)</span> SW 使用同一组 <span class="arithmatex">\(J_{ij}\)</span>，该加速不会引入截断。</p>
+<h2 id="fukui-todo-on-cluster">Fukui-Todo 的 <span class="arithmatex">\(O(N)\)</span> cluster 方法<a class="headerlink" href="#fukui-todo-on-cluster" title="Permanent link">¶</a></h2>
+<p>Fukui-Todo 算法进一步把长程 cluster 的复杂度降到 <span class="arithmatex">\(O(N)\)</span> 量级。它的目标不是近似长程 SW，而是生成与朴素长程 Swendsen-Wang 完全等价的随机动力学。文献 <code>arXiv:0802.0272</code> 和 JCP <code>10.1016/j.jcp.2008.12.022</code> 强调了三点：</p>
+<ul>
+<li>不截断相互作用范围；</li>
+<li>满足 detailed balance；</li>
+<li>生成的随机动力学等价于完整 <span class="arithmatex">\(O(N^2)\)</span> Swendsen-Wang。</li>
+</ul>
+<p>它和 Luijten-Blote 的共同点是都跳过大量未占据 bond；区别在于 Fukui-Todo 使用更适合批量抽样的累计概率和数据结构，使得长程 Ising cluster sweep 可以达到线性复杂度。核心抽样问题可以写成：</p>
+<div class="arithmatex">\[
+P(\text{next active bond is }m)
+=
+\left[
+\prod_{k&lt;n}^{m-1}(1-p_k)
+\right]p_m.
+\]</div>
+<p>其中 <span class="arithmatex">\(p_k=1-e^{-2\beta J_k}\)</span>。如果能够快速从这个分布中抽样下一条 active bond，就不需要检查中间大量未激活的远距离 pair。cluster 生长本身仍然是 SW：active bond 只是在满足同色或同向条件时真正连接两个自由度。</p>
+<p>能量和比热测量也需要配合处理。长程 cluster 更新可以避免逐 pair 生成 bond，但若每次测量仍然重新求</p>
+<div class="arithmatex">\[
+E=-\sum_{i&lt;j}J_{ij}s_is_j,
+\]</div>
+<p>测量会重新变成 <span class="arithmatex">\(O(N^2)\)</span>。Fukui-Todo 方法中还讨论了如何用采样到的 bond 和辅助量在线性时间估计能量及比热。因此需要把“更新复杂度”和“测量复杂度”分开检查，否则更新已经加速，测量仍可能成为瓶颈。</p>
+<h2 id="clock-luijten-blote-fukui-todo">Clock 与 Luijten-Blote / Fukui-Todo 的关系<a class="headerlink" href="#clock-luijten-blote-fukui-todo" title="Permanent link">¶</a></h2>
+<p>三者可以统一成“从大量小概率事件中抽下一次事件”的问题：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>事件</th>
+<th>常见目标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Luijten-Blote</td>
+<td>下一条候选 cluster bond</td>
+<td>长程 SW/Wolff 的 <span class="arithmatex">\(O(N\log N)\)</span> 类加速</td>
+</tr>
+<tr>
+<td>Fukui-Todo</td>
+<td>下一条真实 SW 等价 bond</td>
+<td>长程 Ising cluster 的 <span class="arithmatex">\(O(N)\)</span> sweep</td>
+</tr>
+<tr>
+<td>Clock factorized</td>
+<td>下一次 bound rejection 或候选事件</td>
+<td>长程 Metropolis / quantum worm 的 <span class="arithmatex">\(O(1)\)</span> 或低成本局域更新</td>
+</tr>
+</tbody>
+</table>
+<p>差别在于事件的含义。cluster 算法里的事件是“加 bond”，发生后会扩大 cluster；factorized Metropolis 里的事件是“拒绝”，发生后会终止或否决 proposal。二者都可以用累计概率、树结构、alias table 或 thinning 技巧实现，但 detailed balance 的证明不同，不能只因为形式相似就混用接受率。</p>
 <h2 id="alias">Alias 与累计表<a class="headerlink" href="#alias" title="Permanent link">¶</a></h2>
 <p>如果相互作用只依赖距离或位移</p>
 <div class="arithmatex">\[
@@ -1690,22 +1969,121 @@ h=\mathcal F^{-1}
 h_j\to h_j-2J_{ji}s_i
 \]</div>
 <p>代价仍为 <span class="arithmatex">\(\mathcal O(N)\)</span>；隔一段时间用 FFT 重新校准场，控制误差。</p>
-<h2 id="_4">随机截断<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
-<p>随机截断的思路是：远距离相互作用不固定保留，而是按概率抽样保留，并对保留项重新加权。形式上可写成</p>
+<h2 id="metropolis">预判定与层级自适应 Metropolis<a class="headerlink" href="#metropolis" title="Permanent link">¶</a></h2>
+<p>除了 cluster 型算法，长程系统中也可以保留普通 Metropolis 动力学，只是把“是否需要算完整能量差”这一步加速。</p>
+<p><code>arXiv:2508.09775v1</code> 的 predecision scheme 以 lattice long-range Metropolis 为目标。它利用相互作用项的上界或分层估计，先判断一次 proposal 是否已经可以接受或拒绝；只有在预判定不够时，才继续展开更多长程贡献。对幂律势</p>
 <div class="arithmatex">\[
-J_{ij}
-\to
-\begin{cases}
-J_{ij}/p_{ij}, &amp; \text{概率 }p_{ij},\\
-0, &amp; \text{概率 }1-p_{ij}.
-\end{cases}
+V(r)=r^{-d-\sigma}
 \]</div>
-<p>这样期望意义下满足</p>
+<p>该文给出的复杂度目标是：对 <span class="arithmatex">\(V(r)=r^{-d-\sigma}\)</span>，当 <span class="arithmatex">\(\sigma&lt;d\)</span> 时从 <span class="arithmatex">\(\mathcal O(N^2)\)</span> sweep 降到</p>
+<div class="arithmatex">\[
+\mathcal O\!\left(N^{2-\sigma/d}\right),
+\]</div>
+<p>当 <span class="arithmatex">\(\sigma&gt;d\)</span> 时降到</p>
+<div class="arithmatex">\[
+\mathcal O(N).
+\]</div>
+<p>更重要的是，它声称在相同随机数序列下产生与显式求和 Metropolis 完全相同的 Markov chain。因此它不是“随机截断近似”，而是提前判断普通 Metropolis 最终会接受还是拒绝。它适合需要保留局域动力学含义的 nonequilibrium 或动力学研究。</p>
+<p>一个简化图像是：Metropolis 接受条件可以写成比较随机阈值和能量差，</p>
+<div class="arithmatex">\[
+u &lt; e^{-\beta\Delta E}.
+\]</div>
+<p>等价地比较</p>
+<div class="arithmatex">\[
+-\beta^{-1}\ln u
+\]</div>
+<p>和 <span class="arithmatex">\(\Delta E\)</span>。若长程能量差被分成近邻项、若干远距离壳层项和剩余误差上界，那么只要已经计算出的部分和剩余上界足以确定不等式真假，就可以停止；只有边界情况才继续展开更多项。</p>
+<p><code>arXiv:2207.14670</code> 的 fast hierarchical adaptive algorithm 走的是相近路线：把远距离相互作用按空间层级组织起来，对 proposal 的能量差做分层处理，并在需要时逐级细化。它强调生成的构型序列可以和标准长程 Metropolis 完全一致，因此不是近似截断，而是对同一算法的快速实现。</p>
+<p>层级自适应方法的基本数据结构可以理解为一棵空间树：</p>
+<ol>
+<li>近距离相互作用逐项精确计算。</li>
+<li>远距离区域先用一个 cell 或 block 的总贡献上界估计。</li>
+<li>若上界已经足够决定接受/拒绝，就不再展开这个 block。</li>
+<li>若不够，就把 block 分裂成更小的子块继续细化。</li>
+</ol>
+<p>对 <span class="arithmatex">\(1/r^{d+\sigma}\)</span> 这类单调衰减势，远距离 block 的贡献可以给出严格误差界；对 Lennard-Jones 或符号可变相互作用，上界需要分开处理吸引、排斥或绝对值贡献。该方法报告的平均复杂度为 <span class="arithmatex">\(O(N\log N)\)</span>，优点是一般性强，缺点是实现比简单累计表更复杂。</p>
+<p>这两类方法和 alias proposal 的区别是：</p>
+<ul>
+<li>alias / cumulative table 改变的是候选对象怎么抽；</li>
+<li>predecision / hierarchical adaptive 改变的是接受或拒绝时如何避免完整求和；</li>
+<li>如果声称“和标准 Metropolis 完全等价”，就必须检查随机数使用顺序、上界构造和提前停止规则是否严格对应原接受率。</li>
+</ul>
+<h2 id="cell-veto">连续空间的 cell-veto 思想<a class="headerlink" href="#cell-veto" title="Permanent link">¶</a></h2>
+<p><code>PhysRevE.94.031302</code> 的 cell-veto Monte Carlo 主要面向连续空间长程体系。连续空间中每个粒子和所有其他粒子相互作用，单次移动若逐项计算能量差，代价同样很高。cell-veto 的做法是把空间划分成 cell，用 cell 级别的相互作用上界先抽样可能 veto 这次移动的区域；只有真正被选中的 cell 或粒子才需要精细计算。</p>
+<p>这种算法和 Luijten-Blote/Clock 的思想很接近：不要逐个访问大量“小概率会影响接受率”的对象，而是直接抽样下一个可能产生 veto 的事件。区别在于连续空间没有固定格点 neighbor list，cell 上界、粒子分布和移动 proposal 的几何关系会成为实现重点。</p>
+<p>可以把 cell-veto 写成连续空间版本的 factorized Metropolis。设一次移动 <span class="arithmatex">\(i:\mathbf r\to\mathbf r'\)</span> 对其他粒子 <span class="arithmatex">\(j\)</span> 的能量差为</p>
+<div class="arithmatex">\[
+\Delta U_{ij}.
+\]</div>
+<p>普通 Metropolis 看总和 <span class="arithmatex">\(\sum_j\Delta U_{ij}\)</span>。factorized veto 则把每个粒子或 cell 看成一个可能拒绝本次移动的因子。为避免逐粒子检查，先为每个 cell 构造上界</p>
+<div class="arithmatex">\[
+\hat q_C
+\ge
+\max_{\mathbf r_j\in C}
+\left[
+1-\min(1,e^{-\beta\Delta U_{ij}})
+\right].
+\]</div>
+<p>抽到某个 cell 后，再在 cell 内抽粒子并计算真实 veto 概率。若真实 veto 发生，移动拒绝；若没有发生，继续寻找下一个可能 veto 的 cell。这样远处大量粒子的微小拒绝概率被压缩到 cell 级事件。</p>
+<p>cell-veto 尤其适合连续空间中相互作用有明确几何上界的情形，例如单调衰减的 pair potential。若势能有硬核、强各向异性或多体项，cell 上界会变得更难构造，效率和正确性都需要重新检查。</p>
+<h2 id="_4">随机截断和随机势切换<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
+<p>随机截断不能只写成“期望上等于原耦合”。在 Monte Carlo 权重中，正确性要求的是扩展构型空间的平衡分布，而不是只要求</p>
 <div class="arithmatex">\[
 \mathbb E[J_{ij}^{\rm stoch}]=J_{ij}.
 \]</div>
-<p>它可以降低每步访问的长程项数量，但会引入额外随机噪声。若使用在 Monte Carlo 权重中，需要非常小心地保证 detailed balance 或采用扩展构型空间的严格推导。</p>
-<h2 id="_5">如何选择<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
+<p>因此使用随机截断时，应把被保留/删除的相互作用也看成辅助变量，并写出联合权重。一个安全的检查原则是：</p>
+<ul>
+<li>切换后的辅助相互作用是否有明确的条件分布；</li>
+<li>在固定辅助变量时，对自旋或粒子的更新是否满足 detailed balance；</li>
+<li>更新辅助变量时，边缘化后是否恢复原始 Boltzmann 权重；</li>
+<li>额外随机性是否显著增加能量估计方差。</li>
+</ul>
+<p>若只把 <span class="arithmatex">\(J_{ij}\)</span> 随机替换成 <span class="arithmatex">\(0\)</span> 或 <span class="arithmatex">\(J_{ij}/p_{ij}\)</span>，但没有给出联合权重推导，那么它最多是无偏能量估计思路，不能自动保证采样正确。</p>
+<h2 id="_5">参考算法地图<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
+<p>几类长程算法可以按目标和风险整理为：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>代表思路</th>
+<th>主要优点</th>
+<th>主要检查点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>长程 Ising / Potts cluster</td>
+<td>Luijten-Blote、Fukui-Todo</td>
+<td>跳过大量未占据 bond</td>
+<td>加键概率、累计表、detailed balance</td>
+</tr>
+<tr>
+<td>平移不变格点模型</td>
+<td>FFT / 卷积</td>
+<td>批量计算场或能量快</td>
+<td>周期边界定义、归一化、aliasing</td>
+</tr>
+<tr>
+<td>局域 Metropolis 动力学</td>
+<td>predecision、hierarchical adaptive</td>
+<td>保持标准 Metropolis 链</td>
+<td>上界严格性、随机数序列、提前停止</td>
+</tr>
+<tr>
+<td>连续空间长程体系</td>
+<td>cell-veto</td>
+<td>避免逐粒子求和</td>
+<td>cell 上界、veto 抽样、移动 proposal</td>
+</tr>
+<tr>
+<td>快速试算或短程主导</td>
+<td>截断 / 随机截断</td>
+<td>实现简单</td>
+<td>是否改变普适类和有限尺寸修正</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_6">如何选择<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
 <p>不同算法适合不同问题：</p>
 <ul>
 <li><strong>只要快速试算</strong>：先用截断，检查是否能复现实验性趋势。</li>
@@ -1715,7 +2093,7 @@ J_{ij}/p_{ij}, &amp; \text{概率 }p_{ij},\\
 <li><strong>局域 Metropolis 为主</strong>：维护局域场，必要时结合 Clock 或 alias proposal。</li>
 </ul>
 <p>长程体系的算法选择不能只看复杂度，还要看有限尺寸定义。若算法加速改变了相互作用本身，后续的临界标度分析就会跟着改变。</p>
-<h2 id="_6">常见检查<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
+<h2 id="_7">常见检查<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
 <ul>
 <li>对小系统直接 <span class="arithmatex">\(\mathcal O(N^2)\)</span> 算法做 benchmark。</li>
 <li>检查每个格点的总耦合</li>
@@ -1841,10 +2219,14 @@ J_{\rm tot}(i)=\sum_{j\ne i}J_{ij}
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../search/search_index.js"></script>
+      
+        <script src="../javascripts/file-search-fallback.js"></script>
       
         <script src="../javascripts/mathjax.js"></script>
       

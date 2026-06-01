@@ -146,6 +146,48 @@
     
     
     
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
     
   </nav>
   
@@ -307,7 +349,7 @@
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        本笔记的主线
+        阅读主线
       
     </span>
   </a>
@@ -519,6 +561,8 @@
       
         
       
+        
+      
     
     
     
@@ -574,6 +618,34 @@
     
   
     相变理论概览
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="rg-fss/correlation_paradigm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关联函数范式
   
 
     
@@ -749,6 +821,8 @@
       
         
       
+        
+      
     
     
     
@@ -788,6 +862,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cluster/metropolis.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metropolis 更新
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -1459,7 +1561,7 @@
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        本笔记的主线
+        阅读主线
       
     </span>
   </a>
@@ -1506,7 +1608,27 @@ x_1,x_2,\cdots,x_N\sim \pi(x),
 <div class="arithmatex">\[
 {\rm Err}\sim \frac{1}{\sqrt{N}}
 \]</div>
-<p>下降。这个收敛速度看起来不快，但它对维度不显式恶化。对于高维积分，传统网格方法会遇到维数灾难；Monte Carlo 虽然有统计噪声，却仍然能在很高维空间中给出可控估计。</p>
+<p>下降。这个公式可以从中心极限定理理解。若样本近似独立，单个观测量的方差为</p>
+<div class="arithmatex">\[
+{\rm Var}(O)=\sigma_O^2,
+\]</div>
+<p>那么样本平均</p>
+<div class="arithmatex">\[
+\bar O=\frac1N\sum_{i=1}^N O(x_i)
+\]</div>
+<p>的方差是</p>
+<div class="arithmatex">\[
+{\rm Var}(\bar O)=\frac{\sigma_O^2}{N}.
+\]</div>
+<p>所以标准误差就是</p>
+<div class="arithmatex">\[
+\delta \bar O\sim \frac{\sigma_O}{\sqrt N}.
+\]</div>
+<p>这背后也有一个随机行走图像：独立噪声的正负涨落会互相抵消，累计涨落的典型大小只像</p>
+<div class="arithmatex">\[
+\sqrt N
+\]</div>
+<p>那样增长；再除以样本数 <span class="arithmatex">\(N\)</span>，平均值的误差就变成 <span class="arithmatex">\(1/\sqrt N\)</span>。这个收敛速度看起来不快，但它对维度不显式恶化。对于高维积分，传统网格方法会遇到维数灾难；Monte Carlo 虽然有统计噪声，却仍然能在很高维空间中给出可控估计。</p>
 <h2 id="_2">物理中的配分函数<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <p>统计物理里最典型的问题是配分函数</p>
 <div class="arithmatex">\[
@@ -1553,7 +1675,7 @@ s_1,s_2,\cdots,s_N\sim \pi(s).
 \simeq
 \frac1N\sum_{i=1}^NO(s_i).
 \]</div>
-<p>这些平均值可以用来研究不同相的性质，例如序参量、能量、刚度、关联函数和结构因子；也可以用来定位临界点，分析临界指数、分形维度、普适类和有限尺寸标度。换句话说，Monte Carlo 负责产生服从正确权重的样本；相变理论和统计分析负责从样本中读出物理。</p>
+<p>这些平均值可以用来研究不同相的性质，例如序参量、能量、刚度、关联函数和结构因子；也可以用来定位临界点，分析临界指数、分形维度、普适类和有限尺寸标度。Monte Carlo 负责产生服从正确权重的样本；相变理论和统计分析负责从样本中读出物理。</p>
 <p>量子 Monte Carlo 的思想类似，但构型空间更丰富。量子配分函数</p>
 <div class="arithmatex">\[
 Z={\rm Tr}\,e^{-\beta\hat H}
@@ -1581,7 +1703,7 @@ p(\theta|D)\propto p(D|\theta)p(\theta)
 \]</div>
 <p>通常只知道右边的未归一化形式，但这已经足够构造采样过程。</p>
 <p>在量化交易和风险管理中，Monte Carlo 用于情景模拟、期权定价、投资组合风险、极端损失估计。价格路径、利率路径或波动率路径都可以视为随机过程的样本，复杂衍生品的价值则是路径函数的期望。</p>
-<h2 id="_6">本笔记的主线<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
+<h2 id="_6">阅读主线<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
 <p>这份笔记采用从简单到复杂的路线：</p>
 <ol>
 <li><strong>基础</strong>：从 Markov chain 的概率归一化与平稳分布出发，推出 detailed balance 和 Metropolis 接受率。</li>
@@ -1688,10 +1810,14 @@ p(\theta|D)\propto p(D|\theta)p(\theta)
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
     
     
       <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="search/search_index.js"></script>
+      
+        <script src="javascripts/file-search-fallback.js"></script>
       
         <script src="javascripts/mathjax.js"></script>
       

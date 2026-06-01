@@ -148,6 +148,48 @@
     
     
     
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
     
   </nav>
   
@@ -408,6 +450,8 @@
       
         
       
+        
+      
     
     
     
@@ -463,6 +507,34 @@
     
   
     相变理论概览
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rg-fss/correlation_paradigm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关联函数范式
   
 
     
@@ -638,6 +710,8 @@
       
         
       
+        
+      
     
     
     
@@ -677,6 +751,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster/metropolis.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metropolis 更新
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -1317,6 +1419,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#dqmc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        有限温 DQMC 的计算流程
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#afqmc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        高级试探波函数的 AFQMC
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1486,6 +1610,28 @@
     <span class="md-ellipsis">
       
         常见注意事项
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dqmc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        有限温 DQMC 的计算流程
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#afqmc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        高级试探波函数的 AFQMC
       
     </span>
   </a>
@@ -1668,7 +1814,8 @@ P_{\rm acc}(s\to s')
 {\det M_\uparrow(s)\det M_\downarrow(s)}
 \right].
 \]</div>
-<p>实际程序很少每次从头计算两个行列式。若只翻转一个辅助场 <span class="arithmatex">\(s_{i,\ell}\)</span>，单粒子传播矩阵只发生局域变化，可以用 Green 函数和 Sherman-Morrison 公式快速得到行列式比，并在接受后更新 Green 函数。</p>
+<p>实际计算很少每次从头计算两个行列式。若只翻转一个辅助场 <span class="arithmatex">\(s_{i,\ell}\)</span>，单粒子传播矩阵只发生局域变化，可以用 Green 函数和 Sherman-Morrison 公式快速得到行列式比，并在接受后更新 Green 函数。</p>
+<p>这个结构是有限温 determinantal QMC 的标准主线。Assaad 与 Evertz 的综述 <em>World-line and Determinantal Quantum Monte Carlo Methods for Spins, Phonons and Electrons</em> 将它概括为三步：Trotter 分解、Hubbard-Stratonovich 解耦、对二次型费米子求迹得到行列式权重。后续所有 Green 函数传播、局域更新和稳定化技巧，都是为了高效维护这一行列式权重。</p>
 <h2 id="sign-problem">Sign Problem<a class="headerlink" href="#sign-problem" title="Permanent link">¶</a></h2>
 <p>Monte Carlo 需要把构型权重解释成概率。若</p>
 <div class="arithmatex">\[
@@ -1711,7 +1858,7 @@ G^\sigma_{ij}(s)
 =
 1-G^\sigma_{ii}(s),
 \]</div>
-<p>而二体关联函数可以通过 Wick 定理化成 Green 函数的组合。于是 AFQMC 的程序结构通常分成四层：</p>
+<p>而二体关联函数可以通过 Wick 定理化成 Green 函数的组合。于是 AFQMC 的计算流程通常分成四层：</p>
 <ol>
 <li>根据当前辅助场维护传播矩阵和 Green 函数。</li>
 <li>尝试局域或全局更新辅助场。</li>
@@ -1726,6 +1873,44 @@ G^\sigma_{ij}(s)
 <li><strong>符号问题</strong>：平均符号很小时，即使程序完全正确，统计误差也会让结果失去可用性。</li>
 <li><strong>测量频率</strong>：Green 函数重算和稳定化有成本，测量间隔需要结合自关联时间设置。</li>
 </ul>
+<h2 id="dqmc">有限温 DQMC 的计算流程<a class="headerlink" href="#dqmc" title="Permanent link">¶</a></h2>
+<p>有限温 DQMC 的核心流程可以由几条公式串起来：</p>
+<ol>
+<li>辅助场构型的权重来自</li>
+</ol>
+<div class="arithmatex">\[
+W(s)=
+\prod_{\sigma=\uparrow,\downarrow}
+\det\left[I+B^\sigma(s)\right].
+\]</div>
+<ol>
+<li>等时 Green 函数可以写成</li>
+</ol>
+<div class="arithmatex">\[
+G(\tau,\tau)
+=
+\left[
+I+B(\tau,0)B(\beta,\tau)
+\right]^{-1}.
+\]</div>
+<ol>
+<li>翻转一个 onsite HS 场时，矩阵变化是 rank-one 的，行列式比可化成</li>
+</ol>
+<div class="arithmatex">\[
+r_\sigma
+=
+1+\Delta_{ii}^\sigma
+\left(1-G^\sigma_{ii}\right).
+\]</div>
+<ol>
+<li>接受后用 Sherman-Morrison 公式更新 <span class="arithmatex">\(G\)</span>，然后逐层传播到下一虚时层。</li>
+</ol>
+<p>这套流程说明，DQMC 的效率来自两个事实：相互作用被 HS 场局域化，单点更新只改变一个对角元素；费米子已经被积分掉，测量可以尽量从 Green 函数和 Wick 定理得到。</p>
+<h2 id="afqmc">高级试探波函数的 AFQMC<a class="headerlink" href="#afqmc" title="Permanent link">¶</a></h2>
+<p><code>arXiv:2505.18519v1</code> 讨论的是投影型 fermion AFQMC 中如何使用更复杂的 trial wave function。普通 phaseless 或 constrained AFQMC 常用单个 Slater determinant 或少量 determinant 线性组合做试探态；试探态既影响符号/相位约束，也影响 importance sampling 的效率。</p>
+<p>该工作的思路是：若相关试探波函数可以写成“隐藏变量积分下的 Slater determinant 叠加”，就可以把 walker 与一个广义 Metropolis 抽样耦合起来，随机抽样这些隐藏变量，而不是显式展开一个巨大的 determinant 列表。对 AFQMC 主线而言，重要结论不是具体化学计算细节，而是下面这点：</p>
+<p>AFQMC 的核心对象仍然是 Slater determinant walker；更复杂的相关试探态可以通过额外的随机变量和重要性抽样进入约束与权重，而不一定破坏低阶多项式标度。</p>
+<p>这可以作为零温 AFQMC 章节中“试探态选择会影响精度与效率”的补充背景。</p>
 <p>从这个角度看，AFQMC 的主线很清楚：用辅助场把相互作用费米子问题变成一组二次型费米子问题，再用行列式权重在辅助场空间中做 Monte Carlo。</p>
 
 
@@ -1838,10 +2023,14 @@ G^\sigma_{ij}(s)
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../search/search_index.js"></script>
+      
+        <script src="../javascripts/file-search-fallback.js"></script>
       
         <script src="../javascripts/mathjax.js"></script>
       

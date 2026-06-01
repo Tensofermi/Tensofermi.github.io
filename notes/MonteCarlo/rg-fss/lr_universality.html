@@ -9,7 +9,7 @@
         <link rel="prev" href="bkt.html">
       
       
-        <link rel="next" href="../cluster/cluster_algo.html">
+        <link rel="next" href="../cluster/metropolis.html">
       
       
         
@@ -147,6 +147,48 @@
       <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
     
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
     
     
   </nav>
@@ -410,6 +452,8 @@
       
         
       
+        
+      
     
     
     
@@ -465,6 +509,34 @@
     
   
     相变理论概览
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="correlation_paradigm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关联函数范式
   
 
     
@@ -715,7 +787,7 @@
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
-        体积标度区域
+        关联函数的裸长程尾巴
       
     </span>
   </a>
@@ -726,7 +798,7 @@
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        与几何观测量的关系
+        体积标度区域
       
     </span>
   </a>
@@ -737,7 +809,7 @@
   <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       
-        非局域核的一个类比
+        与几何观测量的关系
       
     </span>
   </a>
@@ -746,6 +818,17 @@
       
         <li class="md-nav__item">
   <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        非局域核的一个类比
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
       
         小结
@@ -779,6 +862,8 @@
   
     
     
+      
+        
       
         
       
@@ -825,6 +910,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster/metropolis.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metropolis 更新
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -1496,7 +1609,7 @@
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
-        体积标度区域
+        关联函数的裸长程尾巴
       
     </span>
   </a>
@@ -1507,7 +1620,7 @@
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        与几何观测量的关系
+        体积标度区域
       
     </span>
   </a>
@@ -1518,7 +1631,7 @@
   <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       
-        非局域核的一个类比
+        与几何观测量的关系
       
     </span>
   </a>
@@ -1527,6 +1640,17 @@
       
         <li class="md-nav__item">
   <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        非局域核的一个类比
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
       
         小结
@@ -1563,12 +1687,12 @@ k^2
 k^\sigma
 \]</div>
 <p>型的非解析项。正是这个项改变了 Gaussian 固定点、上临界维度、Mermin-Wagner 判据和有限尺寸标度。</p>
-<p>这一页讨论的是“长程相互作用如何改变普适类”。它和长程体系定义页的分工是：</p>
+<p>长程相互作用对普适类的影响，需要和模型定义本身分开处理：</p>
 <ul>
-<li>定义页关心模型到底怎么写、边界怎么处理、能量怎么求和。</li>
-<li>本页关心在这些定义给定之后，长距离场论和临界指数会怎样变化。</li>
+<li>模型定义决定相互作用如何写、边界如何处理、能量如何求和。</li>
+<li>普适类分析研究在这些定义给定之后，长距离场论和临界指数如何变化。</li>
 </ul>
-<p>两件事最好分开读。若模型定义没有说清楚，后面的普适类分析会失去落点；若只停留在定义层，又看不出为什么 <span class="arithmatex">\(\sigma\)</span> 会进入 RG 指数。</p>
+<p>若模型定义没有说清楚，普适类分析会失去落点；若只停留在定义层，又看不出为什么 <span class="arithmatex">\(\sigma\)</span> 会进入 RG 指数。</p>
 <h2 id="_2">长程核与动量空间<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <p>常用长程耦合写为</p>
 <div class="arithmatex">\[
@@ -1753,7 +1877,82 @@ R\sim N^{1/2}.
 k^\sigma \leftrightarrow k^2
 \]</div>
 <p>crossover 是同一类物理：当长程跳跃尾部足够强时，扩散和关联传播都不再由普通 Laplacian 控制。</p>
-<h2 id="_5">体积标度区域<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
+<h2 id="_5">关联函数的裸长程尾巴<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
+<p>长程相互作用还有一个容易误读的现象：即使在高温无序相，关联函数的最终远距离尾巴也可能是幂律。</p>
+<p>设</p>
+<div class="arithmatex">\[
+J(r)\sim \frac1{r^{d+\sigma}},
+\qquad
+\sigma&gt;0.
+\]</div>
+<p>高温展开第一阶给出</p>
+<div class="arithmatex">\[
+G(r)\approx \beta J(r)
+\sim
+\frac{\beta}{r^{d+\sigma}}.
+\]</div>
+<p>因此连通关联函数中通常会有一个由哈密顿量直接带来的背景项：</p>
+<div class="arithmatex">\[
+G_c(r)\supset \frac{A(T)}{r^{d+\sigma}}.
+\]</div>
+<p>短程高温相通常写成</p>
+<div class="arithmatex">\[
+G_c(r)\sim e^{-r/\xi}.
+\]</div>
+<p>长程高温相更稳妥的图像是</p>
+<div class="arithmatex">\[
+G_c(r)
+\sim
+A e^{-r/\xi}
++
+\frac{B}{r^{d+\sigma}}.
+\]</div>
+<p>在中短距离，指数项或 crossover 项可能更显眼；但当 <span class="arithmatex">\(r\to\infty\)</span> 时，指数衰减比任何幂律都快，最终会留下裸长程尾巴。</p>
+<p>这不表示高温相是临界相。因为</p>
+<div class="arithmatex">\[
+\chi
+\sim
+\int^\infty dr\,r^{d-1}r^{-(d+\sigma)}
+=
+\int^\infty dr\,r^{-1-\sigma}
+\]</div>
+<p>对 <span class="arithmatex">\(\sigma&gt;0\)</span> 收敛，所以热力学响应仍然有限。</p>
+<p>临界点处要比较两个幂律。集体临界涨落给出</p>
+<div class="arithmatex">\[
+G_c(r)\sim r^{-(d-2+\eta)}.
+\]</div>
+<p>裸尾巴给出</p>
+<div class="arithmatex">\[
+G_{\rm tail}(r)\sim r^{-(d+\sigma)}.
+\]</div>
+<p>谁衰减更慢，谁主导 leading behavior。长程 fixed point 的常见结果是</p>
+<div class="arithmatex">\[
+\eta_{\rm LR}=2-\sigma,
+\]</div>
+<p>因此</p>
+<div class="arithmatex">\[
+G_c(r)\sim r^{-(d-\sigma)},
+\]</div>
+<p>它比</p>
+<div class="arithmatex">\[
+r^{-(d+\sigma)}
+\]</div>
+<p>慢得多。此时裸尾巴仍可能作为 subleading correction 存在。</p>
+<p>低温相也要分情况。离散对称性有序相中，普通关联函数有平台</p>
+<div class="arithmatex">\[
+G(r)\to m^2,
+\]</div>
+<p>所以应看连通关联函数：</p>
+<div class="arithmatex">\[
+G_c(r)=G(r)-m^2.
+\]</div>
+<p>它往往会继承 <span class="arithmatex">\(r^{-(d+\sigma)}\)</span> 裸尾巴。连续对称性低温相还会有 Goldstone mode；若 Goldstone 贡献衰减更慢，leading 行为由 Goldstone 模决定，裸长程尾巴只是背景修正。</p>
+<p>数值上不要只看 log-log 图。更清楚的诊断是补偿量：</p>
+<div class="arithmatex">\[
+r^{d+\sigma}G_c(r).
+\]</div>
+<p>如果进入裸长程尾巴区，它会趋向一个温度相关平台。平台高度随 <span class="arithmatex">\(T\)</span> 变化；平台存在说明最终指数由 <span class="arithmatex">\(d+\sigma\)</span> 控制。</p>
+<h2 id="_6">体积标度区域<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
 <p>某些区域中，系统没有普通连续相变，或者有限尺寸响应更接近 first-order-like 的体积主导行为。这时常看到</p>
 <div class="arithmatex">\[
 \chi_{\max}\sim L^d,
@@ -1780,7 +1979,7 @@ y_h=d,\qquad y_t=d.
 \]</div>
 <p>这组指数应理解为体积主导响应的有限尺寸标度，而不是普通相互作用固定点的非平庸临界指数。</p>
 <p>这句话容易被误读。<span class="arithmatex">\(y_t=d,y_h=d\)</span> 并不是在说出现了一个神秘的新局域场论固定点；它只是说若峰值响应按体积 <span class="arithmatex">\(L^d\)</span> 增长，那么把它强行写进普通有限尺寸标度公式时，会得到这组有效指数。它常用于描述 first-order-like、完全图型或强平均场有限尺寸行为。使用时应同时说明观测量、尺寸范围和相变性质。</p>
-<h2 id="_6">与几何观测量的关系<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
+<h2 id="_7">与几何观测量的关系<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
 <p>在 FK 或 percolation 表象中，磁化率常与 cluster 大小矩有关。若最大 cluster 大小满足</p>
 <div class="arithmatex">\[
 C_1\sim L^{d_F},
@@ -1794,7 +1993,7 @@ C_1\sim L^{d_F},
 d_F=y_h.
 \]</div>
 <p>这说明几何观测量不只是可视化工具，也能作为普适类的敏感探针。对于长程模型，某些无量纲几何量如 wrapping probability、cluster 半径分布、loop 分形维度，可能比热力学指数更容易分辨 crossover。</p>
-<h2 id="_7">非局域核的一个类比<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
+<h2 id="_8">非局域核的一个类比<a class="headerlink" href="#_8" title="Permanent link">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">启发性类比：self-attention</p>
 <p>下面的 self-attention 类比只用于帮助理解“非局域核”这个结构。它不是 Monte Carlo 算法或临界理论的一部分，也不应被当作普适类判断依据。</p>
@@ -1820,9 +2019,9 @@ A_{ij}
 \]</div>
 <p>这在形式上像一个条件 Boltzmann 分布。它提示我们：非局域核可以被看成一种位置依赖的有效相互作用或条件配分函数。</p>
 <p>这个类比只用于直觉。self-attention 不是平衡统计模型，权重由数据和网络参数动态生成，也没有固定的哈密顿量和热力学极限。但它说明“非局域耦合 + 归一化权重 + 有效相互作用核”是一种很普遍的数学结构。</p>
-<p>因此这段不应拿来推导 Monte Carlo 的临界指数。它更像一个提醒：长程问题的数学核心是非局域核，而非局域核也会出现在统计物理以外的模型中。真正进入本笔记主线的，仍然是固定哈密顿量、平衡权重和可定义热力学极限的长程格点系统。</p>
+<p>因此这段不应拿来推导 Monte Carlo 的临界指数。它更像一个提醒：长程问题的数学核心是非局域核，而非局域核也会出现在统计物理以外的模型中。真正进入临界理论主线的，仍然是固定哈密顿量、平衡权重和可定义热力学极限的长程格点系统。</p>
 </div>
-<h2 id="_8">小结<a class="headerlink" href="#_8" title="Permanent link">¶</a></h2>
+<h2 id="_9">小结<a class="headerlink" href="#_9" title="Permanent link">¶</a></h2>
 <p>长程相互作用改变普适类，主要通过三件事：</p>
 <ol>
 <li>传播子从 <span class="arithmatex">\(k^2\)</span> 变成 <span class="arithmatex">\(k^\sigma\)</span>。</li>
@@ -1882,13 +2081,13 @@ A_{ij}
         
         
           
-          <a href="../cluster/cluster_algo.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 集团算法">
+          <a href="../cluster/metropolis.html" class="md-footer__link md-footer__link--next" aria-label="下一页: Metropolis 更新">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 下一页
               </span>
               <div class="md-ellipsis">
-                集团算法
+                Metropolis 更新
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -1941,10 +2140,14 @@ A_{ij}
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../search/search_index.js"></script>
+      
+        <script src="../javascripts/file-search-fallback.js"></script>
       
         <script src="../javascripts/mathjax.js"></script>
       

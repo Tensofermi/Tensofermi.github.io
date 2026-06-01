@@ -148,6 +148,48 @@
     
     
     
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
     
   </nav>
   
@@ -408,6 +450,8 @@
       
         
       
+        
+      
     
     
     
@@ -463,6 +507,34 @@
     
   
     相变理论概览
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rg-fss/correlation_paradigm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关联函数范式
   
 
     
@@ -638,6 +710,8 @@
       
         
       
+        
+      
     
     
     
@@ -677,6 +751,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster/metropolis.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metropolis 更新
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -1170,10 +1272,21 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#worm_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        连续空间 worm 的更新流程
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
-        补充
+        参数检查
       
     </span>
   </a>
@@ -1560,10 +1673,21 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#worm_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        连续空间 worm 的更新流程
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
-        补充
+        参数检查
       
     </span>
   </a>
@@ -1588,8 +1712,8 @@
 
 
 <h1 id="worm">连续空间的世界线 Worm 算法<a class="headerlink" href="#worm" title="Permanent link">¶</a></h1>
-<p>上一节当中，我们将世界线构型的时间连续化，即虚时方向世界面的数目几近于 <span class="arithmatex">\(10^8\)</span> 的量级；而世界面的空间坐标是离散晶格，从而能够模拟晶格上的相互作用模型。
-然而，对于许多真实体系的问题，例如计算 <span class="arithmatex">\(^4{\rm He}\)</span> 气体的超流转变温度时，空间必然不能取得过于离散化。因此，我们可以放宽对时间连续化的程度，即取到尽可能离散化而不失去表达物理现象的能力，通常最高可到 <span class="arithmatex">\(10^4\)</span> 的量级；同时对世界面的空间尽可能取连续化坐标。</p>
+<p>连续时间世界线方法把虚时方向连续化，而空间坐标仍固定在离散格点上，适合处理晶格相互作用模型。
+对于 <span class="arithmatex">\(^4{\rm He}\)</span> 气体超流转变温度这类连续空间问题，空间坐标不能被过度离散化。常见做法是保留足够细的虚时离散，使其不影响目标物理量，同时把每个世界面的空间坐标视为连续变量。</p>
 <p>相比于晶格上的哈密顿量，连续空间的哈密顿量仍然可以分为对角项 <span class="arithmatex">\(\hat{H}_0\)</span> 和非对角项 <span class="arithmatex">\(\hat{V}\)</span> :</p>
 <div class="arithmatex">\[
 \hat{H} = \hat{H}_0 + \hat{V}
@@ -1600,8 +1724,8 @@
 \]</div>
 <p>其中非对角项 <span class="arithmatex">\(\hat{V}\)</span> 当中 <span class="arithmatex">\(\lambda_i = {\hbar^2}/{2m_i}\)</span> 与不同粒子的质量相关，描述了动能项。对角项 <span class="arithmatex">\(\hat{H}_0\)</span> 则描述了不同粒子之间的相互作用。</p>
 <h2 id="_1">配分函数空间<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
-<p>这一节讨论配分函数空间 <span class="arithmatex">\(\mathcal Z\)</span>。</p>
-<p>同样地，我们可以写出连续空间体系的配分函数：</p>
+<p>配分函数空间 <span class="arithmatex">\(\mathcal Z\)</span> 由闭合世界线构型组成。</p>
+<p>连续空间体系的配分函数仍可写成世界线构型求和：</p>
 <div class="arithmatex">\[
 \mathcal{Z} = \sum_{\lbrace \alpha^{(i)} \rbrace} \prod_{i=0}^{N-1} \langle \alpha^{(i+1)} | e^{-\tau \hat{H}} | \alpha^{(i)} \rangle
 =\sum_{\lbrace \alpha^{(i)} \rbrace}  W(\lbrace \alpha^{(i)} \rbrace)
@@ -1612,7 +1736,7 @@
 \langle \alpha^{(i+1)} |e^{-\tau \hat{H}} | \alpha^{(i)} \rangle  \approx 
 e^{-\tau H_0} \langle \alpha^{(i+1)} | e^{-\tau \hat{V}}| \alpha^{(i)}\rangle 
 \]</div>
-<p>注意这里与之前不同，我们可以解析地写出动能的权重。利用矩阵的直积公式：</p>
+<p>与格点连续时间算法不同，连续空间中的动能传播子可以显式写出。利用矩阵的直积公式：</p>
 <div class="arithmatex">\[
 (\textbf{A}_1 \otimes \textbf{B}_1) (\textbf{A}_2 \otimes \textbf{B}_2) = 
 (\textbf{A}_1 \textbf{A}_2) \otimes (\textbf{B}_1 \textbf{B}_2)
@@ -1622,19 +1746,19 @@ e^{-\tau H_0} \langle \alpha^{(i+1)} | e^{-\tau \hat{V}}| \alpha^{(i)}\rangle
  \langle \alpha^{(i+1)} | e^{-\tau \hat{V}}| \alpha^{(i)}\rangle = 
  \prod_j^{N_p} \langle \alpha^{(i+1)}_j | e^{-\tau \hat{V}}| \alpha^{(i)}_j\rangle
 \]</div>
-<p>其中 <span class="arithmatex">\(N_p\)</span> 表示总的粒子数，下指标 <span class="arithmatex">\(j\)</span> 表示不同的粒子，上指标 <span class="arithmatex">\((i)\)</span> 表示不同的世界面。这里我们相当于将基矢量 <span class="arithmatex">\(| \alpha^{(i)}\rangle\)</span> 拆成了不同粒子的直积，即 <span class="arithmatex">\(| \alpha^{(i)}_j\rangle\)</span> 的直积。值得注意的是，对于单个粒子的动能权重，<span class="arithmatex">\(\hat{V}\)</span> 并不会像之前晶格体系当中那样会筛选掉不满足的态，也就是说不会对下一个世界面当中粒子的位置做出任何限制，权重均由两世界面上粒子位置 <span class="arithmatex">\(\vec{r}_j^{(i)}\)</span> 与 <span class="arithmatex">\(\vec{r}_j^{(i+1)}\)</span> 来决定，类似于自由粒子的传播子，如下式所示：</p>
+<p>其中 <span class="arithmatex">\(N_p\)</span> 是粒子数，下标 <span class="arithmatex">\(j\)</span> 标记粒子，上标 <span class="arithmatex">\((i)\)</span> 标记世界面。基矢量 <span class="arithmatex">\(|\alpha^{(i)}\rangle\)</span> 被拆成各粒子位置态的直积。单粒子动能传播子不会像格点 hopping 矩阵元那样只允许少数相邻态；下一世界面中的位置可以连续变化，权重由相邻世界面上的坐标差决定：</p>
 <div class="arithmatex">\[ 
 \langle \alpha^{(i+1)}_j | e^{-\tau \hat{V}}| \alpha^{(i)}_j\rangle
  = \left(\frac{1}{4 \pi \lambda_j \tau} \right)^{d/2} \exp{\left( - \frac{(\vec{r}_j^{(i+1)} - \vec{r}_j^{(i)})^2}{4\lambda_j \tau} \right)}
 \]</div>
-<p>其中 <span class="arithmatex">\(d\)</span> 表示世界面的空间维度。上式也称为密度矩阵，可以用 <span class="arithmatex">\(\rho_0(\vec{r}_j^{(i)},\vec{r}_j^{(i+1)},\tau)\)</span> 表示。至此，我们可以写出配分函数空间权重的形式为：</p>
+<p>其中 <span class="arithmatex">\(d\)</span> 是空间维数。上式也称为自由粒子密度矩阵，记为 <span class="arithmatex">\(\rho_0(\vec r_j^{(i)},\vec r_j^{(i+1)},\tau)\)</span>。因此配分函数空间权重可写为：</p>
 <div class="arithmatex">\[
 W(\lbrace \alpha^{(i)} \rbrace) \approx \sum_{\lbrace \alpha^{(i)} \rbrace} \prod_{i=0}^{N-1}  \langle \alpha^{(i+1)} | e^{-\tau \hat{V}}| \alpha^{(i)}\rangle \exp \left({-\sum_{i=0}^{N-1} H_0^{(i)} \tau} \right)
 \]</div>
-<p>注意，由于空间是近乎连续的，每个世界面的粒子构型几乎都与下一个世界面不同，因此不需要像之前晶格上那样以 Kink 的数目 <span class="arithmatex">\(\mathcal{K}\)</span> 进行分类，而是非对角项和对角项一样，遍历整个虚时。</p>
+<p>由于空间坐标连续，相邻世界面的粒子坐标几乎总是不同，连续空间路径不再按离散 kink 数分类。动能传播子沿整个虚时方向连续贡献权重，对角相互作用则以势能作用量进入。</p>
 <h2 id="_2">格林函数空间<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
-<p>这一节讨论格林函数空间 <span class="arithmatex">\(\mathcal G\)</span>。</p>
-<p>类似地，为了进行 Worm 的更新我们这里可以引入产生湮灭的场算符，定义松原格林函数：</p>
+<p>格林函数空间 <span class="arithmatex">\(\mathcal G\)</span> 由带两个开放端点的世界线构型组成。</p>
+<p>为了进行 worm 更新，引入产生、湮灭场算符并定义松原格林函数：</p>
 <div class="arithmatex">\[
 G(I,M,\tau_I,\tau_M)
 =
@@ -1671,11 +1795,9 @@ g(I,M,\tau_I,\tau_M)
 \mathcal{Z}_w = \mathcal{Z} + \omega_G \mathcal{G}
 \]</div>
 <p>其中 <span class="arithmatex">\(\omega_G\)</span> 用来调节配分函数空间和格林函数空间的相对访问频率。</p>
-<p>注意，由于连续空间当中，粒子严格处于同一个位置的概率几乎为零，因此同一个位置的粒子数最大到是 1，进而因为算符作用产生额外的系数项 <span class="arithmatex">\(\sqrt{n_I(n_M+1)} = 1\)</span>，与硬核玻色子类似，故可以不用考虑。 </p>
-<p>因此权重 <span class="arithmatex">\(W_{\mathcal{G}}\)</span> 与 <span class="arithmatex">\(W\)</span> 的差别仅仅是多了求和变量 <span class="arithmatex">\(\tau^2 d\vec{r}_I d\vec{r}_M\)</span>，以及要扣除被湮灭掉的或加上被产生出的自由粒子的传播子 <span class="arithmatex">\(\rho_0(\vec{r}_j^{(i)},\vec{r}_j^{(i+1)},\tau)\)</span> 所占的权重。</p>
-<blockquote>
-<p>注意，这里的权重 <span class="arithmatex">\(W_{\mathcal{G}}\)</span> 与连续时间算法的情况有微妙的不同。连续时间算法当中非对角项 <span class="arithmatex">\(\hat{V}\)</span> 与 <span class="arithmatex">\(\hat{b}_I\)</span> （或 <span class="arithmatex">\(\hat{b}_M^\dagger\)</span>）几乎不可能处于同一时空，一方面是因为虚时间是准连续的，出现的概率趋于零；另一方面，在算法的更新上会规避掉同时出现的情况。然而，连续空间算法则不同，这源于其几乎每一个世界面当中的每一个粒子在一下虚时的世界面当中都会有变动，从而虚时上几乎处处都有 <span class="arithmatex">\(\hat{V}\)</span> 的贡献， 因此 <span class="arithmatex">\(\hat{b}_I\)</span> （或 <span class="arithmatex">\(\hat{b}_M^\dagger\)</span>）就无法避免地与 <span class="arithmatex">\(\hat{V}\)</span> 共存，其结果就是 <span class="arithmatex">\(\sqrt{n_I(n_M+1)}\)</span> 与 <span class="arithmatex">\(\rho_0(\vec{r}_j^{(i)},\vec{r}_j^{(i+1)},\tau)\)</span> 绑定，因此格林函数空间的权重需要增减 <span class="arithmatex">\(\rho_0(\vec{r}_j^{(i)},\vec{r}_j^{(i+1)},\tau)\)</span> 项。</p>
-</blockquote>
+<p>连续空间中两个粒子严格处于同一位置的概率为零；在常用坐标表象下，端点算符不会像软核格点玻色子那样额外带来可变的 <span class="arithmatex">\(\sqrt{n_I(n_M+1)}\)</span> 占据数因子。</p>
+<p>因此 <span class="arithmatex">\(W_{\mathcal G}\)</span> 与 <span class="arithmatex">\(W\)</span> 的主要差别来自端点积分测度 <span class="arithmatex">\(\tau^2 d\vec r_I d\vec r_M\)</span>，以及开放或闭合世界线时被移除、补回的自由传播子 <span class="arithmatex">\(\rho_0\)</span>。</p>
+<p>这一点和格点连续时间算法不同。格点算法中的非对角事件是离散 kink，worm 端点通常可以避开同一虚时时刻的 kink；连续空间算法的动能传播子却在每一段虚时上都存在。开放端点会切断或补回某段自由传播子，因此格林函数空间权重必须显式处理相应的 <span class="arithmatex">\(\rho_0\)</span> 因子。</p>
 <h2 id="_3">常见体系<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
 <div class="arithmatex">\[    
 \hat{H} = -\frac{1}{2}\sum_{i=1}^N \nabla_i^2
@@ -1692,7 +1814,7 @@ g(I,M,\tau_I,\tau_M)
 \rho_0(\vec r,\vec r',\tau)
 \]</div>
 <p>本身就是权重的重要组成部分。因此更新不只是移动虚时位置，还要改变粒子坐标、开放或闭合世界线、增减粒子段，并处理交换置换。</p>
-<p>下面只说明各更新的作用和接受率结构。具体实现中，接受率统一由</p>
+<p>各更新的接受率统一来自</p>
 <div class="arithmatex">\[
 P_{\rm acc}(\nu\to\nu')
 =
@@ -1750,13 +1872,85 @@ P_{\rm acc}(\nu\to\nu')
 <p>局域坐标更新通常很难改变置换拓扑。<code>Swap</code> 的作用是让 worm 端点尝试接到另一条世界线上，从而改变开放路径与闭合路径的连接关系。若最终闭合，构型可能形成不同长度的 permutation cycle。</p>
 <p>可以把它理解为连续空间版本的“worm 在空间方向移动”：连续时间格点 Worm 中，worm head 通过创建或删除 kink 从一个格点移动到相邻格点；连续空间中没有固定格点，worm 端点通过选择附近粒子的世界线并重连路径来改变粒子标签和置换结构。</p>
 <p>接受率需要比较重连前后的传播子、相互作用能、选择目标世界线的概率，以及生成连接路径的 proposal 概率。对玻色体系，长交换环与超流响应密切相关，因此 <code>Swap</code> 是否高效会直接影响低温超流模拟的采样质量。</p>
-<h2 id="_5">补充<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
-<ul>
-<li>首先在配分函数空间当中进行预模拟，一方面根据预模拟结果确定各个操作的接受概率以及level，化学势（不小于焓）；</li>
-<li>在格林函数空间进行试模拟，保证各个参数指标符合要求，例如pcycle里面尝试次数在 <span class="arithmatex">\(10^3\)</span> 量级；</li>
-<li>进行正式模拟，可以先对一个温度 <span class="arithmatex">\(T\)</span> 下成倍增加虚时层数 <span class="arithmatex">\(N\)</span>, 确定好哪个 <span class="arithmatex">\(N\)</span> 下能量在误差棒下收敛，后续的模拟只需保证 <span class="arithmatex">\(N T\)</span> 乘积不变即可；</li>
-<li>当温度之外的其他参数发生变化了，以上步骤需要重新进行。</li>
-</ul>
+<h2 id="worm_1">连续空间 worm 的更新流程<a class="headerlink" href="#worm_1" title="Permanent link">¶</a></h2>
+<p>连续空间 worm 模拟通常按 block 和 pass 组织。一次 pass 由若干更新 move 组成，直到构型回到配分函数空间并达到最低更新次数后，再测量对角观测量。主循环可以概括为：</p>
+<div class="highlight"><pre><span></span><code>for each block:
+    for each pass:
+        do:
+            choose closed-worldline move or open-worm move
+            update one-body density-matrix histogram if possible
+        while move count is too small or worm is still open
+        shift imaginary-time origin
+        measure diagonal observables
+    write partial results
+</code></pre></div>
+<p>其中一个关键细节是：对角量测量前，构型必须回到 <span class="arithmatex">\(\mathcal Z\)</span> 空间；<span class="arithmatex">\(\mathcal G\)</span> 空间主要用于更新开放世界线并测量一体密度矩阵。</p>
+<p>连续空间 worm 的 move 可以按物理作用分成几类：</p>
+<table>
+<thead>
+<tr>
+<th>更新类型</th>
+<th>所在空间</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>路径形变</td>
+<td><span class="arithmatex">\(\mathcal Z\)</span></td>
+<td>选择一段闭合路径，固定端点，用 Brownian-bridge 形式重采样中间 bead</td>
+</tr>
+<tr>
+<td>整体平移</td>
+<td><span class="arithmatex">\(\mathcal Z\)</span></td>
+<td>对未缠结的闭合世界线做整体空间平移</td>
+</tr>
+<tr>
+<td>开放端点前进</td>
+<td><span class="arithmatex">\(\mathcal G\)</span></td>
+<td>增长开放路径，生成新 bead，并逐层比较传播子和相互作用权重</td>
+</tr>
+<tr>
+<td>开放端点后退</td>
+<td><span class="arithmatex">\(\mathcal G\)</span></td>
+<td>删除开放路径的一段，是前进更新的反向过程</td>
+</tr>
+<tr>
+<td>闭合 worm</td>
+<td><span class="arithmatex">\(\mathcal G\to\mathcal Z\)</span></td>
+<td>尝试用自由传播子端点检验和路径重采样闭合开放世界线</td>
+</tr>
+<tr>
+<td>置换重连</td>
+<td><span class="arithmatex">\(\mathcal G\)</span></td>
+<td>选择另一条世界线并重连，改变置换结构</td>
+</tr>
+<tr>
+<td>一体密度矩阵测量</td>
+<td><span class="arithmatex">\(\mathcal G\)</span></td>
+<td>在只有一个 worm 打开时累积端点间距和虚时差的统计</td>
+</tr>
+<tr>
+<td>置换环统计</td>
+<td><span class="arithmatex">\(\mathcal Z\)</span></td>
+<td>在闭合构型中统计 permutation cycle 分布</td>
+</tr>
+</tbody>
+</table>
+<p>多组分体系还需要记录每个组分的统计类型、动能系数、粒子数和进入 <span class="arithmatex">\(\mathcal G\)</span> 空间的相对权重。统计类型决定是否允许 Bose/Fermi/Boltzmann 置换结构；动能系数控制自由传播子的扩散尺度；opening weight 控制开放 worm 空间的访问频率。</p>
+<p>连续空间 worm 的难点不在于 move 种类的数量，而在于每个 move 都要同时维护三类信息：</p>
+<ol>
+<li>每条世界线在各虚时层上的连续空间坐标；</li>
+<li>相互作用势能、力或高阶作用量修正所需的缓存量；</li>
+<li>置换连接、开放端点和当前 worm 所属组分。</li>
+</ol>
+<p>因此，接受检验通常不能只比较端点传播子，还要把新路径和其他活跃粒子的相互作用变化纳入权重比。若采用四阶作用量，力平方修正项也会随路径更新一起变化。</p>
+<h2 id="_5">参数检查<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
+<p>连续空间 worm 的参数通常分阶段确定。</p>
+<p>第一，先在配分函数空间做短预热，调节路径形变、整体平移和 opening weight 等参数，使主要更新有可用的接受率。</p>
+<p>第二，在格林函数空间检查开放端点的访问频率、置换重连尝试次数和端点距离分布。如果 <span class="arithmatex">\(\mathcal G\)</span> 空间访问太少，一体密度矩阵和长交换环统计都会很差；如果访问太多，对角观测量的有效测量次数会下降。</p>
+<p>第三，对固定温度 <span class="arithmatex">\(T\)</span> 增加虚时层数 <span class="arithmatex">\(N\)</span>，检查能量、超流刚度或其他目标观测量是否在误差棒内收敛。确定可用的 <span class="arithmatex">\(\tau=\beta/N\)</span> 后，同一作用量近似下的其他温度点应保持相同的虚时步长量级。</p>
+<p>第四，只要相互作用强度、密度、温度范围或 trial move 尺度发生明显变化，就需要重新检查接受率、Trotter 收敛和热化长度。</p>
 
 
 
@@ -1868,10 +2062,14 @@ P_{\rm acc}(\nu\to\nu')
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../search/search_index.js"></script>
+      
+        <script src="../javascripts/file-search-fallback.js"></script>
       
         <script src="../javascripts/mathjax.js"></script>
       

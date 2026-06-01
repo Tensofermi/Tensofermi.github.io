@@ -9,7 +9,7 @@
         <link rel="prev" href="../basic/rl_mc.html">
       
       
-        <link rel="next" href="rg.html">
+        <link rel="next" href="correlation_paradigm.html">
       
       
         
@@ -147,6 +147,48 @@
       <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
     
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
     
     
   </nav>
@@ -410,6 +452,8 @@
       
         
       
+        
+      
     
     
     
@@ -520,6 +564,17 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
+        热力学极限与奇异性
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
         三个层次
       
     </span>
@@ -550,7 +605,35 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#lgw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LGW 的边界
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LGW 的边界">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#landau_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        广义 Landau 范式的视角
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
         为什么常保留到四次项
@@ -561,7 +644,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
         常见经典自旋模型
@@ -611,7 +694,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         容易混淆的几条线
@@ -636,6 +719,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="correlation_paradigm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关联函数范式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -803,6 +914,8 @@
       
         
       
+        
+      
     
     
     
@@ -842,6 +955,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster/metropolis.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metropolis 更新
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -1458,6 +1599,17 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
+        热力学极限与奇异性
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
         三个层次
       
     </span>
@@ -1488,7 +1640,35 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#lgw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LGW 的边界
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LGW 的边界">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#landau_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        广义 Landau 范式的视角
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
         为什么常保留到四次项
@@ -1499,7 +1679,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
         常见经典自旋模型
@@ -1549,7 +1729,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         容易混淆的几条线
@@ -1588,7 +1768,7 @@
 
 
 <h1 id="_1">相变理论概览<a class="headerlink" href="#_1" title="Permanent link">¶</a></h1>
-<p>这一节给出相变理论的入口图像。后面的 RG、有限尺寸标度、Mermin-Wagner 定理和 BKT 相变都可以看作这张图里的不同局部放大。</p>
+<p>相变理论把微观模型、有效自由能、长距离涨落和 Monte Carlo 观测量连接起来。RG、有限尺寸标度、Mermin-Wagner 定理和 BKT 相变分别描述这条链条中的不同尺度和不同机制。</p>
 <p>统计物理研究相变时，常常在三个层次之间来回切换：</p>
 <ol>
 <li>微观配分函数。</li>
@@ -1596,7 +1776,7 @@
 <li>宏观序参量、关联函数和响应函数。</li>
 </ol>
 <p>Monte Carlo 直接在微观构型空间中采样；相变理论则试图把采样结果压缩成少数长距离自由度的语言。</p>
-<p>读这页时，可以先抓住一条主线：</p>
+<p>一条基本主线是：</p>
 <div class="arithmatex">\[
 \text{模型}
 \rightarrow
@@ -1609,7 +1789,31 @@
 \text{Monte Carlo 观测量}.
 \]</div>
 <p>这里每一步都在丢掉一部分细节，同时保留长距离最重要的信息。例如 Ising 模型的微观变量是 <span class="arithmatex">\(s_i=\pm1\)</span>，但在临界点附近，我们常用连续场 <span class="arithmatex">\(\phi(x)\)</span> 来描述粗粒化磁化。这个替换不是说自旋真的变成了连续变量，而是说大尺度涨落可以用连续场更方便地组织。</p>
-<h2 id="_2">三个层次<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<h2 id="_2">热力学极限与奇异性<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<p>严格意义上的平衡相变定义在热力学极限中：</p>
+<div class="arithmatex">\[
+N\to\infty,
+\qquad
+L\to\infty,
+\qquad
+\rho=\frac{N}{L^d}\ {\rm fixed}.
+\]</div>
+<p>有限系统的配分函数通常是控制参数的解析函数，所以自由能也不会真正出现非解析奇点。Monte Carlo 在有限 <span class="arithmatex">\(L\)</span> 上看到的是圆滑峰、交点漂移、有限尺寸 rounded transition；真正的相变来自 <span class="arithmatex">\(L\to\infty\)</span> 后这些结构变尖、变陡，最终形成奇异性。</p>
+<p>这件事可以从三个层次理解。</p>
+<p>第一，在配分函数层次，有限系统的零点通常位于复温度或复外场平面。随着系统尺寸增大，这些零点可能向实轴逼近。Lee-Yang 零点和 Fisher 零点的思想正是用零点分布刻画热力学极限中的相变。有限系统本身通常仍是解析的；非解析性来自热力学极限中零点累积并夹住实参数轴。</p>
+<p>第二，在自由能层次，奇异性表现为自由能密度</p>
+<div class="arithmatex">\[
+f=-\frac{1}{\beta V}\ln Z
+\]</div>
+<p>在某个控制参数处不解析。若一阶导数不连续，通常称为一级相变；若一阶导数连续而二阶导数发散或不连续，常称为连续相变或二级相变。更高阶分类可以按自由能第几阶导数首次出现奇异来组织，不过现代临界现象更常用序参量、关联长度、临界指数和 RG 固定点来分类。</p>
+<p>第三，在观测量层次，奇异性表现为响应函数发散或出现不连续。例如比热、磁化率、关联长度可以写成自由能导数或关联函数积分：</p>
+<div class="arithmatex">\[
+C\sim \frac{\partial^2 f}{\partial T^2},
+\qquad
+\chi\sim \frac{\partial^2 f}{\partial h^2}.
+\]</div>
+<p>普通二级相变中，关联长度发散，长距离涨落控制标度行为。BKT 相变更特殊：相关长度以 essential singularity 发散，低温侧呈准长程序，传统 Landau 序参量图像不足以完整描述它。</p>
+<h2 id="_3">三个层次<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
 <p>最底层是配分函数：</p>
 <div class="arithmatex">\[
 Z=\sum_{\{x\}}e^{-\beta H(x)}.
@@ -1697,7 +1901,22 @@ m=\pm\sqrt{-t/u}.
 \]</div>
 <p>这就是 Ising、XY、Heisenberg 等连续或离散自旋模型最常用的有效场论入口。</p>
 <p>这里的 <span class="arithmatex">\(\phi(x)\)</span> 可以理解为一个粗粒化变量。它不是单个格点上的自旋，而是某个小区域内序参量的平均。梯度项惩罚相邻区域的序参量变化，因此控制空间关联；质量项 <span class="arithmatex">\(t\phi^2\)</span> 控制系统离临界点有多远；相互作用项 <span class="arithmatex">\(\phi^4\)</span> 控制涨落之间的非线性耦合。RG 做的事情，就是不断改变粗粒化尺度，观察这些项的相对重要性如何变化。</p>
-<h2 id="_3">为什么常保留到四次项<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<h2 id="lgw">LGW 的边界<a class="headerlink" href="#lgw" title="Permanent link">¶</a></h2>
+<p>LGW 理论是一套强大的唯象框架。它从序参量、对称性和局域有效作用量出发，解释了大量普通连续相变。但它不直接包含显微模型的所有信息，也不会自动捕捉所有相结构。</p>
+<p>最典型的边界有三类。</p>
+<p>第一，低维连续对称性强涨落。二维短程 XY 模型没有普通 Landau 意义下的有限温长程序，却有 BKT 相变。这里关键变量不是序参量幅度从零变成非零，而是涡旋-反涡旋的束缚与解束缚，以及低温侧的准长程序。</p>
+<p>第二，拓扑缺陷和几何 sector。percolation、FK cluster、loop model、vortex gas 等体系中，很多关键观测量是几何连通性或拓扑缺陷，而不是单个局域序参量的均匀期望值。</p>
+<p>第三，量子多体中的拓扑序和广义对称性。普通 Landau 范式按全局对称性破缺分类相；拓扑序、SPT 相、规范结构和任意子激发提示还存在不由局域序参量完全刻画的相。最近关于 generalized Landau paradigm 的讨论尝试把这些现象组织为广义对称性及其破缺、generalized gauging 和 topological holography / symmetry TFT 语言下的相结构。这部分目前更适合作为扩展视角：它提醒 LGW 是基础入口，但不是相变理论的终点。</p>
+<h3 id="landau_1">广义 Landau 范式的视角<a class="headerlink" href="#landau_1" title="Permanent link">¶</a></h3>
+<p><code>arXiv:2511.19793</code> 的核心动机可以概括为：普通 Landau 范式把相分类为“普通全局对称性是否破缺”，但许多量子相的区分并不来自一个局域序参量的期望值。更高层的组织方式，是把拓扑序、SPT 相、规范约束和某些非传统临界点理解为广义对称性、广义 gauging 以及 topological holography / symmetry TFT 结构中的相与相变。</p>
+<p>这并不是说 LGW 理论被废弃了。更准确的说法是：</p>
+<ul>
+<li>如果问题有清楚的局域序参量、普通全局对称性和短程相互作用，LGW/RG 仍然是最有效的入口。</li>
+<li>如果两个相没有传统对称性破缺差别，却有不同的拓扑简并、任意子内容、边界态或约束 sector，就需要比局域序参量更丰富的结构。</li>
+<li>在 Monte Carlo 中，这类问题常表现为：必须测量非局域量、缠绕数、拓扑 sector、弦序参量、Wilson loop、entanglement 相关量，或者需要在扩展构型空间中保持某种约束。</li>
+</ul>
+<p>广义 Landau 范式目前更像一个组织框架：它提示哪些超出局域序参量的结构也应被视为“对称性及其破缺”的广义形式，但具体模型中的可测量判据仍要回到关联函数、缺陷、边界响应、拓扑简并或规范约束。因此，这里把“广义 Landau 范式”放在相变概览中，只作为判断边界的提醒：不要把所有相变都先验地塞进一个局域 <span class="arithmatex">\(\phi^4\)</span> 泛函。</p>
+<h2 id="_4">为什么常保留到四次项<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
 <p>在 Gaussian 固定点附近，先由梯度项确定场的工程量纲：</p>
 <div class="arithmatex">\[
 [\phi]=\frac{d-2}{2}.
@@ -1728,7 +1947,7 @@ g_3\phi^3.
 d_c(3)=6.
 \]</div>
 <p>这正是渗流、某些 Potts/cluster 场论和 <span class="arithmatex">\(\phi^3\)</span> 理论中上临界维度为 <span class="arithmatex">\(6\)</span> 的量纲来源。</p>
-<h2 id="_4">常见经典自旋模型<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
+<h2 id="_5">常见经典自旋模型<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
 <p>最近邻 <span class="arithmatex">\(O(N)\)</span> 模型可写为</p>
 <div class="arithmatex">\[
 H=-J\sum_{\langle ij\rangle}
@@ -1886,8 +2105,8 @@ q^{k(\omega)}
 \quad\Rightarrow\quad
 \phi^3.
 \]</div>
-<p>这个说法仍然是场论层面的总览，不是说所有维度、所有 <span class="arithmatex">\(q\)</span> 都存在完全相同的连续相变。例如二维 Potts 有特殊的共形场论结构，大 <span class="arithmatex">\(q\)</span> 的 Potts 转变可能变成一级相变。教程中这里要抓住的是：场论中保留 <span class="arithmatex">\(\phi^3\)</span> 还是 <span class="arithmatex">\(\phi^4\)</span>，首先由对称性、观测 sector 和最低允许相互作用决定。</p>
-<h2 id="_5">容易混淆的几条线<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
+<p>这个说法仍然是场论层面的总览，不是说所有维度、所有 <span class="arithmatex">\(q\)</span> 都存在完全相同的连续相变。例如二维 Potts 有特殊的共形场论结构，大 <span class="arithmatex">\(q\)</span> 的 Potts 转变可能变成一级相变。关键点是：场论中保留 <span class="arithmatex">\(\phi^3\)</span> 还是 <span class="arithmatex">\(\phi^4\)</span>，首先由对称性、观测 sector 和最低允许相互作用决定。</p>
+<h2 id="_6">容易混淆的几条线<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
 <p>第一，序参量不等于观测量全集。序参量是区分相的核心量，但 Monte Carlo 还会测能量、比热、磁化率、Binder ratio、关联长度、cluster 几何量等。很多无量纲量本身不是序参量，却非常适合定位临界点。</p>
 <p>第二，平均场指数不等于“粗糙近似”。平均场可以来自忽略涨落的 Landau 鞍点，也可以在高维、长程、完全图或危险无关变量控制的有限尺寸区域中自然出现。看到平均场指数时，应该问：这是热力学极限的 Gaussian 固定点，还是有限尺寸零模主导的有效标度？</p>
 <p>第三，连续场论不等于连续自旋模型。Ising 自旋是离散的，但临界点附近的粗粒化磁化场可以是连续的。反过来，XY 模型的显微变量是连续角度，但二维短程情况下并不会产生普通 Landau 长程序，而是出现 BKT 准长程序。</p>
@@ -1954,13 +2173,13 @@ q^{k(\omega)}
         
         
           
-          <a href="rg.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 重整化群">
+          <a href="correlation_paradigm.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 关联函数范式">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 下一页
               </span>
               <div class="md-ellipsis">
-                重整化群
+                关联函数范式
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -2013,10 +2232,14 @@ q^{k(\omega)}
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../search/search_index.js"></script>
+      
+        <script src="../javascripts/file-search-fallback.js"></script>
       
         <script src="../javascripts/mathjax.js"></script>
       

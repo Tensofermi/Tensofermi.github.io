@@ -148,6 +148,48 @@
     
     
     
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
     
   </nav>
   
@@ -410,6 +452,8 @@
       
         
       
+        
+      
     
     
     
@@ -465,6 +509,34 @@
     
   
     相变理论概览
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="correlation_paradigm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关联函数范式
   
 
     
@@ -924,6 +996,8 @@
       
         
       
+        
+      
     
     
     
@@ -963,6 +1037,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster/metropolis.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metropolis 更新
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -1860,7 +1962,7 @@ t=\frac{T-T_c}{T_c}
 <div class="arithmatex">\[
 \xi(t)\gtrsim L,
 \]</div>
-<p>系统就已经感受到边界和有限尺寸。换句话说，有限系统真正能分辨的临界区域大约由</p>
+<p>系统就已经感受到边界和有限尺寸。有限系统真正能分辨的临界区域大约由</p>
 <div class="arithmatex">\[
 \xi(t)\sim L
 \]</div>
@@ -2573,7 +2675,7 @@ tL^2,
 \]</div>
 <p>当 <span class="arithmatex">\(d&gt;4\)</span> 时，<span class="arithmatex">\(L^{-d/2}\)</span> 比 <span class="arithmatex">\(L^{-2}\)</span> 更窄。因此从远离临界点往临界点靠近时，系统会先进入较宽的 GFP window；只有非常靠近伪临界点时，才进入由零模控制的 CG window。数值分析中如果尺寸不够大，或者温度网格没有覆盖足够窄的区域，就可能在同一模型里看到两种看似不同的标度。</p>
 <h3 id="_11">线性尺寸标度与半径标度<a class="headerlink" href="#_11" title="Permanent link">¶</a></h3>
-<p>这一节比较 <span class="arithmatex">\(L\)</span> 标度与 <span class="arithmatex">\(R\)</span> 标度。</p>
+<p>这里比较 <span class="arithmatex">\(L\)</span> 标度与 <span class="arithmatex">\(R\)</span> 标度。</p>
 <div class="admonition note">
 <p class="admonition-title">核心图像</p>
 <p><strong>对 cluster size 来说，只看关于系统线性尺寸 <span class="arithmatex">\(L\)</span> 的 finite-size scaling，即 <span class="arithmatex">\(C\sim L^{d_l}\)</span>，主要看到的是 complete-graph asymptotics。这类标度更接近 distance-independent quantities，例如 susceptibility 或 cluster-size distribution 的 cutoff。</strong></p>
@@ -2858,7 +2960,7 @@ n(s,L)\sim s^{-5/2},
 <p>Loop 表象给出的是另一种组织方式。它同样有 CG window 和 GFP window，但其几何上临界结构不像 FK 表象那样再显出一个独立的 <span class="arithmatex">\(d_p=6\)</span>。因此在这个图像下，FK-Ising 可以同时显示 <span class="arithmatex">\(d_c=4\)</span> 和 <span class="arithmatex">\(d_p=6\)</span> 两个上临界维度；Loop-Ising 的主要上临界维度仍是 <span class="arithmatex">\(d_c=4\)</span>。这不是说两种表象描述了不同的热力学模型，而是说不同几何变量对同一个 Ising 临界点的不同扇区敏感。</p>
 <h3 id="_12">边界条件和进入临界点的路径<a class="headerlink" href="#_12" title="Permanent link">¶</a></h3>
 <p>上面的讨论默认的是高维 torus，也就是周期边界条件。这个前提很重要。若换成自由边界、柱状边界或其他混合边界，零模和 wrapping 的组织方式会改变，某些观测量可能更接近 GFP 标度，而不是 CG 标度。</p>
-<p>从教程角度，可以把这点记成一句话：<strong>PBC 最容易显出 complete-graph asymptotics；带边界的系统更容易让空间相关和表面效应进入主导。</strong> 因此比较不同模拟结果时，边界条件必须和观测量一起说明。只写“高维 percolation 的 <span class="arithmatex">\(C_1\)</span> 标度”是不够的；还要说是在 PBC、FBC，还是其他边界下测量。</p>
+<p>这一点可以概括为：<strong>PBC 最容易显出 complete-graph asymptotics；带边界的系统更容易让空间相关和表面效应进入主导。</strong> 因此比较不同模拟结果时，边界条件必须和观测量一起说明。只写“高维 percolation 的 <span class="arithmatex">\(C_1\)</span> 标度”是不够的；还要说是在 PBC、FBC，还是其他边界下测量。</p>
 <p>另一个容易被忽略的点是进入临界点的路径。若令</p>
 <div class="arithmatex">\[
 t\sim L^{-\lambda},
@@ -2924,7 +3026,7 @@ C_1\sim R^{d_F},
 \]</div>
 <p>在上临界维度以上和周期边界条件下，<span class="arithmatex">\(d_{L1}\)</span> 与 <span class="arithmatex">\(d_F\)</span> 的关系可能不再像低维那样直接。原因仍然是零模、危险无关变量和边界条件会改变有限系统中的几何组织方式。</p>
 <p>在这里讨论的普通 percolation 与 FK-Ising 的比较中，<span class="arithmatex">\(C_1\)</span> 和 <span class="arithmatex">\(C_2\)</span> 标度不同是 FK-Ising 的特殊现象；普通 percolation 的 complete-graph window 中 <span class="arithmatex">\(C_1\)</span> 和 <span class="arithmatex">\(C_2\)</span> 是同阶的，均为 <span class="arithmatex">\(V^{2/3}\)</span>。这种 FK-Ising 的 <span class="arithmatex">\(C_1\)</span> dominance 可以从 LC joint model 或 Loop-Cluster 图像中理解：最大 FK cluster 继承了 Ising complete-graph 零模标度，而其他 clusters 更接近 percolation-like 标度。</p>
-<p>Loop 表象也给出类似提醒。某些 loop 模型中，能量或热标度可能和 bond 数、loop 长度、返回概率等几何量相关。这样的图像很有帮助，但具体关系依赖表象和模型定义。教程中更稳妥的用法是：把几何表象当成理解高维有限尺寸修正的补充视角，而不是在没有推导时把某个几何指数直接等同于热力学指数。</p>
+<p>Loop 表象也给出类似提醒。某些 loop 模型中，能量或热标度可能和 bond 数、loop 长度、返回概率等几何量相关。这样的图像很有帮助，但具体关系依赖表象和模型定义。更稳妥的用法是：把几何表象当成理解高维有限尺寸修正的补充视角，而不是在没有推导时把某个几何指数直接等同于热力学指数。</p>
 <h2 id="_14">修正项从哪里来<a class="headerlink" href="#_14" title="Permanent link">¶</a></h2>
 <p>真实数据很少只满足最简单的标度函数。原因主要有三类。</p>
 <p>第一，存在 irrelevant scaling fields：</p>
@@ -3174,10 +3276,14 @@ tL^{y_t}.
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../search/search_index.js"></script>
+      
+        <script src="../javascripts/file-search-fallback.js"></script>
       
         <script src="../javascripts/mathjax.js"></script>
       

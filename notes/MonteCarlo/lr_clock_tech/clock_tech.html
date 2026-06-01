@@ -148,6 +148,48 @@
     
     
     
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
     
   </nav>
   
@@ -408,6 +450,8 @@
       
         
       
+        
+      
     
     
     
@@ -463,6 +507,34 @@
     
   
     相变理论概览
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rg-fss/correlation_paradigm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关联函数范式
   
 
     
@@ -638,6 +710,8 @@
       
         
       
+        
+      
     
     
     
@@ -677,6 +751,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster/metropolis.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metropolis 更新
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -969,6 +1071,50 @@
     <span class="md-ellipsis">
       
         用在 factorized Metropolis 中
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#first-rejection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First-rejection 事件
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clock_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        递归 Clock 和树结构
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        与量子 Worm 的结合
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#box" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        代价和 box 技巧
       
     </span>
   </a>
@@ -1482,6 +1628,50 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#first-rejection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First-rejection 事件
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clock_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        递归 Clock 和树结构
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        与量子 Worm 的结合
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#box" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        代价和 box 技巧
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1542,6 +1732,7 @@ O(N^2)
 \]</div>
 <p>每个 sweep。Clock 类算法的目标是跳过那些“几乎肯定不会真正影响本次更新”的远距离相互作用，只访问少数可能触发事件的 pair。</p>
 <p>这类方法的核心不是改变目标分布，而是把许多 Bernoulli 判断组织得更聪明。只要因子化和补偿步骤写对，采样的仍然是原来的长程模型。</p>
+<p><code>arXiv:2305.14082</code> 中的 clock factorized quantum Monte Carlo 可以看成这类思想在量子 Monte Carlo 中的系统化版本。它把 factorized Metropolis filter、bound rejection event、递归树结构和 worm 更新结合起来，目标是在长程相互作用或长程 hopping 存在时，把局域更新中本来需要访问 <span class="arithmatex">\(O(N)\)</span> 个相互作用项的步骤降到 <span class="arithmatex">\(O(1)\)</span> 或接近常数的候选事件抽样。</p>
 <h2 id="bernoulli">从一串 Bernoulli 事件开始<a class="headerlink" href="#bernoulli" title="Permanent link">¶</a></h2>
 <p>假设一次更新需要依次检查很多 pair，每个 pair 有一个事件概率</p>
 <div class="arithmatex">\[
@@ -1658,6 +1849,115 @@ p_{ij}^{A}\le \hat p_{ij}^{A},
 \]</div>
 <p>就可以同样用 Clock 抽样下一次候选拒绝事件。候选拒绝触发后，再计算真实的 <span class="arithmatex">\(p_{ij}^{A}/\hat p_{ij}^{A}\)</span> 判断是否真的拒绝。</p>
 <p>这一步比 cluster 更微妙，因为需要为能量差的拒绝概率找可靠上界。若自旋变量有界，例如 classical spin 满足 <span class="arithmatex">\(|\mathbf S_i|=1\)</span>，通常比较容易构造；若变量无界，上界设计会困难得多。</p>
+<h2 id="first-rejection">First-rejection 事件<a class="headerlink" href="#first-rejection" title="Permanent link">¶</a></h2>
+<p>Clock factorized QMC 的一个关键表述是 first-rejection event。因子化接受率为</p>
+<div class="arithmatex">\[
+P_{\rm fac}
+=
+\prod_{j=1}^{N-1}P_j.
+\]</div>
+<p>可以把它理解成一串独立测试：</p>
+<div class="arithmatex">\[
+1,2,\cdots,N-1.
+\]</div>
+<p>只要其中某一个因子拒绝，整个 proposed update 就拒绝。于是更新命运可以由“第一个拒绝来自哪里”决定：</p>
+<div class="arithmatex">\[
+\text{first rejection at }j.
+\]</div>
+<p>若所有因子都通过，则更新接受。朴素顺序测试仍可能要检查 <span class="arithmatex">\(O(N)\)</span> 个因子；Clock 的目标是直接抽出第一个候选拒绝事件，而不是逐个检查。</p>
+<p>真实拒绝概率为</p>
+<div class="arithmatex">\[
+q_j=1-P_j.
+\]</div>
+<p>如果 <span class="arithmatex">\(q_j\)</span> 依赖当前构型，直接抽样仍然昂贵。于是引入构型无关上界</p>
+<div class="arithmatex">\[
+q_j\le \hat q_j.
+\]</div>
+<p>先按 <span class="arithmatex">\(\hat q_j\)</span> 抽 first-bound-rejection event；抽到候选 <span class="arithmatex">\(j\)</span> 后，再用</p>
+<div class="arithmatex">\[
+\frac{q_j}{\hat q_j}
+\]</div>
+<p>判断它是否成为真实拒绝。若不是，则继续往后抽下一个候选。这样既利用了构型无关表的快速抽样，又保留真实构型依赖概率。</p>
+<h2 id="clock_1">递归 Clock 和树结构<a class="headerlink" href="#clock_1" title="Permanent link">¶</a></h2>
+<p>当候选概率数量很多时，可以把所有 <span class="arithmatex">\(\hat q_j\)</span> 组织成一棵树。每个叶子对应一个 interaction factor；内部节点保存其子树中至少出现一个 bound rejection 的概率。</p>
+<p>对一个节点 <span class="arithmatex">\(A\)</span>，若其子节点为 <span class="arithmatex">\(a\)</span>，则“子树中没有 bound rejection”的概率是</p>
+<div class="arithmatex">\[
+\prod_{a\in A}(1-\hat q_a).
+\]</div>
+<p>所以该节点发生 bound rejection 的概率为</p>
+<div class="arithmatex">\[
+\hat Q_A
+=
+1-
+\prod_{a\in A}(1-\hat q_a).
+\]</div>
+<p>抽样时先在根节点判断是否有候选事件；若有，再递归进入对应子树，直到定位到某个叶子 <span class="arithmatex">\(j\)</span>。这就是 recursive clock sampling 的树结构图像。</p>
+<p>这个结构的价值是：</p>
+<ul>
+<li>远距离小概率事件可以被批量跳过。</li>
+<li>若相互作用只依赖距离，表可以预计算并复用。</li>
+<li>若某些概率随参数变化，可以只更新树的一部分。</li>
+<li>对大量小概率离散事件，可以达到 <span class="arithmatex">\(O(1)\)</span> 或 <span class="arithmatex">\(O(\log N)\)</span> 级别的候选抽样成本。</li>
+</ul>
+<p>实际实现中，树结构、累计表、Walker alias、dynamic thinning 都是在解决同一个问题：如何从一大组小概率事件中快速抽到下一次候选事件。</p>
+<h2 id="worm">与量子 Worm 的结合<a class="headerlink" href="#worm" title="Permanent link">¶</a></h2>
+<p>Clock 技巧不只适用于经典 Metropolis。长程量子模型的世界线构型中，某个局域更新常常只改变一个站点在虚时区间</p>
+<div class="arithmatex">\[
+[\tau_1,\tau_2]
+\]</div>
+<p>上的占据数或自旋状态。若存在长程密度-密度相互作用，则这个局域改变会影响它和所有其他世界线之间的作用量：</p>
+<div class="arithmatex">\[
+\Delta U
+=
+\sum_j \Delta U_j.
+\]</div>
+<p>普通 Metropolis 需要逐个计算所有 <span class="arithmatex">\(\Delta U_j\)</span>，成本为 <span class="arithmatex">\(O(N)\)</span>。因子化后写成</p>
+<div class="arithmatex">\[
+P_{\rm fac}
+=
+\prod_j
+\exp[-(\Delta U_j)^+].
+\]</div>
+<p>然后同样用 bound rejection event 和 recursive clock 抽样第一个可能拒绝的相互作用项。</p>
+<p>在 extended Bose-Hubbard 的 worm 算法中，常见更新包括：</p>
+<ul>
+<li>create/delete worm；</li>
+<li>move worm head；</li>
+<li>insert/delete kink before worm head；</li>
+<li>insert/delete kink after worm head。</li>
+</ul>
+<p>这些更新虽然在世界线图像中不同，但只要它们对长程对角相互作用的改变能分解为一组 <span class="arithmatex">\(\Delta U_j\)</span>，就可以套用同一个 Clock factorized filter。</p>
+<p>若还有长程 hopping，proposal 本身也要设计。一个自然选择是让跳跃目标 <span class="arithmatex">\(j\)</span> 的 proposal 概率与 hopping 强度同阶，例如</p>
+<div class="arithmatex">\[
+\mathcal A(i\to j)
+\propto
+t_{ij}.
+\]</div>
+<p>这样可以抵消接受率里随距离衰减的 hopping 因子，避免大量提出几乎不会接受的远距离 kink。由于 <span class="arithmatex">\(\mathcal A(i\to j)\)</span> 只依赖格点几何和 hopping 参数，可以预先用 alias table 抽样。</p>
+<h2 id="box">代价和 box 技巧<a class="headerlink" href="#box" title="Permanent link">¶</a></h2>
+<p>因子化 Metropolis 的接受率通常小于或等于普通 Metropolis。原因是普通 Metropolis 先求总能量差：</p>
+<div class="arithmatex">\[
+\Delta E=\sum_j\Delta E_j,
+\]</div>
+<p>不同项之间可以互相补偿；因子化形式</p>
+<div class="arithmatex">\[
+\prod_j e^{-[\Delta E_j]^+}
+\]</div>
+<p>逐项拒绝，丢掉了这种补偿。</p>
+<p>对非阻挫、绝对能量 extensive 的体系，这个代价往往可以接受，换来的 <span class="arithmatex">\(O(N)\to O(1)\)</span> 或近似 <span class="arithmatex">\(O(1)\)</span> 加速很值得。对阻挫或慢衰减长程体系，接受率可能下降明显。</p>
+<p>一种折中办法是 box technique：把若干容易互相补偿的 interaction terms 合成一个 box，对每个 box 做因子化：</p>
+<div class="arithmatex">\[
+P_{\rm fac}^{\rm box}
+=
+\prod_B
+\exp\left[
+-
+\left(
+\sum_{j\in B}\Delta E_j
+\right)^+
+\right].
+\]</div>
+<p>若每个 box 只含一个项，就回到完全因子化；若所有相互作用放进同一个 box，就回到普通 Metropolis。实际算法可以在二者之间选择，以平衡接受率和计算成本。</p>
 <h2 id="_3">上界怎么选<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
 <p>上界 <span class="arithmatex">\(\hat p_{ij}\)</span> 必须满足两个要求：</p>
 <ol>
@@ -1803,10 +2103,14 @@ p_{ij}^{A}\le \hat p_{ij}^{A},
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../search/search_index.js"></script>
+      
+        <script src="../javascripts/file-search-fallback.js"></script>
       
         <script src="../javascripts/mathjax.js"></script>
       
