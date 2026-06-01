@@ -148,6 +148,48 @@
     
     
     
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
     
   </nav>
   
@@ -2318,7 +2360,7 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        三种常见结构
+        可视化辅助
       
     </span>
   </a>
@@ -2329,7 +2371,7 @@
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        训练和推理的差别
+        三种常见结构
       
     </span>
   </a>
@@ -2338,6 +2380,17 @@
       
         <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        训练和推理的差别
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
         最短心智模型
@@ -2391,7 +2444,30 @@ X\in\mathbb{R}^{B\times N\times d_{\rm model}}.
 <li><a href="training.html">训练目标与 Mask</a>：区分 causal language modeling、masked language modeling 和 seq2seq。</li>
 <li><a href="transformer_nnqs.html">Transformer 与 NNQS</a>：把 decoder-only Transformer 接回神经网络量子态。</li>
 </ol>
-<h2 id="_2">三种常见结构<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<h2 id="_2">可视化辅助<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<p>Transformer 很适合配合交互式可视化学习。建议先用可视化工具建立整体结构直觉，再回到本站的公式和 shape 推导。</p>
+<table>
+<thead>
+<tr>
+<th>推荐</th>
+<th>适合看什么</th>
+<th>我的建议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://poloclub.github.io/transformer-explainer/">Transformer Explainer</a></td>
+<td>GPT 式 Transformer 的整体流程、token、embedding、<span class="arithmatex">\(Q/K/V\)</span>、attention、MLP、next-token prediction</td>
+<td>首推。它是交互式的，能在浏览器里运行 GPT-2 small，并展示内部组件如何协同预测下一个 token。读 <a href="attention.html">Attention 机制</a> 和 <a href="decoder.html">Decoder 的基本结构</a> 前后都适合看。</td>
+</tr>
+<tr>
+<td><a href="https://bbycroft.net/llm">LLM Visualization</a></td>
+<td>用 3D 方式观察 LLM 的矩阵流动、层结构、attention head、残差流和 logits 输出</td>
+<td>适合建立“模型是一个巨大的矩阵流水线”的全局直觉。建议在读完 token、attention、decoder 后看，用来把各个模块重新拼成整体。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_3">三种常见结构<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -2422,7 +2498,7 @@ X\in\mathbb{R}^{B\times N\times d_{\rm model}}.
 </tr>
 </tbody>
 </table>
-<h2 id="_3">训练和推理的差别<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<h2 id="_4">训练和推理的差别<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
 <p>训练 decoder-only 模型时，整段序列可以一次送进模型：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[BOS, t0, t1, ..., t_{N-2}]
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  -&gt; 同时预测
@@ -2432,7 +2508,7 @@ X\in\mathbb{R}^{B\times N\times d_{\rm model}}.
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>prefix -&gt; next token -&gt; longer prefix -&gt; next token -&gt; ...
 </code></pre></div>
 <p>这时如果每一步都重算整个 prefix，会浪费大量计算。KV cache 正是为了解决这个问题：历史 token 的 key/value 已经算过，就缓存下来，新一步只计算新 token 的 query/key/value。</p>
-<h2 id="_4">最短心智模型<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
+<h2 id="_5">最短心智模型<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
 <p>对每个位置 <span class="arithmatex">\(i\)</span>，attention 做的是：</p>
 <div class="arithmatex">\[
 \text{根据 }q_i\text{ 查询所有 }k_j，
@@ -2565,10 +2641,14 @@ P(t_0,\ldots,t_{N-1})
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../search/search_index.js"></script>
+      
+        <script src="../javascripts/file-search-fallback.js"></script>
       
         <script src="../javascripts/mathjax.js"></script>
       
