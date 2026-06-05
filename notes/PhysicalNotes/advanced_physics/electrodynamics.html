@@ -1,0 +1,1327 @@
+<!DOCTYPE html><html lang="zh" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="classical_mechanics.html">
+      
+      
+        <link rel="next" href="thermo_stat_1.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../logo/main.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>电动力学简述 - Physical Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../index.html" title="Physical Notes" class="md-header__button md-logo" aria-label="Physical Notes" data-md-component="logo">
+      
+  <img src="../logo/physical_notes.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Physical Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              电动力学简述
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至深色模式" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换至深色模式" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="切换至浅色模式" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至浅色模式" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Physical Notes" class="md-nav__button md-logo" aria-label="Physical Notes" data-md-component="logo">
+      
+  <img src="../logo/physical_notes.svg" alt="logo">
+
+    </a>
+    Physical Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../general_physics/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    普物知识总结
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    普物知识总结
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general_physics/mechanics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    力学总结
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general_physics/electromagnetism.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    电磁学总结
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general_physics/thermal.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    热学总结
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general_physics/optics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    光学总结
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general_physics/atomic_physics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    原子物理总结
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked="">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    四大力学简述
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    四大力学简述
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classical_mechanics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    经典力学简述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    电动力学简述
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="electrodynamics.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    电动力学简述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        总述
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数学基础：
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        绪论
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        静态分析：
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        动态分析：
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相对论表示：
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="thermo_stat_1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    热力学·统计物理简述-上
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="thermo_stat_2.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    热力学·统计物理简述-下
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quantum_mechanics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    量子力学简述？笔记！
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../fluctuations/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    涨落迷雾
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    涨落迷雾
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fluctuations/summer_math_physics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    某暑假的数理小记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fluctuations/doppler_wave.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    机械波与电磁波在多普勒效应模式上的差异
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fluctuations/complex_visualization.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基于Mathematica的复变函数可视化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fluctuations/trig_latex.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常见三角公式的证明与理解by.LaTex
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        总述
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数学基础：
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        绪论
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        静态分析：
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        动态分析：
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相对论表示：
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="_1">电动力学简述<a class="headerlink" href="#_1" title="Permanent link">¶</a></h1>
+<blockquote>
+<p>原发布于 B 站专栏：<a href="https://www.bilibili.com/read/cv11258657/">电动力学简述</a>
+发布日期：2021-05-12</p>
+</blockquote>
+<p><strong>推荐路径：周磊《电动力学讲义》+郭硕鸿《电动力学》-&gt;朗道《场论》+Jackson…</strong></p>
+<p>大致框架如下：（可放大查看）</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/images/advanced_physics/electrodynamics/electrodynamics_001.png" data-desc-position="bottom"><img alt="" src="../assets/images/advanced_physics/electrodynamics/electrodynamics_001.png"></a></p>
+<p><em>框架梳理</em></p>
+<p>限于作者水平，难免存在错误，恳请读者指出，感激不尽！</p>
+<h2 id="_2">总述<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<p>作为电磁学课程的延续，电动力学的内核更加精简和清晰。一开始就把基本的方程和假设说得明明白白。其中电动力学的灵魂所在就是Maxwell方程组，但真正能从如此简洁的Maxwell方程组中看出多少东西，只有研究过具体的问题，才能略知一二，这也正是电动力学的内容所在。此外，在理解Maxwell方程中培养的对场论符号的条件反射，对学习其他相关课程也有很大帮助，例如流体力学，传热学（据说当年建立电磁理论的时候，就是从传热学的方程得到的启发）等。最后，如果稍加留意便会发现，在研究电磁波的传播时，也能得到许多量子力学的类比和启示。</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/images/advanced_physics/electrodynamics/electrodynamics_002.png" data-desc-position="bottom"><img alt="" src="../assets/images/advanced_physics/electrodynamics/electrodynamics_002.png"></a></p>
+<p><em>Maxwell方程组和能流密度S、波矢k、场矢量的关系</em></p>
+<h2 id="_3">数学基础：<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<p>在学习之初，许多同学会被符号较为复杂的矢量场论所吓到，繁杂的公式令人对电动力学的第一印象就是无聊的数学计算。事实上，之后真正用到的公式也就是那么几个而已，如果掌握了<span class="arithmatex">\(\nabla\)</span>算符以及矢量运算对应的爱因斯坦求和表示，现推出来不是问题。具体可以参考允文君矢量场论的视频。<strong>此外，注意区分<span class="arithmatex">\(r\)</span>和<span class="arithmatex">\(r'\)</span>分别代表从原点指向观测点和场源的位置矢量。</strong></p>
+<p>在求解具体方程时，需要用到在数学物理方法中学到的分离变量法（主要是球函数和柱函数）以及格林函数法等。</p>
+<h2 id="_4">绪论<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/images/advanced_physics/electrodynamics/electrodynamics_004.png" data-desc-position="bottom"><img alt="" src="../assets/images/advanced_physics/electrodynamics/electrodynamics_004.png"></a></p>
+<p><em>绪论框架</em></p>
+<p>从最初的三大实验定律（库仑定律、毕奥-萨伐尔定律、法拉第电磁感应定律）以及其他各种电磁实验，提出“电磁场”的概念，将实验定律中的“力”与“场”分离。</p>
+<p><strong>力的方面：</strong>总结为了<strong>洛伦兹力</strong>（其实对电磁场张量进行洛伦兹变换便可看出洛伦兹力的形式，同时也可解释了动生电动势的来源）</p>
+<p><span class="arithmatex">\(\boxed{\mathbf{F}=q(\mathbf{E}+\mathbf{v}\times\mathbf{B})}\)</span></p>
+<p><strong>场的方面：</strong>总结为了<strong>Maxwell方程组</strong>。当然，关于从静态方程过渡到动态方程，并且能够保证理论的完备性的部分，主要由Maxwell完成，其中最精彩的部分就是Maxwell通过研究“电流连续性方程”（或电荷守恒）与“毕奥-萨伐尔定律”的矛盾，提出了位移电流的假说，从而预言了电磁波</p>
+<p><span class="arithmatex">\(\boxed{\begin{array}{l}
+\nabla \cdot \mathbf{E} =\cfrac{\rho}{\varepsilon _0} \\
+\nabla \cdot \mathbf{B} = 0 \\
+\nabla \times \mathbf{E} = -\cfrac{\partial \mathbf{B}}{\partial t } \\
+\nabla \times \mathbf{B} = \mu _0\mathbf{J} + \mu _0\varepsilon_0 \cfrac{\partial \mathbf{E}}{\partial t }
+\end{array} }\)</span></p>
+<p>在研究介质对电磁场的响应时，除了“力”和“场”的方程，还需要介质材料的<strong>本构关系</strong>。一般地，对于绝缘介质而言，体现在外加电场的极化<span class="arithmatex">\(\mathbf{P}\)</span>或外加磁场的磁化<span class="arithmatex">\(\mathbf{M}\)</span>；对于金属而言，体现在电流密度矢量<span class="arithmatex">\(\mathbf{j}\)</span>与电场<span class="arithmatex">\(\mathbf{E}\)</span>的关系上。此外，对于色散介质，铁磁质等等，都有各自特殊的本构关系。正是这些本构关系的不同，构成了多姿多彩的世界。</p>
+<p>从各种实验中总结出三条基本方程：<strong>洛伦兹力方程、Maxwell方程组、本构方程</strong>。可以说，这几乎就是电动力学的全部了，只要数学足够好，完全可以自己将电动力学的理论全部推导出来。以下对一些最基本的推导进行说明:</p>
+<p>(1)<strong>边值关系</strong>：通常是在两种介质的交界面，取一个高度趋于0的圆柱或者环路，利用Maxwell方程组便可得到边值关系。事实上，不严谨的来说，直接将方程组中的<strong><span class="arithmatex">\(\nabla\)</span></strong>符号改为介质曲面的法向量<strong><span class="arithmatex">\(\hat{n}\)</span></strong>，再将场量写成差分形式，最后将体密度改为面密度并去掉关于时间导数的项，即可得到边值关系，如下图。要强调的是，边值关系是十分重要的约束条件，例如关于描述折射反射能量分配的<strong>Fresnel公式</strong>便是由边值关系推导而来。</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/images/advanced_physics/electrodynamics/electrodynamics_005.png" data-desc-position="bottom"><img alt="" src="../assets/images/advanced_physics/electrodynamics/electrodynamics_005.png"></a></p>
+<p><em>默认n矢量方向为1指向2介质</em></p>
+<p>(2)<strong>电流连续性方程</strong>：由于Maxwell在提出位移电流的时候，已经在方程中嵌入了电流连续性方程，因此只要对第四条方程两边同时取散度，再通过其他方程的代换和矢量场论的运算法则，很容易就得到了电流连续性方程。</p>
+<p><span class="arithmatex">\(\nabla\cdot\mathbf{j}=-\frac{\partial \rho}{\partial t}\)</span></p>
+<p>(3)<strong>能量守恒</strong>：根据洛伦兹力，磁场对粒子不做功，因此只考虑电场对粒子的功率。通过矢量场论运算法则和Maxwell方程的代换，可以写成“流”守恒的形式（同电流连续性方程的形式）.进而<strong>引入能流密度：</strong><span class="arithmatex">\(\mathbf{S}=\mathbf{E}\times\mathbf{H}\)</span>，<strong>能量密度：</strong><span class="arithmatex">\(u=\frac{1}{2}(\mathbf{E}\cdot\mathbf{D}+\mathbf{B}\cdot\mathbf{H})\)</span>。这两个分析问题常用的物理量。整个式子体现了空间中电磁场的能量守恒。<strong>（此外注意相互作用能和固有能的微妙区别）<span class="arithmatex">\(\frac{dW}{dt}=\int\mathbf{j}\cdot\mathbf{E}d\tau\quad\Rightarrow\quad-\frac{d}{dt}[W+\int ud\tau]=\oint\mathbf{S}\cdot d\mathbf{A}\)</span></strong></p>
+<p>(4)<strong>动量守恒</strong>：和能量守恒推导类似，利用洛伦兹力得到粒子所受力，再通过矢量场论运算法则和Maxwell方程的代换，同样得到“流”守恒的形式。<strong>引入动量流密度：<span class="arithmatex">\(\mathcal{T} =u\mathcal{I}-\mathbf{D}\mathbf{E}-\mathbf{B}\mathbf{H}\)</span>，动量密度：<span class="arithmatex">\(\mathbf{g}=\mathbf{D}\times\mathbf{B}\)</span></strong>以便计算电磁场中物体的受力。这也体现了电磁场是一种物质，具有动量的属性。</p>
+<p><strong><span class="arithmatex">\(\frac{d\mathbf{G}}{dt}=\int (\rho\mathbf{E}+\mathbf{j}\times\mathbf{B})d\tau\quad\Rightarrow\quad \frac{d\mathbf{G}}{dt}=-\oint d\mathbf{A}\cdot\mathcal{T}-\frac{d}{dt}\int \mathbf{g} d\tau\)</span></strong></p>
+<p>（P.S.以上的能量守恒和动量守恒利用的矢量场论的推导，几乎使用了所有常用的场论公式，因此尝试自己动手follow两种守恒定律之后，矢量场论的使用也会更加熟练了！）</p>
+<p>(5)<strong>频域的Maxwell方程组</strong>：有时为了研究单频电磁波的性质，可以代入场的谐振形式，通过矢量场论的运算，将角频率、波矢的关系显示出来。<strong>（类似的，不严谨的说，可以将<span class="arithmatex">\(\nabla\)</span>符号改为<span class="arithmatex">\(ik\)</span>,对时间的偏导改为<span class="arithmatex">\(-i\omega\)</span>即可）</strong></p>
+<p>有了之前绪论的铺垫，就可以来讨论具体的问题了。总的来说，大部分的电动力学教材都分为三大部分：静态分析、动态分析（包括似稳场）、相对论表示。</p>
+<h2 id="_5">静态分析：<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
+<p>所谓静态，就是体系不随时间变化，即Maxwell方程组中所有的关于时间的导数均为0。由此Maxwell方程组得以简化，再通过引入电势、磁矢势或是磁标势，可以进一步转化为Poisson方程：</p>
+<p><strong><span class="arithmatex">\(\nabla^2\varphi(\mathbf{r})+\frac{\rho(\mathbf{r})}{\varepsilon }=0\)</span></strong></p>
+<p>若区域内无体源分布，可以再变为Laplace方程。有了这些PDE，再根据之前的边值关系得到PDE的边界条件，就可以相互求解源和势。<strong>简而言之，这一部分主要围绕已知电荷或电流分布，求势；或者已知势，求电荷或电流分布。</strong></p>
+<p>通常在求解之前，会先讨论一些原则性质的定律和简化求解的方法。静电、静磁唯一性定理的讨论保证<strong>当本构关系满足单值单调性</strong>时，给定边界条件，那么满足边界条件的解就是唯一的。以此作为理论依据，可以通过“镜像法”将面电荷分布等效为在区域外的像电荷分布（通常为点电荷）。从而在不破坏边界条件的情况下，简化计算（对于磁场的某些情况，镜像法也同样适用）。此外，还有观测点和场源之间的关系——格林互易定理、导体系统的电容系数以及利用变分极值讨论稳定性（汤姆孙定理&amp;恩肖定理）的内容，虽然这些也很重要，但由于水平有限就不讨论了TωT</p>
+<p>在解析法计算势分布时，除了镜像法，更多的时候都是老老实实求解PDE方程。对于球体、柱面、平行板或是类似的变体，可以直接展开勒让德函数、贝塞尔函数、三角函数等代入边界条件进行计算，由于体系通常都有对称的，因此展开的项数不会超过2。<strong>（这里难点在于寻找边界条件，尤其是用磁标势计算铁磁体的边条）<span class="arithmatex">\(\varphi =\sum_{l=0}^\infty[A_lr^l+B_lr^{-(l+1)}]P_l(cos\theta)\)</span></strong></p>
+<p>当求解对称性极差的一般体系时，可以采用数值法求解。思路大致是分割成许多小区域，利用有限差分、有限元的思想进行计算。例如在COMSOL软件中绘制CAD进行计算。</p>
+<p>有趣的是，当观测点距离源较远且源的尺度较小时，可以利用多极展开（泰勒展开）的方法研究势的“成分”。通过对电势展开可以得到：点电荷、电偶极子、电四极子、电八极子等等（对于磁场也类似）。各种极子的值其实体现着体系的对称性，用的最广泛的应该是偶极子，例如介质球放在均匀场下的响应就偶极子的形式。对于这些极子在电磁场中的能量和受力问题可以通过施加使体系保持平衡的力求得。<strong>（对于各种极子的自由度，利用球谐函数多极展开更容易看出）</strong></p>
+<p>最后，来讨论一下电磁场界面连续性的细节。由边值关系可以看出，电磁场突变（不连续）的原因在于源的面分布。而面分布可以看作是体分布的近似，当某一个方向的尺度极小时，体分布退化为面分布。但是实际情况是自然界根本就不存在面分布，即使是导体表面的电荷分布也是一个薄层而已，仍然具有厚度的。而正是这一厚度导致薄层两边的电磁场突变，假设薄层均匀分布即可证明一点。<strong>简而言之，电磁场在界面两侧的突变正是来自忽略了厚度而产生的代价！</strong></p>
+<h2 id="_6">动态分析：<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
+<p>当频率或波长满足一定条件，电磁场在某介质中变化的相对比较缓慢，可以不考虑Maxwell方程组中的位移电流项，此时的电磁场即<strong>似稳场</strong>。其特点就是大部分的能量就集中在源附近，而几乎不向外辐射。</p>
+<p>通过数量级的简单估计，对于尺度相对波长较小的系统来说，尽管电磁场是交变的，但仍然可以用静态分析的方法来计算。比如<strong>电流变液体系、光镊体系、唯象解释的伦敦方程</strong>等。此外，将似稳场的Maxwell方程组与电导率本构关系进行联立，可以得到电磁场的扩散方程，由此方程可以导出电磁学中未推导的趋肤效应的电流密度分布情况。</p>
+<p><strong><span class="arithmatex">\(\frac{\partial\mathbf{H}}{\partial t}=\frac{1}{\mu\sigma_c}\nabla^2\mathbf{H}\qquad\frac{\partial\mathbf{E}}{\partial t}=\frac{1}{\mu\sigma_c}\nabla^2\mathbf{E}\)</span></strong></p>
+<p>当完整的考虑Maxwell方程组，可以研究电磁波的<strong>传播</strong>和<strong>辐射</strong>。</p>
+<p>关于传播最基本的讨论：首先，考虑在绝缘介质的自由空间中，通过矢量场论公式导出平面电磁波的波动方程和其性质（注意：推导波动方程之后，会丢失一部分Maxwell方程组的信息，在写边界条件的时候要补上）。其次，在传播过程中，（为了简便起见，这里不讨论色散的情况，仅考虑单频电磁波）电磁波在不同介质会发生折射和反射（彻底理解要学QED？），通过分析波矢的几何关系可以得到Snell公式，即确定传播的方向；通过电磁场的边值关系可以得到Fresnel公式，即确定折射与反射的能量分配和相位变化。（当然，通过“超材料”的方法调控可以实现“反常”现象）</p>
+<p>在导体或等离子体中，由于特殊的本构关系（位移电流和传导电流差一个一阶导）使得电磁波存在耗散。数学上体现在介质的波矢为复数：</p>
+<p><strong><span class="arithmatex">\(k=\frac{\omega}{c}\sqrt{\mu\varepsilon}\qquad\varepsilon=\varepsilon_0+i\frac{\sigma}{\omega}\)</span></strong></p>
+<p>根据色散关系得到复数的介电常数。由此，可以导出趋肤深度、电磁场能量之比、电磁场相位差等等。由于介电常数是频率的函数，因此色散是必然的，利用Drude模型可以导出金属中电导率的表达式，从而引入等离子共振频率，描述紫外区的电磁波行为。</p>
+<p>在波导或谐振腔中，利用PEC边界条件可以导出电磁波在其中的传播模式。经过推导得到波导在xy平面是驻波形式，在z方向是行波。根据边界条件，必须引入2个量子数来描述电磁波的模式，且不存在TEM波，只可能是TE波或是TM波。再根据波矢的关系，导出若电磁波频率小于某值时，波矢会出现复数进而快速耗散不能有效传播，称为波导的截止频率。将波导两边堵住就变成了谐振腔，同理可得其有3个量子数。</p>
+<p>关于辐射，主要思路是以“势”的形式研究，再通过势生成电磁场。由于电磁场是规范场，因此首先要明确选择何种规范。</p>
+<p><strong><span class="arithmatex">\(\mathbf{E}=-\nabla\varphi-\frac{\partial \mathbf{A}}{\partial t}\quad\mathbf{B}=\nabla\times\mathbf{A}\qquad\nabla\cdot\mathbf{A}=0\quad \nabla\cdot\mathbf{A}+\frac{1}{c^2}\frac{\partial \varphi}{\partial t}=0\)</span></strong></p>
+<p>库伦规范虽然可以使得其中一个方程形式简单但标势和矢势并没有解耦，通常用洛伦兹规范使得两者解耦。由此得到达朗贝尔方程，通过格林函数的方法求解达朗贝尔方程得到推迟势，再将推迟势展开研究电偶极辐射:</p>
+<p><strong><span class="arithmatex">\(\mathbf{B}=\frac{e^{ikr}}{4\pi\varepsilon_0c^3r}|\omega^2p|sin\theta\hat{e}_{\varphi}\quad\mathbf{E}=\frac{e^{ikr}}{4\pi\varepsilon_0c^2r}|\omega^2p|sin\theta\hat{e}_{\theta}\)</span></strong></p>
+<p>和磁偶极辐射:</p>
+<p><strong><span class="arithmatex">\(\mathbf{B}=\frac{\mu_0e^{ikr}}{4\pi c^2r}|\omega^2m|sin\theta\hat{e}_{\theta}\quad\mathbf{E}=-\frac{\mu_0e^{ikr}}{4\pi cr}|\omega^2m|sin\theta\hat{e}_{\varphi}\)</span></strong></p>
+<p>这里的核心在于偶极子的表达形式，<strong>一般都是谐振的，为了方便用复指数表达。</strong>最后将短波天线抽象成偶极子，进行最简单的讨论。</p>
+<h2 id="_7">相对论表示：<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
+<p>在力学总结中所展示最简单的相对论原理的基础之上，将时间和空间联系起来，用四维坐标表示物理量（目前见过两种版本，将时间放在第一项或放在最后一项，由此导致之后讨论的数学形式不同，但物理原理都是一样的）。此外，将洛伦兹变换写成矩阵变换，也称这个矩阵为洛伦兹变换矩阵：</p>
+<div class="arithmatex">\[
+x'_\mu=\alpha_{\mu\nu}x_\nu,\qquad
+\alpha_{\mu\nu}=
+\begin{pmatrix}
+\gamma &amp; 0 &amp; 0 &amp; i\beta\gamma \\
+0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 \\
+-i\beta\gamma &amp; 0 &amp; 0 &amp; \gamma
+\end{pmatrix}
+\]</div>
+<p>在寻找电磁动力学的相对论表示之前，应该先明确什么是洛伦兹标量、矢量、二阶张量等。经过洛伦兹变换不变的称为标量，满足洛伦兹变换旋转关系的称为矢量，满足洛伦兹张量变换的称为张量。根据以上标准，可以凑出：四维坐标、四维速度、四维波矢、四维电流密度、四维势、四维动量、四维力等。由此可以简洁表达：电荷守恒、洛伦兹规范、达朗贝尔方程。</p>
+<p>利用四维势可以写出电磁场张量，由此可以将Maxwell四个方程浓缩为两个。此外，将电磁场张量用洛伦兹变换进行张量变换，可以得到电磁场在不同惯性系下的变换。最后，电磁场张量将电磁现象相统一，这种新的形式使得物理上的表达更加简洁，但代价是理解起来更加抽象了。</p>
+<p>(最后附上当年考试前总结的两张纸，嘿嘿)</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/images/advanced_physics/electrodynamics/electrodynamics_006.jpg" data-desc-position="bottom"><img alt="" src="../assets/images/advanced_physics/electrodynamics/electrodynamics_006.jpg"></a></p>
+<p><em>1</em></p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/images/advanced_physics/electrodynamics/electrodynamics_007.jpg" data-desc-position="bottom"><img alt="" src="../assets/images/advanced_physics/electrodynamics/electrodynamics_007.jpg"></a></p>
+<p><em>2</em></p>
+<p>补充内容：</p>
+<p>1、关于本构方程，仍要由量子力学等建立物质的微观模型，才能用第一性原理推导出来。</p>
+<p>2、大多数教材还涉及许多前沿内容，比如高斯光束、光子晶体等等</p>
+<p>...</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚">
+        
+          
+          <a href="classical_mechanics.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: 经典力学简述">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                经典力学简述
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="thermo_stat_1.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 热力学·统计物理简述-上">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                热力学·统计物理简述-上
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="http://tensofermi.github.io/" target="_blank" rel="noopener" title="tensofermi.github.io" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.97 2.59a1.5 1.5 0 0 0-1.94 0l-7.5 6.363A1.5 1.5 0 0 0 3 10.097V19.5A1.5 1.5 0 0 0 4.5 21h4.75a.75.75 0 0 0 .75-.75V14h4v6.25c0 .414.336.75.75.75h4.75a1.5 1.5 0 0 0 1.5-1.5v-9.403a1.5 1.5 0 0 0-.53-1.144z"></path></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../search/search_index.js"></script>
+      
+        <script src="../javascripts/file-search-fallback.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="../javascripts/mathjax/es5/tex-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": false, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "none"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

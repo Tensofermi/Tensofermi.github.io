@@ -91,7 +91,7 @@
   <nav class="md-header__inner md-grid" aria-label="页眉">
     <a href="index.html" title="Neural Network Notes" class="md-header__button md-logo" aria-label="Neural Network Notes" data-md-component="logo">
       
-  <img src="logo/neural_network.png" alt="logo">
+  <img src="logo/mlp.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -216,7 +216,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="index.html" title="Neural Network Notes" class="md-nav__button md-logo" aria-label="Neural Network Notes" data-md-component="logo">
       
-  <img src="logo/neural_network.png" alt="logo">
+  <img src="logo/mlp.svg" alt="logo">
 
     </a>
     Neural Network Notes
@@ -421,7 +421,7 @@
   <a href="#_12" class="md-nav__link">
     <span class="md-ellipsis">
       
-        代码地图
+        工程地图
       
     </span>
   </a>
@@ -783,6 +783,12 @@
     
       
         
+          
+        
+      
+        
+      
+        
       
         
       
@@ -807,8 +813,9 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="pytorch/index.html" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -822,8 +829,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
@@ -835,6 +848,8 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
             
               
                 
@@ -878,7 +893,7 @@
   <span class="md-ellipsis">
     
   
-    索引、reshape、广播与 inplace 操作
+    常用 Tensor 操作：索引、gather、拼接、拆分与矩阵乘法
   
 
     
@@ -1032,6 +1047,253 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pytorch/torch_compile.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    torch.compile：从 eager mode 到编译加速
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="classic_architectures/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    经典神经网络结构
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    经典神经网络结构
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classic_architectures/mlp.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MLP：最基本的全连接网络
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classic_architectures/cnn.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNN：局部连接、权重共享与特征图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classic_architectures/rnn_lstm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RNN、GRU 与 LSTM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classic_architectures/pixelcnn.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PixelCNN：二维格点上的自回归模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classic_architectures/rbm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RBM：能量模型与神经网络量子态
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1064,10 +1326,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
             
   
   
@@ -1085,8 +1347,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1258,7 +1520,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
         
           
           <div class="md-nav__link md-nav__container">
@@ -1280,14 +1542,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1643,10 +1905,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
         
           
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
             
   
   
@@ -1664,8 +1926,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1873,10 +2135,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
         
           
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
             
   
   
@@ -1894,8 +2156,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2035,7 +2297,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9">
         
           
           <div class="md-nav__link md-nav__container">
@@ -2057,14 +2319,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_9" id="__nav_9_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_8">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2352,6 +2614,8 @@
       
         
       
+        
+      
     
     
     
@@ -2360,10 +2624,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10">
         
           
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
             
   
   
@@ -2381,8 +2645,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2399,6 +2663,34 @@
   
   
     <li class="md-nav__item">
+      <a href="infra_overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    大模型 Infra 全景：从硬件到服务
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="code_walkthrough.html" class="md-nav__link">
         
   
@@ -2406,7 +2698,7 @@
   <span class="md-ellipsis">
     
   
-    代码导读
+    从模型代码到系统代码
   
 
     
@@ -2462,7 +2754,7 @@
   <span class="md-ellipsis">
     
   
-    公式速查
+    工程公式速查
   
 
     
@@ -2490,7 +2782,7 @@
   <span class="md-ellipsis">
     
   
-    正确性验证
+    工程正确性与性能验证
   
 
     
@@ -2668,7 +2960,7 @@
   <a href="#_12" class="md-nav__link">
     <span class="md-ellipsis">
       
-        代码地图
+        工程地图
       
     </span>
   </a>
@@ -2708,6 +3000,83 @@
 <blockquote>
 <p>一个复杂系统有太多状态，无法直接穷举；我们能不能用一个可训练的函数 <span class="arithmatex">\(f_\theta\)</span>，把它压缩成可以计算、采样、推断和优化的形式？</p>
 </blockquote>
+<p>先把这句话说得更直白一点。</p>
+<p>如果用最傻瓜的办法描述一个概率分布，就是把每一种可能性和它的概率全都存下来：</p>
+<div class="arithmatex">\[
+\{x_1:p(x_1),\ x_2:p(x_2),\ \ldots,\ x_M:p(x_M)\}.
+\]</div>
+<p>问题是，很多系统的 <span class="arithmatex">\(M\)</span> 大得离谱。一个 <span class="arithmatex">\(N\)</span> 个自旋的 Ising 系统有：</p>
+<div class="arithmatex">\[
+2^N
+\]</div>
+<p>个构型。一个长度为 <span class="arithmatex">\(T\)</span>、词表大小为 <span class="arithmatex">\(|\mathcal V|\)</span> 的文本空间有：</p>
+<div class="arithmatex">\[
+|\mathcal V|^T
+\]</div>
+<p>条可能序列。一个量子多体 Hilbert space 的维度也会随自由度指数增长。</p>
+<p>如果真的给每个构型、每句话、每个状态都单独存一个概率，那不是“建模”，而是在硬盘里铺一张巨大到不可用的表。</p>
+<p>神经网络让人惊讶的地方正在这里：它没有显式存下这张表，而是用一组相对有限的参数 <span class="arithmatex">\(\theta\)</span> 表示一个函数：</p>
+<div class="arithmatex">\[
+x
+\longmapsto
+p_\theta(x),
+\qquad
+x_{&lt;t}
+\longmapsto
+p_\theta(x_t\mid x_{&lt;t}),
+\qquad
+x
+\longmapsto
+\psi_\theta(x).
+\]</div>
+<p>当然，这并不意味着计算免费。每次查询一个概率、生成一个 token、评估一个构型，仍然要做矩阵乘法、attention、归一化和采样。但关键区别是：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>傻瓜式概率表：
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  内存里显式存每个状态的概率
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>神经网络表示：
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  参数里隐式存生成这些概率的规律
+</code></pre></div>
+<p>这背后的信念是：虽然状态空间巨大，但真正重要的结构往往没有状态空间本身那么大。语言不是任意 token 的随机堆砌，物理系统不是任意构型都同等重要，图像不是任意像素噪声，策略也不是任意动作表。世界中存在可复用的结构、局部性、对称性、组合规律、因果关系和低复杂度描述。</p>
+<p>所以这套笔记的第一层直觉是：</p>
+<blockquote>
+<p>神经网络不是把所有答案背下来，而是在巨大可能性空间中学习一个可泛化的压缩表示。</p>
+</blockquote>
+<p>更准确地说：</p>
+<div class="arithmatex">\[
+\boxed{
+\text{智能}
+\approx
+\text{可泛化压缩}
++
+\text{预测}
++
+\text{行动}
+}
+\]</div>
+<p>压缩不是智能的全部，但智能必然包含压缩。一个系统如果能预测，说明它抓住了某种结构；如果这种结构能迁移到新情景，说明它不只是记忆；如果它还能支持行动和反事实判断，就更接近 agent 或科学理论。</p>
+<p>物理学本身就是这种思想的极致例子。Ising 模型没有列举 <span class="arithmatex">\(2^N\)</span> 个构型的概率，而是用很短的 Hamiltonian 规定权重：</p>
+<div class="arithmatex">\[
+H(\sigma)
+=
+-J\sum_{\langle ij\rangle}\sigma_i\sigma_j
+-h\sum_i\sigma_i.
+\]</div>
+<p>语言模型也类似。它不可能存下所有句子，而是学习自回归分解：</p>
+<div class="arithmatex">\[
+P_\theta(x_1,\ldots,x_T)
+=
+\prod_{t=1}^T
+P_\theta(x_t\mid x_{&lt;t}).
+\]</div>
+<p>NNQS 则把量子构型 <span class="arithmatex">\(x\)</span> 映射到波函数值 <span class="arithmatex">\(\psi_\theta(x)\)</span>，用可训练函数压缩指数大的 Hilbert space。</p>
+<p>因此，贯穿本站的主线可以概括为：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>巨大状态空间
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  -&gt; 不能显式枚举概率表
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  -&gt; 寻找低复杂度结构
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  -&gt; 用神经网络近似这个结构
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  -&gt; 通过数据、奖励或能量信号优化参数
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  -&gt; 在新输入上预测、采样、推断或行动
+</code></pre></div>
 <p>这个问题在不同领域里会换不同外衣：</p>
 <table>
 <thead>
@@ -2752,23 +3121,24 @@
 </tbody>
 </table>
 <p>看起来题材很多，但底层结构很统一：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>定义状态
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  -&gt; 用概率描述不确定性
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  -&gt; 用神经网络表示函数或分布
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  -&gt; 用样本估计目标
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  -&gt; 用梯度或搜索改进参数
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  -&gt; 再回到新的分布继续采样或推断
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>定义状态
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  -&gt; 用概率描述不确定性
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  -&gt; 用神经网络表示函数或分布
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  -&gt; 用样本估计目标
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  -&gt; 用梯度或搜索改进参数
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  -&gt; 再回到新的分布继续采样或推断
 </code></pre></div>
 <p>这就是本站的 global picture。</p>
 <h2 id="_2">一张总图<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>数学和概率
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  -&gt; 熵 / KL / 最大似然 / 推断 / 优化
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  -&gt; PyTorch: tensor / autograd / Module / training loop
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  -&gt; Transformer: token / attention / decoder / KV cache
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  -&gt; 强化学习: MDP / reward / Monte Carlo / PPO
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  -&gt; 神经网络与物理: 统计物理类比 / CNN 相变识别
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  -&gt; NNQS: psi_theta(x) / |psi|^2 采样 / VMC 能量优化
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>  -&gt; 工程和招聘题: 数值精度 / 显存 / 调试 / 高频考点
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>数学和概率
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  -&gt; 熵 / KL / 最大似然 / 推断 / 优化
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  -&gt; PyTorch: tensor / autograd / Module / training loop
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  -&gt; 经典结构: MLP / CNN / RNN / LSTM / PixelCNN / RBM
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>  -&gt; Transformer: token / attention / decoder / KV cache
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>  -&gt; 强化学习: MDP / reward / Monte Carlo / PPO
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>  -&gt; 神经网络与物理: 统计物理类比 / CNN 相变识别
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>  -&gt; NNQS: psi_theta(x) / |psi|^2 采样 / VMC 能量优化
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>  -&gt; 工程和招聘题: infra / 数值精度 / 显存 / 调试 / 高频考点
 </code></pre></div>
 <p>如果只记一个核心式子，可以记：</p>
 <div class="arithmatex">\[
@@ -2802,7 +3172,8 @@ f_\theta:x\mapsto y.
 <ul>
 <li><a href="prerequisites/ml_overview.html">机器学习地图</a></li>
 <li><a href="prerequisites/training_as_function_fitting.html">模型训练就是函数拟合</a></li>
-<li><a href="pytorch/tensor_shape_dtype_device.html">PyTorch 教程</a></li>
+<li><a href="pytorch/index.html">PyTorch 教程总览</a></li>
+<li><a href="classic_architectures/mlp.html">MLP：最基本的全连接网络</a></li>
 </ul>
 <h3 id="_5">概率<a class="headerlink" href="#_5" title="Permanent link">¶</a></h3>
 <p>神经网络经常不是只输出一个数，而是输出一个分布：</p>
@@ -2903,6 +3274,9 @@ x\mapsto\psi_\theta(x).
 </table>
 <p>对应章节：</p>
 <ul>
+<li><a href="classic_architectures/index.html">经典神经网络结构总览</a></li>
+<li><a href="classic_architectures/cnn.html">CNN：局部连接、权重共享与特征图</a></li>
+<li><a href="classic_architectures/rnn_lstm.html">RNN、GRU 与 LSTM</a></li>
 <li><a href="Transformer/index.html">Transformer 笔记总览</a></li>
 <li><a href="Transformer/attention.html">Attention 机制</a></li>
 <li><a href="Transformer/decoder.html">Decoder 的基本结构</a></li>
@@ -2971,11 +3345,11 @@ x\sim p_\theta(x)=|\psi_\theta(x)|^2.
 </tbody>
 </table>
 <p>这些目标的形式不同，但训练循环都很像：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>产生样本或读取 batch
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  -&gt; forward
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  -&gt; 计算目标
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  -&gt; 估计梯度
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  -&gt; 更新参数
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>产生样本或读取 batch
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  -&gt; forward
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  -&gt; 计算目标
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>  -&gt; 估计梯度
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>  -&gt; 更新参数
 </code></pre></div>
 <p>第五层心智模型是：</p>
 <blockquote>
@@ -3053,13 +3427,13 @@ p_\theta(x)=|\psi_\theta(x)|^2.
 <p>因此，在 NQS 里，训练好的权重本身就是一个压缩的波函数表示。</p>
 <h2 id="nnqs">NNQS 主线<a class="headerlink" href="#nnqs" title="Permanent link">¶</a></h2>
 <p>本站最核心的物理主线是：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>薛定谔方程
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  -&gt; Hamiltonian 本征值问题
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  -&gt; occupation bitstring basis
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  -&gt; 神经网络波函数 psi_theta(x)
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>  -&gt; 按 |psi_theta|^2 采样
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>  -&gt; local energy 估计能量
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>  -&gt; VMC 梯度更新参数
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>薛定谔方程
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  -&gt; Hamiltonian 本征值问题
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  -&gt; occupation bitstring basis
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  -&gt; 神经网络波函数 psi_theta(x)
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  -&gt; 按 |psi_theta|^2 采样
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>  -&gt; local energy 估计能量
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>  -&gt; VMC 梯度更新参数
 </code></pre></div>
 <p>用一个式子压缩：</p>
 <div class="arithmatex">\[
@@ -3072,11 +3446,11 @@ E_\theta
 \mathbb E_{x\sim p_\theta}[E_{\rm loc}(x)].
 \]</div>
 <p>训练循环就是：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>抽样本
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  -&gt; 算局域能
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  -&gt; 估计平均能量
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>  -&gt; 构造梯度代理
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>  -&gt; 更新网络
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>抽样本
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  -&gt; 算局域能
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  -&gt; 估计平均能量
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>  -&gt; 构造梯度代理
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>  -&gt; 更新网络
 </code></pre></div>
 <p>对应章节：</p>
 <ul>
@@ -3091,78 +3465,80 @@ E_\theta
 <li><a href="prerequisites/ml_overview.html">机器学习地图</a>：建立监督学习、自监督、强化学习和变分学习的共同框架。</li>
 <li><a href="prerequisites/training_as_function_fitting.html">模型训练就是函数拟合</a>：理解 <span class="arithmatex">\(f_\theta\)</span>、loss、梯度更新和 VMC 闭环。</li>
 <li><a href="prerequisites/inference_belief_propagation.html">推断、统计推断与信念传播</a>：区分工程 inference、贝叶斯推断、belief 和图模型消息传递。</li>
-<li><a href="pytorch/tensor_shape_dtype_device.html">PyTorch 教程</a>：掌握 tensor、autograd、<code>nn.Module</code> 和训练循环。</li>
+<li><a href="pytorch/index.html">PyTorch 教程总览</a>：掌握常用 torch 命令、tensor、autograd、<code>nn.Module</code>、训练循环和 <code>torch.compile</code> 性能优化。</li>
+<li><a href="classic_architectures/index.html">经典神经网络结构总览</a>：补齐 MLP、CNN、RNN/LSTM、PixelCNN、RBM 这些 Transformer 之前的重要模型。</li>
 <li><a href="Transformer/index.html">Transformer 笔记总览</a>：补足 decoder-only Transformer、自注意力、mask 和 KV cache。</li>
 <li><a href="rl/monte_carlo.html">强化学习中的 Monte Carlo</a>：理解轨迹采样、价值函数、Bellman 方程和 TD 的关系。</li>
 <li><a href="from_schrodinger_to_nnqs.html">从薛定谔方程到 NNQS</a>：建立物理图像，理解为什么用神经网络表示波函数。</li>
 <li><a href="model_architecture.html">模型结构</a>：看清 <span class="arithmatex">\(\log|\psi_\theta(x)|\)</span>、相位和复波函数输出的关系。</li>
 <li><a href="vmc_training.html">VMC 训练</a>：理解 local energy、能量估计和梯度代理。</li>
-<li><a href="code_walkthrough.html">代码导读</a>：沿一次训练调用顺序，把公式落回代码模块。</li>
+<li><a href="code_walkthrough.html">从模型代码到系统代码</a>：从大模型工程背景理解模型、数据、训练、推理和服务代码如何分层。</li>
 </ol>
 <h2 id="_11">四条专题路线<a class="headerlink" href="#_11" title="Permanent link">¶</a></h2>
 <p>初学路线：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>预备知识
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  -&gt; 推断、统计推断与信念传播
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  -&gt; PyTorch 教程
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  -&gt; Transformer
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  -&gt; NNQS 主线
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>预备知识
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>  -&gt; 推断、统计推断与信念传播
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>  -&gt; PyTorch 教程
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>  -&gt; 经典神经网络结构
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>  -&gt; Transformer
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>  -&gt; NNQS 主线
 </code></pre></div>
 <p>物理路线：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>概率分布、熵与 KL
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  -&gt; 神经网络与统计物理
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  -&gt; 强化学习中的 Monte Carlo
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>  -&gt; CNN 识别量子相变
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>  -&gt; NNQS / VMC
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>概率分布、熵与 KL
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>  -&gt; 神经网络与统计物理
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>  -&gt; CNN / PixelCNN / RBM
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>  -&gt; 强化学习中的 Monte Carlo
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>  -&gt; CNN 识别量子相变
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>  -&gt; NNQS / VMC
 </code></pre></div>
 <p>工程路线：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>PyTorch 教程
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>  -&gt; 数值精度
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>  -&gt; Transformer KV cache
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>  -&gt; 代码导读
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>  -&gt; 正确性验证
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>PyTorch 教程
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  -&gt; 数值精度
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>  -&gt; torch.compile
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>  -&gt; 大模型 Infra 全景
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>  -&gt; Transformer KV cache
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>  -&gt; 从模型代码到系统代码
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>  -&gt; 工程公式速查
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>  -&gt; 工程正确性与性能验证
 </code></pre></div>
 <p>招聘备考路线：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>预备知识
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>  -&gt; Transformer / PyTorch / 数值精度
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>  -&gt; 招聘备考专题
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>  -&gt; 按华为、字节、米哈游路线查缺补漏
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>预备知识
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>  -&gt; Transformer / PyTorch / 数值精度
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>  -&gt; 招聘备考专题
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>  -&gt; 按华为、字节、米哈游路线查缺补漏
 </code></pre></div>
 <p>对应入口见 <a href="interview/index.html">招聘备考专题</a>。这个专题不复刻原始真题，而是把公开面经和岗位要求里的高频考点改写成代表题，并把解题思路链接回本站知识页。</p>
-<h2 id="_12">代码地图<a class="headerlink" href="#_12" title="Permanent link">¶</a></h2>
-<p>教学版 NNQS 代码可以按一次训练调用顺序理解：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>config.py
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  YAML -&gt; TutorialConfig
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>state.py
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>  bitstring &lt;-&gt; pair token
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>  electron conservation mask
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
-<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>models.py
-<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>  AmplitudeTransformer -&gt; log_amp
-<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>  PhaseMLP -&gt; phase
-<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>  NeuralQuantumState -&gt; psi
-<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>
-<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>sampling.py
-<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>  autoregressive sample -&gt; unique_states/counts/psi_values
-<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>
-<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>hamiltonian.py
-<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>  ExactHamiltonian / CppHamiltonian -&gt; local_energy
-<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>
-<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>trainer.py
-<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>  sample -&gt; local_energy -&gt; loss_proxy -&gt; optimizer.step
-<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>
-<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>checkpoint.py
-<a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>  save/load training state
-<a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>
-<a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a>cli/train.py
-<a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>  command line entry
+<h2 id="_12">工程地图<a class="headerlink" href="#_12" title="Permanent link">¶</a></h2>
+<p>工程导读这一组不再重复 NNQS 主线，而是把视角抬到大模型系统。可以按下面顺序建立全局图像：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>模型代码
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>  Transformer / MLP / Norm / LM head
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>数据代码
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>  tokenizer / dataset / dataloader / packing
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>训练代码
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>  forward / loss / backward / optimizer / checkpoint
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>分布式代码
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>  DDP / FSDP / tensor parallel / pipeline parallel
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>执行优化
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>  FlashAttention / fused kernel / torch.compile / CUDA graph
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>推理系统
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>  prefill / decode / KV cache / batching / quantization
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>
+<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>服务系统
+<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a>  API / scheduler / streaming / monitoring / rollback
 </code></pre></div>
-<p>这里的代码不是孤立工程文件，而是前面数学结构的落地：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Transformer 负责表示概率
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>sampling 负责从概率分布抽样
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>hamiltonian 负责给出物理目标
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>trainer 负责把估计量变成参数更新
-</code></pre></div>
+<p>对应页面：</p>
+<ul>
+<li><a href="infra_overview.html">大模型 Infra 全景：从硬件到服务</a></li>
+<li><a href="code_walkthrough.html">从模型代码到系统代码</a></li>
+<li><a href="formula_cheatsheet.html">工程公式速查</a></li>
+<li><a href="verification.html">工程正确性与性能验证</a></li>
+<li><a href="numerical_precision.html">数值精度</a></li>
+</ul>
 <h2 id="_13">最短心智模型<a class="headerlink" href="#_13" title="Permanent link">¶</a></h2>
 <p>如果把整套笔记压缩成一句话：</p>
 <blockquote>

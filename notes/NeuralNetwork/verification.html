@@ -18,7 +18,7 @@
     
     
       
-        <title>正确性验证 - Neural Network Notes</title>
+        <title>工程正确性与性能验证 - Neural Network Notes</title>
       
     
     
@@ -91,7 +91,7 @@
   <nav class="md-header__inner md-grid" aria-label="页眉">
     <a href="index.html" title="Neural Network Notes" class="md-header__button md-logo" aria-label="Neural Network Notes" data-md-component="logo">
       
-  <img src="logo/neural_network.png" alt="logo">
+  <img src="logo/mlp.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              正确性验证
+              工程正确性与性能验证
             
           </span>
         </div>
@@ -216,7 +216,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="index.html" title="Neural Network Notes" class="md-nav__button md-logo" aria-label="Neural Network Notes" data-md-component="logo">
       
-  <img src="logo/neural_network.png" alt="logo">
+  <img src="logo/mlp.svg" alt="logo">
 
     </a>
     Neural Network Notes
@@ -587,6 +587,12 @@
     
       
         
+          
+        
+      
+        
+      
+        
       
         
       
@@ -611,8 +617,9 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="pytorch/index.html" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -626,8 +633,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
@@ -639,6 +652,8 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
             
               
                 
@@ -682,7 +697,7 @@
   <span class="md-ellipsis">
     
   
-    索引、reshape、广播与 inplace 操作
+    常用 Tensor 操作：索引、gather、拼接、拆分与矩阵乘法
   
 
     
@@ -836,6 +851,253 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pytorch/torch_compile.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    torch.compile：从 eager mode 到编译加速
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="classic_architectures/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    经典神经网络结构
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    经典神经网络结构
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classic_architectures/mlp.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MLP：最基本的全连接网络
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classic_architectures/cnn.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNN：局部连接、权重共享与特征图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classic_architectures/rnn_lstm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RNN、GRU 与 LSTM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classic_architectures/pixelcnn.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PixelCNN：二维格点上的自回归模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classic_architectures/rbm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RBM：能量模型与神经网络量子态
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -868,10 +1130,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
             
   
   
@@ -889,8 +1151,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1062,7 +1324,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
         
           
           <div class="md-nav__link md-nav__container">
@@ -1084,14 +1346,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1447,10 +1709,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
         
           
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
             
   
   
@@ -1468,8 +1730,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1677,10 +1939,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
         
           
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
             
   
   
@@ -1698,8 +1960,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1839,7 +2101,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9">
         
           
           <div class="md-nav__link md-nav__container">
@@ -1861,14 +2123,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_9" id="__nav_9_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_8">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2158,6 +2420,8 @@
       
         
       
+        
+      
     
     
     
@@ -2166,10 +2430,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked="">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked="">
         
           
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
             
   
   
@@ -2187,8 +2451,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_9">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2205,6 +2469,34 @@
   
   
     <li class="md-nav__item">
+      <a href="infra_overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    大模型 Infra 全景：从硬件到服务
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="code_walkthrough.html" class="md-nav__link">
         
   
@@ -2212,7 +2504,7 @@
   <span class="md-ellipsis">
     
   
-    代码导读
+    从模型代码到系统代码
   
 
     
@@ -2268,7 +2560,7 @@
   <span class="md-ellipsis">
     
   
-    公式速查
+    工程公式速查
   
 
     
@@ -2305,7 +2597,7 @@
   <span class="md-ellipsis">
     
   
-    正确性验证
+    工程正确性与性能验证
   
 
     
@@ -2323,7 +2615,7 @@
   <span class="md-ellipsis">
     
   
-    正确性验证
+    工程正确性与性能验证
   
 
     
@@ -2352,7 +2644,7 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        单元测试
+        第一层：静态检查
       
     </span>
   </a>
@@ -2360,10 +2652,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cpu-cli-smoke" class="md-nav__link">
+  <a href="#shapedtype-device" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CPU CLI Smoke
+        第二层：Shape、Dtype 和 Device
       
     </span>
   </a>
@@ -2371,10 +2663,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#slurm-gpu-smoke" class="md-nav__link">
+  <a href="#forward-backward" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Slurm GPU Smoke
+        第三层：最小 Forward / Backward
       
     </span>
   </a>
@@ -2382,21 +2674,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#fci" class="md-nav__link">
+  <a href="#overfit-batch" class="md-nav__link">
     <span class="md-ellipsis">
       
-        FCI 对比能量曲线
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#c" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        C++ 后端注意事项
+        第四层：Overfit 一个小 batch
       
     </span>
   </a>
@@ -2407,7 +2688,95 @@
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
+        第五层：数值稳定性
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第六层：分布式一致性
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checkpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第七层：Checkpoint 恢复
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第八层：性能验证
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第九层：推理正确性
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第十层：服务稳定性
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        推荐验证顺序
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
         文档站构建
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        关联阅读
       
     </span>
   </a>
@@ -2460,7 +2829,7 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        单元测试
+        第一层：静态检查
       
     </span>
   </a>
@@ -2468,10 +2837,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cpu-cli-smoke" class="md-nav__link">
+  <a href="#shapedtype-device" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CPU CLI Smoke
+        第二层：Shape、Dtype 和 Device
       
     </span>
   </a>
@@ -2479,10 +2848,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#slurm-gpu-smoke" class="md-nav__link">
+  <a href="#forward-backward" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Slurm GPU Smoke
+        第三层：最小 Forward / Backward
       
     </span>
   </a>
@@ -2490,21 +2859,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#fci" class="md-nav__link">
+  <a href="#overfit-batch" class="md-nav__link">
     <span class="md-ellipsis">
       
-        FCI 对比能量曲线
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#c" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        C++ 后端注意事项
+        第四层：Overfit 一个小 batch
       
     </span>
   </a>
@@ -2515,7 +2873,95 @@
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
+        第五层：数值稳定性
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第六层：分布式一致性
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checkpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第七层：Checkpoint 恢复
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第八层：性能验证
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第九层：推理正确性
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第十层：服务稳定性
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        推荐验证顺序
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
         文档站构建
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        关联阅读
       
     </span>
   </a>
@@ -2539,75 +2985,422 @@
 
 
 
-<h1 id="_1">正确性验证清单<a class="headerlink" href="#_1" title="Permanent link">¶</a></h1>
-<p>每次改动教学版 NNQS 后，建议按从小到大的顺序验证。前面的检查便宜，后面的检查更接近真实训练。</p>
-<h2 id="_2">单元测试<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
-<p>在远端仓库根目录运行：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">source</span><span class="w"> </span>~/miniforge3/etc/profile.d/conda.sh
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>conda<span class="w"> </span>activate<span class="w"> </span>nnqs
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>nnqs_tutorial/tests<span class="w"> </span>-q
+<h1 id="_1">工程正确性与性能验证<a class="headerlink" href="#_1" title="Permanent link">¶</a></h1>
+<p>神经网络工程里的验证不是只跑通一个 notebook。模型从研究代码走向训练任务、推理引擎和在线服务时，需要分层验证：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>数学正确性
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  -&gt; 张量 shape 和 dtype
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  -&gt; 单机训练闭环
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  -&gt; 分布式一致性
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  -&gt; 数值稳定性
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  -&gt; 性能指标
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  -&gt; 推理服务稳定性
 </code></pre></div>
-<p>重点覆盖：</p>
+<p>这页给出一份通用清单。它不绑定某个具体项目，而是帮助你判断一个神经网络系统是否“真的可用”。</p>
+<h2 id="_2">第一层：静态检查<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<p>静态检查的目标是尽早发现低级错误。</p>
+<p>常见检查：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>-m<span class="w"> </span>compileall<span class="w"> </span>.
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests<span class="w"> </span>-q
+</code></pre></div>
+<p>如果项目有类型检查或格式检查，还应运行：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ruff<span class="w"> </span>check<span class="w"> </span>.
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>mypy<span class="w"> </span>.
+</code></pre></div>
+<p>重点看：</p>
 <ul>
-<li>bitstring 与 token 的往返转换。</li>
-<li>restricted electron mask。</li>
-<li>model forward 的 shape 与 <span class="arithmatex">\(\psi\)</span> 公式。</li>
-<li>autoregressive sampling 的 counts 和电子数约束。</li>
-<li><code>ExactHamiltonian</code> 的 local energy。</li>
-<li>配置字段严格校验。</li>
-<li>trainer 单轮 smoke。</li>
+<li>import 是否完整。</li>
+<li>配置字段是否存在。</li>
+<li>测试是否依赖本机绝对路径。</li>
+<li>CPU 环境下是否能完成最小测试。</li>
+<li>随机种子是否能固定。</li>
 </ul>
-<h2 id="cpu-cli-smoke">CPU CLI Smoke<a class="headerlink" href="#cpu-cli-smoke" title="Permanent link">¶</a></h2>
-<p>用临时小 Hamiltonian 跑 2 个 epoch。检查：</p>
+<p>静态检查不能证明模型正确，但能防止大量低成本错误进入后续昂贵流程。</p>
+<h2 id="shapedtype-device">第二层：Shape、Dtype 和 Device<a class="headerlink" href="#shapedtype-device" title="Permanent link">¶</a></h2>
+<p>大部分深度学习 bug 都可以先从三个问题排查：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>shape 对不对
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>dtype 对不对
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>device 对不对
+</code></pre></div>
+<p>建议在关键边界处检查：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">assert</span> <span class="n">input_ids</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">assert</span> <span class="n">input_ids</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">long</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">assert</span> <span class="n">logits</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="n">input_ids</span><span class="o">.</span><span class="n">shape</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">assert</span> <span class="n">logits</span><span class="o">.</span><span class="n">device</span> <span class="o">==</span> <span class="n">input_ids</span><span class="o">.</span><span class="n">device</span>
+</code></pre></div>
+<p>常见错误：</p>
+<table>
+<thead>
+<tr>
+<th>错误</th>
+<th>表现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>labels 没有 shift</td>
+<td>loss 看似下降，但学习目标错位</td>
+</tr>
+<tr>
+<td>mask shape 广播错</td>
+<td>attention 泄露未来信息或错误屏蔽</td>
+</tr>
+<tr>
+<td>FP16 下做不稳定归一化</td>
+<td>NaN、Inf、loss spike</td>
+</tr>
+<tr>
+<td>CPU tensor 混入 GPU 计算</td>
+<td>runtime device mismatch</td>
+</tr>
+<tr>
+<td><code>view</code> 用在非 contiguous tensor</td>
+<td>shape 逻辑错误或直接报错</td>
+</tr>
+</tbody>
+</table>
+<p>这层验证应当足够便宜，可以在每次改动后运行。</p>
+<h2 id="forward-backward">第三层：最小 Forward / Backward<a class="headerlink" href="#forward-backward" title="Permanent link">¶</a></h2>
+<p>任何模型在进入长训练前，都应该先跑一个极小 batch：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">batch</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">loader</span><span class="p">))</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">loss</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="o">**</span><span class="n">batch</span><span class="p">)</span><span class="o">.</span><span class="n">loss</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">():</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">:</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>        <span class="k">assert</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>        <span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span> <span class="n">name</span>
+</code></pre></div>
+<p>这一步验证：</p>
 <ul>
-<li><code>train_log.csv</code> 生成。</li>
-<li><code>checkpoints/epoch-2.pt</code> 生成。</li>
-<li><code>energy_real</code>、<code>energy_imag</code>、<code>loss_proxy</code> 都是有限数。</li>
+<li>forward 能跑通。</li>
+<li>loss 是有限数。</li>
+<li>需要训练的参数确实有梯度。</li>
+<li>梯度没有 NaN / Inf。</li>
 </ul>
-<p>这个阶段主要验证命令行、配置、采样、Hamiltonian 和 trainer 是否能完整串起来。</p>
-<h2 id="slurm-gpu-smoke">Slurm GPU Smoke<a class="headerlink" href="#slurm-gpu-smoke" title="Permanent link">¶</a></h2>
-<p>提交：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">cd</span><span class="w"> </span>/home/tnx/code/vqe2nnqs2afqmc2nnqs/nnqs_learn/nnqs
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>nnqs_tutorial/slurm/logs
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>sbatch<span class="w"> </span>nnqs_tutorial/slurm/gpu_smoke.sbatch
+<p>如果这里失败，不应该继续调分布式、compile 或推理引擎。先回到模型和数据。</p>
+<h2 id="overfit-batch">第四层：Overfit 一个小 batch<a class="headerlink" href="#overfit-batch" title="Permanent link">¶</a></h2>
+<p>一个很实用的 sanity check：</p>
+<blockquote>
+<p>让模型在一个很小 batch 上训练到 loss 明显下降。</p>
+</blockquote>
+<p>如果小 batch 都无法过拟合，通常说明：</p>
+<ul>
+<li>labels 错了。</li>
+<li>loss mask 错了。</li>
+<li>optimizer 没有更新参数。</li>
+<li>学习率极端不合适。</li>
+<li>某些参数被冻结。</li>
+<li>forward 里错误使用了 <code>detach()</code> 或 <code>no_grad()</code>。</li>
+</ul>
+<p>这一步不验证泛化，只验证训练闭环有能力把信号写入参数。</p>
+<h2 id="_3">第五层：数值稳定性<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<p>混合精度、长序列和大 batch 都会放大数值问题。</p>
+<p>必须监控：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>loss
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>grad_norm
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>learning_rate
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>activation max / min
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>NaN / Inf count
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>overflow / skipped step
 </code></pre></div>
-<p>查看：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>squeue<span class="w"> </span>-u<span class="w"> </span>tnx
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>tail<span class="w"> </span>-n<span class="w"> </span><span class="m">120</span><span class="w"> </span>nnqs_tutorial/slurm/logs/gpu_smoke-&lt;jobid&gt;.out
+<p>常见判断：</p>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>可能原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>loss 突然变 NaN</td>
+<td>学习率过大、FP16 overflow、数据异常</td>
+</tr>
+<tr>
+<td>grad norm 爆炸</td>
+<td>初始化、长序列、未裁剪梯度</td>
+</tr>
+<tr>
+<td>loss 长期不变</td>
+<td>参数未更新、mask 全错、学习率太低</td>
+</tr>
+<tr>
+<td>BF16 正常但 FP16 崩</td>
+<td>FP16 指数范围不够，需 loss scaling</td>
+</tr>
+<tr>
+<td>eval loss 比 train loss 异常低</td>
+<td>train/eval 模式或 dropout 处理错误</td>
+</tr>
+</tbody>
+</table>
+<p>这部分可以结合 <a href="numerical_precision.html">数值精度</a> 一起读。</p>
+<h2 id="_4">第六层：分布式一致性<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
+<p>单卡正确不代表多卡正确。</p>
+<p>分布式训练要额外验证：</p>
+<ul>
+<li>单卡和多卡在等效 global batch 下 loss 是否接近。</li>
+<li>gradient accumulation 是否和真实大 batch 等价。</li>
+<li>DDP 参数是否在各 rank 同步。</li>
+<li>FSDP / ZeRO checkpoint 是否能保存和恢复。</li>
+<li>sampler 是否正确按 rank 切分数据。</li>
+<li>所有 rank 是否都进入同样的 collective 调用。</li>
+</ul>
+<p>典型问题：</p>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>表现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>某个 rank 数据为空</td>
+<td>训练卡死或 loss 异常</td>
+</tr>
+<tr>
+<td>collective 调用不一致</td>
+<td>NCCL hang</td>
+</tr>
+<tr>
+<td>随机种子没有按 rank 设置</td>
+<td>数据增强或 dropout 行为异常</td>
+</tr>
+<tr>
+<td>checkpoint 只保存 rank 0 局部分片</td>
+<td>恢复后权重缺失</td>
+</tr>
+</tbody>
+</table>
+<p>分布式 bug 的成本高，必须先用小模型、小数据、少 GPU 做 smoke test。</p>
+<h2 id="checkpoint">第七层：Checkpoint 恢复<a class="headerlink" href="#checkpoint" title="Permanent link">¶</a></h2>
+<p>训练任务如果不能恢复，就不能算工程可用。</p>
+<p>最小验证：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>训练 N step
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>  -&gt; 保存 checkpoint
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>  -&gt; 重新启动
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>  -&gt; 从 checkpoint 继续训练
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>  -&gt; 检查 loss、step、lr、optimizer state 是否连续
 </code></pre></div>
-<p>日志中应出现：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>cuda_available: True
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>epoch=1 ...
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>epoch=2 ...
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>GPU smoke test finished successfully.
+<p>需要保存的不只是模型权重：</p>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>为什么需要</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>model weights</td>
+<td>参数本体</td>
+</tr>
+<tr>
+<td>optimizer state</td>
+<td>Adam 动量决定后续更新</td>
+</tr>
+<tr>
+<td>scheduler state</td>
+<td>学习率阶段不能乱</td>
+</tr>
+<tr>
+<td>grad scaler</td>
+<td>mixed precision 恢复</td>
+</tr>
+<tr>
+<td>random state</td>
+<td>复现实验和数据顺序</td>
+</tr>
+<tr>
+<td>dataloader progress</td>
+<td>避免重复或跳过数据</td>
+</tr>
+<tr>
+<td>distributed metadata</td>
+<td>分片 checkpoint 恢复</td>
+</tr>
+</tbody>
+</table>
+<p>推理加载则可以只加载权重，但也要验证 tokenizer 和 config 是否匹配。</p>
+<h2 id="_5">第八层：性能验证<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
+<p>性能验证不要只看“跑得快不快”，要拆指标。</p>
+<p>训练侧：</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tokens/sec</td>
+<td>训练吞吐</td>
+</tr>
+<tr>
+<td>step time</td>
+<td>每步耗时</td>
+</tr>
+<tr>
+<td>GPU utilization</td>
+<td>GPU 是否空等</td>
+</tr>
+<tr>
+<td>MFU</td>
+<td>模型 FLOPs 利用率</td>
+</tr>
+<tr>
+<td>dataloader time</td>
+<td>数据管线是否拖慢</td>
+</tr>
+<tr>
+<td>communication time</td>
+<td>多卡通信开销</td>
+</tr>
+<tr>
+<td>peak memory</td>
+<td>峰值显存</td>
+</tr>
+</tbody>
+</table>
+<p>推理侧：</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TTFT</td>
+<td>首 token 延迟</td>
+</tr>
+<tr>
+<td>TPOT</td>
+<td>每个输出 token 延迟</td>
+</tr>
+<tr>
+<td>output tokens/sec</td>
+<td>生成吞吐</td>
+</tr>
+<tr>
+<td>request throughput</td>
+<td>请求吞吐</td>
+</tr>
+<tr>
+<td>KV cache usage</td>
+<td>推理显存核心项</td>
+</tr>
+<tr>
+<td>batch size / concurrency</td>
+<td>调度能力</td>
+</tr>
+</tbody>
+</table>
+<p>性能测试要有 warmup。涉及 <code>torch.compile</code>、CUDA graph 或推理引擎时，第一次运行通常不代表稳定性能。</p>
+<h2 id="_6">第九层：推理正确性<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
+<p>推理路径经常和训练 forward 不完全相同，尤其使用 KV cache、量化、导出图或推理引擎时。</p>
+<p>需要比较：</p>
+<ul>
+<li>eager PyTorch 输出。</li>
+<li><code>torch.compile</code> 输出。</li>
+<li>FP16 / BF16 输出。</li>
+<li>INT8 / INT4 量化输出。</li>
+<li>KV cache 开启与关闭的输出。</li>
+<li>推理引擎输出。</li>
+</ul>
+<p>常见校验：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">torch</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_close</span><span class="p">(</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="n">logits_ref</span><span class="p">,</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    <span class="n">logits_opt</span><span class="p">,</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="n">atol</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="p">)</span>
 </code></pre></div>
-<p>这一步验证 Slurm、GPU、conda 环境和教学版 CLI 的整条链路。</p>
-<h2 id="fci">FCI 对比能量曲线<a class="headerlink" href="#fci" title="Permanent link">¶</a></h2>
-<p>提交：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>sbatch<span class="w"> </span>nnqs_tutorial/slurm/gpu_fci_curve.sbatch
+<p>容差要根据 dtype 和算子实现调整。量化后不能期待逐元素完全一致，但应检查：</p>
+<ul>
+<li>top-k token 是否基本一致。</li>
+<li>perplexity 或任务指标下降是否可接受。</li>
+<li>长上下文下输出是否异常。</li>
+<li>batch 推理和单条推理是否一致。</li>
+</ul>
+<h2 id="_7">第十层：服务稳定性<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
+<p>模型上线后，还要验证系统行为。</p>
+<p>服务层检查：</p>
+<table>
+<thead>
+<tr>
+<th>检查</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>并发压测</td>
+<td>找到吞吐和延迟拐点</td>
+</tr>
+<tr>
+<td>长 prompt 压测</td>
+<td>验证 KV cache 和显存上限</td>
+</tr>
+<tr>
+<td>超时和取消</td>
+<td>用户断开后是否释放资源</td>
+</tr>
+<tr>
+<td>OOM 恢复</td>
+<td>worker 是否能重启并隔离失败</td>
+</tr>
+<tr>
+<td>流式输出</td>
+<td>token 是否稳定返回</td>
+</tr>
+<tr>
+<td>限流</td>
+<td>高峰期是否保护系统</td>
+</tr>
+<tr>
+<td>灰度发布</td>
+<td>新模型是否可逐步放量和回滚</td>
+</tr>
+<tr>
+<td>监控告警</td>
+<td>错误率、延迟、显存、GPU 利用率是否可见</td>
+</tr>
+</tbody>
+</table>
+<p>这层问题已经不是单纯机器学习问题，而是服务工程问题。</p>
+<h2 id="_8">推荐验证顺序<a class="headerlink" href="#_8" title="Permanent link">¶</a></h2>
+<p>不要一开始就跑大任务。推荐顺序：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>unit test
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  -&gt; tiny forward/backward
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>  -&gt; overfit small batch
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>  -&gt; single GPU smoke
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>  -&gt; multi GPU smoke
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>  -&gt; checkpoint resume
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>  -&gt; mixed precision run
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>  -&gt; performance benchmark
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>  -&gt; inference equivalence
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>  -&gt; serving pressure test
 </code></pre></div>
-<p>脚本会在 GPU 节点上：</p>
-<ol>
-<li>生成一个 4-qubit projector Hamiltonian。</li>
-<li>用 exact diagonalization 得到 FCI 能量。</li>
-<li>用教学版 NNQS/VMC 训练 80 epoch。</li>
-<li>画出 <code>energy_vs_epoch_fci.png</code>。</li>
-</ol>
-<p>成功日志应包含：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>FCI_ENERGY=-1.0000000000000000
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>FCI curve GPU demo finished successfully.
+<p>每一层都应该有明确通过标准。没有通过标准的测试，只是在消耗 GPU 时间。</p>
+<h2 id="_9">文档站构建<a class="headerlink" href="#_9" title="Permanent link">¶</a></h2>
+<p>本笔记站本身也需要构建验证：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>../MonteCarlo/.venv/bin/mkdocs<span class="w"> </span>build<span class="w"> </span>--strict
 </code></pre></div>
-<p>这个测试可以粗略确认能量曲线朝正确方向运动。</p>
-<h2 id="c">C++ 后端注意事项<a class="headerlink" href="#c" title="Permanent link">¶</a></h2>
-<p>如果当前 <code>local_energy/libeloc.so</code> 是 CUDA 版，但当前 Python 环境没有 GPU，教学版会提前报错，提示切换 CPU 版 C++ 后端或使用：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">hamiltonian_backend</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">exact</span>
-</code></pre></div>
-<p>这类提前失败比动态库直接 abort Python 进程更容易定位问题。</p>
-<h2 id="_3">文档站构建<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
-<p>本笔记站复用 MonteCarlo 的 MkDocs 环境：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>../MonteCarlo/.venv/bin/mkdocs<span class="w"> </span>build<span class="w"> </span>--strict
-</code></pre></div>
-<p>如果公式、导航或链接有问题，先让严格构建通过，再考虑发布到个人网站目录。</p>
+<p>如果公式、导航、链接或代码块破坏了文档构建，应先修正文档，再发布。</p>
+<h2 id="_10">关联阅读<a class="headerlink" href="#_10" title="Permanent link">¶</a></h2>
+<ul>
+<li><a href="code_walkthrough.html">工程导读：从模型代码到系统代码</a></li>
+<li><a href="formula_cheatsheet.html">工程公式速查</a></li>
+<li><a href="infra_overview.html">大模型 Infra 全景：从硬件到服务</a></li>
+<li><a href="numerical_precision.html">数值精度</a></li>
+<li><a href="pytorch/torch_compile.html">torch.compile：从 eager mode 到编译加速</a></li>
+</ul>
 
 
 
@@ -2645,7 +3438,7 @@
       <nav class="md-footer__inner md-grid" aria-label="页脚">
         
           
-          <a href="formula_cheatsheet.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: 公式速查">
+          <a href="formula_cheatsheet.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: 工程公式速查">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
@@ -2655,7 +3448,7 @@
                 上一页
               </span>
               <div class="md-ellipsis">
-                公式速查
+                工程公式速查
               </div>
             </div>
           </a>
