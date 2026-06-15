@@ -1705,6 +1705,8 @@
       
         
       
+        
+      
     
     
     
@@ -1994,6 +1996,34 @@
   
   
     <li class="md-nav__item">
+      <a href="robotics_scaling.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    机器人 Scaling Law 与具身智能
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="alphazero_gomoku.html" class="md-nav__link">
         
   
@@ -2030,6 +2060,10 @@
   
     
     
+      
+        
+      
+        
       
         
       
@@ -2148,6 +2182,62 @@
     
   
     统计物理视角下的大模型训练
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../physics_ml/scaling_laws.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scaling Law：模型、数据与算力
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../physics_ml/ntk_mup_infinite_width.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NTK、μP 与无限宽极限
   
 
     
@@ -2898,6 +2988,7 @@ A(s_t,a_t)
 <li>RL 来自环境回报。</li>
 </ul>
 <p>并不是所有强化学习都直接用这条 policy gradient 公式更新策略。AlphaZero 风格方法会先用 MCTS 把当前网络策略改进成搜索策略，再让网络用监督损失拟合搜索结果。具体代码闭环见 <a href="alphazero_gomoku.html">实践：AlphaZero 五子棋代码导读</a>。</p>
+<p>在机器人 foundation model 中，策略也常写成条件分布 <span class="arithmatex">\(\pi_\theta(a_t\mid o_{\le t},{\rm instruction})\)</span>，但训练信号可能混合模仿学习、离线 RL、在线 RL、偏好学习和生成式动作建模。这个更大背景见 <a href="robotics_scaling.html">机器人 Scaling Law 与具身智能</a>。</p>
 
 
 

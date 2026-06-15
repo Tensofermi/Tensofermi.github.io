@@ -1,4 +1,5 @@
 (function () {
+    const githubProfileUrl = 'https://github.com/Tensofermi';
     const scriptTag = document.querySelector('script[src*="js/script.js"]');
     const assetBaseUrl = scriptTag ? new URL('../images/', scriptTag.src).href : './images/';
     const images_bg = [
@@ -7,6 +8,21 @@
         new URL('header-bg2.jpg', assetBaseUrl).href,
         new URL('header-bg3.jpg', assetBaseUrl).href
     ];
+
+    function linkLogoAvatars() {
+        document.querySelectorAll('.logo > img').forEach((avatar) => {
+            const link = document.createElement('a');
+            link.className = 'logo-avatar-link';
+            link.href = githubProfileUrl;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.setAttribute('aria-label', 'Open Tensofermi GitHub profile');
+
+            avatar.alt = avatar.alt && avatar.alt !== 'Logo' ? avatar.alt : 'Tensofermi avatar';
+            avatar.parentNode.insertBefore(link, avatar);
+            link.appendChild(avatar);
+        });
+    }
 
     let currentImageIndex = page_index;
 
@@ -36,5 +52,6 @@
         });
     }
 
+    linkLogoAvatars();
     updateBackgroundImage();
 })();

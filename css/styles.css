@@ -139,6 +139,16 @@ p {
     object-fit: cover;
 }
 
+.logo-avatar-link {
+    display: block;
+    border-radius: 50%;
+}
+
+.logo-avatar-link:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.9);
+    outline-offset: 3px;
+}
+
 .logo span {
     color: inherit;
 }
