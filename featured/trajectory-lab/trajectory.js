@@ -1553,17 +1553,6 @@ function filesView(snapshot) {
 
 /* --------------------------------------------------------------------- init */
 
-function initTheme() {
-  const saved = localStorage.getItem("trajectory-theme") || "dark";
-  document.documentElement.dataset.theme = saved;
-  $("theme").textContent = saved === "dark" ? "☀" : "☾";
-  $("theme").onclick = () => {
-    const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-    document.documentElement.dataset.theme = next;
-    localStorage.setItem("trajectory-theme", next);
-    $("theme").textContent = next === "dark" ? "☀" : "☾";
-  };
-}
 
 let searchTimer;
 function searchBlocks() {
@@ -1588,7 +1577,6 @@ function searchBlocks() {
 }
 
 function init() {
-  initTheme();
   state.mode = "archive";
   $("tab-h").onclick = () => switchMode("h");
   $("tab-v").onclick = () => switchMode("v");

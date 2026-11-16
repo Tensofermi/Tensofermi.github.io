@@ -4,25 +4,21 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Trajectory Lab · 轨迹上下文</title>
   <meta name="description" content="按 S/U/R/M/T/O 记号阅读 ATIF 归档序列，并用每次调用的捕获快照核对可见上下文。">
-  <link rel="stylesheet" href="slate.css"><link rel="stylesheet" href="trajectory.css?v=4">
+  <link rel="stylesheet" href="slate.css?v=4"><link rel="stylesheet" href="trajectory.css?v=4"><link rel="stylesheet" href="lab-shell.css">
+  <script src="lab-shell.js" defer></script>
   <script src="trajectory-source.js?v=5" defer></script>
-  <script src="trajectory.js?v=4" defer></script>
+  <script src="trajectory.js?v=7" defer></script>
 </head>
-<body class="trajectory-page">
-  <header class="topbar">
-    <div class="identity"><span class="logo">T<span>·</span>L</span><div><strong>Trajectory Lab</strong><small>ATIF CONTEXT</small></div></div>
-    <nav class="modes" aria-label="切换模式"><a href="../tools/chat/">Chat</a><a href="index.html">石板</a><a href="trajectory.html" aria-current="page">轨迹</a><a href="../../featured.html">Featured ↗</a></nav>
-    <div class="topright"><span id="connection" class="connection">只读</span><button id="theme" class="icon" title="切换昼夜" aria-label="切换昼夜">☀</button></div>
-  </header>
+<body class="lab-page trajectory-page">
+  <header id="lab-masthead" class="lab-masthead" data-view="trajectory"></header>
 
   <main class="atf-app">
     <div class="atf-head">
       <div>
-        <div class="eyebrow">ATIF · ARCHIVE → CONTEXT</div>
-        <h1>一条轨迹的上下文</h1>
+        <h1>轨迹归档</h1>
         <p>归档序列按 <code>S</code> 前缀、<code>U</code> 用户侧输入、<code>R</code> 推理、<code>M</code> 正文、<code>T</code> 调用、<code>O</code> 返回、<code>C</code> 压缩排列。序列 H 与模型上下文来自同一渲染文本；ATIF 原始字段和真实请求快照可单独查看。</p>
       </div>
-      <div class="head-actions"><button id="boundary-open" class="btn secondary">证据边界</button></div>
+      <div class="head-actions"><span id="connection" class="connection">只读</span><button id="boundary-open" class="btn secondary">证据边界</button></div>
     </div>
 
     <div id="notice" class="notice" role="status">正在读取示例…</div>

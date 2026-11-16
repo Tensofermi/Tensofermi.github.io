@@ -622,8 +622,6 @@ async function openChatDraft() {
 }
 
 async function initialize(){
-  $('theme').addEventListener('click',()=>{const next=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=next;localStorage.setItem('trajectory-theme',next);$('theme').textContent=next==='dark'?'☀':'☾';});
-  const theme=localStorage.getItem('trajectory-theme')||'dark';document.documentElement.dataset.theme=theme;$('theme').textContent=theme==='dark'?'☀':'☾';
   try{browserTools=await slateTools;const result=await slateFetch('/api/models').then(r=>r.json());modelCatalog=result.models||[];
     const optgroup=node('optgroup');optgroup.label='DeepSeek';
     for(const m of modelCatalog){const option=node('option','',`${m.label}${m.reconstruction?' · 官方参考 token':' · API'}${m.listed===false?' · 当前不可用':''}`);option.value=m.id;option.disabled=!m.configured||m.listed===false;optgroup.append(option);}

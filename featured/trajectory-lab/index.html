@@ -4,19 +4,20 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Trajectory Lab · 上下文石板</title>
   <meta name="description" content="观察和编辑模型推理的上下文石板，区分真实请求与参考分词。">
-  <link rel="stylesheet" href="slate.css?v=4"><link rel="stylesheet" href="agent-tools.css">
+  <link rel="stylesheet" href="slate.css?v=4"><link rel="stylesheet" href="agent-tools.css"><link rel="stylesheet" href="lab-shell.css">
+  <script src="lab-shell.js" defer></script>
   <script src="slate-atif.js?v=6" defer></script>
   <script src="slate-runtime.js?v=6" defer></script>
-  <script src="slate.js?v=6" defer></script>
+  <script src="slate.js?v=7" defer></script>
 </head>
-<body>
-  <header class="topbar">
-    <div class="identity"><span class="logo">T<span>·</span>L</span><div><strong>Trajectory Lab</strong><small>NEXT TOKEN PREDICTION</small></div></div>
-    <nav class="modes" aria-label="切换模式"><a href="../tools/chat/">Chat</a><a href="index.html" aria-current="page">石板</a><a href="trajectory.html">轨迹</a><a href="../../featured.html">Featured ↗</a></nav>
-    <div class="topright"><label class="model-picker">模型 <select id="model" aria-label="选择推理模型"></select></label><button type="button" id="connection" class="connection">连接 DeepSeek</button><button id="new-session" class="icon" title="新建石板">＋</button><button id="theme" class="icon" title="切换昼夜">☀</button></div>
+<body class="lab-page lab-slate">
+  <header id="lab-masthead" class="lab-masthead" data-view="slate"></header>
+  <header class="lab-command-bar">
+    <label class="model-picker">模型 <select id="model" aria-label="选择推理模型"></select></label>
+    <div class="lab-command-actions"><button type="button" id="connection" class="connection">连接 DeepSeek</button><button id="new-session" class="icon" title="新建石板" aria-label="新建石板">＋</button></div>
   </header>
   <main class="stone-app">
-    <div class="page-head"><div><div class="eyebrow">ONE INFERENCE · ONE CONTEXT</div><h1>模型看到的石板</h1><p id="model-description">从这里观察上下文、选择 token，并编辑可提交的消息。</p><a id="format-source" class="format-source" target="_blank" rel="noopener noreferrer" hidden>查看该模型的公开格式来源 ↗</a></div><div class="head-actions"><button id="one-token" class="btn secondary">预测 1 token</button><button id="agent-run" class="btn secondary">▶ Agent 回合</button><button id="export-atif" class="btn secondary" type="button" title="完成至少一轮 Agent 调用后即可导出" disabled>导出 ATIF</button><button id="generate" class="btn primary">▶ 连续生成</button><button id="stop" class="btn danger" disabled>停止</button></div></div>
+    <div class="page-head"><div><h1>上下文石板</h1><p id="model-description">从这里观察上下文、选择 token，并编辑可提交的消息。</p><a id="format-source" class="format-source" target="_blank" rel="noopener noreferrer" hidden>查看该模型的公开格式来源 ↗</a></div><div class="head-actions"><button id="one-token" class="btn secondary">预测 1 token</button><button id="agent-run" class="btn secondary">▶ Agent 回合</button><button id="export-atif" class="btn secondary" type="button" title="完成至少一轮 Agent 调用后即可导出" disabled>导出 ATIF</button><button id="generate" class="btn primary">▶ 连续生成</button><button id="stop" class="btn danger" disabled>停止</button></div></div>
     <div id="notice" class="notice" role="status">正在加载参考 tokenizer…</div>
     <section id="token-card" class="card slab-card">
       <div class="card-heading slab-heading"><div><small>CONTEXT SLAB</small><h2 id="slab-title">当前推理输入</h2><p id="input-scope" class="microcopy input-scope">当前可编辑消息的下一次调用草稿，尚未发送。</p></div><span id="evidence" class="evidence">尚未重建</span></div>
