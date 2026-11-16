@@ -8,12 +8,22 @@ const sources = [
 
 let runtime;
 async function read(url, headers) {
-    const response = await fetchAsset(new URL(url, import.meta.url), { headers, signal: AbortSignal.timeout(60000) });
+    const response = await fetchAsset(new URL(url, import.meta.url), { headers, signal: AbortSignal.timeout(420000) });
     if (!response.ok) throw new Error("参考资源加载失败（HTTP " + response.status + "）");
     return response;
 }
 
 async function binary(url) {
+    const cache = await caches.open("trajectory-reference-0.29.3").catch(() => null);
+    const address = new URL(url, import.meta.url);
+    const cached = await cache?.match(address);
+    if (cached) return cached.blob();
+    const blob = await downloadBinary(url);
+    await cache?.put(address, new Response(blob)).catch(() => {});
+    return blob;
+}
+
+async function downloadBinary(url) {
     const chunk = 384 * 1024;
     const first = await read(url, { Range: "bytes=0-" + (chunk - 1) });
     if (first.status === 200) return first.blob();

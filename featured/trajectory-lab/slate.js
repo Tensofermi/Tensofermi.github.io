@@ -341,7 +341,7 @@ let draftVersion = 0;
 async function refreshDraft(scope='draft',message=''){
   const version=++draftVersion;
   let p;try{p=payload();}catch(e){notice(e.message,'error');return;}
-  notice('正在重建石板…');
+  notice('正在重建石板。首次编辑会下载并缓存参考编码器和 tokenizer。');
   try{const data=await api('/api/preview',p);if(version!==draftVersion)return;renderInput(data,scope);notice(message||data.warning,message?'good':'');}
   catch(e){if(version!==draftVersion)return;renderInput({evidence:'draft_only',count:null,counts:{},context_window:currentModel()?.context_window||1,next_position:null,next_char:null,model_format:'参考重建失败',request_messages:p.messages,request_tools:p.tools,tokens:[]},scope);notice((message?message+'；':'')+'参考重建失败：'+e.message,'error');}
 }
