@@ -76,10 +76,10 @@
             return ids;
         }
 
-        function observation(step, content, callId, success) {
+        function observation(step, content, callId, success, execution) {
             const item = { content: string(content) };
             if (callId) item.source_call_id = callId;
-            if (typeof success === "boolean") item.extra = { success };
+            if (typeof success === "boolean" || execution) item.extra = { success, execution };
             (step.observation ??= { results: [] }).results.push(item);
         }
 
@@ -113,7 +113,7 @@
             if (Object.keys(turn.metrics).length) step.metrics = turn.metrics;
             const ids = addCalls(step, toolsOf(message));
             for (const result of turn.observations) {
-                observation(step, result.content, ids.get(result.call_id), result.success);
+                observation(step, result.content, ids.get(result.call_id), result.success, result.execution);
             }
         }
 

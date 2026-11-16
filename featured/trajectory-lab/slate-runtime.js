@@ -8,15 +8,9 @@
         format: "DeepSeek V4.1 Flash 官方参考编码", 
         format_source: "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/tree/main/encoding",
     };
-    const agentTools = [{
-        type: "function",
-        function: {
-            name: "add_numbers", description: "Add two finite numbers in the browser.",
-            parameters: { type: "object", properties: { a: { type: "number" }, b: { type: "number" } },
-                required: ["a", "b"], additionalProperties: false },
-        },
-    }];
     const base = new URL(".", document.currentScript.src);
+    const toolLibrary = import(new URL("agent-tools.mjs", base));
+    window.slateTools = toolLibrary;
     const live = "https://api.deepseek.com";
     let key = "";
     let worker;
@@ -234,6 +228,10 @@
 
     async function runAgent(body, signal, emit) {
         requireConnection();
+        const tools = await toolLibrary;
+        const mode = body.tool_mode === "manual" ? "manual" : "automatic";
+        const enabled = new Set((body.tools || []).map((tool) => tool?.function?.name).filter(Boolean));
+        signal ??= new AbortController().signal;
         const messages = structuredClone(body.messages);
         const run = slateAtif.makeRun(body, new Date().toISOString(), crypto.randomUUID());
         let record;
@@ -262,26 +260,17 @@
                 for (const call of calls) {
                     signal?.throwIfAborted();
                     const name = call.function?.name || "未知工具";
-                    let content;
-                    let success = false;
-                    try {
-                        const { a, b } = JSON.parse(call.function?.arguments || "{}");
-                        if (name !== "add_numbers" || !Number.isFinite(a) || !Number.isFinite(b) || !Number.isFinite(a + b)) {
-                            throw new Error("浏览器可运行的工具为 add_numbers，参数须为有限数字。");
-                        }
-                        content = JSON.stringify({ result: a + b });
-                        success = true;
-                    } catch (error) {
-                        content = JSON.stringify({ error: error.message });
-                    }
-                    messages.push({ role: "tool", tool_call_id: call.id, content, _origin: "浏览器工具返回" });
-                    turn.observations.push({ call_id: call.id, content, success });
+                    emit({ type: "tool_pending", name, mode });
+                    const { content, success, execution } = await tools.resolveToolCall(call, mode, enabled, signal);
+                    messages.push({ role: "tool", tool_call_id: call.id, content,
+                        _origin: execution === "manual" ? "人类回填的工具返回" : "浏览器自动执行的工具返回" });
+                    turn.observations.push({ call_id: call.id, content, success, execution });
                     await save(run);
-                    emit({ type: "tool_result", name, success, characters: content.length });
+                    emit({ type: "tool_result", name, success, execution, characters: content.length });
                 }
             }
         } catch (error) {
-            run.status = signal?.aborted ? "stopped" : "failed";
+            run.status = signal?.aborted || error.name === "AbortError" ? "stopped" : "failed";
             throw error;
         } finally {
             if (run.turns.length) {
@@ -300,7 +289,7 @@
                 run(emit).then(() => controller.close()).catch((error) => {
                     if (signal?.aborted) controller.error(signal.reason);
                     else {
-                        emit({ type: "error", error: error.message });
+                        emit({ type: "error", error: error.message, cancelled: error.name === "AbortError" });
                         controller.close();
                     }
                 });
@@ -329,7 +318,7 @@
                 }), options.signal);
             }
             if (route === "/api/agent") return streamResponse((emit) => runAgent(body, options.signal, emit), options.signal);
-            if (route === "/api/models") return Response.json({ models: [model], default: model.id, agent_tools: agentTools });
+            if (route === "/api/models") return Response.json({ models: [model], default: model.id });
             if (route === "/api/preview") return Response.json(await preview(body));
             if (route === "/api/call") return Response.json(await generate(body));
             if (route === "/api/import-trajectory") return Response.json(await reference("import", body));

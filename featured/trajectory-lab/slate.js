@@ -5,11 +5,11 @@ const PAGE = 800;
 let preview = null, activeRecord = null, tokenPage = 0, selectedToken = null, controller = null, busy = false;
 let pendingCompaction = null;
 let modelCatalog = [];
-let agentTools = [];
+let browserTools, chatModelOption = null;
 let agentExports = [];
 let imported=null, renderedTokenCount=0, selectedElement=null, editTarget=null, inputScope='draft';
 function currentModel(){return modelCatalog.find(m=>m.id===$('model').value);}
-function chooseModel(id){if(id&&modelCatalog.some(m=>m.id===id))$('model').value=id;const m=currentModel();if(!m)return;
+function chooseModel(id){if(id&&modelCatalog.some(m=>m.id===id)){chatModelOption?.remove();chatModelOption=null;$('model').value=id;}const m=currentModel();if(!m)return;
   $('context-limit').textContent=m.context_window.toLocaleString()+' 上限';
   $('model-description').textContent=m.reconstruction?`${m.format} · 使用该模型公开的格式与 tokenizer 在本机重建；API usage 单独作为服务端证据。`:`${m.format} · 缺少可核实的该服务模型格式，当前只记录实际 API JSON 与 usage。`;
   $('format-source').hidden=!m.format_source;if(m.format_source)$('format-source').href=m.format_source;
@@ -30,9 +30,10 @@ function parseEditor(id, expected) {
   return value;
 }
 function payload() {
+  if(chatModelOption) throw Error('这是 Chat 当前路径的 JSON 预览。选择石板模型即可用这组消息重建。');
   const value = {model:$('model').value,messages:parseEditor('messages','array'), tools:parseEditor('tools','array'),
     thinking:$('thinking').value === 'true', effort:$('effort').value,
-    max_tokens:Number($('max-tokens').value)};
+    max_tokens:Number($('max-tokens').value),tool_mode:browserTools.toolPreferences().mode};
   if(pendingCompaction && JSON.stringify([value.model,value.messages,value.tools,value.thinking,value.effort])===pendingCompaction.signature)
     value.compaction_draft_id=pendingCompaction.id;
   return value;
@@ -73,22 +74,27 @@ function renderTrajectory(messages=null,record=null){
   box.append(node('div','flow-next',record?'→ 当次调用在模型回复处结束；下一次调用的实际输入请看后续记录。':'→ 当前编辑区构成下一次推理的输入草稿；尚未发送'));
 }
 function sampleChat() {
+  leaveChatPreview();
   $('messages').value = formatted([
     {role:'system',content:'你是一位耐心的数学老师。请简洁地回答问题。',_origin:'用户编写的系统提示'},
     {role:'user',content:'17×23 等于多少？',_origin:'用户输入'}]);
-  $('tools').value='[]'; $('thinking').value='true'; $('effort').value='high';
+  setTools(browserTools.selectedToolDefinitions(browserTools.toolPreferences().enabled));
+  $('thinking').value='true'; $('effort').value='high';
   preview=null; activeRecord=null; pendingCompaction=null; clearOutput(); notice('对话示例已载入；正在重建石板。');
 }
 function sampleAgent() {
+  leaveChatPreview();
+  const selected=browserTools.toolPreferences().enabled;
+  const tools=browserTools.selectedToolDefinitions(selected.includes('add_numbers') ? selected : [...selected,'add_numbers']);
   $('messages').value=formatted([
     {role:'system',content:'你是数学助教。算术请先使用 add_numbers，再向用户解释结果。',_origin:'示例系统提示'},
     {role:'user',content:'请使用工具计算 17 + 23，再解释如何验算。',_origin:'示例用户消息'}]);
-  $('tools').value=formatted(agentTools);
+  setTools(tools);
   $('thinking').value='true';$('effort').value='high';preview=null;activeRecord=null;pendingCompaction=null;clearOutput();
   notice('Agent 示例已载入。点「▶ Agent 回合」后，网站会在本机执行工具并把 observation 发回模型，连接 DeepSeek 后，每轮请求会保存在当前浏览器。');
 }
 function clearOutput() { $('reasoning-output').textContent='—';$('message-output').textContent='—';$('call-output').hidden=true;$('candidates').hidden=true;$('finish').textContent='尚未调用';$('generation-status').textContent='点击「连续生成」后，这里会显示调用进度与结果。';$('adopt').disabled=true;$('adopt').textContent='把模型回答加入历史';$('raw-json').textContent='尚未有调用记录。';$('generated-grid').replaceChildren();$('provider-count').textContent='—'; }
-function setBusy(value,canStop=false){busy=value;$('generate').disabled=value;$('one-token').disabled=value;$('agent-run').disabled=value;$('stop').disabled=!value||!canStop;syncAtifButton();}
+function setBusy(value,canStop=false){busy=value;$('generate').disabled=value||Boolean(chatModelOption);$('one-token').disabled=value||Boolean(chatModelOption);$('agent-run').disabled=value||Boolean(chatModelOption);$('tool-list').disabled=value;$('stop').disabled=!value||!canStop;syncAtifButton();}
 function showOutput(){ $('output-card').scrollIntoView({behavior:'smooth',block:'start'}); }
 
 function renderInput(data, scope='draft') {
@@ -382,6 +388,7 @@ async function invokeOne(){if(busy)return;try{const p=payload();p.max_tokens=1;s
 async function invokeStream(){
   if(busy)return;
   let p;try{p=payload();}catch(e){notice(e.message,'error');return;}
+  if(p.tools.length)return invokeAgent();
   controller=new AbortController();setBusy(true,true);const started=Date.now();let received=0;
   const clock=setInterval(()=>{$('generation-status').textContent=`正在生成 · ${(Date.now()-started)/1000|0} 秒 · 已收到 ${received} 字符`},250);
   $('reasoning-output').textContent='等待模型输出…';$('message-output').textContent='等待模型输出…';$('finish').textContent='生成中';$('generation-status').textContent='正在连接模型…';notice('已提交请求，正在等待首个流式片段…');showOutput();
@@ -405,7 +412,7 @@ async function invokeAgent(){
   if(busy)return;
   let p;try{p=payload();}catch(e){notice(e.message,'error');return;}
   controller=new AbortController();setBusy(true,true);
-  $('finish').textContent='Agent 运行中';$('generation-status').textContent='正在启动 Agent 回合…';notice('Agent 回合已提交：每一轮都是真实 API 调用，工具在本机执行。');showOutput();
+  $('finish').textContent='Agent 运行中';$('generation-status').textContent='正在启动 Agent 回合…';notice(p.tool_mode==='manual'?'等待模型选择工具。你可以填写返回，再让模型继续。':'等待模型选择工具。已启用的工具将在浏览器自动执行。');showOutput();
   let done=false;
   try{
     const response=await slateFetch('/api/agent',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...p,max_iterations:4}),signal:controller.signal});
@@ -415,15 +422,15 @@ async function invokeAgent(){
       while((cut=buffer.indexOf('\n'))>=0){const line=buffer.slice(0,cut);buffer=buffer.slice(cut+1);if(!line)continue;const event=JSON.parse(line);
         if(event.type==='iteration_start')$('generation-status').textContent=`Agent 第 ${event.iteration}/${event.max_iterations} 轮 · 请求模型…`;
         if(event.type==='model_done')$('generation-status').textContent=`Agent 第 ${event.iteration}/${event.max_iterations} 轮 · 模型已返回（记录 #${String(event.record_id).slice(0,8)}）`;
-        if(event.type==='tools_selected')$('generation-status').textContent=`Agent 第 ${event.iteration}/${event.max_iterations} 轮 · 模型选择 ${event.count} 个工具调用，本机执行中…`;
-        if(event.type==='tool_result')$('generation-status').textContent=`Agent 第 ${event.iteration}/${event.max_iterations} 轮 · ${event.name} ${event.success?'完成':'失败'} · ${event.characters.toLocaleString()} 字符`;
-        if(event.type==='error')throw Error(event.error);
+        if(event.type==='tool_pending')$('generation-status').textContent=event.name+(event.mode==='manual'?' · 等待手动输入':' · 浏览器执行中');
+        if(event.type==='tool_result')$('generation-status').textContent=`${event.name} · ${event.execution==='manual'?'已回填':event.success?'自动执行完成':'执行失败'} · ${event.characters.toLocaleString()} 字符`;
+        if(event.type==='error'){if(event.cancelled)throw new DOMException(event.error,'AbortError');throw Error(event.error);}
         if(event.type==='done'){done=true;
           renderRecord(event.record);
           const unchanged=sameDraft(p);
           if(unchanged){
             $('messages').value=formatted(event.messages);$('tools').value=formatted(event.tools);
-            await refreshDraft('next',`Agent 回合完成（${event.iterations} 轮）；工具结果已由本机执行并加入下一次调用草稿。`+(event.error?` 注意：${event.error}`:''));
+            await refreshDraft('next',`Agent 回合完成（${event.iterations} 轮）。调用与返回已加入下一次草稿。`);
             $('generation-status').textContent=`Agent 回合完成 · ${event.iterations} 轮${event.error?' · '+event.error:''}`;
           }else{
             notice('Agent 运行期间编辑区被修改；完整轨迹已保存在本机调用记录，未自动覆盖编辑区。','error');
@@ -540,18 +547,94 @@ function setPrefix(){try{const messages=parseEditor('messages','array');const te
   else{if(last?.role!=='user')throw Error('自由续写前请让最后一条消息为 user；也可直接编辑 JSON');messages.push({role:'assistant',content:text,prefix:true,_origin:'用户编辑的未完成前缀'});}
   $('messages').value=formatted(messages);$('thinking').value='false';refreshDraft('next','已设置未完成 assistant 前缀；下一次调用走 DeepSeek Beta。');
 }catch(e){notice(e.message,'error');}}
+
+function updateToolLabel() {
+  const count = parseEditor('tools','array').length;
+  const mode = browserTools.toolPreferences().mode === 'manual' ? '手动' : '自动';
+  $('tool-list').textContent = '工具 ' + count + ' · ' + mode;
+}
+
+function setTools(tools) {
+  $('tools').value = formatted(tools);
+  updateToolLabel();
+}
+
+async function configureTools() {
+  try {
+    const current = parseEditor('tools','array');
+    const selected = current.map(tool=>tool?.function?.name).filter(name=>browserTools.isBrowserTool(name));
+    const prefs = await browserTools.openToolPreferences(selected);
+    if (!prefs) return;
+    setTools([...browserTools.selectedToolDefinitions(prefs.enabled),
+      ...current.filter(tool=>!browserTools.isBrowserTool(tool?.function?.name))]);
+    if (!chatModelOption && !imported) await refreshDraft('draft','工具设置已应用。');
+  } catch (error) {
+    notice(error.message,'error');
+  }
+}
+
+function leaveChatPreview() {
+  if (!chatModelOption) return;
+  chatModelOption.remove();
+  chatModelOption = null;
+  $('model').value = modelCatalog[0].id;
+  chooseModel();
+  $('view-mode').value = localStorage.getItem('trajectory-view-mode') || 'tokens';
+}
+
+async function openChatDraft() {
+  const url = new URL(location.href);
+  if (url.searchParams.get('from') !== 'chat') return false;
+  url.searchParams.delete('from');
+  history.replaceState(null,'',url);
+  try {
+    const draft = JSON.parse(sessionStorage.getItem(browserTools.SLATE_HANDOFF_KEY) || 'null');
+    if (!draft || !Array.isArray(draft.messages) || !draft.messages.length || typeof draft.model !== 'string') return false;
+    sessionStorage.removeItem(browserTools.SLATE_HANDOFF_KEY);
+    $('messages').value = formatted(draft.messages);
+    setTools(Array.isArray(draft.tools) ? draft.tools : []);
+    if (draft.provider === 'deepseek' && draft.model === 'deepseek-flash') {
+      $('thinking').value = String(draft.effort !== 'none');
+      $('effort').value = ['low','high','max'].includes(draft.effort) ? draft.effort : 'high';
+      await refreshDraft('draft','已打开 Chat 的当前路径，可继续检查或编辑这份石板。');
+    } else {
+      chatModelOption = node('option','',draft.model + ' · Chat 预览');
+      chatModelOption.value = 'chat-preview';
+      chatModelOption.disabled = true;
+      $('model').append(chatModelOption);
+      $('model').value = chatModelOption.value;
+      $('model-description').textContent = 'Chat 当前路径 · ' + draft.model;
+      $('format-source').hidden = true;
+      $('prefix-helper').hidden = true;
+      renderInput({ count: null, counts: {}, context_window: 1, model_format: draft.model, evidence:'draft_only',
+        api_request: { model: draft.model, messages: draft.messages, tools: draft.tools || [] } });
+      $('slab-title').textContent = 'Chat 当前路径';
+      $('input-scope').textContent = '打开时的本机草稿。可在模型菜单切到石板模型以重建。';
+      $('evidence-boundary').textContent = '此 Chat 模型的路径以结构化消息显示。';
+      setBusy(false);
+      notice('已打开 Chat 当前路径的 JSON 草稿。');
+    }
+    return true;
+  } catch (error) {
+    notice('Chat 草稿打开失败：'+error.message,'error');
+    return false;
+  }
+}
+
 async function initialize(){
   $('theme').addEventListener('click',()=>{const next=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=next;localStorage.setItem('trajectory-theme',next);$('theme').textContent=next==='dark'?'☀':'☾';});
   const theme=localStorage.getItem('trajectory-theme')||'dark';document.documentElement.dataset.theme=theme;$('theme').textContent=theme==='dark'?'☀':'☾';
-  try{const result=await slateFetch('/api/models').then(r=>r.json());modelCatalog=result.models||[];agentTools=result.agent_tools||[];
+  try{browserTools=await slateTools;const result=await slateFetch('/api/models').then(r=>r.json());modelCatalog=result.models||[];
     const optgroup=node('optgroup');optgroup.label='DeepSeek';
     for(const m of modelCatalog){const option=node('option','',`${m.label}${m.reconstruction?' · 官方参考 token':' · API'}${m.listed===false?' · 当前不可用':''}`);option.value=m.id;option.disabled=!m.configured||m.listed===false;optgroup.append(option);}
     $('model').append(optgroup);
     chooseModel(localStorage.getItem('trajectory-model')||result.default);
-    $('model').addEventListener('change',()=>{chooseModel();activeRecord=null;showPreview();});
+    $('model').addEventListener('change',()=>{chatModelOption?.remove();chatModelOption=null;setBusy(false);chooseModel();activeRecord=null;showPreview();});
   }catch(e){notice('模型目录加载失败：'+e.message,'error');return;}
   $('sample-chat').onclick=()=>{sampleChat();showPreview();};$('sample-agent').onclick=()=>{sampleAgent();showPreview();};$('new-session').onclick=()=>{sampleChat();showPreview();};$('preview').onclick=showPreview;$('one-token').onclick=invokeOne;$('generate').onclick=invokeStream;$('agent-run').onclick=invokeAgent;$('stop').onclick=()=>controller?.abort();
   $('export-atif').onclick=showAtifExport;$('atif-export-download').onclick=downloadAtif;
+  $('tool-list').onclick=configureTools;
+  $('tools').addEventListener('input',()=>{try{updateToolLabel();}catch{}});
   $('adopt').onclick=adopt;$('add-user').onclick=()=>{$('user-dialog').showModal();};$('save-user').onclick=addUser;$('add-tool').onclick=openToolDialog;$('save-tool').onclick=saveTool;$('prepare-compaction').onclick=prepareCompaction;$('compare').onclick=compare;$('set-prefix').onclick=setPrefix;
   $('edit-selection').onclick=openEdit;$('save-edit').onclick=saveEdit;
   $('template-reference-open').onclick=openTemplateReference;
@@ -566,6 +649,6 @@ async function initialize(){
   $('exit-import').onclick=()=>{imported=null;chooseModel();showPreview();};
   $('messages').addEventListener('input',()=>renderTrajectory());
   sampleChat();loadHistory();refreshAgentExports();
-  await showPreview();
+  if (!await openChatDraft()) await showPreview();
 }
 initialize();
