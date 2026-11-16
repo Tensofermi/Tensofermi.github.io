@@ -3,35 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ourtone 音乐工作台 | Tensofermi</title>
-    <meta name="description" content="用 Ourtone 跟弹、导入 MIDI、编曲或生成一首新歌。">
+    <title>音乐工作台 | Tensofermi</title>
+    <meta name="description" content="用浏览器合成音色，编辑四小节循环，或者跟着自己的旋律演奏。">
     <link rel="icon" href="../../images/main.png">
     <link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="music-lab.css">
-    <script src="music-lab.js" defer></script>
+    <script type="module" src="music-lab.js"></script>
 </head>
-<body class="music-lab">
-    <main class="music-page">
+<body class="music-page">
+    <main class="music-shell">
+        <a class="music-back" href="../../featured.html">‹ 返回 Featured</a>
         <header class="music-heading">
-            <a class="music-back" href="../../featured.html">← 返回 Featured</a>
-            <h1>Ourtone 音乐工作台</h1>
-            <p>选择一首歌跟弹，或导入自己的 MIDI，在钢琴卷帘里编曲、设计音色。</p>
+            <h1>音乐工作台</h1>
+            <p>编一段四小节循环，或者跟着自己写的旋律演奏。</p>
         </header>
-
-        <section class="music-workspace" aria-label="Ourtone 工作台">
-            <div class="music-toolbar">
-                <button class="music-control" type="button" id="music-fullscreen" hidden>全屏</button>
-                <a class="music-control" id="music-source" href="https://ourtone.fun/" target="_blank" rel="noopener">在原站打开<span class="music-sr-only">（新标签页）</span></a>
-            </div>
-            <div class="music-surface" id="music-surface">
-                <div class="music-launch" id="music-launch" hidden>
-                    <button class="music-start" type="button" id="music-start">启动 Ourtone</button>
+        <section class="mixing-desk" aria-labelledby="desk-title">
+            <div class="desk-top">
+                <h2 id="desk-title" class="screen-reader">工作台</h2>
+                <div class="mode-buttons" aria-label="工作台模式">
+                    <button id="compose" aria-pressed="true" type="button">编曲</button>
+                    <button id="perform" aria-pressed="false" type="button">跟弹</button>
                 </div>
-                <p class="music-status" id="music-status" role="status" hidden></p>
+                <div class="transport">
+                    <button id="play" type="button" class="primary" disabled>播放循环</button>
+                    <button id="stop" type="button" disabled>停止</button>
+                    <label for="tempo" class="tempo">速度 <input id="tempo" type="number" inputmode="numeric" min="60" max="180" value="116"> BPM</label>
+                </div>
             </div>
+            <section class="desk-body" id="compose-panel" aria-labelledby="sequencer-title">
+                <div class="desk-row">
+                    <div class="editor-heading"><h3 id="sequencer-title">步进音序器</h3><p>每小节 16 步。鼓点点击开关，音符点击后可以修改音高。</p></div>
+                    <div class="bar-buttons" id="bars" aria-label="小节"></div>
+                </div>
+                <div class="sequence-scroll" tabindex="0" aria-label="六轨音符网格，可横向滚动">
+                    <div class="sequence" id="sequence"></div>
+                </div>
+                <div class="note-editor" id="note-editor" hidden>
+                    <span id="selection"></span>
+                    <label for="pitch" id="pitch-label">音高</label>
+                    <select id="pitch" aria-labelledby="pitch-label"></select>
+                    <button id="preview" type="button">试听</button>
+                    <button id="remove" type="button">删除音符</button>
+                </div>
+                <div class="song-tools">
+                    <label for="style">风格</label>
+                    <select id="style"><option value="day">轻快</option><option value="dusk">慢拍</option><option value="night">夜航</option></select>
+                    <button id="generate" type="button">生成新循环</button>
+                    <button id="import" type="button">导入 MIDI</button>
+                    <button id="export" type="button">导出 MIDI</button>
+                    <input id="midi-file" type="file" accept=".mid,.midi,audio/midi,audio/x-midi" hidden>
+                </div>
+                <p class="midi-hint">MIDI 导入取前四小节，按 4/4 拍的十六分音符网格编排。</p>
+            </section>
+            <section class="desk-body" id="perform-panel" aria-labelledby="perform-title" hidden>
+                <div class="desk-row">
+                    <div class="editor-heading"><h3 id="perform-title">旋律跟弹</h3><p>落点抵达亮线时，按对应键或轻触轨道。其余声部继续伴奏。</p></div>
+                    <p class="score-tally"><span id="hits">0</span> 命中 <span aria-hidden="true">/</span> <span id="missed">0</span> 漏拍</p>
+                </div>
+                <div class="falling-board">
+                    <canvas id="notes" aria-hidden="true"></canvas>
+                    <div class="playing-keys" id="playing-keys" aria-label="演奏键"></div>
+                </div>
+            </section>
+            <p id="music-status" class="status" role="status">修改会保存在此浏览器。</p>
         </section>
-
-        <footer class="music-credit">Ourtone 由 mygo-nucis 开发。<a href="https://github.com/mygo-nucis/ourtone" target="_blank" rel="noopener">查看原项目源码<span class="music-sr-only">（新标签页）</span></a></footer>
+        <noscript><p>浏览器需要启用 JavaScript 才能运行音序器。</p></noscript>
     </main>
 </body>
 </html>

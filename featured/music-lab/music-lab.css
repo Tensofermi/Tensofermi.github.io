@@ -1,175 +1,120 @@
-.music-lab {
-    padding-top: 0;
-}
-
-.music-lab [hidden] {
-    display: none !important;
-}
-
-.music-lab :is(a, button, iframe):focus-visible {
-    outline: 2px solid var(--link-hover);
-    outline-offset: 3px;
-}
-
 .music-page {
-    width: min(calc(100% - 40px), 1320px);
-    margin: clamp(24px, 5vw, 56px) auto;
+    margin: 0;
+    padding: 0;
+    color: var(--text);
+    font-family: "Segoe UI", "PingFang SC", sans-serif;
 }
 
-.music-heading {
-    margin-bottom: 24px;
-}
+.music-shell { width: min(1080px, calc(100% - 32px)); margin: clamp(22px, 5vw, 56px) auto 52px; }
+.music-back { font-size: .86rem; }
+.music-heading { margin: 18px 0 24px; }
+.music-heading h1 { font-size: clamp(2rem, 4.5vw, 3.35rem); line-height: 1.18; margin-bottom: 10px; }
+.music-heading p { color: var(--muted); }
 
-.music-heading h1 {
-    margin: 10px 0 4px;
-    font-size: clamp(1.65rem, 3.8vw, 2.55rem);
-    line-height: 1.25;
-}
-
-.music-heading p,
-.music-credit {
-    color: var(--muted);
-}
-
-.music-back,
-.music-toolbar,
-.music-credit {
-    font: 500 0.9rem/1.45 "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
-}
-
-.music-workspace {
-    display: grid;
-    grid-template-rows: auto minmax(0, 1fr);
+.mixing-desk {
+    --ink: #17273e;
+    --desk: #111e31;
+    --desk-line: #2c3c51;
+    --desk-text: #e7eef7;
+    --desk-muted: #a8b7c9;
     overflow: hidden;
-    border: 1px solid var(--panel-border);
-    border-radius: var(--radius);
-    background: #fff;
+    background: var(--desk);
+    color: var(--desk-text);
+    border: 1px solid #23364e;
+    border-radius: 16px;
     box-shadow: var(--panel-shadow);
 }
 
-.music-workspace.is-running {
-    height: max(30rem, calc(100vh - 5rem));
-    height: max(30rem, calc(100dvh - 5rem));
-}
-
-.music-workspace:fullscreen {
-    width: 100%;
-    height: 100%;
-    border: 0;
-    border-radius: 0;
-}
-
-.music-toolbar {
+.desk-top, .desk-row, .song-tools, .note-editor, .mode-buttons, .transport, .bar-buttons {
     display: flex;
     flex-wrap: wrap;
-    justify-content: end;
-    gap: 8px;
-    padding: 8px 12px;
-    border-bottom: 1px solid var(--panel-border);
-}
-
-.music-control,
-.music-start {
-    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    min-height: 44px;
-    padding: 0 14px;
-    border: 1px solid transparent;
-    border-radius: 8px;
-    background: var(--bg);
-    color: var(--link);
+    gap: 8px;
+}
+
+.desk-top { justify-content: space-between; padding: 12px 18px; background: var(--ink); }
+.desk-body { padding: 18px; }
+.desk-row { justify-content: space-between; align-items: start; padding-bottom: 12px; }
+.editor-heading h3 { color: var(--desk-text); font-size: 1.07rem; }
+.editor-heading p, .status { color: var(--desk-muted); font-size: .82rem; }
+.mixing-desk button, .mixing-desk input, .mixing-desk select {
+    min-height: 40px;
+    border: 1px solid #425773;
+    border-radius: 7px;
+    color: var(--desk-text);
+    background: var(--ink);
     font: inherit;
-    cursor: pointer;
+    font-size: .87rem;
 }
+.mixing-desk button, .mixing-desk select { padding: 4px 11px; }
+.mixing-desk button:enabled { cursor: pointer; }
+.mixing-desk button:hover:enabled { border-color: #a3bdd7; }
+.mixing-desk button:disabled { opacity: .56; }
+.mixing-desk button[aria-pressed="true"], .mixing-desk button.primary { color: #112238; background: #d4ebfa; border-color: #d4ebfa; font-weight: 650; }
+.music-page :focus-visible { outline: 2px solid #7bcbed; outline-offset: 2px; }
+.tempo { display: flex; align-items: center; gap: 6px; white-space: nowrap; color: var(--desk-muted); font-size: .82rem; }
+.tempo input { width: 4.3rem; padding-inline: 6px; }
+.bar-buttons button[data-playing] { box-shadow: inset 0 -3px #f6d167; }
 
-.music-control:hover {
-    border-color: var(--panel-border);
-}
-
-.music-surface {
-    position: relative;
-    min-height: 0;
-    background: var(--bg);
-}
-
-.music-launch {
+.sequence-scroll { overflow-x: auto; padding: 3px 3px 8px; }
+.sequence {
+    min-width: 726px;
     display: grid;
-    place-items: center;
-    min-height: clamp(8rem, 23vw, 15rem);
-    padding: 24px;
-    background: linear-gradient(125deg, #f8fbff, #e8eef7);
+    grid-template-columns: 96px repeat(16, minmax(33px, 1fr));
+    gap: 5px;
+    align-items: center;
 }
-
-.music-start {
-    padding: 0 24px;
-    background: var(--navy);
-    color: #fff;
-    font: 600 1rem/1.4 "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
-}
-
-.music-start:hover {
-    background: var(--link-hover);
-}
-
-.music-frame {
-    display: block;
-    width: 100%;
-    height: 100%;
-    border: 0;
-}
-
-.music-frame:focus-visible {
-    outline-offset: -3px;
-}
-
-.music-status {
-    position: absolute;
-    inset: 12px 12px auto;
-    width: fit-content;
-    margin-inline: auto;
-    padding: 8px 12px;
-    border-radius: 8px;
-    background: #fff;
-    color: var(--text);
-    pointer-events: none;
-}
-
-.music-credit {
-    margin-top: 16px;
-}
-
-.music-credit a {
-    text-decoration: underline;
-    text-underline-offset: 0.16em;
-}
-
-.music-sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
+.step-number { text-align: center; color: var(--desk-muted); font-size: .72rem; font-variant-numeric: tabular-nums; }
+.step-number[data-playing] { color: #f6d167; font-weight: 700; }
+.mixing-desk .track-button {
+    position: sticky;
+    inset-inline-start: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 0;
+    padding-inline: 9px;
     white-space: nowrap;
 }
-
-@media (max-width: 680px) {
-    .music-page {
-        width: calc(100% - 20px);
-        margin-block: 20px;
-    }
-
-    .music-heading {
-        margin-inline: 8px;
-    }
-
-    .music-workspace {
-        border-radius: var(--radius-sm);
-    }
+.track-button span:last-child { font-size: .68rem; color: var(--desk-muted); }
+.track-button[data-muted] { opacity: .58; }
+.mixing-desk .step {
+    min-width: 0;
+    min-height: 37px;
+    padding: 0;
+    border-color: var(--desk-line);
+    background: #1a2a41;
+    font: .68rem/1.2 ui-monospace, monospace;
+    font-weight: 700;
 }
+.mixing-desk .step[data-beat] { border-color: #52617a; background: #25364e; }
+.mixing-desk .step[data-on] { background: var(--track-color); border-color: transparent; color: #101827; }
+.mixing-desk .step[data-muted] { opacity: .52; }
+.mixing-desk .step[data-selected] { outline: 2px solid white; outline-offset: 1px; }
+.mixing-desk .step[data-playing] { box-shadow: inset 0 -3px #f6d167; }
 
-@media (prefers-reduced-motion: reduce) {
-    .music-lab a {
-        transition: none;
-    }
+.note-editor, .song-tools { padding-top: 13px; gap: 8px 12px; }
+.note-editor { margin-top: 8px; border-top: 1px solid var(--desk-line); }
+.note-editor span, .note-editor label, .song-tools label { color: var(--desk-muted); font-size: .8rem; }
+.midi-hint { color: var(--desk-muted); font-size: .77rem; margin-top: 8px; }
+.note-editor[hidden], .desk-body[hidden] { display: none; }
+.status { padding: 9px 18px 13px; border-top: 1px solid var(--desk-line); }
+.score-tally { font-size: .88rem; color: var(--desk-muted); }
+.score-tally span { font-variant-numeric: tabular-nums; color: var(--desk-text); font-weight: 650; }
+
+.falling-board { max-width: 620px; margin: 0 auto; padding: 2px 4px 8px; }
+.falling-board canvas { width: 100%; height: clamp(190px, 35vh, 320px); display: block; background: #0c1626; border-radius: 8px 8px 0 0; }
+.playing-keys { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 4px; margin-top: 4px; }
+.mixing-desk .playing-keys button { min-height: 48px; padding: 0; touch-action: manipulation; }
+.playing-keys button[data-hit] { background: #a6d9c2; color: #122235; }
+.playing-keys button[data-miss] { background: #efac98; color: #122235; }
+.screen-reader { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+
+@media (max-width: 600px) {
+    .music-shell { width: calc(100% - 20px); }
+    .desk-top, .desk-body { padding: 12px; }
+    .status { padding-inline: 12px; }
+    .sequence { min-width: 763px; }
+    .mixing-desk .step { min-height: 42px; }
 }
