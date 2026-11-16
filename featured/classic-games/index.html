@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="在浏览器玩 2048、扫雷和井字棋，支持电脑和手机。">
+    <title>小游戏 · Tensofermi</title>
+    <link rel="stylesheet" href="arcade.css">
+    <script type="module" src="arcade.js"></script>
+</head>
+<body>
+    <header class="topbar">
+        <a href="../../featured.html">← Featured</a>
+        <nav aria-label="切换游戏">
+            <a href="?game=2048" data-game="2048">2048</a>
+            <a href="?game=mines" data-game="mines">扫雷</a>
+            <a href="?game=tic-tac-toe" data-game="tic-tac-toe">井字棋</a>
+        </nav>
+    </header>
+    <main>
+        <div class="heading">
+            <div>
+                <h1 id="title">小游戏</h1>
+                <p id="rules"></p>
+            </div>
+            <button id="restart" type="button" hidden>重新开始</button>
+        </div>
+        <section class="play" aria-labelledby="title" hidden>
+            <div id="options"></div>
+            <div id="stats"></div>
+            <p id="status" role="status"></p>
+            <div class="board-frame">
+                <div id="board"></div>
+            </div>
+            <div id="controls"></div>
+        </section>
+        <p id="load-error" role="status" hidden>游戏加载失败。请刷新页面重试。</p>
+        <noscript>请启用 JavaScript 后开始游戏。</noscript>
+    </main>
+</body>
+</html>
