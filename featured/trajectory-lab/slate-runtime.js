@@ -9,7 +9,7 @@
         format_source: "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/tree/main/encoding",
     };
     const base = new URL(".", document.currentScript.src);
-    const toolLibrary = import(new URL("agent-tools.mjs", base));
+    const toolLibrary = import(new URL("agent-tools.mjs?v=2", base));
     window.slateTools = toolLibrary;
     const live = "https://api.deepseek.com";
     let key = "";

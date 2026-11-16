@@ -11,6 +11,9 @@ const number = { type: 'number' };
 const enumeration = (values) => ({ type: 'string', enum: values });
 const boundedInteger = (minimum, maximum) => ({ type: 'integer', minimum, maximum });
 const operations = ['add', 'subtract', 'multiply', 'divide', 'power', 'modulo'];
+const searchTopics = ['general', 'news'];
+const searchPeriods = ['day', 'week', 'month', 'year'];
+const dayMillis = 86_400_000;
 function text(value, label, maximum, trim = false) {
     if (typeof value !== 'string' || value.length > maximum)
         throw new Error(label + '须为不超过 ' + maximum + ' 字符的文本。');
@@ -26,6 +29,20 @@ function integer(value, low, high) {
         throw new Error('整数超出允许范围。');
     return value;
 }
+function calendarDate(value, label) {
+    const date = text(value, label, 10);
+    const timestamp = Date.parse(date + 'T00:00:00Z');
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !Number.isFinite(timestamp) || new Date(timestamp).toISOString().slice(0, 10) !== date) {
+        throw new Error(label + '须为有效的 YYYY-MM-DD 日期。');
+    }
+    return { date, timestamp };
+}
+function currencyCode(value, label) {
+    const code = text(value, label, 3).toUpperCase();
+    if (!/^[A-Z]{3}$/.test(code))
+        throw new Error(label + '须为三字母货币代码，例如 CNY。');
+    return code;
+}
 const units = {
     m: ['length', 1, 0], km: ['length', 1000, 0], cm: ['length', 0.01, 0], mi: ['length', 1609.344, 0], ft: ['length', 0.3048, 0],
     kg: ['mass', 1, 0], g: ['mass', 0.001, 0], lb: ['mass', 0.45359237, 0], oz: ['mass', 0.028349523125, 0],
@@ -37,10 +54,10 @@ function unit(value) {
         throw new Error('请选择支持的单位。');
     return units[value];
 }
-async function getJson(base, query, signal) {
+async function getJson(base, query, signal, request) {
     const url = new URL(base);
     url.search = new URLSearchParams(query).toString();
-    const response = await fetch(url, { credentials: 'omit', redirect: 'error', referrerPolicy: 'no-referrer',
+    const response = await fetch(url, { ...request, credentials: 'omit', redirect: 'error', referrerPolicy: 'no-referrer',
         signal: AbortSignal.any([signal, AbortSignal.timeout(12_000)]) });
     if (!response.ok)
         throw new Error('数据源暂不可用（HTTP ' + response.status + '）。');
@@ -80,6 +97,12 @@ const catalog = [
                     timeZone, dateStyle: 'full', timeStyle: 'long',
                 }).format(date) };
         } },
+    { id: 'date_difference', label: '日期计算', description: '计算结束日期减开始日期的日历天数。输入格式 YYYY-MM-DD，支持闰年。',
+        parameters: fields({ start_date: string, end_date: string }, ['start_date', 'end_date']),
+        run: ({ start_date, end_date }) => {
+            const start = calendarDate(start_date, '开始日期'), end = calendarDate(end_date, '结束日期');
+            return { start_date: start.date, end_date: end.date, days: (end.timestamp - start.timestamp) / dayMillis };
+        } },
     { id: 'text_stats', label: '文本统计', description: '统计文本字符、字节、行数和分词段数。',
         parameters: fields({ text: string }, ['text']),
         run: (args) => {
@@ -109,6 +132,63 @@ const catalog = [
                 return random[0] % faces + 1;
             });
             return { rolls, total: rolls.reduce((sum, value) => sum + value, 0), sides: faces };
+        } },
+    { id: 'web_search', label: '网页搜索', description: '用 Tavily 搜索公开网页或新闻，返回标题、摘要和原文链接。无需额外 Key，受服务限流。',
+        network: true, parameters: fields({ query: string, topic: enumeration(searchTopics), time_range: enumeration(searchPeriods), limit: boundedInteger(1, 8) }, ['query']),
+        run: async ({ query, topic = 'general', time_range, limit = 5 }, signal) => {
+            const value = text(query, '搜索词', 400, true);
+            if (!value)
+                throw new Error('请输入搜索词。');
+            if (topic !== 'general' && topic !== 'news')
+                throw new Error('请选择公开网页或新闻。');
+            if (time_range !== undefined && !searchPeriods.some(period => period === time_range))
+                throw new Error('搜索时段须为 day、week、month 或 year。');
+            const maxResults = integer(limit, 1, 8);
+            const data = await getJson('https://api.tavily.com/search', {}, signal, {
+                method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Tavily-Access-Mode': 'keyless' },
+                body: JSON.stringify({ query: value, topic, time_range, max_results: maxResults, search_depth: 'basic', include_raw_content: false }),
+            });
+            if (!Array.isArray(data.results))
+                throw new Error('Tavily 未返回搜索结果。');
+            const results = data.results.filter(item => /^https?:\/\//i.test(item.url)).slice(0, maxResults).map(item => ({
+                title: item.title?.slice(0, 240), url: item.url, excerpt: item.content?.slice(0, 750), published_date: item.published_date,
+            }));
+            return { source: 'Tavily', query: value, topic, results };
+        } },
+    { id: 'search_publications', label: '文献检索', description: '按标题、作者或关键词搜索 Crossref，返回出版信息和 DOI 链接。',
+        network: true, parameters: fields({ query: string, limit: boundedInteger(1, 8) }, ['query']),
+        run: async ({ query, limit = 5 }, signal) => {
+            const value = text(query, '搜索词', 300, true);
+            if (!value)
+                throw new Error('请输入搜索词。');
+            const rows = integer(limit, 1, 8);
+            const data = await getJson('https://api.crossref.org/works', {
+                'query.bibliographic': value, rows: String(rows), select: 'DOI,title,author,published,container-title,type',
+            }, signal);
+            if (!Array.isArray(data.message?.items))
+                throw new Error('Crossref 未返回文献检索结果。');
+            const results = data.message.items.slice(0, rows).map(work => ({
+                title: work.title?.[0]?.slice(0, 350), doi: work.DOI, url: 'https://doi.org/' + work.DOI.split('/').map(encodeURIComponent).join('/'),
+                authors: work.author?.slice(0, 4).map(author => author.name || [author.given, author.family].filter(Boolean).join(' ')),
+                year: work.published?.['date-parts']?.[0]?.[0], venue: work['container-title']?.[0], type: work.type,
+            }));
+            return { source: 'Crossref', query: value, results };
+        } },
+    { id: 'convert_currency', label: '参考汇率换算', description: '用 Frankfurter 的每日参考汇率换算货币。使用三字母货币代码，可指定历史日期。',
+        network: true, parameters: fields({ amount: number, from: string, to: string, date: string }, ['amount', 'from', 'to']),
+        run: async ({ amount, from, to, date }, signal) => {
+            const value = finite(amount, '金额'), base = currencyCode(from, '原币种'), quote = currencyCode(to, '目标币种');
+            const requestedDate = date === undefined ? undefined : calendarDate(date, '汇率日期').date;
+            if (base === quote)
+                return { amount: value, from: base, to: quote, rate: 1, result: value, date: requestedDate };
+            const data = await getJson('https://api.frankfurter.dev/v2/rates', {
+                base, quotes: quote, ...(requestedDate ? { date: requestedDate } : {}),
+            }, signal);
+            const rate = Array.isArray(data) ? data.find(item => item.base === base && item.quote === quote) : undefined;
+            if (!rate || !Number.isFinite(rate.rate) || rate.rate <= 0)
+                throw new Error('找不到该货币对的参考汇率。');
+            return { source: 'Frankfurter', amount: value, from: base, to: quote, date: rate.date, rate: rate.rate,
+                result: finite(value * rate.rate, '换算结果') };
         } },
     { id: 'wiki_search', label: '维基百科搜索', description: '搜索中文或英文维基百科，返回标题、摘要和来源链接。',
         network: true, parameters: fields({ query: string, language: enumeration(['zh', 'en']) }, ['query']),
@@ -224,7 +304,7 @@ export function openToolPreferences(selected) {
         const group = element('fieldset');
         group.append(element('legend', network ? '联网工具' : '本机工具'));
         if (network)
-            group.append(element('p', '启用后，自动模式会把查询词或城市名发给相应数据源。'));
+            group.append(element('p', '自动执行联网工具时，浏览器会将查询所需的参数发送给对应的数据源。'));
         for (const tool of catalog.filter(entry => Boolean(entry.network) === network)) {
             const check = element('input');
             check.type = 'checkbox';
