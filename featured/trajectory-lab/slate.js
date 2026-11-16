@@ -6,6 +6,7 @@ let preview = null, activeRecord = null, tokenPage = 0, selectedToken = null, co
 let pendingCompaction = null;
 let modelCatalog = [];
 let agentTools = [];
+let agentExports = [];
 let imported=null, renderedTokenCount=0, selectedElement=null, editTarget=null, inputScope='draft';
 function currentModel(){return modelCatalog.find(m=>m.id===$('model').value);}
 function chooseModel(id){if(id&&modelCatalog.some(m=>m.id===id))$('model').value=id;const m=currentModel();if(!m)return;
@@ -87,7 +88,7 @@ function sampleAgent() {
   notice('Agent 示例已载入。点「▶ Agent 回合」后，网站会在本机执行工具并把 observation 发回模型，连接 DeepSeek 后，每轮请求会保存在当前浏览器。');
 }
 function clearOutput() { $('reasoning-output').textContent='—';$('message-output').textContent='—';$('call-output').hidden=true;$('candidates').hidden=true;$('finish').textContent='尚未调用';$('generation-status').textContent='点击「连续生成」后，这里会显示调用进度与结果。';$('adopt').disabled=true;$('adopt').textContent='把模型回答加入历史';$('raw-json').textContent='尚未有调用记录。';$('generated-grid').replaceChildren();$('provider-count').textContent='—'; }
-function setBusy(value,canStop=false){busy=value;$('generate').disabled=value;$('one-token').disabled=value;$('agent-run').disabled=value;$('stop').disabled=!value||!canStop;}
+function setBusy(value,canStop=false){busy=value;$('generate').disabled=value;$('one-token').disabled=value;$('agent-run').disabled=value;$('stop').disabled=!value||!canStop;syncAtifButton();}
 function showOutput(){ $('output-card').scrollIntoView({behavior:'smooth',block:'start'}); }
 
 function renderInput(data, scope='draft') {
@@ -433,7 +434,56 @@ async function invokeAgent(){
     }
     if(!done&&!controller?.signal?.aborted)$('generation-status').textContent='Agent 回合中断；已完成轮次保存在本机调用记录。';
   }catch(e){$('generation-status').textContent=e.name==='AbortError'?'已停止 Agent 回合。已完成轮次保存在本机调用记录。':'Agent 回合失败：'+e.message;notice(e.message,'error');setTimeout(loadHistory,700);}
-  finally{controller=null;setBusy(false);}
+  finally{controller=null;setBusy(false);refreshAgentExports();}
+}
+const ATIF_RUN_STATUS = { completed: '已完成', iteration_limit: '达到轮数上限', stopped: '已停止', failed: '运行失败', incomplete: '已有部分记录', running: '进行中' };
+
+function syncAtifButton() {
+  const button = $('export-atif');
+  button.disabled = busy || !agentExports.length;
+  button.title = agentExports.length ? '选择一条 Agent 运行并下载 ATIF JSON' : '完成至少一轮 Agent 调用后即可导出';
+}
+
+async function refreshAgentExports() {
+  const response = await slateFetch('/api/agent/exports');
+  if (response.ok) agentExports = (await response.json()).runs;
+  syncAtifButton();
+}
+
+function showAtifExport() {
+  const list = $('atif-export-run');
+  const formatter = new Intl.DateTimeFormat('zh-CN', { dateStyle: 'short', timeStyle: 'short' });
+  list.replaceChildren(...agentExports.map((run) => {
+    const label = [formatter.format(new Date(run.created_at)), run.turns + ' 轮',
+      ATIF_RUN_STATUS[run.status], run.title].filter(Boolean).join(' · ');
+    const option = node('option', '', label);
+    option.value = run.id;
+    return option;
+  }));
+  $('atif-export-status').textContent = '导出后可在轨迹页通过「本机 ATIF」打开。';
+  $('atif-export-dialog').showModal();
+}
+
+async function downloadAtif() {
+  const id = $('atif-export-run').value;
+  const button = $('atif-export-download');
+  const status = $('atif-export-status');
+  button.disabled = true;
+  try {
+    const data = await api('/api/agent/export', { id });
+    const file = new Blob([formatted(data) + '\n'], { type: 'application/json' });
+    const href = URL.createObjectURL(file);
+    const link = node('a');
+    link.href = href;
+    link.download = 'trajectory-' + id.slice(0, 8) + '.atif.json';
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(href), 1000);
+    status.textContent = '已导出 ' + link.download + '。可在轨迹页打开。';
+  } catch(error) {
+    status.textContent = '导出失败：' + error.message;
+  } finally {
+    button.disabled = false;
+  }
 }
 async function adopt(){
   if(!activeRecord?.response?.choices?.length)return;
@@ -501,6 +551,7 @@ async function initialize(){
     $('model').addEventListener('change',()=>{chooseModel();activeRecord=null;showPreview();});
   }catch(e){notice('模型目录加载失败：'+e.message,'error');return;}
   $('sample-chat').onclick=()=>{sampleChat();showPreview();};$('sample-agent').onclick=()=>{sampleAgent();showPreview();};$('new-session').onclick=()=>{sampleChat();showPreview();};$('preview').onclick=showPreview;$('one-token').onclick=invokeOne;$('generate').onclick=invokeStream;$('agent-run').onclick=invokeAgent;$('stop').onclick=()=>controller?.abort();
+  $('export-atif').onclick=showAtifExport;$('atif-export-download').onclick=downloadAtif;
   $('adopt').onclick=adopt;$('add-user').onclick=()=>{$('user-dialog').showModal();};$('save-user').onclick=addUser;$('add-tool').onclick=openToolDialog;$('save-tool').onclick=saveTool;$('prepare-compaction').onclick=prepareCompaction;$('compare').onclick=compare;$('set-prefix').onclick=setPrefix;
   $('edit-selection').onclick=openEdit;$('save-edit').onclick=saveEdit;
   $('template-reference-open').onclick=openTemplateReference;
@@ -514,7 +565,7 @@ async function initialize(){
   $('local-import').onchange=()=>importLocal($('local-import').files[0]);
   $('exit-import').onclick=()=>{imported=null;chooseModel();showPreview();};
   $('messages').addEventListener('input',()=>renderTrajectory());
-  sampleChat();loadHistory();
+  sampleChat();loadHistory();refreshAgentExports();
   await showPreview();
 }
 initialize();

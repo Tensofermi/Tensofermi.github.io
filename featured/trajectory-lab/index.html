@@ -4,7 +4,10 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Trajectory Lab · 上下文石板</title>
   <meta name="description" content="观察和编辑模型推理的上下文石板，区分真实请求与参考分词。">
-  <link rel="stylesheet" href="slate.css"><script src="slate-runtime.js?v=3" defer></script><script src="slate.js?v=3" defer></script>
+  <link rel="stylesheet" href="slate.css?v=4">
+  <script src="slate-atif.js" defer></script>
+  <script src="slate-runtime.js?v=4" defer></script>
+  <script src="slate.js?v=4" defer></script>
 </head>
 <body>
   <header class="topbar">
@@ -13,7 +16,7 @@
     <div class="topright"><label class="model-picker">模型 <select id="model" aria-label="选择推理模型"></select></label><button type="button" id="connection" class="connection">连接 DeepSeek</button><button id="new-session" class="icon" title="新建石板">＋</button><button id="theme" class="icon" title="切换昼夜">☀</button></div>
   </header>
   <main class="stone-app">
-    <div class="page-head"><div><div class="eyebrow">ONE INFERENCE · ONE CONTEXT</div><h1>模型看到的石板</h1><p id="model-description">从这里观察上下文、选择 token，并编辑可提交的消息。</p><a id="format-source" class="format-source" target="_blank" rel="noopener noreferrer" hidden>查看该模型的公开格式来源 ↗</a></div><div class="head-actions"><button id="one-token" class="btn secondary">预测 1 token</button><button id="agent-run" class="btn secondary">▶ Agent 回合</button><button id="generate" class="btn primary">▶ 连续生成</button><button id="stop" class="btn danger" disabled>停止</button></div></div>
+    <div class="page-head"><div><div class="eyebrow">ONE INFERENCE · ONE CONTEXT</div><h1>模型看到的石板</h1><p id="model-description">从这里观察上下文、选择 token，并编辑可提交的消息。</p><a id="format-source" class="format-source" target="_blank" rel="noopener noreferrer" hidden>查看该模型的公开格式来源 ↗</a></div><div class="head-actions"><button id="one-token" class="btn secondary">预测 1 token</button><button id="agent-run" class="btn secondary">▶ Agent 回合</button><button id="export-atif" class="btn secondary" type="button" title="完成至少一轮 Agent 调用后即可导出" disabled>导出 ATIF</button><button id="generate" class="btn primary">▶ 连续生成</button><button id="stop" class="btn danger" disabled>停止</button></div></div>
     <div id="notice" class="notice" role="status">正在加载参考 tokenizer…</div>
     <section id="token-card" class="card slab-card">
       <div class="card-heading slab-heading"><div><small>CONTEXT SLAB</small><h2 id="slab-title">当前推理输入</h2><p id="input-scope" class="microcopy input-scope">当前可编辑消息的下一次调用草稿，尚未发送。</p></div><span id="evidence" class="evidence">尚未重建</span></div>
@@ -45,6 +48,17 @@
   <dialog id="edit-dialog"><form method="dialog"><button class="dialog-close" aria-label="关闭">×</button></form><h2>编辑石板片段</h2><p id="edit-source" class="microcopy"></p><textarea id="edit-content" rows="10" spellcheck="false"></textarea><div class="dialog-actions"><button id="save-edit" class="btn primary">保存并重建</button></div></dialog>
   <dialog id="import-dialog"><form method="dialog"><button class="dialog-close" aria-label="关闭">×</button></form><h2>导入轨迹</h2><p class="microcopy">选择带有 ATIF steps 或 messages 的 JSON。文件在浏览器本地解析。导入后可阅读轨迹字段与来源。</p><label class="local-import-label">选择本机文件<input id="local-import" type="file" accept=".json,application/json"></label><p id="import-status" class="microcopy" role="status"></p></dialog>
   <dialog id="template-dialog"><form method="dialog"><button class="dialog-close" aria-label="关闭">×</button></form><h2>公开 chat template · 本地参考</h2><p id="template-scope" class="microcopy"></p><p id="template-markers" class="template-markers"></p><p id="template-count" class="microcopy"></p><pre id="template-text"></pre></dialog>
+  <dialog id="atif-export-dialog">
+    <form method="dialog"><button class="dialog-close" aria-label="关闭">×</button></form>
+    <h2>导出 Agent 轨迹</h2>
+    <label class="field-title" for="atif-export-run">选择运行</label>
+    <select id="atif-export-run" class="btn secondary atif-run-picker"></select>
+    <p id="atif-export-status" class="microcopy" role="status">导出后可在轨迹页通过「本机 ATIF」打开。</p>
+    <div class="dialog-actions">
+      <a class="btn secondary" href="trajectory.html">打开轨迹页</a>
+      <button id="atif-export-download" type="button" class="btn primary">下载 ATIF JSON</button>
+    </div>
+  </dialog>
   <dialog id="connection-dialog">
     <form method="dialog"><button class="dialog-close" aria-label="关闭">×</button></form>
     <h2>连接 DeepSeek</h2>

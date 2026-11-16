@@ -28,3 +28,6 @@ button.connection { background: var(--card); }
   .slab-heading > div { flex: 1 1 100%; }
   .slab-heading .evidence { max-width: 100%; overflow-wrap: anywhere; }
 }
+.atif-run-picker { width: 100%; max-width: 100%; margin-block: .45rem; }
+.dialog-actions a.btn { text-decoration: none; }
+.stone-app .head-actions { flex-wrap: wrap; }

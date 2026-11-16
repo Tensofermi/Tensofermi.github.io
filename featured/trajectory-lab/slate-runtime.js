@@ -84,6 +84,19 @@
         return record;
     }
 
+    async function savedRecords() {
+        const stored = await records("getAll");
+        const all = new Map(stored.map((record) => [record.id, record]));
+        for (const [id, record] of memory) all.set(id, record);
+        return [...all.values()];
+    }
+
+    async function exportableRuns() {
+        const all = await savedRecords();
+        return [...all.filter((record) => record.type === "agent_run" && record.turns.length),
+            ...slateAtif.recoveredRuns(all)].sort((a, b) => b.created_at.localeCompare(a.created_at));
+    }
+
     function draft(body) {
         const { messages, tools, thinking, effort, max_tokens } = body;
         if (!Array.isArray(messages) || !messages.length ||
@@ -222,40 +235,61 @@
     async function runAgent(body, signal, emit) {
         requireConnection();
         const messages = structuredClone(body.messages);
+        const run = slateAtif.makeRun(body, new Date().toISOString(), crypto.randomUUID());
         let record;
+        let iterations = 0;
         const max = 4;
-        for (let iteration = 1; iteration <= max; iteration++) {
-            emit({ type: "iteration_start", iteration, max_iterations: max });
-            record = await generate({ ...body, messages: structuredClone(messages) }, {
-                signal, agent: { iteration, max_iterations: max },
-            });
-            emit({ type: "model_done", iteration, record_id: record.id });
-            const message = record.response?.choices?.[0]?.message;
-            if (message) messages.push({ ...message, role: "assistant" });
-            const calls = message?.tool_calls || [];
-            if (!calls.length || iteration === max) {
-                emit({ type: "done", record, messages, tools: body.tools, iterations: iteration });
-                return;
-            }
-            emit({ type: "tools_selected", count: calls.length });
-            for (const call of calls) {
-                const name = call.function?.name || "未知工具";
-                let content;
-                let success = false;
-                try {
-                    const { a, b } = JSON.parse(call.function?.arguments || "{}");
-                    if (name !== "add_numbers" || !Number.isFinite(a) || !Number.isFinite(b) || !Number.isFinite(a + b)) {
-                        throw new Error("浏览器可运行的工具为 add_numbers，参数须为有限数字。");
-                    }
-                    content = JSON.stringify({ result: a + b });
-                    success = true;
-                } catch (error) {
-                    content = JSON.stringify({ error: error.message });
+        try {
+            for (let iteration = 1; iteration <= max; iteration++) {
+                signal?.throwIfAborted();
+                emit({ type: "iteration_start", iteration, max_iterations: max });
+                record = await generate({ ...body, messages: structuredClone(messages) }, {
+                    signal, agent: { run_id: run.id, iteration, max_iterations: max },
+                });
+                iterations = iteration;
+                const turn = slateAtif.makeTurn(record);
+                run.turns.push(turn);
+                await save(run);
+                emit({ type: "model_done", iteration, record_id: record.id });
+                const message = record.response?.choices?.[0]?.message;
+                if (message) messages.push({ ...message, role: "assistant" });
+                const calls = message?.tool_calls || [];
+                if (!calls.length || iteration === max) {
+                    run.status = calls.length ? "iteration_limit" : "completed";
+                    break;
                 }
-                messages.push({ role: "tool", tool_call_id: call.id, content, _origin: "浏览器工具返回" });
-                emit({ type: "tool_result", name, success, characters: content.length });
+                emit({ type: "tools_selected", count: calls.length });
+                for (const call of calls) {
+                    signal?.throwIfAborted();
+                    const name = call.function?.name || "未知工具";
+                    let content;
+                    let success = false;
+                    try {
+                        const { a, b } = JSON.parse(call.function?.arguments || "{}");
+                        if (name !== "add_numbers" || !Number.isFinite(a) || !Number.isFinite(b) || !Number.isFinite(a + b)) {
+                            throw new Error("浏览器可运行的工具为 add_numbers，参数须为有限数字。");
+                        }
+                        content = JSON.stringify({ result: a + b });
+                        success = true;
+                    } catch (error) {
+                        content = JSON.stringify({ error: error.message });
+                    }
+                    messages.push({ role: "tool", tool_call_id: call.id, content, _origin: "浏览器工具返回" });
+                    turn.observations.push({ call_id: call.id, content, success });
+                    await save(run);
+                    emit({ type: "tool_result", name, success, characters: content.length });
+                }
+            }
+        } catch (error) {
+            run.status = signal?.aborted ? "stopped" : "failed";
+            throw error;
+        } finally {
+            if (run.turns.length) {
+                run.ended_at = new Date().toISOString();
+                await save(run);
             }
         }
+        emit({ type: "done", record, messages, tools: body.tools, iterations });
     }
 
     function streamResponse(run, signal) {
@@ -301,11 +335,22 @@
             if (route === "/api/import-trajectory") return Response.json(await reference("import", body));
             if (route === "/api/tokenize-field") return Response.json(await reference("field", body));
             if (route === "/api/compaction") return Response.json(await comparison(body));
+            if (route === "/api/agent/exports") {
+                const runs = await exportableRuns();
+                return Response.json({ runs: runs.map((run) => ({
+                    id: run.id, status: run.status, created_at: run.created_at, turns: run.turns.length,
+                    title: typeof run.messages.findLast((message) => message.role === "user")?.content === "string"
+                        ? run.messages.findLast((message) => message.role === "user").content.slice(0, 84) : "",
+                })) });
+            }
+            if (route === "/api/agent/export") {
+                const run = (await exportableRuns()).find((item) => item.id === body?.id);
+                if (!run) throw new Error("没有可导出的 Agent 运行。");
+                return Response.json(slateAtif.build(run));
+            }
             if (route === "/api/history") {
-                const stored = await records("getAll");
-                const all = new Map(stored.map((record) => [record.id, record]));
-                for (const [id, record] of memory) all.set(id, record);
-                return Response.json({ records: [...all.values()].sort((a, b) => b.created_at.localeCompare(a.created_at)).map((record) => ({
+                const all = (await savedRecords()).filter((record) => record.type !== "agent_run");
+                return Response.json({ records: all.sort((a, b) => b.created_at.localeCompare(a.created_at)).map((record) => ({
                     id: record.id, type: record.type, model: record.model, agent: record.agent,
                     created_at: record.created_at, prompt_tokens: record.usage?.prompt_tokens,
                     local_tokens: record.input?.count,
