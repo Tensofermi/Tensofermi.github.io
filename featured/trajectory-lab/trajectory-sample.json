@@ -1,0 +1,95 @@
+{
+  "schema_version": "ATIF-v1.7",
+  "session_id": "monte-carlo-demo",
+  "agent": {
+    "name": "Trajectory Lab demo",
+    "version": "1.0",
+    "model_name": "deepseek-v4.1-flash",
+    "tool_definitions": [
+      {
+        "type": "function",
+        "function": {
+          "name": "simulate_pi",
+          "description": "Return the counts from a Monte Carlo estimate using the requested sample size and seed.",
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "samples": {
+                "type": "integer"
+              },
+              "seed": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "samples",
+              "seed"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "steps": [
+    {
+      "step_id": 1,
+      "source": "system",
+      "message": "用简短的实验解释概率。给出估计值时也报告抽样误差。"
+    },
+    {
+      "step_id": 2,
+      "source": "user",
+      "message": "在单位正方形里随机撒点，怎么估算 π？"
+    },
+    {
+      "step_id": 3,
+      "source": "agent",
+      "reasoning_content": "到原点的距离不超过 1 的点落在四分之一圆内。圆内点的比例近似 π/4。",
+      "tool_calls": [
+        {
+          "tool_call_id": "pi-1000",
+          "function_name": "simulate_pi",
+          "arguments": {
+            "samples": 1000,
+            "seed": 42
+          }
+        }
+      ],
+      "observation": {
+        "results": [
+          {
+            "source_call_id": "pi-1000",
+            "content": "1000 个点中，785 个落在四分之一圆内。"
+          }
+        ]
+      },
+      "metrics": {
+        "prompt_tokens": 128
+      },
+      "message": ""
+    },
+    {
+      "step_id": 4,
+      "source": "agent",
+      "message": "用 4 × 785 / 1000 得到 π ≈ 3.14。这次结果碰巧接近 π，重复抽样时估计会波动。",
+      "metrics": {
+        "prompt_tokens": 216
+      }
+    },
+    {
+      "step_id": 5,
+      "source": "user",
+      "message": "如果点数增加到 10 万，抽样误差大概会缩小多少？"
+    },
+    {
+      "step_id": 6,
+      "source": "agent",
+      "reasoning_content": "独立采样的标准误差与 1/√n 成正比。样本量增加 100 倍，标准误差缩小至 1/10。",
+      "message": "标准误差约为原来的十分之一。对这个实验，估计值的标准误差从约 0.052 降到约 0.0052。",
+      "metrics": {
+        "prompt_tokens": 308
+      }
+    }
+  ],
+  "notes": "合成 ATIF 示例，工具返回和 token 用量为演示数据。"
+}
