@@ -60,10 +60,15 @@
     if (!header) return;
     const current = header.dataset.view;
     const views = [
+      ['mulit', '/featured/tools/mulit/', 'Mulit', '多 Agent 编排'],
       ['chat', '/featured/tools/chat/', 'Chat', '对话路径'],
       ['slate', '/featured/trajectory-lab/', '石板', '模型上下文'],
       ['trajectory', '/featured/trajectory-lab/trajectory.html', '轨迹', '归档分析'],
     ];
+    if (location.pathname === '/chat/' || location.pathname.startsWith('/mulit/')) {
+      views[0][1] = '/mulit/';
+      views[1][1] = '/chat/';
+    }
     const frame = document.createElement('div');
     frame.className = 'lab-masthead-inner';
     frame.innerHTML = '<a class="lab-brand" href="/featured/trajectory-lab/"><span class="lab-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>Trajectory Lab</span></a>';

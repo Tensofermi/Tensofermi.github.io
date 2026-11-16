@@ -584,7 +584,9 @@ function leaveChatPreview() {
 
 async function openChatDraft() {
   const url = new URL(location.href);
-  if (url.searchParams.get('from') !== 'chat') return false;
+  const route = url.searchParams.get('from');
+  if (route !== 'chat' && route !== 'mulit') return false;
+  const source = route === 'mulit' ? 'Mulit 调用输入' : 'Chat 当前路径';
   url.searchParams.delete('from');
   history.replaceState(null,'',url);
   try {
@@ -596,27 +598,27 @@ async function openChatDraft() {
     if (draft.provider === 'deepseek' && draft.model === 'deepseek-flash') {
       $('thinking').value = String(draft.effort !== 'none');
       $('effort').value = ['low','high','max'].includes(draft.effort) ? draft.effort : 'high';
-      await refreshDraft('draft','已打开 Chat 的当前路径，可继续检查或编辑这份石板。');
+      await refreshDraft('draft','已打开 ' + source + '，可继续检查或编辑这份石板。');
     } else {
-      chatModelOption = node('option','',draft.model + ' · Chat 预览');
+      chatModelOption = node('option','',draft.model + ' · ' + source);
       chatModelOption.value = 'chat-preview';
       chatModelOption.disabled = true;
       $('model').append(chatModelOption);
       $('model').value = chatModelOption.value;
-      $('model-description').textContent = 'Chat 当前路径 · ' + draft.model;
+      $('model-description').textContent = source + ' · ' + draft.model;
       $('format-source').hidden = true;
       $('prefix-helper').hidden = true;
       renderInput({ count: null, counts: {}, context_window: 1, model_format: draft.model, evidence:'draft_only',
         api_request: { model: draft.model, messages: draft.messages, tools: draft.tools || [] } });
-      $('slab-title').textContent = 'Chat 当前路径';
+      $('slab-title').textContent = source;
       $('input-scope').textContent = '打开时的本机草稿。可在模型菜单切到石板模型以重建。';
-      $('evidence-boundary').textContent = '此 Chat 模型的路径以结构化消息显示。';
+      $('evidence-boundary').textContent = '此模型的输入以结构化消息显示。';
       setBusy(false);
-      notice('已打开 Chat 当前路径的 JSON 草稿。');
+      notice('已打开 ' + source + '的 JSON 草稿。');
     }
     return true;
   } catch (error) {
-    notice('Chat 草稿打开失败：'+error.message,'error');
+    notice(source + '打开失败：'+error.message,'error');
     return false;
   }
 }
