@@ -28,7 +28,7 @@
 
     function reference(action, payload) {
         if (!worker) {
-            worker = new Worker(new URL("slate-worker.mjs", base), { type: "module" });
+            worker = new Worker(new URL("slate-worker.mjs?v=2", base), { type: "module" });
             worker.onmessage = ({ data }) => {
                 const job = pending.get(data.id);
                 if (!job) return;
