@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>浏览器虚拟机 · Tensofermi</title>
+    <meta name="description" content="用 v86 在浏览器里启动 Buildroot Linux、ELKS 和 Windows 98。">
+    <link rel="icon" href="../../images/main.png">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="vm.css">
+    <script defer src="vm.js"></script>
+</head>
+<body class="vm-page">
+    <main class="vm-wrap">
+        <a class="vm-back" href="../../featured.html">返回 Featured</a>
+        <section class="content-panel vm-panel" aria-labelledby="vm-title">
+            <h1 id="vm-title">浏览器虚拟机</h1>
+            <p class="vm-intro">选择一个系统，在浏览器里开机。打开 Buildroot 命令行后，可以试试 <code>uname -a</code>。</p>
+            <fieldset id="vm-systems" disabled>
+                <legend>操作系统</legend>
+                <div class="vm-system-list">
+                    <label class="vm-system">
+                        <input type="radio" name="system" value="buildroot" checked>
+                        <span><strong>Buildroot Linux</strong><small>32 位 Linux 命令行</small></span>
+                    </label>
+                    <label class="vm-system">
+                        <input type="radio" name="system" value="elks">
+                        <span><strong>ELKS</strong><small>面向 8086 的 16 位系统</small></span>
+                    </label>
+                    <label class="vm-system">
+                        <input type="radio" name="system" value="windows98">
+                        <span><strong>Windows 98</strong><small>桌面系统，下载量较大</small></span>
+                    </label>
+                </div>
+            </fieldset>
+            <div class="vm-actions">
+                <button id="vm-start" type="button" disabled>启动虚拟机</button>
+                <button id="vm-stop" class="vm-stop" type="button" hidden>结束会话</button>
+                <a id="vm-source" href="https://copy.sh/v86/" target="_blank" rel="noopener noreferrer">在 copy.sh 中打开</a>
+            </div>
+            <p id="vm-status" class="vm-status" role="status" hidden></p>
+            <div id="vm-screen" class="vm-screen" hidden></div>
+            <noscript><p class="vm-status">站内运行需要 JavaScript。你也可以打开原站选择系统。</p></noscript>
+        </section>
+        <footer class="vm-footer">虚拟机与系统镜像由 <a href="https://copy.sh/v86/">v86</a> 提供。</footer>
+    </main>
+</body>
+</html>

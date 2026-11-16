@@ -1,0 +1,164 @@
+.story-lab {
+    padding-top: 0;
+}
+
+.story-lab .page-content {
+    --content-width: 1120px;
+    margin-top: clamp(24px, 5vw, 54px);
+    margin-bottom: 28px;
+}
+
+.lab-back,
+.lab-credit {
+    font: 0.88rem/1.6 "Segoe UI", "PingFang SC", sans-serif;
+}
+
+.lab-heading {
+    margin: 20px 0 22px;
+}
+
+.lab-heading h1 {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.2;
+    margin-bottom: 10px;
+}
+
+.lab-heading p {
+    max-width: 44rem;
+    color: var(--muted);
+}
+
+.lab-layout {
+    display: grid;
+    grid-template-columns: minmax(16rem, 0.7fr) minmax(0, 1fr);
+    gap: 18px;
+}
+
+.lab-layout .content-panel {
+    min-width: 0;
+    margin: 0;
+    padding: clamp(18px, 3vw, 28px);
+    backdrop-filter: none;
+}
+
+.story-lab textarea,
+.story-lab select,
+.story-lab button {
+    font: inherit;
+    color: var(--text);
+    background: white;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+}
+
+.story-lab textarea {
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    resize: vertical;
+}
+
+.story-lab select {
+    width: 100%;
+    min-height: 42px;
+    padding: 5px 10px;
+}
+
+.story-lab input[type="range"] {
+    width: 100%;
+    margin: 4px 0 0;
+    accent-color: var(--navy);
+}
+
+.story-lab button {
+    min-height: 42px;
+    padding: 6px 13px;
+    cursor: pointer;
+}
+
+.story-lab button:hover:enabled {
+    border-color: var(--link-hover);
+}
+
+.story-lab button:disabled {
+    opacity: 0.55;
+    cursor: default;
+}
+
+.story-lab button[type="submit"] {
+    background: var(--navy);
+    color: white;
+    border-color: var(--navy);
+}
+
+.story-lab :focus-visible {
+    outline: 2px solid #315a91;
+    outline-offset: 3px;
+}
+
+.lab-examples,
+.lab-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.lab-examples button {
+    font-size: 0.84rem;
+}
+
+.lab-field,
+.lab-status {
+    font: 0.88rem/1.5 "Segoe UI", "PingFang SC", sans-serif;
+    color: var(--muted);
+}
+
+.lab-field {
+    display: flex;
+    justify-content: space-between;
+    margin: 16px 0 6px;
+}
+
+.lab-result {
+    display: flex;
+    flex-direction: column;
+}
+
+.result-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.result-heading h2 { margin: 0; }
+
+.story-output {
+    flex: 1;
+    min-height: 12rem;
+    padding: 14px 16px;
+    border-radius: 8px;
+    background: #f5f7fb;
+    font: 1.05rem/1.75 Georgia, serif;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+#story-prompt { color: var(--muted); }
+.lab-status { margin-top: 10px; }
+.lab-credit { margin-top: 18px; color: var(--muted); }
+.lab-credit a { text-decoration: underline; }
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+}
+
+@media (max-width: 650px) {
+    .lab-layout { grid-template-columns: minmax(0, 1fr); }
+}

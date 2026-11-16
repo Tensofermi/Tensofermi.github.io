@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="用 26 万参数的 TinyStories Transformer 在浏览器本地续写英文小故事。">
+    <title>小语言模型 · TinyStories | Tensofermi</title>
+    <link rel="icon" href="../../images/main.png">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="lab.css">
+    <script type="module" src="lab.js"></script>
+</head>
+<body class="story-lab site-page">
+    <main class="page-content">
+        <nav aria-label="返回列表"><a class="lab-back" href="../../featured.html">‹ Featured</a></nav>
+        <header class="lab-heading">
+            <h1>小语言模型</h1>
+            <p>TinyStories 用一个约 26 万参数的 Transformer 续写英文小故事。第一次生成时会加载约 1.1 MB 模型，推理在浏览器本地进行。</p>
+        </header>
+        <div class="lab-layout">
+            <section class="content-panel lab-controls" aria-labelledby="controls-title">
+                <h2 id="controls-title">故事开头</h2>
+                <form id="story-form">
+                    <label class="visually-hidden" for="prompt">输入英文故事开头</label>
+                    <textarea id="prompt" lang="en" maxlength="360" rows="4" required spellcheck="false">Once upon a time, there was a little cat named Luna.</textarea>
+                    <div class="lab-examples" aria-label="示例开头">
+                        <button type="button" lang="en" data-prompt="Once upon a time, there was a little cat named Luna.">Little cat</button>
+                        <button type="button" lang="en" data-prompt="One day, Lucy found a little red box under a tree.">Red box</button>
+                        <button type="button" lang="en" data-prompt="Once upon a time, a little dragon wanted to learn how to fly.">Little dragon</button>
+                    </div>
+                    <label class="lab-field" for="temperature">温度 <output id="temperature-value" for="temperature">0.8</output></label>
+                    <input type="range" id="temperature" min="0" max="1.5" step="0.1" value="0.8">
+                    <label class="lab-field" for="length">最多生成</label>
+                    <select id="length">
+                        <option value="64">64 tokens</option>
+                        <option value="128" selected>128 tokens</option>
+                        <option value="192">192 tokens</option>
+                    </select>
+                    <div class="lab-actions">
+                        <button type="submit" id="generate">生成故事</button>
+                        <button type="button" id="stop" disabled>停止</button>
+                    </div>
+                </form>
+            </section>
+            <section class="content-panel lab-result" aria-labelledby="result-title">
+                <div class="result-heading">
+                    <h2 id="result-title">故事</h2>
+                    <button type="button" id="copy" disabled>复制</button>
+                </div>
+                <div class="story-output" id="story-output" lang="en" tabindex="0" aria-labelledby="result-title"><span id="story-prompt"></span><span id="story-text"></span></div>
+                <p class="lab-status" id="status" role="status">等待生成</p>
+            </section>
+        </div>
+        <p class="lab-credit">模型与词表来自 Andrej Karpathy 的 <a href="https://huggingface.co/karpathy/tinyllamas/tree/main/stories260K">TinyStories 260K</a>。<a href="UPSTREAM-LICENSE.txt">MIT 许可</a></p>
+    </main>
+</body>
+</html>

@@ -1,0 +1,175 @@
+.music-lab {
+    padding-top: 0;
+}
+
+.music-lab [hidden] {
+    display: none !important;
+}
+
+.music-lab :is(a, button, iframe):focus-visible {
+    outline: 2px solid var(--link-hover);
+    outline-offset: 3px;
+}
+
+.music-page {
+    width: min(calc(100% - 40px), 1320px);
+    margin: clamp(24px, 5vw, 56px) auto;
+}
+
+.music-heading {
+    margin-bottom: 24px;
+}
+
+.music-heading h1 {
+    margin: 10px 0 4px;
+    font-size: clamp(1.65rem, 3.8vw, 2.55rem);
+    line-height: 1.25;
+}
+
+.music-heading p,
+.music-credit {
+    color: var(--muted);
+}
+
+.music-back,
+.music-toolbar,
+.music-credit {
+    font: 500 0.9rem/1.45 "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+}
+
+.music-workspace {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    overflow: hidden;
+    border: 1px solid var(--panel-border);
+    border-radius: var(--radius);
+    background: #fff;
+    box-shadow: var(--panel-shadow);
+}
+
+.music-workspace.is-running {
+    height: max(30rem, calc(100vh - 5rem));
+    height: max(30rem, calc(100dvh - 5rem));
+}
+
+.music-workspace:fullscreen {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+}
+
+.music-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: end;
+    gap: 8px;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--panel-border);
+}
+
+.music-control,
+.music-start {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 14px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background: var(--bg);
+    color: var(--link);
+    font: inherit;
+    cursor: pointer;
+}
+
+.music-control:hover {
+    border-color: var(--panel-border);
+}
+
+.music-surface {
+    position: relative;
+    min-height: 0;
+    background: var(--bg);
+}
+
+.music-launch {
+    display: grid;
+    place-items: center;
+    min-height: clamp(8rem, 23vw, 15rem);
+    padding: 24px;
+    background: linear-gradient(125deg, #f8fbff, #e8eef7);
+}
+
+.music-start {
+    padding: 0 24px;
+    background: var(--navy);
+    color: #fff;
+    font: 600 1rem/1.4 "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+}
+
+.music-start:hover {
+    background: var(--link-hover);
+}
+
+.music-frame {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.music-frame:focus-visible {
+    outline-offset: -3px;
+}
+
+.music-status {
+    position: absolute;
+    inset: 12px 12px auto;
+    width: fit-content;
+    margin-inline: auto;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: #fff;
+    color: var(--text);
+    pointer-events: none;
+}
+
+.music-credit {
+    margin-top: 16px;
+}
+
+.music-credit a {
+    text-decoration: underline;
+    text-underline-offset: 0.16em;
+}
+
+.music-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+@media (max-width: 680px) {
+    .music-page {
+        width: calc(100% - 20px);
+        margin-block: 20px;
+    }
+
+    .music-heading {
+        margin-inline: 8px;
+    }
+
+    .music-workspace {
+        border-radius: var(--radius-sm);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .music-lab a {
+        transition: none;
+    }
+}

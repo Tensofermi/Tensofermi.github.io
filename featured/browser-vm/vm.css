@@ -1,0 +1,180 @@
+.vm-page {
+    padding-top: 0;
+}
+
+.vm-wrap {
+    width: min(calc(100% - 32px), 1120px);
+    margin: 0 auto;
+    padding: clamp(18px, 4vw, 40px) 0 28px;
+}
+
+.vm-back {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.vm-panel {
+    padding: clamp(18px, 3vw, 34px);
+    margin-bottom: 14px;
+}
+
+.vm-panel h1 {
+    font-size: clamp(1.65rem, 3vw, 2.4rem);
+    line-height: 1.25;
+}
+
+.vm-intro {
+    margin-top: 11px;
+    color: var(--muted);
+}
+
+.vm-intro code {
+    white-space: nowrap;
+}
+
+.vm-panel fieldset {
+    min-width: 0;
+    margin: 24px 0 0;
+    padding: 0;
+    border: 0;
+}
+
+.vm-panel legend {
+    padding: 0;
+    margin-bottom: 8px;
+    color: var(--navy);
+    font-weight: 600;
+}
+
+.vm-system-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.vm-system {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 11px;
+    border: 1px solid var(--panel-border);
+    border-radius: var(--radius-sm);
+    line-height: 1.45;
+    cursor: pointer;
+}
+
+.vm-system:has(input:checked) {
+    border-color: var(--link-hover);
+    background: #edf3fa;
+}
+
+.vm-system:has(input:disabled) {
+    cursor: default;
+}
+
+.vm-system input {
+    flex: none;
+    margin: 0;
+    accent-color: var(--navy);
+}
+
+.vm-system small {
+    display: block;
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+.vm-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 16px;
+    margin-top: 16px;
+}
+
+.vm-actions button {
+    min-height: 44px;
+    padding: 8px 14px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background: var(--navy);
+    color: #fff;
+    font: 600 0.95rem/1.35 "Segoe UI", "Noto Sans SC", sans-serif;
+    cursor: pointer;
+}
+
+.vm-actions button:disabled {
+    opacity: 0.55;
+    cursor: default;
+}
+
+.vm-actions button:enabled:hover {
+    background: var(--link-hover);
+}
+
+.vm-actions .vm-stop:enabled {
+    border-color: var(--panel-border);
+    background: #fff;
+    color: var(--navy);
+}
+
+.vm-actions .vm-stop:enabled:hover {
+    background: #edf3fa;
+}
+
+.vm-actions a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.14em;
+}
+
+.vm-wrap :is(a, button, input, iframe):focus-visible {
+    outline: 2px solid var(--link-hover);
+    outline-offset: 3px;
+}
+
+.vm-status, .vm-footer {
+    color: var(--muted);
+    font: 0.88rem/1.6 "Segoe UI", "Noto Sans SC", sans-serif;
+}
+
+.vm-status {
+    margin-top: 12px;
+}
+
+.vm-screen {
+    overflow: hidden;
+    margin-top: 14px;
+    border: 1px solid var(--panel-border);
+    border-radius: var(--radius-sm);
+    background: #111b2d;
+}
+
+.vm-screen iframe {
+    display: block;
+    width: 100%;
+    height: clamp(420px, 75vh, 820px);
+    height: clamp(420px, 75dvh, 820px);
+    border: 0;
+    background: #fff;
+}
+
+@media (max-width: 620px) {
+    .vm-wrap {
+        width: calc(100% - 20px);
+    }
+
+    .vm-system-list {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .vm-screen {
+        margin-inline: -8px;
+    }
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ourtone 音乐工作台 | Tensofermi</title>
+    <meta name="description" content="用 Ourtone 跟弹、导入 MIDI、编曲或生成一首新歌。">
+    <link rel="icon" href="../../images/main.png">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="music-lab.css">
+    <script src="music-lab.js" defer></script>
+</head>
+<body class="music-lab">
+    <main class="music-page">
+        <header class="music-heading">
+            <a class="music-back" href="../../featured.html">← 返回 Featured</a>
+            <h1>Ourtone 音乐工作台</h1>
+            <p>选择一首歌跟弹，或导入自己的 MIDI，在钢琴卷帘里编曲、设计音色。</p>
+        </header>
+
+        <section class="music-workspace" aria-label="Ourtone 工作台">
+            <div class="music-toolbar">
+                <button class="music-control" type="button" id="music-fullscreen" hidden>全屏</button>
+                <a class="music-control" id="music-source" href="https://ourtone.fun/" target="_blank" rel="noopener">在原站打开<span class="music-sr-only">（新标签页）</span></a>
+            </div>
+            <div class="music-surface" id="music-surface">
+                <div class="music-launch" id="music-launch" hidden>
+                    <button class="music-start" type="button" id="music-start">启动 Ourtone</button>
+                </div>
+                <p class="music-status" id="music-status" role="status" hidden></p>
+            </div>
+        </section>
+
+        <footer class="music-credit">Ourtone 由 mygo-nucis 开发。<a href="https://github.com/mygo-nucis/ourtone" target="_blank" rel="noopener">查看原项目源码<span class="music-sr-only">（新标签页）</span></a></footer>
+    </main>
+</body>
+</html>
