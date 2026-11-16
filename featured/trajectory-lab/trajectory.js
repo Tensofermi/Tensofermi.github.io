@@ -334,9 +334,12 @@ $("more").addEventListener("click", () => {
 for (const control of document.querySelectorAll("[data-view]")) {
     control.addEventListener("click", () => setView(control.dataset.view));
 }
+document.documentElement.dataset.theme = localStorage.getItem("trajectory-theme") === "light" ? "light" : "dark";
+$("theme").textContent = document.documentElement.dataset.theme === "light" ? "深色" : "浅色";
 $("theme").addEventListener("click", () => {
     const light = document.documentElement.dataset.theme !== "light";
     document.documentElement.dataset.theme = light ? "light" : "dark";
+    localStorage.setItem("trajectory-theme", document.documentElement.dataset.theme);
     $("theme").textContent = light ? "深色" : "浅色";
 });
 

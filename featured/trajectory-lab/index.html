@@ -1,75 +1,56 @@
 <!doctype html>
 <html lang="zh-CN" data-theme="dark">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="沿着彩色序列查看 AI Agent 的消息、工具调用和返回，检查每个块对应的 ATIF 字段。">
-    <title>Trajectory Lab · Agent 轨迹可视化</title>
-    <link rel="stylesheet" href="trajectory.css">
-    <script src="trajectory.js" defer></script>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Trajectory Lab · 上下文石板</title>
+  <meta name="description" content="观察和编辑模型推理的上下文石板，区分真实请求与参考分词。">
+  <link rel="stylesheet" href="slate.css"><script src="slate-runtime.js" defer></script><script src="slate.js" defer></script>
 </head>
 <body>
-    <header class="topbar">
-        <a href="../../featured.html" class="back">← Featured</a>
-        <strong>Trajectory Lab</strong>
-        <button id="theme" type="button" aria-label="切换颜色主题">浅色</button>
-    </header>
-
-    <main>
-        <h1>一条 Agent 轨迹</h1>
-        <p class="intro">沿着消息、工具调用和返回，查看 Agent 的事件顺序。选中彩色序列上的任意一块，即可查看它在 ATIF 中的字段。</p>
-
-        <section class="source panel" aria-label="轨迹来源">
-            <div>
-                <strong id="source-name">用蒙特卡洛估算 π</strong>
-                <p id="source-note">合成 ATIF 示例，包含模拟的工具返回和 token 计数。</p>
-            </div>
-            <div class="actions">
-                <button id="sample" type="button" hidden>返回示例</button>
-                <button id="pick" class="primary" type="button">打开本机 ATIF</button>
-                <input id="file" type="file" accept=".json,application/json" hidden>
-            </div>
-        </section>
-        <p id="status" class="muted" role="status" hidden></p>
-
-        <div class="controls">
-            <nav aria-label="轨迹视图">
-                <button type="button" data-view="sequence" aria-pressed="true">归档序列</button>
-                <button type="button" data-view="analysis" aria-pressed="false">分析</button>
-            </nav>
-            <span id="meta" class="muted"></span>
-            <input id="search" type="search" aria-label="搜索轨迹块" placeholder="搜索块文本…">
-        </div>
-
-        <section id="sequence" aria-label="归档序列">
-            <nav id="legend" aria-label="按块类型筛选"></nav>
-            <nav id="ribbon" aria-label="上下文序列地图"></nav>
-            <div class="workspace">
-                <div>
-                    <ol id="stream"></ol>
-                    <p id="empty" class="panel" hidden></p>
-                    <button id="more" type="button" hidden>显示更多块</button>
-                </div>
-                <aside class="panel inspector" aria-label="选中块">
-                    <h2>选中块</h2>
-                    <div id="inspector"></div>
-                    <p class="muted">逐次模型输入以实际请求快照为准。</p>
-                </aside>
-            </div>
-        </section>
-
-        <section id="analysis" class="analysis" aria-label="轨迹分析" hidden>
-            <section class="panel">
-                <h2>归档组成</h2>
-                <p class="muted">按块的文本字符数统计。</p>
-                <div id="composition"></div>
-            </section>
-            <section class="panel">
-                <h2>上下文趋势</h2>
-                <p class="muted">每次生成的 <code>metrics.prompt_tokens</code>。横条可跳转到对应步骤。</p>
-                <div id="trend"></div>
-            </section>
-        </section>
-    </main>
-</body>
-</html>
+  <header class="topbar">
+    <div class="identity"><span class="logo">T<span>·</span>L</span><div><strong>Trajectory Lab</strong><small>NEXT TOKEN PREDICTION</small></div></div>
+    <nav class="modes" aria-label="切换模式"><a href="index.html" aria-current="page">石板</a><a href="trajectory.html">轨迹</a><a href="../../featured.html">Featured ↗</a></nav>
+    <div class="topright"><label class="model-picker">模型 <select id="model" aria-label="选择推理模型"></select></label><button type="button" id="connection" class="connection">连接 DeepSeek</button><button id="new-session" class="icon" title="新建石板">＋</button><button id="theme" class="icon" title="切换昼夜">☀</button></div>
+  </header>
+  <main class="stone-app">
+    <div class="page-head"><div><div class="eyebrow">ONE INFERENCE · ONE CONTEXT</div><h1>模型看到的石板</h1><p id="model-description">从这里观察上下文、选择 token，并编辑可提交的消息。</p><a id="format-source" class="format-source" target="_blank" rel="noopener noreferrer" hidden>查看该模型的公开格式来源 ↗</a></div><div class="head-actions"><button id="one-token" class="btn secondary">预测 1 token</button><button id="agent-run" class="btn secondary">▶ Agent 回合</button><button id="generate" class="btn primary">▶ 连续生成</button><button id="stop" class="btn danger" disabled>停止</button></div></div>
+    <div id="notice" class="notice" role="status">正在加载参考 tokenizer…</div>
+    <section id="token-card" class="card slab-card">
+      <div class="card-heading slab-heading"><div><small>CONTEXT SLAB</small><h2 id="slab-title">当前推理输入</h2><p id="input-scope" class="microcopy input-scope">当前可编辑消息的下一次调用草稿，尚未发送。</p></div><span id="evidence" class="evidence">尚未重建</span></div>
+      <div class="slab-toolbar"><div class="slab-tools"><button id="sample-chat" class="btn secondary">对话示例</button><button id="sample-agent" class="btn secondary">Agent 示例</button><button id="add-user" class="btn secondary">＋ 用户消息</button><button id="add-tool" class="btn secondary">＋ 工具结果</button><button id="edit-selection" class="btn secondary" disabled>编辑选中片段</button></div><div class="slab-display"><label>视图 <select id="view-mode"><option value="tokens">token 块</option><option value="text">连续文本</option></select></label><label>字号 <input id="font-size" type="range" min="10" max="22" value="13"><output id="font-size-value">13</output></label><button id="template-reference-open" class="btn secondary" hidden>查看模板参考</button><button id="preview" class="btn secondary">重建石板</button><button id="import-open" class="btn secondary">导入轨迹</button><button id="exit-import" class="btn secondary" hidden>退出导入</button></div></div>
+      <p id="import-warning" class="import-warning" hidden></p>
+      <div class="legend"><span data-kind="prompt">prompt</span><span data-kind="cot">CoT</span><span data-kind="call">call</span><span data-kind="observation">observation</span><span data-kind="message">message</span><span data-kind="format">格式 / 控制</span><span data-kind="mixed">跨片段</span></div>
+      <div class="slab-caption"><span id="token-caption">点击 token 查看 ID、归属与来源</span><span id="page-range">—</span></div>
+      <div id="token-grid" class="token-grid slab-grid"><p class="empty">点击「重建石板」或发起推理</p></div>
+      <pre id="slab-text" class="slab-text" hidden></pre>
+      <div id="import-grid" class="import-grid" hidden></div>
+            <div id="load-sentinel" class="load-sentinel" hidden>向下滚动加载更多 token</div>
+      <div class="pager" hidden><button id="prev-page" class="link-button">←</button><span id="page-label">—</span><button id="next-page" class="link-button">→</button></div>
+      <div class="continuation"><span class="pulse"></span><strong>模型从这里继续预测</strong><span id="continuation-index">等待输入</span></div>
+      <div class="metrics"><div><small>本地参考输入</small><strong id="local-count">—</strong><span>tokens</span></div><div><small>API 报告输入</small><strong id="provider-count">—</strong><span>tokens</span></div><div><small>上下文占用</small><strong id="context-percent">—</strong><span id="context-limit">上下文上限</span></div><div><small>续写起点</small><strong id="next-index">—</strong><span>下一位置</span></div></div>
+      <div id="composition" class="composition"></div><div id="breakdown" class="breakdown"></div>
+      <div class="slab-inspector"><div><strong>选中 token 的来源</strong><div id="token-inspector" class="inspector-body"><div class="inspector-empty">点击石板上的 token。</div></div></div><div class="inspector-footer"><strong>证据边界</strong><p id="evidence-boundary">云 API 未返回服务端实际逐 token 输入；参考分词不等于实收。</p></div></div>
+      <section id="output-card" class="slab-output"><div class="card-heading"><div><small>MODEL OUTPUT</small><h2>本次续写</h2></div><span id="finish" class="evidence">尚未调用</span></div><p id="generation-status" class="generation-status" role="status" aria-live="polite">点击「连续生成」后，这里会显示调用进度与结果。</p><div class="output-columns"><div><label>CoT · reasoning_content</label><pre id="reasoning-output">—</pre></div><div><label>message · content</label><pre id="message-output">—</pre></div></div><div id="call-output" class="tool-output" hidden><label>call · tool_calls</label><pre></pre></div><div id="candidates" class="candidates" hidden></div><details id="generated-details"><summary>响应字段重新分词的 token</summary><p class="microcopy">响应 API 未返回原始输出 token ID；这里是本地重新分词。</p><div id="generated-grid" class="token-grid small-grid"></div></details></section>
+    </section>
+    <div class="lower-panels">
+      <details class="card panel-details"><summary>消息与推理设置 <span>高级 · API JSON</span></summary><p class="card-copy">这里是发往 API 的结构化消息。下划线字段只用于本地追溯，发送时移除；云 API 模式只能修改协议允许的字段。</p><label class="field-title" for="messages">messages · JSON</label><textarea id="messages" class="editor" spellcheck="false" aria-label="可编辑消息 JSON"></textarea><div class="input-row"><label class="field-title" for="tools">tools · JSON</label><span>工具由用户手动执行并回填</span></div><textarea id="tools" class="editor tools-editor" spellcheck="false" aria-label="工具定义 JSON">[]</textarea><div class="settings"><label>思考<select id="thinking"><option value="true">开启</option><option value="false">关闭</option></select></label><label>强度<select id="effort"><option>low</option><option selected>high</option><option>max</option></select></label><label>输出上限<input id="max-tokens" type="number" min="1" max="8192" value="512"></label></div><p id="settings-note" class="microcopy"></p><details id="prefix-helper" class="prefix-helper"><summary>DeepSeek Beta · 未完成 assistant 前缀</summary><textarea id="free-prefix" class="editor" rows="4" spellcheck="false" placeholder="例如：def add(a, b):\n    return a +"></textarea><button id="set-prefix" class="btn secondary">设为待续写前缀</button></details><div class="helper-actions"><button id="adopt" class="btn secondary" disabled>把模型回答加入历史</button></div></details>
+      <details class="card panel-details"><summary>本机调用记录 <span id="history-total">0</span></summary><div id="history" class="history"><p class="empty">还没有调用记录</p></div></details>
+      <details class="card panel-details"><summary>Agent 消息流程</summary><p id="flow-scope" class="microcopy input-scope">当前编辑区 · 尚未发送</p><div id="trajectory-flow" class="trajectory-flow"><p class="empty">载入消息后显示轨迹。</p></div></details>
+      <details class="card panel-details"><summary>压缩前后</summary><div class="helper-actions"><button id="prepare-compaction" class="btn secondary">准备摘要＋保留原文</button><button id="compare" class="btn secondary">保存压缩对照</button></div><p class="card-copy">先选一条旧调用，再编辑摘要草稿并保存；只有发起下一次调用后才能证明摘要已进入输入。</p><div id="comparison" class="comparison"><p class="empty">请选择调用记录。</p></div></details>
+      <details class="card panel-details"><summary>原始轨迹 · 本次请求 / 响应 JSON</summary><pre id="raw-json">尚未有调用记录。</pre></details>
+    </div>
+  </main>
+  <dialog id="tool-dialog"><form method="dialog"><button class="dialog-close" aria-label="关闭">×</button></form><h2>回填工具结果</h2><p id="pending-tools"></p><label>工具调用 ID<select id="tool-call-id"></select></label><label>工具返回文本<textarea id="tool-result" rows="8" spellcheck="false"></textarea></label><div class="dialog-actions"><button id="save-tool" class="btn primary">添加 observation</button></div></dialog>
+  <dialog id="user-dialog"><form method="dialog"><button class="dialog-close" aria-label="关闭">×</button></form><h2>添加用户消息</h2><textarea id="new-user-text" rows="6" spellcheck="false"></textarea><div class="dialog-actions"><button id="save-user" class="btn primary">添加</button></div></dialog>
+  <dialog id="edit-dialog"><form method="dialog"><button class="dialog-close" aria-label="关闭">×</button></form><h2>编辑石板片段</h2><p id="edit-source" class="microcopy"></p><textarea id="edit-content" rows="10" spellcheck="false"></textarea><div class="dialog-actions"><button id="save-edit" class="btn primary">保存并重建</button></div></dialog>
+  <dialog id="import-dialog"><form method="dialog"><button class="dialog-close" aria-label="关闭">×</button></form><h2>导入轨迹</h2><p class="microcopy">选择带有 ATIF steps 或 messages 的 JSON。文件在浏览器本地解析。导入后可阅读轨迹字段与来源。</p><label class="local-import-label">选择本机文件<input id="local-import" type="file" accept=".json,application/json"></label><p id="import-status" class="microcopy" role="status"></p></dialog>
+  <dialog id="template-dialog"><form method="dialog"><button class="dialog-close" aria-label="关闭">×</button></form><h2>公开 chat template · 本地参考</h2><p id="template-scope" class="microcopy"></p><p id="template-markers" class="template-markers"></p><p id="template-count" class="microcopy"></p><pre id="template-text"></pre></dialog>
+  <dialog id="connection-dialog">
+    <form method="dialog"><button class="dialog-close" aria-label="关闭">×</button></form>
+    <h2>连接 DeepSeek</h2>
+    <p class="microcopy">重建石板可直接使用。生成时，当前消息和 API Key 由浏览器发送至 DeepSeek 官方接口。Key 只在当前页面的内存中保留。</p>
+    <label class="field-title" for="deepseek-key">DeepSeek API Key</label>
+    <input id="deepseek-key" class="editor api-key" type="password" autocomplete="off" spellcheck="false">
+    <div class="dialog-actions"><button id="clear-connection" type="button" class="btn secondary">断开</button><button id="save-connection" type="button" class="btn primary">使用此 Key</button></div>
+  </dialog>
+</body></html>

@@ -120,3 +120,7 @@ pre { margin: .35rem 0 0; white-space: pre-wrap; overflow-wrap: anywhere; font-s
     .block-source code { overflow-wrap: anywhere; }
     #meta { order: 1; width: 100%; }
 }
+
+.topbar .modes { display: flex; gap: .35rem; margin-right: auto; }
+.modes a { padding: .22rem .55rem; border-radius: 6px; text-decoration: none; }
+.modes a[aria-current="page"] { background: var(--accent); color: var(--bg); }

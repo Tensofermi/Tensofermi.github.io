@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="沿着彩色序列查看 AI Agent 的消息、工具调用和返回，检查每个块对应的 ATIF 字段。">
+    <title>Trajectory Lab · Agent 轨迹可视化</title>
+    <link rel="stylesheet" href="trajectory.css">
+    <script src="trajectory.js" defer></script>
+</head>
+<body>
+    <header class="topbar">
+        <a href="../../featured.html" class="back">← Featured</a>
+        <nav class="modes" aria-label="切换模式"><a href="index.html">石板</a><a href="trajectory.html" aria-current="page">轨迹</a></nav>
+        <button id="theme" type="button" aria-label="切换颜色主题">浅色</button>
+    </header>
+
+    <main>
+        <h1>一条 Agent 轨迹</h1>
+        <p class="intro">沿着消息、工具调用和返回，查看 Agent 的事件顺序。选中彩色序列上的任意一块，即可查看它在 ATIF 中的字段。</p>
+
+        <section class="source panel" aria-label="轨迹来源">
+            <div>
+                <strong id="source-name">用蒙特卡洛估算 π</strong>
+                <p id="source-note">合成 ATIF 示例，包含模拟的工具返回和 token 计数。</p>
+            </div>
+            <div class="actions">
+                <button id="sample" type="button" hidden>返回示例</button>
+                <button id="pick" class="primary" type="button">打开本机 ATIF</button>
+                <input id="file" type="file" accept=".json,application/json" hidden>
+            </div>
+        </section>
+        <p id="status" class="muted" role="status" hidden></p>
+
+        <div class="controls">
+            <nav aria-label="轨迹视图">
+                <button type="button" data-view="sequence" aria-pressed="true">归档序列</button>
+                <button type="button" data-view="analysis" aria-pressed="false">分析</button>
+            </nav>
+            <span id="meta" class="muted"></span>
+            <input id="search" type="search" aria-label="搜索轨迹块" placeholder="搜索块文本…">
+        </div>
+
+        <section id="sequence" aria-label="归档序列">
+            <nav id="legend" aria-label="按块类型筛选"></nav>
+            <nav id="ribbon" aria-label="上下文序列地图"></nav>
+            <div class="workspace">
+                <div>
+                    <ol id="stream"></ol>
+                    <p id="empty" class="panel" hidden></p>
+                    <button id="more" type="button" hidden>显示更多块</button>
+                </div>
+                <aside class="panel inspector" aria-label="选中块">
+                    <h2>选中块</h2>
+                    <div id="inspector"></div>
+                    <p class="muted">逐次模型输入以实际请求快照为准。</p>
+                </aside>
+            </div>
+        </section>
+
+        <section id="analysis" class="analysis" aria-label="轨迹分析" hidden>
+            <section class="panel">
+                <h2>归档组成</h2>
+                <p class="muted">按块的文本字符数统计。</p>
+                <div id="composition"></div>
+            </section>
+            <section class="panel">
+                <h2>上下文趋势</h2>
+                <p class="muted">每次生成的 <code>metrics.prompt_tokens</code>。横条可跳转到对应步骤。</p>
+                <div id="trend"></div>
+            </section>
+        </section>
+    </main>
+</body>
+</html>
