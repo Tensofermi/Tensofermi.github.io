@@ -13,7 +13,7 @@
 
   function call(action, args) {
     if (!worker) {
-      worker = new Worker(new URL("archive-worker.mjs", base), { type: "module" });
+      worker = new Worker(new URL("archive-worker.mjs?v=5", base), { type: "module" });
       worker.onmessage = ({ data }) => {
         const job = jobs.get(data.id);
         if (!job) return;

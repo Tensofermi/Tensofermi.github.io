@@ -17,6 +17,24 @@ SOURCE_URL = f"https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/blob/{REVI
 USER_ANCHOR = '{{- "<｜User｜>" -}}'
 
 
+def _supports_reference(model_name):
+    model = str(model_name or "").strip().lower()
+    # The public slate uses the API model name in its records and the
+    # pinned V4.1 Flash encoder for its local reconstruction.
+    return model in {"deepseek-flash", "deepseek-official/deepseek-flash"} or "deepseek-v4.1-flash" in model
+
+
+def _recorded_tools(data, agent):
+    if "tool_definitions" in agent:
+        return agent["tool_definitions"]
+    # Slate's first ATIF exporter only omitted this field for an empty tool list.
+    if (agent.get("name") == "Trajectory Lab" and agent.get("version") == "1.0"
+            and (data.get("extra") or {}).get("run_status") in
+            {"running", "completed", "stopped", "failed", "iteration_limit", "incomplete"}):
+        return []
+    return None
+
+
 def _raise(message):
     raise ValueError(message)
 
@@ -40,12 +58,11 @@ def _templates():
 
 def prefix(data, *, thinking=True, effort="max"):
     agent = data.get("agent") or {}
-    model = str(agent.get("model_name") or "").lower()
-    if "deepseek-v4.1-flash" not in model:
+    if not _supports_reference(agent.get("model_name")):
         raise ValueError("当前模板前缀参考只支持 DeepSeek V4.1 Flash")
     if effort not in {"low", "medium", "high", "max"}:
         raise ValueError("无效的参考 reasoning_effort")
-    tools = agent.get("tool_definitions")
+    tools = _recorded_tools(data, agent)
     if not isinstance(tools, list):
         raise ValueError("ATIF 未记录 agent.tool_definitions，不能推定空工具集合")
     for tool in tools:
@@ -202,11 +219,11 @@ def model_context(data, *, thinking=True, effort="max", selection="all"):
     import copy
     import re
     agent = data.get("agent") or {}
-    if "deepseek-v4.1-flash" not in str(agent.get("model_name") or "").lower():
+    if not _supports_reference(agent.get("model_name")):
         raise ValueError("模型上下文当前只支持 DeepSeek V4.1 Flash")
     if effort not in {"low", "medium", "high", "max"}:
         raise ValueError("无效的 reasoning_effort")
-    tools = copy.deepcopy(agent.get("tool_definitions"))
+    tools = copy.deepcopy(_recorded_tools(data, agent))
     if not isinstance(tools, list):
         raise ValueError("ATIF 未记录工具定义，不能推定空工具集合")
     for tool in tools:

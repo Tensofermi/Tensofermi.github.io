@@ -10,6 +10,7 @@ let tokenWindow;
 
 async function initialize() {
     const sources = modules.map((file) => [file, asset("atif/" + file)]);
+    sources.find(([name]) => name === "atif_template.py")[1].searchParams.set("v", "5");
     sources.push(["vendor/deepseek_v41_chat_template.jinja", asset("vendor/deepseek_v41_chat_template.jinja")]);
     const [py, libraries, contents] = await Promise.all([
         loadPython(),

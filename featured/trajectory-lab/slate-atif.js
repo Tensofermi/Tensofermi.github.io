@@ -129,7 +129,7 @@
             agent: {
                 name: "Trajectory Lab", version: "1.0",
                 model_name: run.turns[0]?.model,
-                ...(run.tools.length ? { tool_definitions: run.tools } : {}),
+                tool_definitions: run.tools,
             },
             steps, final_metrics,
             extra: { run_status: run.status, started_at: run.created_at, ended_at: run.ended_at, recovered: run.recovered || undefined },
