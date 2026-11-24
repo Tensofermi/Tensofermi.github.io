@@ -4,9 +4,11 @@ import { createMemory, createUsage, runAI } from './scheduler.mjs';
 import { createModelAdapter } from './model.mjs';
 import { SAVE_KEY, clearSave, readSave, writeSave } from './save.mjs';
 import { mount } from './view.mjs';
+import { Playback, readingTime } from './playback.mjs';
 
 const HUMAN = 1;
-const REVEAL_INTERVAL = 480;
+const SPEED_KEY = 'featured.werewolf.reading-speed';
+const SPEEDS = ['manual', 'auto', 'fast'];
 let state;
 let memory;
 let usage;
@@ -23,16 +25,14 @@ let testRequest;
 let testStatus = '';
 let status = '';
 let paused = false;
-let fast = false;
+let speed = readingPreference();
 let developer = false;
-let presented = null;
-let queued = [];
+let playback = new Playback();
 let timer;
 
 const ui = mount(document.getElementById('game'), {
   start, resume, clear, action: humanAction, cancel, retry, test: testConnection,
-  setFast(value) { fast = Boolean(value); if (fast) skipPlayback(); else render(); },
-  skipPlayback,
+  setSpeed, advancePlayback, skipPlayback,
   setDeveloper(value) { developer = Boolean(value); render(); },
   useLocal,
 });
@@ -51,8 +51,9 @@ function refreshSave() {
 function persist() {
   if (!state || displaced) return;
   try {
-    revision = writeSave({ state, mode, connection, memory, usage }, revision);
-    saved = { revision, state, mode, connection, memory, usage };
+    const presentation = playback.checkpoint();
+    revision = writeSave({ state, mode, connection, memory, usage, presentation }, revision);
+    saved = { revision, state, mode, connection, memory, usage, presentation };
     saveExists = true;
     saveError = '';
   } catch (error) {
@@ -66,48 +67,67 @@ function persist() {
   }
 }
 
-function resetPlayback() {
+function readingPreference() {
+  try {
+    const stored = localStorage.getItem(SPEED_KEY);
+    return SPEEDS.includes(stored) ? stored : 'manual';
+  } catch { return 'manual'; }
+}
+
+function setSpeed(value) {
+  if (!SPEEDS.includes(value)) return;
+  speed = value;
+  try { localStorage.setItem(SPEED_KEY, speed); } catch { /* The current page still uses the selection. */ }
+  if (speed === 'fast') skipPlayback();
+  else { clearTimeout(timer); timer = undefined; schedulePlayback(); render(); }
+}
+
+function resetPlayback(checkpoint = null) {
   clearTimeout(timer);
   timer = undefined;
-  queued = [];
-  presented = state ? observe(state, HUMAN) : null;
+  playback = new Playback(state ? observe(state, HUMAN) : null, checkpoint);
+  if (speed === 'fast') playback.skip();
+  schedulePlayback();
 }
 
 function skipPlayback() {
-  resetPlayback();
-  render();
-}
-
-function revealNext() {
+  clearTimeout(timer);
   timer = undefined;
-  if (queued.length) presented = queued.shift();
-  if (queued.length) timer = setTimeout(revealNext, REVEAL_INTERVAL);
+  if (playback.queue.length) {
+    playback.skip();
+    persist();
+  }
   render();
 }
 
-function updatePlayback() {
-  const view = observe(state, HUMAN);
-  const previous = queued.at(-1) ?? presented;
-  const speech = view.events.slice(previous?.events.length ?? 0)
-    .concat(view.privateEvents.slice(previous?.privateEvents.length ?? 0))
-    .some(event => ['speak', 'wolf_chat', 'last_words'].includes(event.kind));
-  if (fast || !previous) {
-    presented = view;
-  } else if (queued.length) {
-    if (speech) queued.push(view);
-    else queued[queued.length - 1] = view;
-  } else if (speech) {
-    queued.push(view);
-    timer = setTimeout(revealNext, REVEAL_INTERVAL);
-  } else presented = view;
+function advancePlayback() {
+  clearTimeout(timer);
+  timer = undefined;
+  if (playback.queue.length) {
+    playback.advance();
+    persist();
+  }
+  schedulePlayback();
   render();
+}
+
+function schedulePlayback() {
+  if (speed === 'auto' && timer === undefined && playback.queue.length && !document.hidden) {
+    timer = setTimeout(advancePlayback, readingTime(playback.cue));
+  }
+}
+
+function updatePlayback(ownAction = false) {
+  playback.push(observe(state, HUMAN), ownAction);
+  if (speed === 'fast') playback.skip();
+  schedulePlayback();
 }
 
 function render() {
-  const playing = queued.length > 0;
-  const visible = playing && presented ? { ...presented, legal: null } : presented;
+  const playing = playback.queue.length > 0;
+  const visible = playing ? { ...playback.view, legal: null } : playback.view;
   const canReview = Boolean(state?.winner && !playing) || developer;
-  const feedback = saveError || status || (playing ? '正在播放桌上的发言。' : '');
+  const feedback = saveError || status || (playing && speed === 'manual' ? '读完后再继续。' : '');
   const observations = canReview && memory ? Object.fromEntries(Object.entries(memory.bySeat)
     .filter(([, seat]) => seat.observation).map(([id, seat]) => [id, seat.observation])) : null;
   ui.render({
@@ -116,7 +136,9 @@ function render() {
     busy: Boolean(request), paused, hasSave: saveExists, canResume: Boolean(saved), mode,
     resumeNeedsKey: Boolean((!state && saved?.mode === 'model' && !saved.state.winner) || (state && paused && mode === 'model' && !adapter)),
     savedConnection: saved?.connection ?? null, status: feedback, testStatus, testing: Boolean(testRequest),
-    usage: canReview ? usage : null, fast, developer, playing,
+    usage: canReview ? usage : null, speed, developer, playing,
+    playbackCue: playback.cue, nextLabel: playback.queue[0]?.cue.next ?? '继续',
+    pendingFrames: playback.queue.length,
   });
 }
 
@@ -133,7 +155,7 @@ function configure(config) {
 function start(config) {
   try {
     const chosen = config.mode === 'model' ? configure(config) : { adapter: undefined, connection: null };
-    const started = newGame({ humanRole: config.humanRole || undefined });
+    const started = newGame({ humanRole: config.humanRole || undefined, size: config.size, avatar: config.avatar });
     cancelRequests();
     state = started;
     mode = config.mode === 'model' ? 'model' : 'local';
@@ -145,8 +167,8 @@ function start(config) {
     displaced = false;
     developer = false;
     status = '';
-    persist();
     resetPlayback();
+    persist();
     render();
     void drive();
   } catch (error) {
@@ -182,7 +204,7 @@ function resume(config) {
   displaced = false;
   developer = false;
   status = paused ? '请重新连接模型，或切换到本地机器人继续。' : '';
-  resetPlayback();
+  resetPlayback(saved.presentation);
   render();
   if (!paused) void drive();
 }
@@ -219,7 +241,7 @@ function clear() {
 }
 
 function humanAction(payload, expectedActionId) {
-  if (!state || state.winner || request || displaced || queued.length || paused) return false;
+  if (!state || state.winner || request || displaced || playback.queue.length || paused) return false;
   const option = pending(state).find(action => action.actor === HUMAN);
   if (!option || expectedActionId !== option.id) return false;
   if (!validate(state, option, payload)) {
@@ -229,8 +251,9 @@ function humanAction(payload, expectedActionId) {
   }
   state = submit(state, option, payload);
   status = '';
+  updatePlayback(true);
   persist();
-  updatePlayback();
+  render();
   void drive();
   return true;
 }
@@ -273,8 +296,9 @@ async function drive() {
       commit: (action, payload) => {
         if (request !== active || active.signal.aborted || !validate(state, action, payload)) return false;
         state = submit(state, action, payload);
-        persist();
         updatePlayback();
+        persist();
+        render();
         return true;
       },
       onProgress: () => { if (request === active) { persist(); render(); } },
@@ -314,6 +338,13 @@ async function testConnection(config) {
     if (testRequest === active) { testRequest = undefined; render(); }
   }
 }
+
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    clearTimeout(timer);
+    timer = undefined;
+  } else schedulePlayback();
+});
 
 window.addEventListener('storage', event => {
   if (event.key !== SAVE_KEY && event.key !== null) return;

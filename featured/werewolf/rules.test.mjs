@@ -1,11 +1,16 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import { newGame, pending, restoreState, submit, validate } from './rules.mjs'
-import { ROLES } from './roles.mjs'
+import { BOARDS } from './roles.mjs'
 import { observe, reveal } from './visibility.mjs'
 
 const fixed = (humanRole = 'villager') => newGame({ humanRole, seed: 7103 })
 const roleSeat = (state, role) => state.seats.find(player => player.role === role).id
+const legacyId = '00000000-0000-4000-8000-000000000001'
+
+function legacyState(seed, journal = []) {
+  return restoreState({ version: 1, gameId: legacyId, seed, humanRole: 'villager', journal })
+}
 
 function resolvePhase(state, decide) {
   const phaseId = state.phase.id
@@ -29,16 +34,30 @@ function exile(state, target) {
   return resolvePhase(state, action => ({ target: action.targets.includes(target) ? target : action.targets[0] }))
 }
 
-test('9 valid roles, with independent personality and role distributions', () => {
-  const expected = ['hunter', 'seer', 'villager', 'villager', 'villager', 'witch', 'wolf', 'wolf', 'wolf']
-  const roleOptions = [undefined, 'wolf', 'villager', 'seer', 'witch', 'hunter']
-  const baseline = newGame({ seed: 44 }).seats.map(player => player.personality)
-  for (const humanRole of roleOptions) {
-    const state = newGame({ seed: 44, humanRole })
-    assert.deepEqual(state.seats.map(player => player.role).sort(), expected)
-    assert.deepEqual(state.seats.map(player => player.personality), baseline)
-    if (humanRole) assert.equal(state.seats[0].role, humanRole)
+test('valid role counts and independently dealt characters on all boards', () => {
+  const expectedCounts = { 6: [2, 2, 1, 1, 0], 9: [3, 3, 1, 1, 1], 12: [4, 5, 1, 1, 1] }
+  const roles = ['wolf', 'villager', 'seer', 'witch', 'hunter']
+  for (const [board, counts] of Object.entries(expectedCounts)) {
+    const size = Number(board)
+    const roleOptions = [undefined, ...roles.filter((_, index) => counts[index])]
+    const baseline = newGame({ seed: 44, size }).seats.map(player => [player.characterId, player.personality])
+    for (const humanRole of roleOptions) {
+      const state = newGame({ seed: 44, size, humanRole })
+      assert.equal(state.seats.length, size)
+      assert.deepEqual(roles.map(role => state.seats.filter(player => player.role === role).length), counts)
+      assert.deepEqual(state.seats.map(player => [player.characterId, player.personality]), baseline)
+      assert.equal(new Set(state.seats.map(player => player.characterId)).size, size)
+      if (humanRole) assert.equal(state.seats[0].role, humanRole)
+      const alternateAvatar = newGame({ seed: 44, size, humanRole, avatar: 'plain' })
+      assert.notEqual(alternateAvatar.seats[0].characterId, state.seats[0].characterId)
+      assert.deepEqual(alternateAvatar.seats.slice(1), state.seats.slice(1))
+      assert.deepEqual(restoreState(JSON.parse(JSON.stringify(state))), state)
+    }
   }
+  assert.throws(() => newGame({ size: 6, humanRole: 'hunter' }))
+  assert.throws(() => newGame({ size: 7 }))
+  assert.throws(() => newGame({ size: '9' }))
+  assert.throws(() => newGame({ avatar: ['plain'] }))
 })
 
 test('wolves, seer, and witch each receive distinct scoped facts', () => {
@@ -204,26 +223,30 @@ test('invalid and repeated actions are rejected, and saves replay the authoritat
 })
 
 test('the same legal action protocol reaches a terminal and replayable game', () => {
-  for (const humanRole of Object.keys(ROLES)) {
-    let state = fixed(humanRole)
-    for (let attempts = 0; attempts < 200 && !state.winner; attempts++) {
-      const [action] = pending(state)
-      const payload = action.maxLength ? { text: '' }
-        : action.kind === 'use_potion' ? { potion: 'pass' }
-          : { target: action.targets[0] ?? null }
-      state = submit(state, action, payload)
+  for (const [board, counts] of Object.entries(BOARDS)) {
+    const size = Number(board)
+    const roles = Object.keys(counts).filter(role => counts[role])
+    for (const humanRole of roles) {
+      let state = newGame({ size, humanRole, seed: 7103 })
+      for (let attempts = 0; attempts < 300 && !state.winner; attempts++) {
+        const [action] = pending(state)
+        const payload = action.maxLength ? { text: '' }
+          : action.kind === 'use_potion' ? { potion: 'pass' }
+            : { target: action.targets[0] ?? null }
+        state = submit(state, action, payload)
+      }
+      assert.ok(state.winner, size + ' seats, ' + humanRole)
+      assert.deepEqual(pending(state), [])
+      assert.equal(reveal(state).seats.length, size)
+      assert.equal(observe(state, 1).seats.filter(player => Object.hasOwn(player, 'role')).length, size)
+      assert.deepEqual(restoreState(JSON.parse(JSON.stringify(state))), state)
     }
-    assert.ok(state.winner)
-    assert.deepEqual(pending(state), [])
-    assert.equal(reveal(state).seats.length, 9)
-    assert.equal(observe(state, 1).seats.filter(player => Object.hasOwn(player, 'role')).length, 9)
-    assert.deepEqual(restoreState(JSON.parse(JSON.stringify(state))), state)
   }
 })
 
 test('public evidence IDs reveal no differences in a hidden action history', () => {
   function playToSecondDay(seed) {
-    let state = newGame({ seed, humanRole: 'villager' })
+    let state = legacyState(seed)
     state = finishNight(state, 2)
     state = resolvePhase(state, () => ({ potion: 'pass' }))
     state = exile(state, 3)
@@ -239,4 +262,51 @@ test('public evidence IDs reveal no differences in a hidden action history', () 
   assert.deepEqual(observe(earlyWitchDeath, 1).events, observe(livingWitch, 1).events)
   const events = observe(livingWitch, 1).events
   assert.ok(events.every((event, index) => event.id === 'p:' + (index + 1)))
+})
+
+test('version 1 action journal replays with original cast and speaking order', () => {
+  const journal = [
+    [':1/3/wolf_chat', { text: '席位3' }],
+    [':1/4/wolf_chat', { text: '席位4' }],
+    [':1/7/wolf_chat', { text: '席位7' }],
+    [':2/3/wolf_kill', { target: 1 }],
+    [':2/4/wolf_kill', { target: 1 }],
+    [':2/7/wolf_kill', { target: 1 }],
+    [':3/2/inspect', { target: 1 }],
+    [':4/5/use_potion', { potion: 'pass' }],
+    [':5/2/speak', { text: '席位2' }],
+    [':5/3/speak', { text: '席位3' }],
+  ].map(([suffix, payload]) => ({ id: legacyId + suffix, payload }))
+  const state = legacyState(7103, journal)
+  assert.equal(state.version, 1)
+  assert.deepEqual(state.seats.map(player => player.name), ['你', '阿岚', '青禾', '松声', '小满', '夜舟', '栗子', '北辰', '白露'])
+  assert.deepEqual(state.seats.map(player => player.role), ['villager', 'seer', 'wolf', 'wolf', 'witch', 'villager', 'wolf', 'villager', 'hunter'])
+  assert.equal(pending(state)[0].actor, 4)
+  assert.equal(observe(state, 1).self.characterId, undefined)
+  assert.deepEqual(restoreState(JSON.parse(JSON.stringify(state))), state)
+})
+
+test('seeded speaking orders resume and reveal only the permitted speaker', () => {
+  let state = fixed('villager')
+  const wolves = state.seats.filter(player => player.role === 'wolf').map(player => player.id)
+  assert.deepEqual([...state.phase.actors].sort((a, b) => a - b), wolves)
+  assert.notDeepEqual(state.phase.actors, wolves)
+  const initial = pending(state)[0]
+  assert.equal(observe(state, 1).speaker, undefined)
+  assert.equal(observe(state, initial.actor).speaker, initial.actor)
+  state = submit(state, initial, { text: '确认商议' })
+  assert.deepEqual(restoreState(JSON.parse(JSON.stringify(state))), state)
+  assert.deepEqual(state.phase.actors, fixed('villager').phase.actors)
+  const victim = roleSeat(state, 'villager')
+  state = finishNight(state, victim)
+  state = resolvePhase(state, () => ({ potion: 'pass' }))
+  const firstDay = observe(state, 1).events.find(event => event.phase === 'day_discussion')
+  assert.deepEqual(firstDay.order, state.phase.actors)
+  assert.notDeepEqual(firstDay.order, [...firstDay.order].sort((a, b) => a - b))
+  assert.equal(observe(state, 1).speaker, firstDay.order[0])
+  assert.ok(!firstDay.order.includes(victim))
+  const speech = pending(state)[0]
+  state = submit(state, speech, { text: '第一个发言。' })
+  assert.deepEqual(restoreState(JSON.parse(JSON.stringify(state))), state)
+  assert.equal(observe(state, 1).speaker, firstDay.order[1])
 })

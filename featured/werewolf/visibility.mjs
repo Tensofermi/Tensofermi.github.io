@@ -28,7 +28,8 @@ function publicEvents(state) {
 export function observe(state, seatId, action) {
   const player = state.seats[seatId - 1]
   if (!Number.isInteger(seatId) || !player) throw new Error('未知席位')
-  const current = pending(state).find(candidate => candidate.actor === seatId)
+  const actions = pending(state)
+  const current = actions.find(candidate => candidate.actor === seatId)
   const legal = action === undefined ? current : current && action?.id === current.id ? current : undefined
   const night = state.night
   const wolves = player.role === 'wolf' ? state.seats.filter(other => other.id !== seatId && other.role === 'wolf') : []
@@ -39,6 +40,7 @@ export function observe(state, seatId, action) {
     name: player.name,
     role: player.role,
     alive: player.alive || (!!temporarilyPublicAlive(seatId) && legal?.kind !== 'shoot'),
+    ...(player.characterId ? { characterId: player.characterId } : {}),
     personality: { ...player.personality },
   }
   if (self.role === 'wolf') self.teammates = teammates
@@ -46,6 +48,8 @@ export function observe(state, seatId, action) {
   let phase = state.phase.kind
   if (night) phase = legal?.kind === 'shoot' ? 'shoot' : 'night'
   else if (phase === 'day_hunter') phase = legal?.kind === 'shoot' ? 'shoot' : 'last_words'
+  const speaker = phase === 'day_discussion' ? actions[0]?.actor
+    : legal?.kind === 'wolf_chat' ? seatId : undefined
   const privateEvents = state.events.filter(event => Array.isArray(event.visibility) && event.visibility.includes(seatId))
     .map((event, index) => copyEvent(event, 's:' + (index + 1)))
   if (legal?.kind === 'use_potion' && legal.victim !== null) privateEvents.push(privateWitchVictim(state, seatId, legal.victim))
@@ -56,12 +60,14 @@ export function observe(state, seatId, action) {
         id: other.id,
         name: other.name,
         alive: other.id === seatId ? self.alive : other.alive || !!temporarilyPublicAlive(other.id),
+        ...(other.characterId ? { characterId: other.characterId } : {}),
       }
       if (other.id === seatId || teammates.includes(other.id) || state.winner) entry.role = other.role
       return entry
     }),
     day: state.day,
     phase,
+    ...(speaker === undefined ? {} : { speaker }),
     events: publicEvents(state),
     privateEvents,
     legal: legal ? structuredClone(legal) : null,

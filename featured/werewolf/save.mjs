@@ -1,4 +1,5 @@
 import { restoreState } from './rules.mjs';
+import { validateCheckpoint } from './playback.mjs';
 
 export const SAVE_KEY = 'featured.werewolf.save';
 const VERSION = 1;
@@ -15,7 +16,7 @@ export function readSave(storage = localStorage) {
   const connection = save.mode === 'model' ? validateConnection(save.connection) : null;
   return {
     revision: save.revision, state: restoreState(save.state), mode: save.mode,
-    connection, memory: save.memory, usage: save.usage,
+    connection, memory: save.memory, usage: save.usage, presentation: validateCheckpoint(save.presentation),
   };
 }
 
@@ -29,7 +30,7 @@ function validateConnection(connection) {
   return { baseUrl: destination.href, model: connection.model };
 }
 
-export function writeSave({ state, mode, connection, memory, usage }, expectedRevision, storage = localStorage) {
+export function writeSave({ state, mode, connection, memory, usage, presentation }, expectedRevision, storage = localStorage) {
   const old = storage.getItem(SAVE_KEY);
   if (expectedRevision !== null && JSON.parse(old ?? 'null')?.revision !== expectedRevision) {
     throw new Error('存档已在另一个页面更新。请重新读取存档。');
@@ -45,7 +46,7 @@ export function writeSave({ state, mode, connection, memory, usage }, expectedRe
   }
   const revision = previousRevision + 1;
   const savedConnection = mode === 'model' ? validateConnection(connection) : null;
-  storage.setItem(SAVE_KEY, JSON.stringify({ version: VERSION, revision, state, mode, connection: savedConnection, memory, usage }));
+  storage.setItem(SAVE_KEY, JSON.stringify({ version: VERSION, revision, state, mode, connection: savedConnection, memory, usage, presentation }));
   return revision;
 }
 

@@ -2,7 +2,9 @@ import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import { test } from 'node:test';
 import { buildRequest, localDecision, parseDecision, updateMemory } from './ai.mjs';
+import { CHARACTERS, HUMAN_AVATARS, characterById, characterLine } from './characters.mjs';
 import { completionEndpoint, createModelAdapter } from './model.mjs';
+import { BOARDS, ROLES } from './roles.mjs';
 import { createMemory, createUsage, runAI } from './scheduler.mjs';
 import { newGame, pending, submit, validate } from './rules.mjs';
 import { observe } from './visibility.mjs';
@@ -84,6 +86,35 @@ test('local bot reacts to repeated public suspicion from the human', () => {
     id: 'human-' + index, day: 1, kind: 'speak', seat: 1, text: '我明确怀疑' + other + '号，跟前一轮的理由不一致。',
   }));
   assert.equal(localDecision(view).target, other);
+});
+
+test('model instructions use the actual board and the human host frame', () => {
+  for (const size of [6, 9, 12]) {
+    const game = newGame({ size, seed: 52, humanRole: 'villager', avatar: 'lumine' });
+    const [action] = pending(game);
+    const view = observe(game, action.actor, action);
+    const [system, data] = buildRequest(view);
+    assert.match(system.content, /荧邀几位朋友围桌玩狼人杀/);
+    assert.ok(system.content.includes(size + ' 人狼人杀'));
+    for (const [role, count] of Object.entries(BOARDS[size])) {
+      if (count) assert.ok(system.content.includes(ROLES[role].name + ' ' + count + ' 位'));
+      else assert.ok(!system.content.includes(ROLES[role].name));
+    }
+    assert.equal(JSON.parse(data.content).self.personality.voice, view.self.personality.voice);
+  }
+});
+
+test('every named character produces a distinct original line in each speech phase', () => {
+  assert.equal(CHARACTERS.length, 11);
+  assert.equal(HUMAN_AVATARS.lumine.name, '荧');
+  assert.equal(characterById('retired'), null);
+  for (const kind of ['speak', 'wolf_chat', 'last_words']) {
+    for (const turn of [1, 2]) {
+      const lines = CHARACTERS.map(character => characterLine({ characterId: character.id }, '4号', kind, turn));
+      assert.equal(new Set(lines).size, 11);
+      assert.ok(lines.every(line => line.includes('4号') && !line.includes('{target}')));
+    }
+  }
 });
 
 test('repairs one bad JSON action, counts requests immediately, and falls back once budget is spent', async () => {

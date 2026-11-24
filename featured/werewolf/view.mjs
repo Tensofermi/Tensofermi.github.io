@@ -1,4 +1,5 @@
-import { ROLES, RULES, SEAT_NAMES, SPEECH_LIMITS } from './roles.mjs'
+import { BOARDS, ROLES, RULES, SPEECH_LIMITS } from './roles.mjs'
+import { CHARACTERS, HUMAN_AVATARS, characterById } from './characters.mjs'
 import { completionEndpoint, DEFAULT_MODEL_SETTINGS } from './model.mjs'
 
 const PHASE_NAMES = {
@@ -26,9 +27,49 @@ const ACTION_HELP = {
 }
 const TARGET_CTA = { vote: '投票', wolf_kill: '确认选刀', inspect: '确认查验', shoot: '开枪', use_potion: '使用毒药' }
 const NIGHT_EVENTS = new Set(['wolf_chat', 'wolf_kill', 'inspect', 'witch_target', 'use_potion', 'night_death'])
-const LOCAL_SEATS = Array.from({ length: 9 }, (_, index) => ({
-    id: index + 1, name: index === 0 ? '你' : (SEAT_NAMES[index] ?? '空席'), alive: true,
-}))
+const SPEECH_EVENTS = new Set(['speak', 'wolf_chat', 'last_words'])
+const BOARD_ROLE_NAMES = { wolf: '狼', villager: '民' }
+const AVATAR_STORAGE = 'featured.werewolf.portraits-v1'
+const AVATAR_FILE_TYPES = new Set(['image/png', 'image/jpeg', 'image/webp'])
+const MAX_AVATAR_SIZE = 4 * 1024 * 1024
+const allPortraits = [...Object.values(HUMAN_AVATARS), ...CHARACTERS]
+
+function readPortraits() {
+    try {
+        const saved = JSON.parse(localStorage.getItem(AVATAR_STORAGE) ?? '{}')
+        return new Map(allPortraits.flatMap(({ id }) => {
+            const url = saved?.[id]
+            return typeof url === 'string' && url.length <= 120000 && /^data:image\/(?:webp|png|jpeg);base64,[a-z\d+/]+=*$/i.test(url)
+                ? [[id, url]] : []
+        }))
+    } catch { return new Map() }
+}
+
+async function decodePortrait(file) {
+    if (!AVATAR_FILE_TYPES.has(file.type) || !file.size || file.size > MAX_AVATAR_SIZE) {
+        throw new Error('请选择 4 MB 以内的 PNG、JPG 或 WebP 图片。')
+    }
+    const url = URL.createObjectURL(file)
+    try {
+        const image = new Image()
+        image.src = url
+        await image.decode()
+        const { naturalWidth: width, naturalHeight: height } = image
+        if (!width || !height || width * height > 16000000) throw new Error('请选用分辨率较低的图片。')
+        const crop = Math.min(width, height)
+        const canvas = document.createElement('canvas')
+        canvas.width = canvas.height = 128
+        canvas.getContext('2d').drawImage(image, (width - crop) / 2, (height - crop) / 2, crop, crop, 0, 0, 128, 128)
+        return canvas.toDataURL('image/webp', 0.86)
+    } finally { URL.revokeObjectURL(url) }
+}
+
+function lobbySeats(size, avatar) {
+    return Array.from({ length: size }, (_, index) => {
+        const profile = index === 0 ? HUMAN_AVATARS[avatar] : CHARACTERS[index - 1]
+        return { id: index + 1, name: profile.name, alive: true, characterId: profile.id }
+    })
+}
 
 function element(tag, content, className) {
     const node = document.createElement(tag)
@@ -58,13 +99,20 @@ function seatLabel(seats, id) {
     return player.id + ' 号 ' + player.name
 }
 
-function timelineEntry(event, seats, privately) {
+function timelineEntry(event, seats, privately, drawPortrait) {
     const row = element('article', undefined, 'feed-entry')
     if (privately) row.dataset.kind = 'private'
     const heading = element('div', undefined, 'event-heading')
-    const byline = event.seat && ['speak', 'wolf_chat', 'last_words'].includes(event.kind)
-        ? seatLabel(seats, event.seat) : (EVENT_NAMES[event.kind] ?? '牌局记录')
-    heading.append(element('strong', byline))
+    const speaker = SPEECH_EVENTS.has(event.kind) && seats.find(seat => seat.id === event.seat)
+    const byline = element('div', undefined, 'event-byline')
+    if (speaker) {
+        const portrait = element('div', undefined, 'avatar')
+        portrait.setAttribute('aria-hidden', 'true')
+        drawPortrait(portrait, speaker)
+        byline.append(portrait)
+    }
+    byline.append(element('strong', speaker ? seatLabel(seats, event.seat) : EVENT_NAMES[event.kind] ?? '牌局记录'))
+    heading.append(byline)
     const category = NIGHT_EVENTS.has(event.kind) || event.phase === 'night' ? '夜' : '轮'
     heading.append(element('span', event.day ? '第 ' + event.day + ' ' + category + (privately ? ' · 私密' : '') : ''))
     row.append(heading, element('p', event.text))
@@ -91,7 +139,7 @@ function resultLabel(winner) {
 export function mount(root, handlers) {
     const get = id => root.querySelector('#' + id)
     const nodes = Object.fromEntries([
-        'fast', 'speed-control', 'table', 'phase-label', 'phase-count', 'seats', 'role-panel', 'role-name',
+        'playback-speed', 'speed-control', 'table', 'phase-label', 'phase-count', 'seats', 'role-panel', 'role-name',
         'role-state', 'role-desc', 'role-tools', 'turn-panel', 'turn-title', 'turn-help', 'turn-actions',
         'speech-form', 'speech', 'speech-count', 'speak', 'skip-speech', 'target-form', 'target', 'target-submit',
         'target-pass', 'potions', 'potion-save', 'potion-poison', 'skip', 'cancel', 'retry', 'use-local',
@@ -99,7 +147,11 @@ export function mount(root, handlers) {
         'model', 'key', 'test', 'test-status', 'destination', 'setup-role', 'human-role', 'start', 'saved-controls',
         'resume', 'clear', 'back-setup', 'setup-status', 'archive', 'mode-label', 'archive-tabs', 'feed-private',
         'feed-recap', 'feed', 'archive-footer', 'stats', 'developer', 'developer-check', 'observations',
-        'rules-dialog', 'rules-list', 'clear-dialog', 'new-game', 'reconnect', 'replace-notice',
+        'rules-dialog', 'rules-title', 'rules-list', 'clear-dialog', 'new-game', 'reconnect', 'replace-notice',
+        'board-size', 'lineup', 'human-avatar', 'human-avatar-preview', 'role-avatar', 'avatar-character', 'avatar-file',
+        'avatar-image-preview', 'avatar-status', 'avatar-customize', 'restore-avatar', 'advance-playback', 'playback-avatar',
+        'playback', 'playback-title', 'playback-detail', 'playback-actions', 'playback-count', 'invitation',
+        'friends-dialog', 'friend-profile', 'friend-avatar', 'friend-name', 'friend-traits', 'friend-voice',
     ].map(id => [id, get(id)]))
     const $ = id => nodes[id]
     let displayed = {}
@@ -114,37 +166,139 @@ export function mount(root, handlers) {
     let configuringNew = false
     let previousView
     let lastWolfAction
+    let friendChoices = []
+    let renderedSize = 0
+    let seatElements = []
+    const portraits = readPortraits()
+    const portraitSnapshots = new WeakMap()
+    const portraitById = new Map(allPortraits.map(profile => [profile.id, profile]))
 
     const radio = value => root.querySelector('input[name=mode][value=' + value + ']')
     $('base-url').value = DEFAULT_MODEL_SETTINGS.baseUrl
     $('model').value = DEFAULT_MODEL_SETTINGS.model
-    for (const [id, role] of Object.entries(ROLES)) $('human-role').append(option(role.name, id))
+    for (const profile of Object.values(HUMAN_AVATARS)) $('human-avatar').append(option(profile.name, profile.id))
+    $('human-avatar').value = 'lumine'
+    for (const profile of allPortraits) $('avatar-character').append(option(profile.name, profile.id))
     for (const [heading, explanation] of RULES) $('rules-list').append(element('dt', heading), element('dd', explanation))
 
-    const seatElements = LOCAL_SEATS.map(({ id }, index) => {
-        const item = element('li', undefined, 'seat')
-        const angle = Math.PI / 2 + index * Math.PI * 2 / LOCAL_SEATS.length
-        item.style.setProperty('--x', (50 + 38 * Math.cos(angle)) + '%')
-        item.style.setProperty('--y', (50 + 39 * Math.sin(angle)) + '%')
-        const button = element('button', undefined, 'seat-button')
-        button.type = 'button'
-        button.dataset.seat = id
-        const number = element('span', id, 'seat-number')
-        number.setAttribute('aria-hidden', 'true')
-        const copy = element('span', undefined, 'seat-content')
-        const name = element('span', undefined, 'seat-name')
-        const note = element('span', undefined, 'seat-note')
-        note.setAttribute('aria-hidden', 'true')
-        copy.append(name, note)
-        button.append(number, copy)
-        item.append(button)
-        $('seats').append(item)
-        return { button, name, note }
-    })
+    function drawPortrait(node, profile) {
+        const imageUrl = portraits.get(profile.id)
+        const key = [profile.id, profile.icon, profile.accent, imageUrl]
+        const previous = portraitSnapshots.get(node)
+        if (previous?.every((value, index) => value === key[index])) return
+        portraitSnapshots.set(node, key)
+        node.style.setProperty('--portrait', profile.accent || '#d9b987')
+        if (imageUrl) {
+            const image = element('img')
+            image.src = imageUrl
+            image.alt = ''
+            node.replaceChildren(image)
+        } else text(node, profile.icon)
+    }
+
+    function drawSeatPortrait(node, seat) {
+        const profile = seat.characterId && (portraitById.get(seat.characterId) ?? characterById(seat.characterId))
+        drawPortrait(node, profile || { id: '', icon: Array.from(seat.name)[0] ?? '席' })
+    }
+
+    function allocateSeats(size) {
+        if (size === renderedSize) return
+        renderedSize = size
+        $('table').dataset.size = size
+        const seats = document.createDocumentFragment()
+        seatElements = Array.from({ length: size }, (_, index) => {
+            const id = index + 1
+            const item = element('li', undefined, 'seat')
+            const angle = Math.PI / 2 + index * Math.PI * 2 / size
+            item.style.setProperty('--x', (50 + 38 * Math.cos(angle)) + '%')
+            item.style.setProperty('--y', (50 + 39 * Math.sin(angle)) + '%')
+            const button = element('button', undefined, 'seat-button')
+            button.type = 'button'
+            button.dataset.seat = id
+            const token = element('span', undefined, 'seat-token')
+            const portrait = element('span', undefined, 'avatar')
+            const number = element('span', id, 'seat-number')
+            token.setAttribute('aria-hidden', 'true')
+            token.append(portrait, number)
+            const copy = element('span', undefined, 'seat-content')
+            const name = element('span', undefined, 'seat-name')
+            const note = element('span', undefined, 'seat-note')
+            note.setAttribute('aria-hidden', 'true')
+            copy.append(name, note)
+            button.append(token, copy)
+            item.append(button)
+            seats.append(item)
+            return { button, name, note, portrait }
+        })
+        $('seats').replaceChildren(seats)
+    }
+
+    function updateBoardSetup() {
+        const size = Number($('board-size').value)
+        const role = $('human-role').value
+        const choices = Object.entries(BOARDS[size]).filter(([, count]) => count > 0)
+        $('human-role').replaceChildren(option('随机抽取', ''), ...choices.map(([id]) => option(titleOf(id), id)))
+        $('human-role').value = choices.some(([id]) => id === role) ? role : ''
+        drawPortrait($('human-avatar-preview'), HUMAN_AVATARS[$('human-avatar').value])
+    }
+
+    function lineup(size) {
+        return Object.entries(BOARDS[size]).filter(([, count]) => count > 0)
+            .map(([role, count]) => BOARD_ROLE_NAMES[role] ? count + ' ' + BOARD_ROLE_NAMES[role] : titleOf(role))
+            .join(' · ')
+    }
+
+    function updateAvatarSetup() {
+        const profile = portraitById.get($('avatar-character').value)
+        if (!profile) return
+        drawPortrait($('avatar-image-preview'), profile)
+        $('restore-avatar').disabled = !portraits.has(profile.id)
+    }
+
+    function storePortrait(profile, data) {
+        const next = new Map(portraits)
+        if (data) next.set(profile.id, data)
+        else next.delete(profile.id)
+        localStorage.setItem(AVATAR_STORAGE, JSON.stringify(Object.fromEntries(next)))
+        if (data) portraits.set(profile.id, data)
+        else portraits.delete(profile.id)
+        updateAvatarSetup()
+        updateBoardSetup()
+        render(displayed)
+    }
+
+    function showFriend() {
+        const profile = friendChoices[Number($('friend-profile').value)]
+        $('friend-traits').replaceChildren()
+        $('friend-voice').hidden = !profile?.personality.voice
+        $('friend-avatar').hidden = !profile
+        text($('friend-name'), profile?.name)
+        if (!profile) return
+        drawPortrait($('friend-avatar'), profile)
+        const { tone, risk, habit, voice } = profile.personality
+        for (const [heading, detail] of [['语气', tone], ['风险偏好', risk], ['观察习惯', habit]]) {
+            if (detail) $('friend-traits').append(element('dt', heading), element('dd', detail))
+        }
+        if (voice) text($('friend-voice'), voice.replaceAll('{target}', '三号'))
+    }
+
+    function openFriends() {
+        const seats = configuringNew ? null : displayed.view?.seats
+        friendChoices = seats ? seats.slice(1).map(seat => {
+            return portraitById.get(seat.characterId) ?? {
+                id: '', name: seat.name, icon: Array.from(seat.name)[0], personality: {},
+            }
+        }) : CHARACTERS
+        $('friend-profile').replaceChildren(...friendChoices.map((person, index) => option(person.name, index)))
+        showFriend()
+        $('friends-dialog').showModal()
+    }
 
     function settings() {
         return {
             mode: radio('model').checked ? 'model' : 'local',
+            size: Number($('board-size').value),
+            avatar: $('human-avatar').value,
             humanRole: $('human-role').value || undefined,
             baseUrl: $('base-url').value,
             model: $('model').value,
@@ -158,6 +312,7 @@ export function mount(root, handlers) {
         for (const input of $('connection').querySelectorAll('input')) input.disabled = !model
         $('mode-options').hidden = pendingResume
         $('setup-role').hidden = pendingResume
+        $('avatar-customize').hidden = pendingResume
         $('resume').hidden = !displayed.canResume || pendingResume || configuringNew
         $('clear').hidden = !displayed.hasSave || pendingResume
         $('back-setup').hidden = !(pendingResume || configuringNew)
@@ -184,22 +339,26 @@ export function mount(root, handlers) {
     }
 
     function showSeats(view) {
-        const list = view?.seats ?? LOCAL_SEATS
+        const list = view?.seats ?? lobbySeats(Number($('board-size').value), $('human-avatar').value)
+        allocateSeats(list.length)
+        const cue = displayed.playbackCue
+        const speaker = displayed.playing && cue?.kind === 'speech' ? cue.seat : view?.speaker
         const available = availableTargets(view?.legal)
         const disabled = actionDisabled()
         list.forEach((seat, index) => {
-            const { button, name, note } = seatElements[index]
+            const { button, name, note, portrait } = seatElements[index]
             const isSelf = seat.id === view?.self.id || (!view && seat.id === 1)
             const target = !disabled && available.includes(seat.id)
             const labels = [isSelf ? '你' : '', seat.role ? titleOf(seat.role) : '', seat.alive ? '' : '出局'].filter(Boolean)
             text(name, seat.name)
             text(note, labels.join(' · ') || (view ? '在席' : '候场'))
-            button.setAttribute('aria-label', [seat.id + ' 号 ' + seat.name, ...labels].join('，'))
+            drawSeatPortrait(portrait, seat)
+            button.setAttribute('aria-label', [seat.id + ' 号 ' + seat.name, ...labels, speaker === seat.id ? '正在发言' : ''].filter(Boolean).join('，'))
             button.disabled = !target
             button.dataset.target = target
             button.dataset.self = isSelf
             button.dataset.out = !seat.alive
-            button.dataset.active = view?.legal?.actor === seat.id
+            button.dataset.active = view?.legal?.actor === seat.id || speaker === seat.id
             if (target) button.setAttribute('aria-pressed', String(seat.id === selectedTarget))
             else button.removeAttribute('aria-pressed')
         })
@@ -208,6 +367,7 @@ export function mount(root, handlers) {
     function showRole(view) {
         if (!view) return
         const { self } = view
+        drawSeatPortrait($('role-avatar'), self)
         text($('role-name'), titleOf(self.role))
         text($('role-state'), self.alive ? '在席' : '已出局')
         text($('role-desc'), ROLES[self.role]?.description)
@@ -267,7 +427,6 @@ export function mount(root, handlers) {
         $('target-form').hidden = !legal || speaking || (potion && !choosingPoison)
         $('potions').hidden = !potion
         $('turn-actions').hidden = !legal
-        $('skip').hidden = !model.playing
         $('cancel').hidden = !model.busy || model.paused || Boolean(winner)
         $('retry').hidden = !model.paused || model.busy || model.resumeNeedsKey || Boolean(winner)
         $('reconnect').hidden = !model.paused || model.busy || !model.canResume || Boolean(winner)
@@ -338,7 +497,8 @@ export function mount(root, handlers) {
                 content.append(seats)
             }
             if (events.length) {
-                for (const event of events) content.append(timelineEntry(event, view.seats, activeFeed === 'private' || (recap && !event.public)))
+                for (const event of events) content.append(timelineEntry(event, view.seats,
+                    activeFeed === 'private' || (recap && !event.public), drawSeatPortrait))
             } else {
                 content.append(element('p', activeFeed === 'private' ? '你的私密消息将在这里出现。' : '公开发言与投票结果将在这里出现。', 'feed-empty'))
             }
@@ -384,6 +544,27 @@ export function mount(root, handlers) {
         }
     }
 
+    function showPlayback(view, model) {
+        const cue = model.playbackCue
+        const playing = Boolean(model.playing)
+        const pending = Number(model.pendingFrames) || 0
+        $('playback').dataset.running = playing
+        $('playback').dataset.kind = cue?.kind ?? ''
+        $('playback-actions').hidden = !playing
+        text($('advance-playback'), model.nextLabel || '继续')
+        text($('playback-count'), pending ? pending + ' 条待读' : '')
+        const speaker = cue?.kind === 'speech' && view.seats.find(seat => seat.id === cue.seat)
+        $('playback-avatar').hidden = !speaker
+        if (speaker) drawSeatPortrait($('playback-avatar'), speaker)
+        const title = cue?.title || (view.legal ? ACTION_NAMES[view.legal.kind] : PHASE_NAMES[view.phase])
+        text($('playback-title'), title || '等待桌上行动')
+        const detail = cue?.detail || ''
+        const previousDetail = $('playback-detail').textContent
+        text($('playback-detail'), detail)
+        $('playback-detail').hidden = !detail
+        if (previousDetail !== detail) $('playback-detail').scrollTop = 0
+    }
+
     function render(model) {
         displayed = model
         const view = model.view
@@ -392,8 +573,14 @@ export function mount(root, handlers) {
         $('archive').hidden = !active
         $('role-panel').hidden = !active
         $('turn-panel').hidden = !active
-        $('speed-control').hidden = !active
-        $('fast').checked = Boolean(model.fast)
+        $('speed-control').hidden = false
+        $('playback-speed').value = model.speed ?? 'manual'
+        $('playback').hidden = !active
+        const size = active ? view.seats.length : Number($('board-size').value)
+        text($('lineup'), size + ' 人局 · ' + lineup(size))
+        text($('rules-title'), size + ' 人局规则')
+        const avatarId = active ? view.self.characterId : $('human-avatar').value
+        text($('invitation'), avatarId === 'lumine' ? '荧邀请朋友来玩狼人杀。' : '你邀请朋友来玩狼人杀。')
         if (active) {
             if (!previousView) {
                 $('key').value = ''
@@ -411,6 +598,7 @@ export function mount(root, handlers) {
             showRole(view)
             showTurn(view, model)
             showArchive(view, model)
+            showPlayback(view, model)
         } else {
             if (previousView && !view) {
                 configuringNew = false
@@ -426,7 +614,7 @@ export function mount(root, handlers) {
             }
             $('table').dataset.light = 'lobby'
             text($('phase-label'), '等待入席')
-            text($('phase-count'), '9 个席位')
+            text($('phase-count'), size + ' 个席位')
             text($('setup-status'), model.status)
             text($('test-status'), model.testStatus)
             $('test').disabled = Boolean(model.testing)
@@ -475,6 +663,22 @@ export function mount(root, handlers) {
     })
     $('mode-options').addEventListener('change', updateSettings)
     $('base-url').addEventListener('input', updateSettings)
+    $('board-size').addEventListener('change', () => { updateBoardSetup(); render(displayed) })
+    $('human-avatar').addEventListener('change', () => { updateBoardSetup(); render(displayed) })
+    $('avatar-character').addEventListener('change', () => { updateAvatarSetup(); text($('avatar-status'), '') })
+    $('avatar-file').addEventListener('change', async event => {
+        const file = event.target.files[0]
+        if (!file) return
+        const profile = portraitById.get($('avatar-character').value)
+        event.target.value = ''
+        try {
+            storePortrait(profile, await decodePortrait(file))
+            text($('avatar-status'), '已在本机更新 ' + profile.name + ' 的头像。')
+        } catch (error) {
+            text($('avatar-status'), error instanceof Error && error.name === 'Error' ? error.message : '图片无法读取或保存。')
+        }
+    })
+    $('friend-profile').addEventListener('change', showFriend)
     $('speech').addEventListener('input', updateSpeech)
     $('speech-form').addEventListener('submit', event => {
         event.preventDefault()
@@ -491,7 +695,7 @@ export function mount(root, handlers) {
         if (!selectedTarget) return
         submit(displayed.view?.legal?.kind === 'use_potion' ? { potion: 'poison', target: selectedTarget } : { target: selectedTarget })
     })
-    $('fast').addEventListener('change', event => handlers.setFast(event.target.checked))
+    $('playback-speed').addEventListener('change', event => handlers.setSpeed(event.target.value))
     $('developer-check').addEventListener('change', event => handlers.setDeveloper(event.target.checked))
     $('clear-dialog').addEventListener('close', event => {
         if (event.target.returnValue === 'clear') {
@@ -527,6 +731,13 @@ export function mount(root, handlers) {
                 if (choosingPoison) $('target').focus()
                 break
             case 'rules': $('rules-dialog').showModal(); break
+            case 'friends': openFriends(); break
+            case 'restore-avatar': {
+                const profile = portraitById.get($('avatar-character').value)
+                try { storePortrait(profile, null); text($('avatar-status'), '已恢复 ' + profile.name + ' 的默认头像。') }
+                catch { text($('avatar-status'), '浏览器无法清除这个头像。') }
+                break
+            }
             case 'clear':
                 $('clear-dialog').returnValue = ''
                 $('clear-dialog').showModal()
@@ -535,6 +746,7 @@ export function mount(root, handlers) {
             case 'retry': handlers.retry(); break
             case 'cancel': handlers.cancel(); break
             case 'skip': handlers.skipPlayback?.(); break
+            case 'advance-playback': handlers.advancePlayback?.(); break
             case 'use-local': handlers.useLocal?.(); break
             case 'new-game':
                 configuringNew = true
@@ -563,6 +775,8 @@ export function mount(root, handlers) {
         }
     })
 
+    updateBoardSetup()
+    updateAvatarSetup()
     showSeats(null)
     return { render }
 }

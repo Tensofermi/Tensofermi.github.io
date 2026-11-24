@@ -1,6 +1,8 @@
-import { PERSONALITIES, ROLES, SEAT_NAMES, SPEECH_LIMITS } from './roles.mjs'
+import { CHARACTERS, HUMAN_AVATARS } from './characters.mjs'
+import { BOARDS, PERSONALITIES, ROLES, SEAT_NAMES, SPEECH_LIMITS } from './roles.mjs'
 
-const SAVE_VERSION = 1
+const LEGACY_VERSION = 1
+const SAVE_VERSION = 2
 const HUMAN = 1
 const PENDING_ACTIONS = Object.freeze({
   wolf_chat: 'wolf_chat',
@@ -15,7 +17,6 @@ const PENDING_ACTIONS = Object.freeze({
   day_hunter: 'shoot',
 })
 const SIMULTANEOUS = new Set(['wolf_kill', 'day_vote', 'day_revote'])
-const ROLE_DECK = Object.entries(ROLES).flatMap(([role, definition]) => Array(definition.count).fill(role))
 
 function shuffle(items, seed) {
   const result = [...items]
@@ -54,24 +55,37 @@ function append(state, visibility, kind, text, fields = {}) {
   })
 }
 
-function makeGame(gameId, seed, humanRole) {
-  const roles = shuffle(ROLE_DECK, seed ^ 0x7342eb01)
+function buildSeats(roles, seed, version, size, avatar) {
+  if (version === LEGACY_VERSION) {
+    const personalities = shuffle(PERSONALITIES, seed ^ 0x3917df20)
+    return SEAT_NAMES.map((name, index) => ({
+      id: index + 1, name, alive: true, role: roles[index],
+      personality: { ...personalities[index] },
+    }))
+  }
+  const characters = [HUMAN_AVATARS[avatar], ...shuffle(CHARACTERS, seed ^ 0x3917df20).slice(0, size - 1)]
+  return characters.map((character, index) => ({
+    id: index + 1, name: character.name, alive: true, role: roles[index],
+    characterId: character.id, personality: { ...character.personality },
+  }))
+}
+
+function makeGame({ version, gameId, seed, humanRole, size, avatar }) {
+  const deck = Object.entries(BOARDS[size]).flatMap(([role, count]) => Array(count).fill(role))
+  const roles = shuffle(deck, seed ^ 0x7342eb01)
   if (humanRole) {
     const selected = roles.indexOf(humanRole)
     ;[roles[0], roles[selected]] = [roles[selected], roles[0]]
   }
-  const personalities = shuffle(PERSONALITIES, seed ^ 0x3917df20)
   const state = {
-    version: SAVE_VERSION,
+    version,
     gameId,
     seed,
     humanRole,
+    ...(version === SAVE_VERSION ? { size, avatar } : {}),
     day: 1,
     winner: null,
-    seats: SEAT_NAMES.map((name, index) => ({
-      id: index + 1, name, alive: true, role: roles[index],
-      personality: { ...personalities[index] },
-    })),
+    seats: buildSeats(roles, seed, version, size, avatar),
     events: [],
     journal: [],
     potions: { save: true, poison: true },
@@ -85,11 +99,25 @@ function makeGame(gameId, seed, humanRole) {
   return state
 }
 
-export function newGame({ humanRole = null, seed = crypto.getRandomValues(new Uint32Array(1))[0] } = {}) {
-  const specified = humanRole !== null && humanRole !== ''
-  if (specified && (typeof humanRole !== 'string' || !Object.hasOwn(ROLES, humanRole))) throw new Error('未知身份')
+function hasBoard(size) {
+  return Number.isInteger(size) && Object.hasOwn(BOARDS, size)
+}
+
+function hasRole(size, role) {
+  return role === null || (typeof role === 'string' && Object.hasOwn(BOARDS[size], role) && BOARDS[size][role] > 0)
+}
+
+function hasAvatar(avatar) {
+  return typeof avatar === 'string' && Object.hasOwn(HUMAN_AVATARS, avatar)
+}
+
+export function newGame({ size = 9, humanRole = null, avatar = 'lumine', seed = crypto.getRandomValues(new Uint32Array(1))[0] } = {}) {
+  if (!hasBoard(size)) throw new Error('未知人数配置')
+  const role = humanRole === '' ? null : humanRole
+  if (!hasRole(size, role)) throw new Error('这个人数配置没有所选身份')
+  if (!hasAvatar(avatar)) throw new Error('未知玩家人物')
   if (!Number.isSafeInteger(seed) || seed < 0 || seed >= 2 ** 32) throw new Error('随机种子须为无符号 32 位整数')
-  return makeGame(crypto.randomUUID(), seed, humanRole || null)
+  return makeGame({ version: SAVE_VERSION, gameId: crypto.randomUUID(), seed, humanRole: role, size, avatar })
 }
 
 function setPhase(state, kind, actors = []) {
@@ -106,10 +134,25 @@ function startNight(state) {
   state.dayVote = { candidates: [], exile: null }
   state.night = { target: null, poison: null, saved: false, deaths: [] }
   append(state, 'public', 'phase', '第 ' + state.day + ' 夜。', { phase: 'night' })
-  setPhase(state, 'wolf_chat', alive(state, player => player.role === 'wolf'))
+  const wolves = alive(state, player => player.role === 'wolf')
+  const order = state.version === LEGACY_VERSION ? wolves : seededOrder(state, wolves, 0xd1b54a35)
+  setPhase(state, 'wolf_chat', order)
+}
+
+function seededOrder(state, actors, salt) {
+  return shuffle(actors, state.seed ^ salt ^ Math.imul(state.day, 0x9e3779b9))
+}
+
+function daySpeakingOrder(state) {
+  const actors = alive(state)
+  if (state.version !== LEGACY_VERSION) return seededOrder(state, actors, 0x85ebca6b)
+  const count = state.seats.length
+  const firstSeat = (state.day - 1) % count + 1
+  return actors.sort((left, right) => ((left - firstSeat + count) % count) - ((right - firstSeat + count) % count))
 }
 
 function startDay(state) {
+  const dawnIndex = state.events.length
   append(state, 'public', 'phase', '第 ' + state.day + ' 天，天亮了。', { phase: 'day_discussion' })
   const deaths = state.night.deaths
   if (!deaths.length) append(state, 'public', 'death', '昨夜无人出局。', { seats: [] })
@@ -123,10 +166,8 @@ function startDay(state) {
   }
   state.night = null
   if (finishIfWon(state)) return
-  const firstSeat = (state.day - 1) % state.seats.length + 1
-  const order = alive(state).sort((left, right) =>
-    ((left - firstSeat + state.seats.length) % state.seats.length)
-    - ((right - firstSeat + state.seats.length) % state.seats.length))
+  const order = daySpeakingOrder(state)
+  if (state.version === SAVE_VERSION) state.events[dawnIndex].order = [...order]
   setPhase(state, 'day_discussion', order)
 }
 
@@ -383,12 +424,15 @@ function finishPhase(state) {
 
 /** Recreate authoritative state from the deal and validated actions. */
 export function restoreState(raw) {
-  if (!raw || raw.version !== SAVE_VERSION || typeof raw.gameId !== 'string'
+  if (!raw || ![LEGACY_VERSION, SAVE_VERSION].includes(raw.version) || typeof raw.gameId !== 'string'
     || !/^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/i.test(raw.gameId)
     || !Number.isSafeInteger(raw.seed) || raw.seed < 0 || raw.seed >= 2 ** 32
-    || (raw.humanRole !== null && (typeof raw.humanRole !== 'string' || !Object.hasOwn(ROLES, raw.humanRole)))
     || !Array.isArray(raw.journal)) throw new Error('无法读取这个版本的存档')
-  const state = makeGame(raw.gameId, raw.seed, raw.humanRole)
+  const legacy = raw.version === LEGACY_VERSION
+  const size = legacy ? 9 : raw.size
+  const avatar = legacy ? 'plain' : raw.avatar
+  if (!hasBoard(size) || !hasRole(size, raw.humanRole) || !hasAvatar(avatar)) throw new Error('存档的人数、身份或人物无效')
+  const state = makeGame({ version: raw.version, gameId: raw.gameId, seed: raw.seed, humanRole: raw.humanRole, size, avatar })
   for (const record of raw.journal) {
     const action = pending(state).find(candidate => candidate.id === record?.id)
     if (!action || !accepts(action, record.payload)) throw new Error('存档包含无效行动')

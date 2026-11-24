@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="在九人圆桌上和八位 AI 玩家完成一局狼人杀。支持本地试玩和自备模型连接。">
+    <meta name="description" content="在六人、九人或十二人圆桌上和 AI 玩家完成一局狼人杀。支持本地试玩和自备模型连接。">
     <meta name="theme-color" content="#101d18">
     <meta name="referrer" content="no-referrer">
     <title>AI 狼人杀 · Tensofermi</title>
@@ -16,7 +16,10 @@
         <header class="masthead">
             <a class="back" href="../../featured.html">← Featured</a>
             <div class="masthead-actions">
-                <label class="switch" id="speed-control" hidden><input id="fast" type="checkbox"> 快速展示</label>
+                <label class="speed-control" id="speed-control" hidden>
+                    节奏<select id="playback-speed"><option value="manual">手动逐条</option><option value="auto">自动播放</option><option value="fast">快速展示</option></select>
+                </label>
+                <button class="button quiet" type="button" data-command="friends">朋友名片</button>
                 <button class="button quiet" type="button" data-command="rules">游戏规则</button>
             </div>
         </header>
@@ -24,10 +27,25 @@
         <div class="headline">
             <div>
                 <h1>AI 狼人杀</h1>
-                <p>九席圆桌，每个人都握着一部分真相。</p>
+                <p id="invitation">荧邀请朋友来玩狼人杀。开局后，每个人只看得到自己知道的牌。</p>
             </div>
-            <p class="lineup">3 狼 · 3 民 · 预言家 · 女巫 · 猎人</p>
+            <p class="lineup" id="lineup">3 狼 · 3 民 · 预言家 · 女巫 · 猎人</p>
         </div>
+
+        <section class="card playback" id="playback" hidden aria-labelledby="playback-title">
+            <div class="playback-main" aria-live="polite">
+                <div class="avatar" id="playback-avatar" aria-hidden="true" hidden></div>
+                <div class="playback-copy">
+                    <h2 id="playback-title">等待桌上行动</h2>
+                    <p id="playback-detail" tabindex="0" hidden></p>
+                </div>
+            </div>
+            <div class="actions playback-actions" id="playback-actions" hidden>
+                <span id="playback-count" class="playback-count"></span>
+                <button class="button primary" type="button" id="advance-playback" data-command="advance-playback">继续</button>
+                <button class="button quiet" type="button" id="skip" data-command="skip">显示全部</button>
+            </div>
+        </section>
 
         <div class="layout">
             <section class="table-column" aria-label="圆桌与行动">
@@ -38,13 +56,16 @@
                         <span class="phase-label" id="phase-label">等待入席</span>
                         <span class="phase-count" id="phase-count">9 个席位</span>
                     </div>
-                    <ol class="seats" id="seats" aria-label="按桌号排列的九个座位"></ol>
+                    <ol class="seats" id="seats" aria-label="按桌号排列的座位"></ol>
                 </div>
 
                 <section class="card role" id="role-panel" hidden aria-labelledby="role-capture">
-                    <div class="role-top"><div>
+                    <div class="role-top"><div class="role-heading">
+                        <div class="avatar" id="role-avatar" aria-hidden="true"></div>
+                        <div>
                         <p class="overline" id="role-capture">你的身份</p>
                         <h2 id="role-name"></h2>
+                        </div>
                     </div><span class="role-state" id="role-state"></span></div>
                     <p id="role-desc"></p>
                     <p id="role-tools" hidden></p>
@@ -52,7 +73,6 @@
 
                 <section class="card turn" id="turn-panel" hidden aria-labelledby="turn-title">
                     <div class="turn-head"><h2 id="turn-title">等待下一阶段</h2>
-                        <button class="button quiet" type="button" id="skip" data-command="skip" hidden>跳过播放</button>
                     </div>
                     <p id="turn-help"></p>
                     <div id="turn-actions">
@@ -95,10 +115,10 @@
                         <fieldset id="mode-options">
                             <legend>对手模式</legend>
                             <label class="mode-option"><input type="radio" name="mode" value="local" checked>
-                                <span><strong>本地试玩</strong><small>用规则机器人熟悉九人流程，无需登录。</small></span>
+                                <span><strong>本地试玩</strong><small>与规则机器人同桌，无需登录。</small></span>
                             </label>
                             <label class="mode-option"><input type="radio" name="mode" value="model">
-                                <span><strong>模型对局</strong><small>八位 AI 分别看牌、发言和决策。</small></span>
+                                <span><strong>模型对局</strong><small>各席位分别看牌、发言和决策。</small></span>
                             </label>
                         </fieldset>
                         <div class="connection" id="connection" hidden>
@@ -113,9 +133,16 @@
                             <div class="actions"><button class="button" id="test" type="button" data-command="test">测试连接</button></div>
                             <p class="setup-status" id="test-status" role="status"></p>
                         </div>
-                        <div class="setup-role" id="setup-role">
-                            <label for="human-role">你的身份</label>
-                            <select id="human-role"><option value="">随机抽取</option></select>
+                        <div class="setup-roles" id="setup-role">
+                            <div class="setup-field"><label for="board-size">人数</label>
+                                <select id="board-size"><option value="6">6 人</option><option value="9" selected>9 人</option><option value="12">12 人</option></select>
+                            </div>
+                            <div class="setup-field"><label for="human-role">你的身份</label>
+                                <select id="human-role"><option value="">随机抽取</option></select>
+                            </div>
+                            <div class="setup-field avatar-choice"><label for="human-avatar">你的外观</label>
+                                <div><div class="avatar" id="human-avatar-preview" aria-hidden="true"></div><select id="human-avatar"></select></div>
+                            </div>
                         </div>
                         <button class="button primary wide" id="start" type="submit">入席开局</button>
                         <div class="actions saved" id="saved-controls" hidden>
@@ -124,6 +151,22 @@
                             <button class="button quiet" id="back-setup" type="button" data-command="back-setup" hidden>返回新开局</button>
                         </div>
                     </form>
+                    <details class="avatar-customize" id="avatar-customize">
+                        <summary>自定义头像</summary>
+                        <div class="setup-field">
+                            <label for="avatar-character">选择角色外观</label>
+                            <select id="avatar-character"></select>
+                        </div>
+                        <div class="avatar-upload">
+                            <div class="avatar" id="avatar-image-preview" aria-hidden="true"></div>
+                            <div class="setup-field"><label for="avatar-file">选择 PNG、JPG 或 WebP 图片</label>
+                                <input id="avatar-file" type="file" accept="image/png,image/jpeg,image/webp">
+                            </div>
+                        </div>
+                        <div class="actions"><button class="button quiet" id="restore-avatar" type="button" data-command="restore-avatar">恢复默认头像</button></div>
+                        <p class="setup-status" id="avatar-status" role="status"></p>
+                        <p>图像只存在当前浏览器。</p>
+                    </details>
                     <p class="setup-status" id="setup-status" role="status"></p>
                     <p class="setup-status" id="replace-notice" hidden>开新局会替换当前浏览器里的存档。</p>
                 </section>
@@ -152,10 +195,22 @@
         </div>
 
         <dialog class="rules-dialog" id="rules-dialog" aria-labelledby="rules-title">
-            <div class="dialog-heading"><h2 id="rules-title">九人局规则</h2>
+            <div class="dialog-heading"><h2 id="rules-title">牌局规则</h2>
                 <form method="dialog"><button class="button quiet" autofocus>关闭</button></form>
             </div>
             <dl id="rules-list"></dl>
+        </dialog>
+        <dialog class="rules-dialog" id="friends-dialog" aria-labelledby="friends-title">
+            <div class="dialog-heading"><h2 id="friends-title">朋友名片</h2>
+                <form method="dialog"><button class="button quiet" autofocus>关闭</button></form>
+            </div>
+            <div class="setup-field friend-picker"><label for="friend-profile">选择朋友</label><select id="friend-profile"></select></div>
+            <div class="friend-header">
+                <div class="avatar" id="friend-avatar" aria-hidden="true"></div>
+                <h3 id="friend-name"></h3>
+            </div>
+            <dl id="friend-traits"></dl>
+            <blockquote id="friend-voice"></blockquote>
         </dialog>
         <dialog class="rules-dialog" id="clear-dialog" aria-labelledby="clear-title">
             <h2 id="clear-title">清除本地存档？</h2>
