@@ -139,9 +139,10 @@ h1 { font: 650 clamp(36px, 5vw, 60px)/1.13 var(--display); letter-spacing: .025e
     font: 650 calc(var(--avatar-size) * .56)/1 var(--display);
 }
 .avatar::after { content: ''; position: absolute; inset: 3px; border: 1px solid color-mix(in srgb, var(--portrait) 36%, #1c2d23); border-radius: 50%; z-index: -1; }
-.avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.avatar img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; color: transparent; }
+.avatar[data-portrait=ready] { border-radius: 16%; }
 .seat-token { flex: none; position: relative; line-height: 1; }
-.seat-token .avatar { --avatar-size: 29px; }
+.seat-token .avatar { --avatar-size: 33px; }
 .seat-token .seat-number { position: absolute; right: -4px; bottom: -2px; width: 15px; height: 15px; font-size: 9px; }
 .seat-number { display: inline-grid; flex: none; place-items: center; width: 22px; height: 22px; background: #101d18; color: var(--gold); border: 1px solid #7e8a7069; border-radius: 50%; font: 600 11px var(--mono); }
 .seat-content { display: grid; justify-items: start; min-width: 0; }
@@ -236,8 +237,10 @@ textarea::placeholder, input::placeholder { color: #afc0b081; }
 .friend-picker label { color: var(--muted); font-size: 13px; }
 .friend-header { margin-top: 12px; }
 .friend-header h3 { margin: 0; font: 650 27px/1.2 var(--display); }
-.friend-header .avatar { --avatar-size: 47px; }
+.friend-header .avatar { --avatar-size: 64px; }
 #friend-voice { margin: 17px 0 0; padding-left: 13px; border-left: 2px solid var(--gold); color: var(--paper); }
+.rules-dialog .portrait-credit { margin-top: 12px; font-size: 12px; }
+.portrait-credit a { color: var(--muted); text-underline-offset: 3px; }
 
 @media (max-width: 1060px) { .game { padding-inline: 23px; } .table { min-height: 326px; } }
 @media (max-width: 780px) {
@@ -289,7 +292,7 @@ textarea::placeholder, input::placeholder { color: #afc0b081; }
 @media (max-width: 345px) {
     .table[data-size='12'] { padding-inline: 6px; }
     .table[data-size='12'] .seats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .table[data-size='12'] .seat-token .avatar { --avatar-size: 20px; }
+    .table[data-size='12'] .seat-token .avatar { --avatar-size: 24px; }
     .table[data-size='12'] .seat-button { gap: 4px; }
     .speed-control { gap: 3px; }
     .speed-control select { padding-inline: 4px; }

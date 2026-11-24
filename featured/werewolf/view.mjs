@@ -1,6 +1,7 @@
 import { BOARDS, ROLES, RULES, SPEECH_LIMITS } from './roles.mjs'
 import { CHARACTERS, HUMAN_AVATARS, characterById } from './characters.mjs'
 import { completionEndpoint, DEFAULT_MODEL_SETTINGS } from './model.mjs'
+import { PORTRAITS } from './portraits.mjs'
 
 const PHASE_NAMES = {
     night: '入夜', day_discussion: '白天发言', day_vote: '放逐投票', day_revote: '平票加投',
@@ -151,7 +152,7 @@ export function mount(root, handlers) {
         'board-size', 'lineup', 'human-avatar', 'human-avatar-preview', 'role-avatar', 'avatar-character', 'avatar-file',
         'avatar-image-preview', 'avatar-status', 'avatar-customize', 'restore-avatar', 'advance-playback', 'playback-avatar',
         'playback', 'playback-title', 'playback-detail', 'playback-actions', 'playback-count', 'invitation',
-        'friends-dialog', 'friend-profile', 'friend-avatar', 'friend-name', 'friend-traits', 'friend-voice',
+        'friends-dialog', 'friend-profile', 'friend-avatar', 'friend-name', 'friend-traits', 'friend-voice', 'friend-source',
     ].map(id => [id, get(id)]))
     const $ = id => nodes[id]
     let displayed = {}
@@ -182,18 +183,33 @@ export function mount(root, handlers) {
     for (const [heading, explanation] of RULES) $('rules-list').append(element('dt', heading), element('dd', explanation))
 
     function drawPortrait(node, profile) {
-        const imageUrl = portraits.get(profile.id)
-        const key = [profile.id, profile.icon, profile.accent, imageUrl]
+        const custom = portraits.get(profile.id)
+        const artwork = PORTRAITS[profile.id]
+        const key = [profile.id, profile.icon, profile.accent, custom, artwork]
         const previous = portraitSnapshots.get(node)
         if (previous?.every((value, index) => value === key[index])) return
         portraitSnapshots.set(node, key)
         node.style.setProperty('--portrait', profile.accent || '#d9b987')
-        if (imageUrl) {
-            const image = element('img')
-            image.src = imageUrl
-            image.alt = ''
-            node.replaceChildren(image)
-        } else text(node, profile.icon)
+        delete node.dataset.portrait
+        node.replaceChildren(profile.icon)
+        const imageUrl = custom || artwork?.image
+        if (!imageUrl) return
+        const image = element('img')
+        image.alt = ''
+        if (!custom && artwork.position) {
+            image.style.objectPosition = artwork.position
+            image.style.transformOrigin = artwork.position
+        }
+        if (!custom && artwork.zoom) image.style.transform = 'scale(' + artwork.zoom + ')'
+        const placeholder = node.firstChild
+        image.addEventListener('load', () => {
+            if (image.parentNode !== node) return
+            node.dataset.portrait = 'ready'
+            placeholder.remove()
+        }, { once: true })
+        image.addEventListener('error', () => image.remove(), { once: true })
+        node.append(image)
+        image.src = imageUrl
     }
 
     function drawSeatPortrait(node, seat) {
@@ -269,6 +285,9 @@ export function mount(root, handlers) {
 
     function showFriend() {
         const profile = friendChoices[Number($('friend-profile').value)]
+        const artwork = profile && PORTRAITS[profile.id]
+        const source = $('friend-source')
+        source.hidden = !artwork
         $('friend-traits').replaceChildren()
         $('friend-voice').hidden = !profile?.personality.voice
         $('friend-avatar').hidden = !profile
@@ -280,6 +299,10 @@ export function mount(root, handlers) {
             if (detail) $('friend-traits').append(element('dt', heading), element('dd', detail))
         }
         if (voice) text($('friend-voice'), voice.replaceAll('{target}', '三号'))
+        if (artwork) {
+            source.href = artwork.source
+            text(source, '头像原图 · ' + artwork.author)
+        }
     }
 
     function openFriends() {
@@ -289,6 +312,8 @@ export function mount(root, handlers) {
                 id: '', name: seat.name, icon: Array.from(seat.name)[0], personality: {},
             }
         }) : CHARACTERS
+        const host = HUMAN_AVATARS.lumine
+        if (!seats || seats[0]?.characterId === host.id) friendChoices = [...friendChoices, host]
         $('friend-profile').replaceChildren(...friendChoices.map((person, index) => option(person.name, index)))
         showFriend()
         $('friends-dialog').showModal()
