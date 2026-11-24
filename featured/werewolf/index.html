@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="在九人圆桌上和八位 AI 玩家完成一局狼人杀。支持本地试玩和自备模型连接。">
+    <meta name="theme-color" content="#101d18">
+    <meta name="referrer" content="no-referrer">
+    <title>AI 狼人杀 · Tensofermi</title>
+    <link rel="icon" href="../../images/main.png">
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="app.mjs"></script>
+</head>
+<body>
+    <main class="game" id="game">
+        <header class="masthead">
+            <a class="back" href="../../featured.html">← Featured</a>
+            <div class="masthead-actions">
+                <label class="switch" id="speed-control" hidden><input id="fast" type="checkbox"> 快速展示</label>
+                <button class="button quiet" type="button" data-command="rules">游戏规则</button>
+            </div>
+        </header>
+
+        <div class="headline">
+            <div>
+                <h1>AI 狼人杀</h1>
+                <p>九席圆桌，每个人都握着一部分真相。</p>
+            </div>
+            <p class="lineup">3 狼 · 3 民 · 预言家 · 女巫 · 猎人</p>
+        </div>
+
+        <div class="layout">
+            <section class="table-column" aria-label="圆桌与行动">
+                <div class="table" id="table" data-light="lobby">
+                    <div class="felt" aria-hidden="true"></div>
+                    <div class="phase-disc" aria-live="polite">
+                        <span class="phase-symbol" aria-hidden="true"></span>
+                        <span class="phase-label" id="phase-label">等待入席</span>
+                        <span class="phase-count" id="phase-count">9 个席位</span>
+                    </div>
+                    <ol class="seats" id="seats" aria-label="按桌号排列的九个座位"></ol>
+                </div>
+
+                <section class="card role" id="role-panel" hidden aria-labelledby="role-capture">
+                    <div class="role-top"><div>
+                        <p class="overline" id="role-capture">你的身份</p>
+                        <h2 id="role-name"></h2>
+                    </div><span class="role-state" id="role-state"></span></div>
+                    <p id="role-desc"></p>
+                    <p id="role-tools" hidden></p>
+                </section>
+
+                <section class="card turn" id="turn-panel" hidden aria-labelledby="turn-title">
+                    <div class="turn-head"><h2 id="turn-title">等待下一阶段</h2>
+                        <button class="button quiet" type="button" id="skip" data-command="skip" hidden>跳过播放</button>
+                    </div>
+                    <p id="turn-help"></p>
+                    <div id="turn-actions">
+                        <form id="speech-form" hidden>
+                            <label class="sr-only" for="speech">发言内容</label>
+                            <textarea id="speech" rows="3" maxlength="280" placeholder="你想让这一桌听到什么？"></textarea>
+                            <div class="actions speech-actions"><span id="speech-count" aria-hidden="true"></span>
+                                <button class="button primary" id="speak" type="submit">发言</button>
+                                <button class="button quiet" id="skip-speech" type="button" data-command="skip-speech" hidden>跳过</button>
+                            </div>
+                        </form>
+                        <form id="target-form" hidden>
+                            <label for="target">选择席位</label>
+                            <select id="target"></select>
+                            <div class="actions">
+                                <button class="button primary" id="target-submit" type="submit">确认</button>
+                                <button class="button quiet" id="target-pass" type="button" data-command="pass" hidden>放弃本次行动</button>
+                            </div>
+                        </form>
+                        <div class="actions potions" id="potions" hidden>
+                            <button class="button primary" id="potion-save" type="button" data-command="save-potion">使用解药</button>
+                            <button class="button" id="potion-poison" type="button" data-command="choose-poison">选择毒药目标</button>
+                            <button class="button quiet" type="button" data-command="pass">本夜不用药</button>
+                        </div>
+                    </div>
+                    <div class="actions" id="wait-actions">
+                        <button class="button" id="cancel" type="button" data-command="cancel" hidden>暂停等待</button>
+                        <button class="button primary" id="retry" type="button" data-command="retry" hidden>继续 / 重试</button>
+                        <button class="button" id="reconnect" type="button" data-command="resume" hidden>从存档恢复</button>
+                        <button class="button quiet" id="use-local" type="button" data-command="use-local" hidden>改用规则机器人</button>
+                        <button class="button quiet" id="new-game" type="button" data-command="new-game" hidden>新开一局</button>
+                    </div>
+                </section>
+            </section>
+
+            <div class="side">
+                <section class="card setup" id="setup" aria-labelledby="setup-title">
+                    <h2 id="setup-title">选定你的牌局</h2>
+                    <form id="setup-form">
+                        <fieldset id="mode-options">
+                            <legend>对手模式</legend>
+                            <label class="mode-option"><input type="radio" name="mode" value="local" checked>
+                                <span><strong>本地试玩</strong><small>用规则机器人熟悉九人流程，无需登录。</small></span>
+                            </label>
+                            <label class="mode-option"><input type="radio" name="mode" value="model">
+                                <span><strong>模型对局</strong><small>八位 AI 分别看牌、发言和决策。</small></span>
+                            </label>
+                        </fieldset>
+                        <div class="connection" id="connection" hidden>
+                            <label for="base-url">兼容 API 地址</label>
+                            <input id="base-url" type="url" spellcheck="false" autocomplete="off" placeholder="https://api.example.com/v1">
+                            <label for="model">模型名</label>
+                            <input id="model" type="text" spellcheck="false" autocomplete="off">
+                            <label for="key">API Key</label>
+                            <input id="key" type="password" spellcheck="false" autocomplete="off">
+                            <p class="destination">请求地址 <output id="destination"></output></p>
+                            <p>模型服务需允许浏览器跨域访问。Key 只保留在当前页面内存。</p>
+                            <div class="actions"><button class="button" id="test" type="button" data-command="test">测试连接</button></div>
+                            <p class="setup-status" id="test-status" role="status"></p>
+                        </div>
+                        <div class="setup-role" id="setup-role">
+                            <label for="human-role">你的身份</label>
+                            <select id="human-role"><option value="">随机抽取</option></select>
+                        </div>
+                        <button class="button primary wide" id="start" type="submit">入席开局</button>
+                        <div class="actions saved" id="saved-controls" hidden>
+                            <button class="button" id="resume" type="button" data-command="resume" hidden>继续存档</button>
+                            <button class="button quiet" id="clear" type="button" data-command="clear">清除存档</button>
+                            <button class="button quiet" id="back-setup" type="button" data-command="back-setup" hidden>返回新开局</button>
+                        </div>
+                    </form>
+                    <p class="setup-status" id="setup-status" role="status"></p>
+                    <p class="setup-status" id="replace-notice" hidden>开新局会替换当前浏览器里的存档。</p>
+                </section>
+
+                <section class="card archive" id="archive" hidden aria-labelledby="archive-title">
+                    <div class="archive-top">
+                        <h2 id="archive-title">发言与记录</h2>
+                        <p id="mode-label"></p>
+                    </div>
+                    <div class="archive-tabs" id="archive-tabs" aria-label="记录筛选">
+                        <button type="button" data-feed="public" aria-pressed="true">公开</button>
+                        <button type="button" data-feed="private" id="feed-private" aria-pressed="false" hidden>我的私密记录</button>
+                        <button type="button" data-feed="recap" id="feed-recap" aria-pressed="false" hidden>复盘</button>
+                    </div>
+                    <div class="feed" id="feed" tabindex="0" aria-label="发言时间线"></div>
+                    <div class="archive-footer" id="archive-footer" hidden>
+                        <p id="stats"></p>
+                        <details id="developer" hidden>
+                            <summary>调试与观察</summary>
+                            <label class="switch" id="developer-switch"><input id="developer-check" type="checkbox"> 公开隐藏身份与行动（会剧透）</label>
+                            <div id="observations"></div>
+                        </details>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <dialog class="rules-dialog" id="rules-dialog" aria-labelledby="rules-title">
+            <div class="dialog-heading"><h2 id="rules-title">九人局规则</h2>
+                <form method="dialog"><button class="button quiet" autofocus>关闭</button></form>
+            </div>
+            <dl id="rules-list"></dl>
+        </dialog>
+        <dialog class="rules-dialog" id="clear-dialog" aria-labelledby="clear-title">
+            <h2 id="clear-title">清除本地存档？</h2>
+            <p>清除后，当前牌局的记录无法恢复。</p>
+            <form method="dialog" class="actions">
+                <button class="button" value="cancel" autofocus>保留存档</button>
+                <button class="button primary" value="clear">清除存档</button>
+            </form>
+        </dialog>
+        <noscript><p>需要启用 JavaScript 才能开局。</p></noscript>
+    </main>
+</body>
+</html>
