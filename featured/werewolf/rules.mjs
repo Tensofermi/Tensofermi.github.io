@@ -2,7 +2,8 @@ import { CHARACTERS, HUMAN_AVATARS } from './characters.mjs'
 import { BOARDS, PERSONALITIES, ROLES, SEAT_NAMES, SPEECH_LIMITS } from './roles.mjs'
 
 const LEGACY_VERSION = 1
-const SAVE_VERSION = 2
+const SHUFFLED_VERSION = 2
+const SAVE_VERSION = 3
 const HUMAN = 1
 const PENDING_ACTIONS = Object.freeze({
   wolf_chat: 'wolf_chat',
@@ -11,6 +12,7 @@ const PENDING_ACTIONS = Object.freeze({
   witch: 'use_potion',
   night_hunter: 'shoot',
   day_discussion: 'speak',
+  day_pk: 'speak',
   day_vote: 'vote',
   day_revote: 'vote',
   last_words: 'last_words',
@@ -82,7 +84,7 @@ function makeGame({ version, gameId, seed, humanRole, size, avatar }) {
     gameId,
     seed,
     humanRole,
-    ...(version === SAVE_VERSION ? { size, avatar } : {}),
+    ...(version !== LEGACY_VERSION ? { size, avatar } : {}),
     day: 1,
     winner: null,
     seats: buildSeats(roles, seed, version, size, avatar),
@@ -143,12 +145,24 @@ function seededOrder(state, actors, salt) {
   return shuffle(actors, state.seed ^ salt ^ Math.imul(state.day, 0x9e3779b9))
 }
 
-function daySpeakingOrder(state) {
+function daySpeakingOrder(state, deaths) {
   const actors = alive(state)
-  if (state.version !== LEGACY_VERSION) return seededOrder(state, actors, 0x85ebca6b)
+  if (state.version === SHUFFLED_VERSION) return { order: seededOrder(state, actors, 0x85ebca6b) }
   const count = state.seats.length
-  const firstSeat = (state.day - 1) % count + 1
-  return actors.sort((left, right) => ((left - firstSeat + count) % count) - ((right - firstSeat + count) % count))
+  if (state.version === LEGACY_VERSION) {
+    const firstSeat = (state.day - 1) % count + 1
+    const order = actors.sort((left, right) => ((left - firstSeat + count) % count) - ((right - firstSeat + count) % count))
+    return { order }
+  }
+  const anchor = deaths.length ? Math.min(...deaths.map(death => death.id)) : undefined
+  const firstSeat = anchor ?? seededOrder(state, actors, 0x85ebca6b)[0]
+  const [step] = seededOrder(state, [1, -1], 0x1b873593)
+  const distance = id => ((id - firstSeat) * step + count) % count
+  const order = actors.sort((left, right) => distance(left) - distance(right))
+  return {
+    order, direction: step === 1 ? 'clockwise' : 'counterclockwise',
+    ...(anchor === undefined ? {} : { anchor }),
+  }
 }
 
 function startDay(state) {
@@ -166,8 +180,9 @@ function startDay(state) {
   }
   state.night = null
   if (finishIfWon(state)) return
-  const order = daySpeakingOrder(state)
-  if (state.version === SAVE_VERSION) state.events[dawnIndex].order = [...order]
+  const speaking = daySpeakingOrder(state, deaths)
+  const { order } = speaking
+  if (state.version !== LEGACY_VERSION) Object.assign(state.events[dawnIndex], speaking, { order: [...order] })
   setPhase(state, 'day_discussion', order)
 }
 
@@ -246,7 +261,10 @@ function recordSpeech(state, action, payload) {
   if (!action.maxLength) return
   const audience = action.kind === 'wolf_chat' ? alive(state, player => player.role === 'wolf') : 'public'
   const text = payload.text || '略过发言。'
-  append(state, audience, action.kind, text, { seat: action.actor })
+  append(state, audience, action.kind, text, {
+    seat: action.actor,
+    ...(state.phase.kind === 'day_pk' ? { pk: true } : {}),
+  })
 }
 
 function applyAction(state, action, payload) {
@@ -358,12 +376,20 @@ function resolveShot(state, night) {
 
 function resolveDayVote(state, revote) {
   const votes = ballots(state)
-  append(state, 'public', 'votes', revote ? '加投结果。' : '首轮投票结果。', { votes, revote })
+  const summary = revote ? votes.length ? '加投结果。' : '没有符合条件的加投者。' : '首轮投票结果。'
+  append(state, 'public', 'votes', summary, { votes, revote })
   const top = leaders(votes)
   if (top.length > 1 && !revote) {
     state.dayVote.candidates = top
-    append(state, 'public', 'phase', '平票候选 ' + top.join('、') + ' 号进入加投。', { phase: 'day_revote', candidates: top })
-    setPhase(state, 'day_revote', alive(state))
+    if (state.version !== SAVE_VERSION) startRevote(state)
+    else {
+      const dawn = state.events.findLast(event => event.day === state.day && event.phase === 'day_discussion')
+      const order = dawn.order.filter(actor => top.includes(actor))
+      append(state, 'public', 'phase', '平票候选 ' + top.join('、') + ' 号依次进行对决发言。', {
+        phase: 'day_pk', candidates: top, order: [...order],
+      })
+      setPhase(state, 'day_pk', order)
+    }
     return
   }
   if (top.length !== 1) {
@@ -376,6 +402,15 @@ function resolveDayVote(state, revote) {
   state.dayVote.exile = exile
   append(state, 'public', 'death', playerName(state, exile) + ' 被投票放逐。', { seat: exile })
   setPhase(state, 'last_words', [exile])
+}
+
+function startRevote(state) {
+  const candidates = state.dayVote.candidates
+  const voters = alive(state, player => state.version !== SAVE_VERSION || !candidates.includes(player.id))
+  append(state, 'public', 'phase', '平票候选 ' + candidates.join('、') + ' 号进入加投。', {
+    phase: 'day_revote', candidates,
+  })
+  setPhase(state, 'day_revote', voters)
 }
 
 function finishPhase(state) {
@@ -404,6 +439,9 @@ function finishPhase(state) {
     case 'day_vote':
       resolveDayVote(state, false)
       return
+    case 'day_pk':
+      startRevote(state)
+      return
     case 'day_revote':
       resolveDayVote(state, true)
       return
@@ -424,7 +462,7 @@ function finishPhase(state) {
 
 /** Recreate authoritative state from the deal and validated actions. */
 export function restoreState(raw) {
-  if (!raw || ![LEGACY_VERSION, SAVE_VERSION].includes(raw.version) || typeof raw.gameId !== 'string'
+  if (!raw || ![LEGACY_VERSION, SHUFFLED_VERSION, SAVE_VERSION].includes(raw.version) || typeof raw.gameId !== 'string'
     || !/^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/i.test(raw.gameId)
     || !Number.isSafeInteger(raw.seed) || raw.seed < 0 || raw.seed >= 2 ** 32
     || !Array.isArray(raw.journal)) throw new Error('无法读取这个版本的存档')

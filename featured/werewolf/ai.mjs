@@ -12,6 +12,8 @@ const PURPOSE = {
   use_potion: '女巫每夜最多使用一瓶药。save 救当前受袭者，poison 需选择合法座位，pass 代表留药。',
   shoot: '选择一个合法的猎枪目标。证据不足时可提交 null 放弃开枪。',
 };
+const PK_PURPOSE = '你是平票候选，进行一次公开自辩。结合已公布的首轮票型或桌上对你的具体质疑，说明你为什么该留下，也可指出其他候选的疑点。场外玩家会听完候选发言再投票。';
+const REVOTE_PURPOSE = '你是场外投票者。比较候选人的 PK 发言和已公布的首轮票型，从合法候选中独立选出放逐对象。同轮其他玩家尚未公开的选择不可见。';
 
 const truncate = (text, max) => Array.from(String(text ?? '')).slice(0, max).join('');
 const spoken = (text, action) => ({ text: truncate(text, action.maxLength ?? 240) });
@@ -24,6 +26,23 @@ function stableNumber(text) {
 
 function shortReference(event) {
   return String(event.id);
+}
+
+function publicRound(view) {
+  const { day, phase, events, speaker } = view;
+  const speaking = phase === 'day_discussion' || phase === 'day_pk';
+  if (!speaking && phase !== 'day_revote') return undefined;
+  const marker = events.findLast(event => event.day === day && event.kind === 'phase' && event.phase === phase);
+  const offStageRevote = phase === 'day_revote'
+    && events.some(event => event.day === day && event.kind === 'phase' && event.phase === 'day_pk');
+  return {
+    speaker: speaking ? speaker ?? view.self.id : undefined,
+    order: speaking ? marker?.order : undefined,
+    direction: marker?.direction,
+    anchor: marker?.anchor,
+    candidates: marker?.candidates,
+    offStageRevote: offStageRevote || undefined,
+  };
 }
 
 function belief(view) {
@@ -44,9 +63,11 @@ function belief(view) {
     }
     for (const event of speeches) {
       if (event.seat === self.id) continue;
+      const pk = view.phase === 'day_revote' && event.pk && event.day === view.day;
+      const accusation = pk ? /怀疑|可疑|偏狼|踩/ : /怀疑|可疑|偏狼|踩|投/;
       const mentions = event.text.includes(seat.name) || new RegExp('(?:^|[^0-9])' + seat.id + '\\s*号').test(event.text);
-      if (mentions && /怀疑|可疑|偏狼|踩|投/.test(event.text) && !/不怀疑|不投|暂不|并不/.test(event.text)) {
-        value += event.seat === 1 ? 1.5 : 0.5;
+      if (mentions && accusation.test(event.text) && !/不怀疑|不投|暂不|并不/.test(event.text)) {
+        value += event.seat === 1 ? 1.5 : pk ? 0.85 : 0.5;
         sourceIds.push(shortReference(event));
       }
       if (self.role === 'wolf' && event.seat === seat.id && /我是预言家|我是女巫|跳预言家/.test(event.text)) {
@@ -98,7 +119,9 @@ export function localDecision(view) {
   if (legal.kind === 'shoot' && legal.allowPass && (!candidates[0] || candidates[0].score < 1.5 - 0.55 * daring)) return { target: null };
   if (!SPEECH.has(legal.kind)) return { target: picked };
 
-  const suspect = scores[0];
+  const defending = legal.kind === 'speak' && view.phase === 'day_pk';
+  const tied = defending ? publicRound(view)?.candidates : undefined;
+  const suspect = (tied && scores.find(candidate => tied.includes(candidate.target))) ?? scores[0];
   const name = view.seats.find(seat => seat.id === suspect?.target)?.name ?? '前面发言的人';
   const seatName = suspect ? suspect.target + '号' + name : name;
   const namedLine = characterLine(self, seatName, legal.kind, view.day);
@@ -112,9 +135,17 @@ export function localDecision(view) {
   const notable = view.events.find(event => shortReference(event) === notableId);
   const checkedWolf = self.role === 'seer' && view.privateEvents.some(event =>
     event.kind === 'inspect' && event.alignment === 'wolf' && event.target === suspect?.target);
-  if (checkedWolf && (view.day >= 2 || daring > 0)) {
-    return spoken('我认预言家，查到' + seatName + '是狼人。你们可以追问我的查验顺序，也请' + seatName + '回一下。', legal);
+  const claim = checkedWolf && (view.day >= 2 || daring > 0)
+    ? '我认预言家，查到' + seatName + '是狼人。你们可以追问我的查验顺序，也请' + seatName + '回一下。' : null;
+  if (defending) {
+    const ballot = view.events.findLast(event => event.day === view.day && event.kind === 'votes' && !event.revote);
+    const vote = ballot?.votes?.find(entry => entry.actor === self.id);
+    const defense = vote?.target ? '首轮我投了' + vote.target + '号，这张票可以对照我之前的表态。'
+      : '我希望这轮留下，请先听我说明判断。';
+    return spoken(defense + (claim ?? namedLine ?? ('我想再听听' + seatName + '怎么解释自己的票。'))
+      + '请场外将候选发言与首轮票型一起比较。', legal);
   }
+  if (claim) return spoken(claim, legal);
   const lead = notable ? (notable.seat === 1 ? '听了1号的表态，' : notable.seat + '号刚才点过这个位置，')
     : view.events.some(event => event.kind === 'votes') ? '回看上一轮票型，' : '';
   if (namedLine) return spoken(lead + namedLine, legal);
@@ -148,6 +179,7 @@ export function updateMemory(view, decision, previous) {
 function eventExcerpt(event) {
   return {
     id: shortReference(event), day: event.day, kind: event.kind, seat: event.seat, target: event.target,
+    phase: event.phase, pk: event.pk, revote: event.revote,
     alignment: event.alignment, votes: event.votes?.map(({ actor, target }) => ({ actor, target })), text: truncate(event.text, 320),
   };
 }
@@ -161,6 +193,9 @@ function schemaFor(action) {
 
 export function buildRequest(view, remembered, { maxInputChars = 11500, repair = false } = {}) {
   const { self, legal, seats, day, phase } = view;
+  const round = publicRound(view);
+  const task = phase === 'day_pk' && legal.kind === 'speak' ? PK_PURPOSE
+    : legal.kind === 'vote' && round?.offStageRevote ? REVOTE_PURPOSE : PURPOSE[legal.kind];
   const deck = Object.entries(BOARDS[seats.length] ?? {})
     .filter(([, count]) => count > 0)
     .map(([role, count]) => ROLES[role].name + ' ' + count + ' 位');
@@ -178,7 +213,7 @@ export function buildRequest(view, remembered, { maxInputChars = 11500, repair =
   ].filter(Boolean).join('\n');
   const data = {
     self: { id: self.id, name: self.name, role: self.role, personality: self.personality, teammates: self.teammates, potions: self.potions },
-    day, phase, seats, task: PURPOSE[legal.kind], schema: schemaFor(legal),
+    day, phase, seats, task, schema: schemaFor(legal), publicRound: round,
     maxTextLength: legal.maxLength, targets: legal.targets, canSave: legal.canSave, canPoison: legal.canPoison, victim: legal.victim,
     recentPublic: [], recentPrivate: [], earlierFacts: [], previousJudgement: null,
   };
@@ -193,8 +228,21 @@ export function buildRequest(view, remembered, { maxInputChars = 11500, repair =
     };
   }
   if (size() > maxInputChars) data.previousJudgement = null;
-  for (const [stream, field, count] of [[view.privateEvents, 'recentPrivate', 12], [view.events, 'recentPublic', 14]]) {
+  const precedingField = legal.kind === 'speak' ? 'recentPublic' : legal.kind === 'wolf_chat' ? 'recentPrivate' : null;
+  let preceding = precedingField === 'recentPublic' ? view.events.at(-1)
+    : precedingField ? view.privateEvents.at(-1) : undefined;
+  if (preceding?.kind === legal.kind && preceding.day === day) {
+    data[precedingField].push(eventExcerpt(preceding));
+    if (size() > maxInputChars) {
+      data[precedingField].pop();
+      preceding = undefined;
+    }
+  } else preceding = undefined;
+  const streams = [[view.privateEvents, 'recentPrivate', 12], [view.events, 'recentPublic', 14]];
+  if (phase === 'day_pk' || round?.offStageRevote) streams.reverse();
+  for (const [stream, field, count] of streams) {
     for (const event of stream.slice(-count).reverse()) {
+      if (event === preceding) continue;
       data[field].unshift(eventExcerpt(event));
       if (size() > maxInputChars) {
         data[field].shift();

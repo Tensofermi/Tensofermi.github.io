@@ -170,10 +170,12 @@ test('exiled hunter gives a last word before shooting, and shot victims have no 
   state = resolvePhase(state, () => ({ potion: 'pass' }))
   state = exile(state, 1)
   assert.equal(observe(state, 1).legal.kind, 'last_words')
+  assert.equal(observe(state, wolf).speaker, 1)
   assert.equal(observe(state, 1).self.alive, false)
   state = submit(state, pending(state)[0], { text: '请记得我的表态。' })
   assert.equal(observe(state, 1).legal.kind, 'shoot')
   assert.equal(observe(state, wolf).legal, null)
+  assert.equal(observe(state, wolf).speaker, undefined)
   state = submit(state, pending(state)[0], { target: wolf })
   assert.equal(observe(state, wolf).self.alive, false)
   assert.equal(observe(state, wolf).legal, null)
@@ -181,8 +183,8 @@ test('exiled hunter gives a last word before shooting, and shot victims have no 
   assert.deepEqual(tail, ['last_words', 'shoot', 'death', 'phase'])
 })
 
-test('initial and repeat ballot ties reveal simultaneous results and spare the candidates', () => {
-  let state = fixed()
+test('legacy ballot ties preserve simultaneous results and spare the candidates', () => {
+  let state = legacyState(7103)
   state = finishNight(state, roleSeat(state, 'villager'))
   state = resolvePhase(state, () => ({ potion: 'pass' }))
   state = resolvePhase(state, () => ({ text: '' }))
@@ -200,6 +202,60 @@ test('initial and repeat ballot ties reveal simultaneous results and spare the c
   assert.equal(state.day, 2)
   assert.equal(state.seats[left - 1].alive, true)
   assert.equal(state.seats[right - 1].alive, true)
+})
+
+test('candidates speak in table order, then independent eligible seats cast their revotes', () => {
+  let state = fixed()
+  state = finishNight(state, roleSeat(state, 'villager'))
+  state = resolvePhase(state, () => ({ potion: 'pass' }))
+  const ordinary = [...state.phase.actors]
+  state = resolvePhase(state, () => ({ text: '' }))
+  const voters = pending(state)
+  const [left, right] = voters.map(action => action.actor)
+  const targets = new Map(voters.map((action, index) => [action.actor, index === 1 || index > voters.length / 2 ? left : right]))
+  state = submit(state, voters[0], { target: targets.get(voters[0].actor) })
+  assert.equal(observe(state, right).events.some(event => event.kind === 'votes'), false)
+  state = resolvePhase(state, action => ({ target: targets.get(action.actor) }))
+  assert.equal(state.phase.kind, 'day_pk')
+  const duel = observe(state, 1).events.at(-1)
+  const expected = ordinary.filter(id => id === left || id === right)
+  assert.deepEqual(duel.candidates, [left, right])
+  assert.deepEqual(duel.order, expected)
+  assert.equal(observe(state, 1).speaker, expected[0])
+  assert.equal(pending(state)[0].kind, 'speak')
+  state = submit(state, pending(state)[0], { text: '首位对决玩家发言。' })
+  assert.deepEqual(restoreState(JSON.parse(JSON.stringify(state))), state)
+  assert.equal(observe(state, 1).speaker, expected[1])
+  state = submit(state, pending(state)[0], { text: '第二位对决玩家发言。' })
+  assert.equal(state.phase.kind, 'day_revote')
+  assert.equal(observe(state, 1).speaker, undefined)
+  assert.deepEqual(observe(state, left).events.filter(event => event.pk).map(event => event.seat), expected)
+  assert.equal(observe(state, left).legal, null)
+  assert.equal(observe(state, right).legal, null)
+  assert.ok(pending(state).every(action => action.kind === 'vote' && action.targets.join(',') === [left, right].join(',')))
+  const secondVoters = pending(state).map(action => action.actor)
+  assert.equal(secondVoters.length, voters.length - 2)
+  state = resolvePhase(state, action => ({ target: secondVoters.indexOf(action.actor) < secondVoters.length / 2 ? left : right }))
+  assert.equal(state.phase.kind, 'wolf_chat')
+  assert.equal(state.day, 2)
+  assert.equal(state.seats[left - 1].alive, true)
+  assert.equal(state.seats[right - 1].alive, true)
+})
+
+test('a complete tie gives everyone a duel speech and skips the empty revote', () => {
+  let state = fixed()
+  state = finishNight(state, roleSeat(state, 'villager'))
+  state = resolvePhase(state, () => ({ potion: 'pass' }))
+  state = resolvePhase(state, () => ({ text: '' }))
+  const voters = pending(state).map(action => action.actor)
+  state = resolvePhase(state, action => ({ target: voters[(voters.indexOf(action.actor) + 1) % voters.length] }))
+  assert.equal(state.phase.kind, 'day_pk')
+  assert.equal(state.dayVote.candidates.length, voters.length)
+  state = resolvePhase(state, action => ({ text: '轮到 ' + action.actor + ' 号。' }))
+  assert.equal(state.phase.kind, 'wolf_chat')
+  assert.equal(state.day, 2)
+  assert.deepEqual(observe(state, 1).events.filter(event => event.revote).at(-1).votes, [])
+  assert.equal(state.seats.filter(player => player.alive).length, voters.length)
 })
 
 test('invalid and repeated actions are rejected, and saves replay the authoritative journal', () => {
@@ -286,6 +342,42 @@ test('version 1 action journal replays with original cast and speaking order', (
   assert.deepEqual(restoreState(JSON.parse(JSON.stringify(state))), state)
 })
 
+test('version 2 action journal replays the original fully shuffled speaking order', () => {
+  const journal = [
+    [':1/7/wolf_chat', { text: '席位7' }],
+    [':1/3/wolf_chat', { text: '席位3' }],
+    [':1/4/wolf_chat', { text: '席位4' }],
+    [':2/3/wolf_kill', { target: 1 }],
+    [':2/4/wolf_kill', { target: 1 }],
+    [':2/7/wolf_kill', { target: 1 }],
+    [':3/2/inspect', { target: 1 }],
+    [':4/5/use_potion', { potion: 'pass' }],
+    [':5/2/speak', { text: '席位2' }],
+    [':5/4/speak', { text: '席位4' }],
+  ].map(([suffix, payload]) => ({ id: legacyId + suffix, payload }))
+  let state = restoreState({ version: 2, gameId: legacyId, seed: 7103, humanRole: 'villager', size: 9, avatar: 'lumine', journal })
+  const originalOrder = [2, 4, 3, 6, 9, 5, 8, 7]
+  assert.equal(pending(state)[0].actor, 3)
+  assert.deepEqual(state.phase.actors, originalOrder)
+  assert.deepEqual(observe(state, 1).events.find(event => event.phase === 'day_discussion').order, originalOrder)
+  assert.deepEqual(restoreState(JSON.parse(JSON.stringify(state))), state)
+  state = resolvePhase(state, () => ({ text: '' }))
+  const voters = pending(state).map(action => action.actor)
+  state = resolvePhase(state, action => ({ target: voters[(voters.indexOf(action.actor) + 1) % voters.length] }))
+  assert.equal(state.phase.kind, 'day_revote')
+  assert.deepEqual(pending(state).map(action => action.actor), voters)
+  assert.deepEqual(restoreState(JSON.parse(JSON.stringify(state))), state)
+})
+
+function seatsInDeclaredDirection(view, dawn) {
+  assert.ok(['clockwise', 'counterclockwise'].includes(dawn.direction))
+  const start = dawn.anchor ?? dawn.order[0]
+  const count = view.seats.length
+  const direction = dawn.direction === 'clockwise' ? 1 : -1
+  return Array.from({ length: count }, (_, offset) => (start - 1 + offset * direction + count) % count + 1)
+    .filter(id => view.seats[id - 1].alive)
+}
+
 test('seeded speaking orders resume and reveal only the permitted speaker', () => {
   let state = fixed('villager')
   const wolves = state.seats.filter(player => player.role === 'wolf').map(player => player.id)
@@ -302,11 +394,49 @@ test('seeded speaking orders resume and reveal only the permitted speaker', () =
   state = resolvePhase(state, () => ({ potion: 'pass' }))
   const firstDay = observe(state, 1).events.find(event => event.phase === 'day_discussion')
   assert.deepEqual(firstDay.order, state.phase.actors)
-  assert.notDeepEqual(firstDay.order, [...firstDay.order].sort((a, b) => a - b))
+  assert.equal(firstDay.anchor, victim)
+  assert.deepEqual(firstDay.order, seatsInDeclaredDirection(observe(state, 1), firstDay))
   assert.equal(observe(state, 1).speaker, firstDay.order[0])
   assert.ok(!firstDay.order.includes(victim))
   const speech = pending(state)[0]
   state = submit(state, speech, { text: '第一个发言。' })
   assert.deepEqual(restoreState(JSON.parse(JSON.stringify(state))), state)
   assert.equal(observe(state, 1).speaker, firstDay.order[1])
+})
+
+test('a peaceful dawn chooses a living start, and a hunter victim can anchor a multiple-death dawn', () => {
+  let state = finishNight(fixed('witch'), 1)
+  state = resolvePhase(state, () => ({ potion: 'save' }))
+  const peaceful = observe(state, 1)
+  const dawn = peaceful.events.find(event => event.phase === 'day_discussion')
+  assert.equal(dawn.anchor, undefined)
+  assert.deepEqual(dawn.order, seatsInDeclaredDirection(peaceful, dawn))
+  assert.equal(dawn.order.length, peaceful.seats.length)
+
+  state = fixed('wolf')
+  const hunter = roleSeat(state, 'hunter')
+  const poisoned = roleSeat(state, 'villager')
+  state = finishNight(state, hunter)
+  state = resolvePhase(state, () => ({ potion: 'poison', target: poisoned }))
+  state = submit(state, pending(state)[0], { target: 1 })
+  const deadly = observe(state, 1)
+  const followingDawn = deadly.events.find(event => event.phase === 'day_discussion')
+  assert.equal(followingDawn.anchor, 1)
+  assert.deepEqual(followingDawn.order, seatsInDeclaredDirection(deadly, followingDawn))
+  assert.equal(followingDawn.order.length, deadly.seats.length - 3)
+})
+
+test('each scoped event sequence merges the public and private streams without hidden gaps', () => {
+  let state = fixed('wolf')
+  const villager = roleSeat(state, 'villager')
+  state = finishNight(state, villager)
+  state = resolvePhase(state, () => ({ potion: 'pass' }))
+  const wolfView = observe(state, 1)
+  const villageView = observe(state, villager)
+  assert.deepEqual(wolfView.events.map(event => event.id), villageView.events.map(event => event.id))
+  assert.ok(villageView.events.every((event, index) => event.sequence === index + 1))
+  const chronology = wolfView.events.concat(wolfView.privateEvents).sort((left, right) => left.sequence - right.sequence)
+  assert.ok(chronology.every((event, index) => event.sequence === index + 1))
+  const dawn = wolfView.events.find(event => event.phase === 'day_discussion')
+  assert.ok(wolfView.privateEvents.every(event => event.sequence < dawn.sequence))
 })

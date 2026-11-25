@@ -1,9 +1,12 @@
 import { pending } from './rules.mjs'
 
-function privateWitchVictim(state, actor, victim) {
+const PUBLIC_SPEAKING = new Set(['day_discussion', 'day_pk', 'last_words'])
+
+function privateWitchVictim(state, actor, victim, sequence) {
   const name = state.seats[victim - 1].name
   return {
     id: 'witch:' + state.day,
+    sequence,
     day: state.day,
     kind: 'witch_target',
     text: '今夜狼刀目标是 ' + victim + ' 号 ' + name + '。',
@@ -16,9 +19,17 @@ function copyEvent({ visibility: _visibility, ...event }, id) {
   return structuredClone({ ...event, id })
 }
 
-function publicEvents(state) {
-  return state.events.filter(event => event.visibility === 'public')
-    .map((event, index) => copyEvent(event, 'p:' + (index + 1)))
+function observeEvents(state, seatId) {
+  const events = []
+  const privateEvents = []
+  for (const event of state.events) {
+    const isPublic = event.visibility === 'public'
+    if (!isPublic && (!Array.isArray(event.visibility) || !event.visibility.includes(seatId))) continue
+    const channel = isPublic ? events : privateEvents
+    const id = (isPublic ? 'p:' : 's:') + (channel.length + 1)
+    channel.push({ ...copyEvent(event, id), sequence: events.length + privateEvents.length + 1 })
+  }
+  return { events, privateEvents }
 }
 
 /**
@@ -48,11 +59,12 @@ export function observe(state, seatId, action) {
   let phase = state.phase.kind
   if (night) phase = legal?.kind === 'shoot' ? 'shoot' : 'night'
   else if (phase === 'day_hunter') phase = legal?.kind === 'shoot' ? 'shoot' : 'last_words'
-  const speaker = phase === 'day_discussion' ? actions[0]?.actor
+  const speaker = PUBLIC_SPEAKING.has(state.phase.kind) ? actions[0]?.actor
     : legal?.kind === 'wolf_chat' ? seatId : undefined
-  const privateEvents = state.events.filter(event => Array.isArray(event.visibility) && event.visibility.includes(seatId))
-    .map((event, index) => copyEvent(event, 's:' + (index + 1)))
-  if (legal?.kind === 'use_potion' && legal.victim !== null) privateEvents.push(privateWitchVictim(state, seatId, legal.victim))
+  const { events, privateEvents } = observeEvents(state, seatId)
+  if (legal?.kind === 'use_potion' && legal.victim !== null) {
+    privateEvents.push(privateWitchVictim(state, seatId, legal.victim, events.length + privateEvents.length + 1))
+  }
   return {
     self,
     seats: state.seats.map(other => {
@@ -68,7 +80,7 @@ export function observe(state, seatId, action) {
     day: state.day,
     phase,
     ...(speaker === undefined ? {} : { speaker }),
-    events: publicEvents(state),
+    events,
     privateEvents,
     legal: legal ? structuredClone(legal) : null,
     winner: state.winner,

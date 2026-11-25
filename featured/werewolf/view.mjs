@@ -1,11 +1,12 @@
 import { BOARDS, ROLES, RULES, SPEECH_LIMITS } from './roles.mjs'
 import { CHARACTERS, HUMAN_AVATARS, characterById } from './characters.mjs'
 import { completionEndpoint, DEFAULT_MODEL_SETTINGS } from './model.mjs'
+import { speakingOrderLabel } from './playback.mjs'
 import { PORTRAITS } from './portraits.mjs'
 
 const PHASE_NAMES = {
-    night: '入夜', day_discussion: '白天发言', day_vote: '放逐投票', day_revote: '平票加投',
-    shoot: '技能结算', last_words: '放逐结算', over: '牌局结束',
+    night: '入夜', day_discussion: '白天发言', day_vote: '放逐投票', day_pk: '平票 PK', day_revote: '平票加投',
+    shoot: '技能结算', last_words: '遗言', over: '牌局结束',
 }
 
 const EVENT_NAMES = {
@@ -100,6 +101,11 @@ function seatLabel(seats, id) {
     return player.id + ' 号 ' + player.name
 }
 
+function actionTitle(view) {
+    if (view.legal?.kind === 'speak' && view.phase === 'day_pk') return '轮到你做 PK 发言'
+    return ACTION_NAMES[view.legal?.kind]
+}
+
 function timelineEntry(event, seats, privately, drawPortrait) {
     const row = element('article', undefined, 'feed-entry')
     if (privately) row.dataset.kind = 'private'
@@ -114,9 +120,12 @@ function timelineEntry(event, seats, privately, drawPortrait) {
     }
     byline.append(element('strong', speaker ? seatLabel(seats, event.seat) : EVENT_NAMES[event.kind] ?? '牌局记录'))
     heading.append(byline)
-    const category = NIGHT_EVENTS.has(event.kind) || event.phase === 'night' ? '夜' : '轮'
-    heading.append(element('span', event.day ? '第 ' + event.day + ' ' + category + (privately ? ' · 私密' : '') : ''))
+    const category = NIGHT_EVENTS.has(event.kind) || event.phase === 'night' ? '夜' : '天'
+    const stage = event.pk ? ' · PK 发言' : privately ? ' · 私密' : ''
+    heading.append(element('span', event.day ? '第 ' + event.day + ' ' + category + stage : ''))
     row.append(heading, element('p', event.text))
+    const order = speakingOrderLabel(event)
+    if (order) row.append(element('p', order.replace('\n', '　')))
     if (Array.isArray(event.votes) && event.votes.length) {
         const ballots = element('ul', undefined, 'vote-grid')
         ballots.setAttribute('aria-label', '逐席投票')
@@ -367,7 +376,8 @@ export function mount(root, handlers) {
         const list = view?.seats ?? lobbySeats(Number($('board-size').value), $('human-avatar').value)
         allocateSeats(list.length)
         const cue = displayed.playbackCue
-        const speaker = displayed.playing && cue?.kind === 'speech' ? cue.seat : view?.speaker
+        const speaker = displayed.playing ? (cue?.kind === 'speech' ? cue.seat : undefined) : view?.speaker
+        const speakerStatus = displayed.playing ? '正在回看此席发言' : '当前发言席'
         const available = availableTargets(view?.legal)
         const disabled = actionDisabled()
         list.forEach((seat, index) => {
@@ -378,7 +388,7 @@ export function mount(root, handlers) {
             text(name, seat.name)
             text(note, labels.join(' · ') || (view ? '在席' : '候场'))
             drawSeatPortrait(portrait, seat)
-            button.setAttribute('aria-label', [seat.id + ' 号 ' + seat.name, ...labels, speaker === seat.id ? '正在发言' : ''].filter(Boolean).join('，'))
+            button.setAttribute('aria-label', [seat.id + ' 号 ' + seat.name, ...labels, speaker === seat.id ? speakerStatus : ''].filter(Boolean).join('，'))
             button.disabled = !target
             button.dataset.target = target
             button.dataset.self = isSelf
@@ -461,8 +471,9 @@ export function mount(root, handlers) {
         $('wait-actions').hidden = [...$('wait-actions').children].every(child => child.hidden)
         const wait = view.self.alive ? '等待桌上行动' : '旁观余下牌局'
         text($('turn-title'), winner ? resultLabel(winner) : model.paused ? '牌局已暂停'
-            : legal ? ACTION_NAMES[legal.kind] ?? '轮到你行动' : wait)
+            : legal ? actionTitle(view) ?? '轮到你行动' : wait)
         let help = legal ? ACTION_HELP[legal.kind] : ''
+        if (legal?.kind === 'speak' && view.phase === 'day_pk') help = '你可以回应首轮的票型，并向等候加投的玩家陈述理由。'
         if (potion) help = legal.victim ? seatLabel(view.seats, legal.victim) + ' 是你看到的狼刀目标。每夜可用一瓶药。' : '每夜可用一瓶药。'
         if (winner) help = '复盘记录揭晓了所有身份、夜间行动和投票。'
         else if (!help && view.phase === 'night') help = '天亮后统一公布夜间结果。'
@@ -472,7 +483,8 @@ export function mount(root, handlers) {
             $('speech').maxLength = 2 * (legal.maxLength ?? SPEECH_LIMITS[legal.kind])
             $('speech').placeholder = legal.kind === 'wolf_chat' ? '你会给狼队怎样的建议？' : '你想让这一桌听到什么？'
             $('speech').disabled = actionDisabled()
-            text($('speak'), legal.kind === 'last_words' ? '留下遗言' : legal.kind === 'wolf_chat' ? '告诉狼队' : '公开发言')
+            text($('speak'), legal.kind === 'last_words' ? '留下遗言' : legal.kind === 'wolf_chat' ? '告诉狼队'
+                : view.phase === 'day_pk' ? '提交 PK 发言' : '公开发言')
             $('skip-speech').hidden = !legal.allowPass
             $('skip-speech').disabled = actionDisabled()
             updateSpeech()
@@ -574,16 +586,31 @@ export function mount(root, handlers) {
         const playing = Boolean(model.playing)
         const pending = Number(model.pendingFrames) || 0
         $('playback').dataset.running = playing
-        $('playback').dataset.kind = cue?.kind ?? ''
+        $('playback').dataset.kind = playing ? cue?.kind ?? '' : view.winner ? 'result'
+            : view.phase === 'night' ? 'night' : view.speaker ? 'speech' : ''
         $('playback-actions').hidden = !playing
         text($('advance-playback'), model.nextLabel || '继续')
         text($('playback-count'), pending ? pending + ' 条待读' : '')
-        const speaker = cue?.kind === 'speech' && view.seats.find(seat => seat.id === cue.seat)
+        const speakerId = playing ? (cue?.kind === 'speech' ? cue.seat : undefined) : view.speaker
+        const speaker = view.seats.find(seat => seat.id === speakerId)
         $('playback-avatar').hidden = !speaker
         if (speaker) drawSeatPortrait($('playback-avatar'), speaker)
-        const title = cue?.title || (view.legal ? ACTION_NAMES[view.legal.kind] : PHASE_NAMES[view.phase])
+        const stage = PHASE_NAMES[view.phase]
+        const currentSpeaker = speaker && '轮到 ' + seatLabel(view.seats, speaker.id) + (view.phase === 'last_words'
+            ? ' 留遗言' : view.phase === 'day_pk' ? ' 做 PK 发言' : ' 发言')
+        const title = playing ? cue?.title || stage : view.winner ? resultLabel(view.winner)
+            : actionTitle(view) || currentSpeaker || stage
         text($('playback-title'), title || '等待桌上行动')
-        const detail = cue?.detail || ''
+        const order = playing ? '' : speakingOrderLabel(view.events.findLast(event => event.day === view.day && event.phase === view.phase))
+        let detail = cue?.detail || ''
+        if (!playing && cue) {
+            const stageCue = (cue.kind === 'dawn' && view.phase === 'day_discussion')
+                || (cue.kind === 'night' && view.phase === 'night') || (cue.kind === 'result' && view.winner)
+            if (!stageCue) {
+                const history = detail && '上一条 · ' + cue.title + '\n' + detail
+                detail = [order, history].filter(Boolean).join('\n\n')
+            }
+        } else if (!playing) detail = order
         const previousDetail = $('playback-detail').textContent
         text($('playback-detail'), detail)
         $('playback-detail').hidden = !detail

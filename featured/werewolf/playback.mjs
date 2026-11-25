@@ -16,13 +16,24 @@ function voteSummary(event) {
     .map(({ target, count }) => target + ' 号 ' + count + ' 票').join(' · ');
 }
 
+export function speakingOrderLabel(event) {
+  if (!event?.order?.length) return '';
+  const order = event.order.map(id => id + ' 号').join(' → ');
+  if (event.phase === 'day_pk') return 'PK 发言顺序 ' + order;
+  const direction = { clockwise: '顺时针', counterclockwise: '逆时针' }[event.direction];
+  if (!direction) return '发言顺序 ' + order;
+  const start = event.anchor == null ? '' : '从 ' + event.anchor + ' 号旁起，';
+  return start + direction + '发言\n' + order;
+}
+
 function cueFor(events, view, privateChannel = false) {
   const event = events[0];
   if (!event) return null;
   if (speechKinds.has(event.kind)) {
     const subject = seatName(view, event.seat);
-    const type = event.kind === 'last_words' ? '遗言' : privateChannel ? '狼队密语' : '发言';
-    return { title: subject + ' · ' + type, detail: event.text, kind: 'speech', seat: event.seat, next: '读下一位', privateId: privateChannel ? event.id : undefined };
+    const type = event.kind === 'last_words' ? '遗言' : privateChannel ? '狼队密语' : event.pk ? 'PK 发言' : '发言';
+    const next = event.kind === 'last_words' ? '查看遗言' : event.pk ? '读下一位 PK 发言' : '读下一位';
+    return { title: subject + ' · ' + type, detail: event.text, kind: 'speech', seat: event.seat, next, privateId: privateChannel ? event.id : undefined };
   }
   if (privateChannel) {
     return {
@@ -31,10 +42,11 @@ function cueFor(events, view, privateChannel = false) {
     };
   }
   if (event.phase === 'day_discussion') {
-    const order = event.order?.map(id => id + ' 号').join(' → ');
-    const notes = events.slice(1).map(item => item.text);
-    if (order) notes.push('发言顺序 ' + order);
+    const notes = [speakingOrderLabel(event), ...events.slice(1).map(item => item.text)].filter(Boolean);
     return { title: '第 ' + event.day + ' 天 · 天亮', detail: notes.join('\n'), kind: 'dawn', next: '查看天亮结果' };
+  }
+  if (event.phase === 'day_pk') {
+    return { title: '平票 PK', detail: speakingOrderLabel(event) || event.text, kind: 'vote', next: '查看 PK 顺序' };
   }
   if (event.phase === 'night') {
     const detail = event.day === 1 ? '先确认自己的身份。夜间只会显示你有权看到的消息。' : '桌上暂时安静下来。';
@@ -55,15 +67,25 @@ function cueFor(events, view, privateChannel = false) {
   };
 }
 
-function groupPublic(events) {
+function groupTimeline(publicEvents, privateEvents = []) {
+  const items = [
+    ...publicEvents.map(event => ({ event, privateChannel: false })),
+    ...privateEvents.map(event => ({ event, privateChannel: true })),
+  ];
+  if (items.every(({ event }) => Number.isSafeInteger(event.sequence))) {
+    items.sort((left, right) => left.event.sequence - right.event.sequence);
+  } else {
+    const stage = ({ event, privateChannel }) => event.phase === 'night' ? 0 : privateChannel ? 1 : 2;
+    items.sort((left, right) => left.event.day - right.event.day || stage(left) - stage(right));
+  }
   const units = [];
-  for (const event of events) {
+  for (const { event, privateChannel } of items) {
     const last = units.at(-1);
-    const first = last?.[0];
-    if (first?.day === event.day && deathKinds.has(event.kind)
-      && (first.phase === 'day_discussion' || (first.kind === 'shoot' && last.length === 1))) {
-      last.push(event);
-    } else units.push([event]);
+    const first = last?.events[0];
+    if (!privateChannel && !last?.privateChannel && first?.day === event.day && deathKinds.has(event.kind)
+      && (first.phase === 'day_discussion' || (first.kind === 'shoot' && last.events.length === 1))) {
+      last.events.push(event);
+    } else units.push({ events: [event], privateChannel });
   }
   return units;
 }
@@ -97,7 +119,7 @@ function filterToSeen(view, checkpoint) {
   };
 }
 
-const displayPhases = new Set(['night', 'day_discussion', 'day_vote', 'day_revote', 'last_words', 'shoot', 'over']);
+const displayPhases = new Set(['night', 'day_discussion', 'day_vote', 'day_pk', 'day_revote', 'last_words', 'shoot', 'over']);
 
 export function validateCheckpoint(value) {
   return value && Number.isSafeInteger(value.publicCount) && value.publicCount >= 1
@@ -123,8 +145,8 @@ export class Playback {
       this.push(view);
     }
     const privateCue = this.view.privateEvents.find(event => event.id === seen?.privateCueId);
-    const unit = groupPublic(this.view.events).at(-1);
-    this.cue = privateCue ? cueFor([privateCue], this.view, true) : cueFor(unit ?? [], this.view);
+    const unit = groupTimeline(this.view.events).at(-1);
+    this.cue = privateCue ? cueFor([privateCue], this.view, true) : cueFor(unit?.events ?? [], this.view);
   }
 
   push(view, ownAction = false) {
@@ -137,13 +159,11 @@ export class Playback {
     const publicEvents = view.events.slice(previous.events.length);
     const privateEvents = view.privateEvents.filter(event => !seenPrivate.has(event.id));
     let snapshot = { ...previous, legal: null };
-    for (const event of privateEvents) {
-      snapshot = { ...snapshot, privateEvents: snapshot.privateEvents.concat(event) };
-      this.queue.push({ view: snapshot, cue: cueFor([event], view, true) });
-    }
-    for (const events of groupPublic(publicEvents)) {
-      snapshot = applyPublic(snapshot, events);
-      this.queue.push({ view: snapshot, cue: cueFor(events, view) });
+    for (const { events, privateChannel } of groupTimeline(publicEvents, privateEvents)) {
+      snapshot = privateChannel
+        ? { ...snapshot, privateEvents: snapshot.privateEvents.concat(events) }
+        : applyPublic(snapshot, events);
+      this.queue.push({ view: snapshot, cue: cueFor(events, view, privateChannel) });
     }
     this.latest = view;
     const first = this.queue[0];

@@ -104,6 +104,62 @@ test('model instructions use the actual board and the human host frame', () => {
   }
 });
 
+test('PK candidates and off-stage voters get different instructions and public context', () => {
+  const state = newGame({ humanRole: 'villager', seed: 52 });
+  const view = observe(state, 2);
+  view.day = 1;
+  view.speaker = 2;
+  view.legal = { kind: 'speak', targets: [], maxLength: 320, allowPass: true };
+  const dawn = {
+    id: 'p:2', kind: 'phase', day: 1, phase: 'day_discussion', order: [3, 2, 1],
+    direction: 'counterclockwise', anchor: 4, text: '天亮了。',
+  };
+  view.phase = 'day_discussion';
+  view.events = [dawn];
+  let data = JSON.parse(buildRequest(view)[1].content);
+  assert.deepEqual(data.publicRound, { speaker: 2, order: [3, 2, 1], direction: 'counterclockwise', anchor: 4 });
+
+  const preceding = { id: 'p:3', kind: 'speak', day: 1, seat: 3, text: '这是刚才的发言。'.repeat(40) };
+  view.events.push(preceding);
+  const maxInputChars = buildRequest(view).reduce((count, message) => count + message.content.length, 0);
+  const privateHistory = Array.from({ length: 12 }, (_, index) => ({
+    id: 's:' + (index + 1), kind: 'inspect', day: 1, text: '旧查验记录。'.repeat(50),
+  }));
+  const pressed = JSON.parse(buildRequest({ ...view, privateEvents: privateHistory }, null, { maxInputChars })[1].content);
+  assert.equal(pressed.recentPublic.at(-1).id, preceding.id);
+
+  const firstVotes = {
+    id: 'p:6', kind: 'votes', day: 1, revote: false, text: '首轮投票结果。',
+    votes: [{ actor: 1, target: 2 }, { actor: 2, target: 3 }, { actor: 3, target: 2 }, { actor: 4, target: 3 }],
+  };
+  const tied = {
+    id: 'p:7', kind: 'phase', day: 1, phase: 'day_pk', candidates: [2, 3], order: [3, 2], text: '平票候选开始自辩。',
+  };
+  const earlierDefense = { id: 'p:8', kind: 'speak', day: 1, seat: 3, pk: true, text: '我首轮没有乱跟其他人的票。' };
+  view.phase = 'day_pk';
+  view.events = [dawn, firstVotes, tied, earlierDefense];
+  data = JSON.parse(buildRequest(view)[1].content);
+  assert.deepEqual(data.publicRound, { speaker: 2, order: [3, 2], candidates: [2, 3] });
+  assert.match(data.task, /自辩/);
+  assert.equal(data.recentPublic.at(-1).pk, true);
+  assert.equal(data.recentPublic.at(-1).text, earlierDefense.text);
+  assert.match(localDecision(view).text, /首轮我投了3号.*请场外将候选发言与首轮票型一起比较/);
+
+  const revote = observe(state, 1);
+  revote.phase = 'day_revote';
+  revote.legal = { kind: 'vote', targets: [2, 3], allowPass: false };
+  revote.events = view.events.concat(
+    { id: 'p:9', kind: 'speak', day: 1, seat: 2, pk: true, text: '请再核查三号的发言。' },
+    { id: 'p:10', kind: 'phase', day: 1, phase: 'day_revote', candidates: [2, 3], text: '场外加投。' },
+  );
+  data = JSON.parse(buildRequest(revote)[1].content);
+  assert.deepEqual(data.publicRound, { candidates: [2, 3], offStageRevote: true });
+  assert.match(data.task, /场外投票者.*比较候选人的 PK 发言/);
+  assert.deepEqual(data.recentPublic.filter(event => event.pk).map(event => event.seat), [3, 2]);
+  assert.deepEqual(data.recentPublic.filter(event => event.kind === 'votes').map(event => event.revote), [false]);
+  assert.ok(revote.legal.targets.includes(localDecision(revote).target));
+});
+
 test('every named character produces a distinct original line in each speech phase', () => {
   assert.equal(CHARACTERS.length, 11);
   assert.equal(HUMAN_AVATARS.lumine.name, '荧');
@@ -164,6 +220,47 @@ test('human votes first, AI ballots remain sealed, and concurrency is bounded', 
   } });
   assert.equal(maxActive, 2);
   assert.ok(requests > 2);
+});
+
+test('model speeches follow table order and observe the preceding human or model speech', async () => {
+  let game;
+  for (let seed = 1; seed < 30; seed++) {
+    const candidate = makeSession({ seed });
+    while (!candidate.getState().winner && candidate.getState().phase.kind !== 'day_discussion') candidate.step();
+    const { actors } = candidate.getState().phase;
+    if (actors.indexOf(1) > 0 && actors.indexOf(1) < actors.length - 1) {
+      game = candidate;
+      break;
+    }
+  }
+  assert.ok(game);
+  const order = [...game.getState().phase.actors];
+  const received = [];
+  let active = 0;
+  let maxActive = 0;
+  const adapter = { async generate(messages) {
+    const data = JSON.parse(messages[1].content);
+    received.push({
+      speaker: data.publicRound.speaker,
+      before: data.recentPublic.filter(event => event.kind === 'speak').map(event => event.seat),
+      lastText: data.recentPublic.at(-1)?.text,
+    });
+    active++;
+    maxActive = Math.max(maxActive, active);
+    await Promise.resolve();
+    active--;
+    return { text: JSON.stringify({ text: '席位 ' + data.self.id + ' 的发言' }) };
+  } };
+  await game.run({ adapter, limits: { concurrency: 8 } });
+  assert.equal(pending(game.getState())[0].actor, 1);
+  assert.deepEqual(game.commits.map(({ action }) => action.actor), order.slice(0, order.indexOf(1)));
+  game.step({ text: '人类在自己的轮次发言。' });
+  await game.run({ adapter, limits: { concurrency: 8 } });
+  assert.equal(maxActive, 1);
+  assert.deepEqual(received.map(({ speaker }) => speaker), order.filter(id => id !== 1));
+  for (const { speaker, before } of received) assert.deepEqual(before, order.slice(0, order.indexOf(speaker)));
+  assert.equal(received.find(({ speaker }) => speaker === order[order.indexOf(1) + 1]).lastText, '人类在自己的轮次发言。');
+  assert.ok(game.commits.every(({ meta }) => meta.mode === 'model'));
 });
 
 test('late replies from a cancelled, already-resolved action cannot commit', async () => {
